@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet" />
+    <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" />
     <link href="/JavaWeb_SIMS_war_exploded/static/css/index.css" rel="stylesheet" />
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/bootstrap.js"></script>
@@ -33,14 +34,13 @@
     <div class="row bg-manue no-gutters">
         <div class="col">
             <ul class="firstnv nav nav-pills nav-stacked">
-                <li role="presentation"><a class="dropHover"><span class="glyphicon glyphicon-collapse-down Font-list"
-                                                                   aria-hidden="true"></span>功能菜单</a></li>
+
                 <li role="presentation"><a id="Teacher"><span class="glyphicon glyphicon-list-alt Font-list"
                                                             aria-hidden="true"></span>教师用户管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <!-- 教师二级菜单 -->
                 <li role="presentation" id="Scend-menue">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col">
                             <ul class="nav nav-pills nav-stacked">
                                 <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>查看教师列表</a></li>
@@ -86,6 +86,9 @@
     </div>
 </div>
 <!-- //菜单 -->
+<div class="layui-body">
+    <div style="padding: 15px;">内容主体区域</div>
+</div>
 <!-- 底部导航栏 -->
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <p class="text-center" style="height: 50px; line-height: 50px; margin: 0px;">访问学生管理系统请访问www.school.html更多信息请联系我们,我们的邮箱是2633944192@qq.com</p>

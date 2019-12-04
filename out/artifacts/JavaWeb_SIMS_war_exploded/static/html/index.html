@@ -5,87 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet" />
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/index.css" rel="stylesheet" />
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/bootstrap.js"></script>
-    <style>
-        body {
-            padding-top: 80px;
-            overflow-y: hidden;
-        }
 
-        .item {
-            height: 400px;
-            width: 100%;
-        }
-
-        .ToRight {
-            margin-top: 10px;
-            float: right;
-        }
-
-        #wocao {
-            display: none;
-        }
-
-        .userlist {
-            color: rgb(191, 197, 203);
-            font-size: 12px;
-        }
-
-        .yqsb {
-            font-size: 10px;
-            margin-right: 5px;
-        }
-
-        .container-fluid {
-            width: 100%;
-            padding-left: 0px;
-            padding-right: 0px;
-
-        }
-
-        .row {
-            margin: 0px;
-        }
-
-        .navbar-header {
-            margin-left: 50px;
-        }
-
-        .col-md-2,
-        .col-md-10 {
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-
-        .glyphicon-folder-open {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .menue-box {
-            max-width: 250px;
-            height: 1000px;
-            background-color: #2F4056;
-        }
-        .glyphicon-user{
-            margin-right: 10px;
-        }
-        img{
-            height: 65px;
-            margin-left: 20px;
-            padding-top: 8px;
-        }
-        .navbar-fixed-top{
-            background-color: #009688;
-        }
-        .topimg{
-            float: left;
-        }
-        a{
-            color: rgb(191, 197, 203);
-        }
-    </style>
 </head>
 
 <body>
@@ -93,7 +16,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="img/logo.png"/>
+            <img src="/JavaWeb_SIMS_war_exploded/static/img/logo.png"/>
         </div>
         <div class="navbar-collapse collapse ToRight">
             <ul class="nav navbar-nav">
@@ -109,43 +32,54 @@
 <div class="menue-box">
     <div class="row bg-manue no-gutters">
         <div class="col">
-            <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a class="dropHover"><span class="glyphicon glyphicon-collapse-down yqsb"
+            <ul class="firstnv nav nav-pills nav-stacked">
+                <li role="presentation"><a class="dropHover"><span class="glyphicon glyphicon-collapse-down Font-list"
                                                                    aria-hidden="true"></span>功能菜单</a></li>
-                <li role="presentation"><a id="ttest"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a id="Teacher"><span class="glyphicon glyphicon-list-alt Font-list"
                                                             aria-hidden="true"></span>教师用户管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <!-- 二级菜单 -->
-                <li role="presentation" id="wocao">
+                <!-- 教师二级菜单 -->
+                <li role="presentation" id="Scend-menue">
                     <div class="row">
                         <div class="col-md-8">
                             <ul class="nav nav-pills nav-stacked">
-                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>查看教师列表</a></li>
-                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>添加教师用户</a></li>
-                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>修改教师信息</a></li>
-                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>删除教师信息</a></li>
-                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>为教师分配班级</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a  id="State"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>权限管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <!-- 权限二级菜单 -->
+                <li role="presentation" id="Scend-menue2">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
+                                                                                  aria-hidden="true"></span>更改教师权限</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>年级管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>班级管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>科目管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>学生管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>成绩管理<div class="pull-right"><span class="caret"></span></div></a></li>
-                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt Font-list"
                                                           aria-hidden="true"></span>考勤管理<div class="pull-right"><span class="caret"></span></div></a></li>
             </ul>
         </div>
@@ -163,12 +97,23 @@
 <script>
     var number = false;
     $(function () {
-        $("#ttest").click(function () {
+        //教师用户管理
+        $("#Teacher").click(function () {
             if (number) {
-                $("#wocao").hide();
+                $("#Scend-menue").hide();
                 number = false;
             } else {
-                $("#wocao").show();
+                $("#Scend-menue").show();
+                number = true;
+            }
+        })
+    //    教师权限管理
+        $("#State").click(function () {
+            if (number) {
+                $("#Scend-menue2").hide();
+                number = false;
+            } else {
+                $("#Scend-menue2").show();
                 number = true;
             }
         })

@@ -9,7 +9,8 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/bootstrap.js"></script>
     <style>
         body {
-            padding-top: 50px;
+            padding-top: 80px;
+            overflow-y: hidden;
         }
 
         .item {
@@ -18,6 +19,7 @@
         }
 
         .ToRight {
+            margin-top: 10px;
             float: right;
         }
 
@@ -26,7 +28,7 @@
         }
 
         .userlist {
-            color: black;
+            color: rgb(191, 197, 203);
             font-size: 12px;
         }
 
@@ -46,76 +48,72 @@
             margin: 0px;
         }
 
-        .col-md-2,.col-md-10 {
+        .navbar-header {
+            margin-left: 50px;
+        }
+
+        .col-md-2,
+        .col-md-10 {
             padding-left: 0px;
             padding-right: 0px;
+        }
+
+        .glyphicon-folder-open {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .menue-box {
+            max-width: 250px;
+            height: 1000px;
+            background-color: #2F4056;
+        }
+        .glyphicon-user{
+            margin-right: 10px;
+        }
+        img{
+            height: 65px;
+            margin-left: 20px;
+            padding-top: 8px;
+        }
+        .navbar-fixed-top{
+            background-color: #009688;
+        }
+        .topimg{
+            float: left;
+        }
+        a{
+            color: rgb(191, 197, 203);
         }
     </style>
 </head>
 
 <body>
+<!-- 导航栏 <span class="glyphicon glyphicon-folder-open"></span>学生后台管理系统-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="navbar-collapse collapse ToRight">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#about">回首页</a></li>
-            <li><a href="#about">帮助</a></li>
-            <li><a href="#about">关于</a></li>
-        </ul>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="img/logo.png"/>
+        </div>
+        <div class="navbar-collapse collapse ToRight">
+            <ul class="nav navbar-nav">
+                <li><a class="bgclo" style="color: rgb(191, 197, 203);"><span class="glyphicon glyphicon-user"></span>管理员</a></li>
+                <li><a class="bgclo" style="color: rgb(191, 197, 203);">帮助</a></li>
+                <li><a class="bgclo" style="color: rgb(191, 197, 203);">关于</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="display: none;">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-    </ol>
-    <!-- 轮播图 -->
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="img/06.jpg" alt="...">
-            <div class="carousel-caption">
-                <h3>沙雕叶强</h3>
-                <p>这是一只沙雕叶强</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="img/11.jpg" alt="...">
-            <div class="carousel-caption">
-                <h3>沙雕叶强</h3>
-                <p>这是一只沙雕叶强</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="img/13.jpg" alt="...">
-            <div class="carousel-caption">
-                <h3>沙雕叶强</h3>
-                <p>这是一只沙雕叶强</p>
-            </div>
-        </div>
-    </div>
-    <!-- 轮播图左右按钮 -->
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+
 <!-- 菜单栏 -->
-<div class="container-fluid">
+<div class="menue-box">
     <div class="row bg-manue no-gutters">
-        <div class="col-md-2">
-            <ul class="nav nav-pills nav-stacked bg-info absc">
-                <li role="presentation"><a><span class="glyphicon glyphicon-collapse-down yqsb"
-                                                 aria-hidden="true"></span>功能菜单</a></li>
+        <div class="col">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a class="dropHover"><span class="glyphicon glyphicon-collapse-down yqsb"
+                                                                   aria-hidden="true"></span>功能菜单</a></li>
                 <li role="presentation"><a id="ttest"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                            aria-hidden="true"></span>教师用户管理</a></li>
+                                                            aria-hidden="true"></span>教师用户管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <!-- 二级菜单 -->
                 <li role="presentation" id="wocao">
                     <div class="row">
@@ -136,28 +134,31 @@
                     </div>
                 </li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>权限管理</a></li>
+                                                          aria-hidden="true"></span>权限管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>年级管理</a></li>
+                                                          aria-hidden="true"></span>年级管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>班级管理</a></li>
+                                                          aria-hidden="true"></span>班级管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>科目管理</a></li>
+                                                          aria-hidden="true"></span>科目管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>学生管理</a></li>
+                                                          aria-hidden="true"></span>学生管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>成绩管理</a></li>
+                                                          aria-hidden="true"></span>成绩管理<div class="pull-right"><span class="caret"></span></div></a></li>
                 <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
-                                                          aria-hidden="true"></span>考勤管理</a></li>
+                                                          aria-hidden="true"></span>考勤管理<div class="pull-right"><span class="caret"></span></div></a></li>
             </ul>
-        </div>
-        <div class="col-md-10 bg-danger sbd">
-            aaa
         </div>
     </div>
 </div>
 <!-- //菜单 -->
-
+<!-- 底部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <p class="text-center" style="height: 50px; line-height: 50px; margin: 0px;">访问学生管理系统请访问www.school.html更多信息请联系我们,我们的邮箱是2633944192@qq.com</p>
+    <!-- <ul class="nav navbar-nav">
+      <li><a>访问学生管理系统请访问www.school.html更多信息请联系我们,我们的邮箱是2633944192@qq.com</a></li>
+    </ul> -->
+</nav>
 </body>
 <script>
     var number = false;

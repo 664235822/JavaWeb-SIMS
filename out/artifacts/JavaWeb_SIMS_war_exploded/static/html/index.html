@@ -2,9 +2,175 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/bootstrap.js"></script>
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .item {
+            height: 400px;
+            width: 100%;
+        }
+
+        .ToRight {
+            float: right;
+        }
+
+        #wocao {
+            display: none;
+        }
+
+        .userlist {
+            color: black;
+            font-size: 12px;
+        }
+
+        .yqsb {
+            font-size: 10px;
+            margin-right: 5px;
+        }
+
+        .container-fluid {
+            width: 100%;
+            padding-left: 0px;
+            padding-right: 0px;
+
+        }
+
+        .row {
+            margin: 0px;
+        }
+
+        .col-md-2,.col-md-10 {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    </style>
 </head>
+
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="navbar-collapse collapse ToRight">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#about">回首页</a></li>
+            <li><a href="#about">帮助</a></li>
+            <li><a href="#about">关于</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="display: none;">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+    <!-- 轮播图 -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="img/06.jpg" alt="...">
+            <div class="carousel-caption">
+                <h3>沙雕叶强</h3>
+                <p>这是一只沙雕叶强</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="img/11.jpg" alt="...">
+            <div class="carousel-caption">
+                <h3>沙雕叶强</h3>
+                <p>这是一只沙雕叶强</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="img/13.jpg" alt="...">
+            <div class="carousel-caption">
+                <h3>沙雕叶强</h3>
+                <p>这是一只沙雕叶强</p>
+            </div>
+        </div>
+    </div>
+    <!-- 轮播图左右按钮 -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<!-- 菜单栏 -->
+<div class="container-fluid">
+    <div class="row bg-manue no-gutters">
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked bg-info absc">
+                <li role="presentation"><a><span class="glyphicon glyphicon-collapse-down yqsb"
+                                                 aria-hidden="true"></span>功能菜单</a></li>
+                <li role="presentation"><a id="ttest"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                            aria-hidden="true"></span>教师用户管理</a></li>
+                <!-- 二级菜单 -->
+                <li role="presentation" id="wocao">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                                                                  aria-hidden="true"></span>查看教师列表</a></li>
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                                                                  aria-hidden="true"></span>添加教师用户</a></li>
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                                                                  aria-hidden="true"></span>修改教师信息</a></li>
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                                                                  aria-hidden="true"></span>删除教师信息</a></li>
+                                <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right yqsb"
+                                                                                  aria-hidden="true"></span>为教师分配班级</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>权限管理</a></li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>年级管理</a></li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>班级管理</a></li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>科目管理</a></li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>学生管理</a></li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>成绩管理</a></li>
+                <li role="presentation"><a href="#"><span class="glyphicon glyphicon-list-alt yqsb"
+                                                          aria-hidden="true"></span>考勤管理</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10 bg-danger sbd">
+            aaa
+        </div>
+    </div>
+</div>
+<!-- //菜单 -->
 
 </body>
+<script>
+    var number = false;
+    $(function () {
+        $("#ttest").click(function () {
+            if (number) {
+                $("#wocao").hide();
+                number = false;
+            } else {
+                $("#wocao").show();
+                number = true;
+            }
+        })
+    })
+</script>
 </html>

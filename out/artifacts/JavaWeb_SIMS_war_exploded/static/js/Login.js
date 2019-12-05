@@ -1,3 +1,13 @@
+$(function () {
+    var random=Math.random().toString(36).slice(-4);
+    alert(random);
+    $("button[lay-filter=LAY-user-login-submit]").click(function () {
+        var username=$("#LAY-user-login-username").val();
+        var password=$("#LAY-user-login-password").val();
+
+    })
+});
+
 layui.use('element', function(){
     var $ = layui.jquery,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
 

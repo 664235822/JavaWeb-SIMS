@@ -5031,3 +5031,6 @@ body{
     width: 110px;
     text-align: left;
 }
+.backToLeft{
+    margin-left: 0px;
+}

@@ -1,9 +1,9 @@
 $(function () {
     var random=Math.random().toString(36).slice(-4);
-    alert(random);
     $("button[lay-filter=LAY-user-login-submit]").click(function () {
         var username=$("#LAY-user-login-username").val();
         var password=$("#LAY-user-login-password").val();
+        var password=$("#LAY-user-login-vercode").val();
 
     })
 });

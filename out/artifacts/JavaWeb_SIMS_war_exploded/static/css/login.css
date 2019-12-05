@@ -15,3 +15,13 @@ body{
     margin: 0 auto;
     box-sizing: border-box;
 }
+.RandomCode{
+    background-image: url("../img/captcha.gif");
+    height: 38px;
+    line-height: 38px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 30px;
+    box-sizing: border-box;
+}

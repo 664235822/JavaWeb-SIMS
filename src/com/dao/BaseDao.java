@@ -12,7 +12,7 @@ public class BaseDao {
         conn = DriverManager.getConnection(
                 "jdbc:mysql://119.28.8.50:3306/SIMS", "root", "zhuzhou9uu897@");
 
-        st=conn.createStatement();
+        st = conn.createStatement();
     }
 
     public ResultSet querySelect(String sql) throws SQLException {
@@ -20,12 +20,12 @@ public class BaseDao {
     }
 
     public boolean queryUpdate(String sql) throws SQLException {
-        int index=st.executeUpdate(sql);
+        int index = st.executeUpdate(sql);
         return index != 0;
     }
 
     public void destroy(ResultSet set) throws SQLException {
-        if(set!=null)
+        if (set != null)
             set.close();
         st.close();
         conn.close();

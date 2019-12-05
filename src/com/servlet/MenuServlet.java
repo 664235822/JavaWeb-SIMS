@@ -1,22 +1,20 @@
 package com.servlet;
 
 import com.alibaba.fastjson.JSON;
-import com.entity.BaseEntity;
-import com.service.LoginService;
+import com.entity.BaseBean;
+import com.service.MenuService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet{
+public class MenuServlet extends HttpServlet {
 
-    LoginService loginService;
-    BaseEntity obj;
+    MenuService menuService;
+    BaseBean obj;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,12 +28,11 @@ public class LoginServlet extends HttpServlet{
             req.setCharacterEncoding("utf-8");
             resp.setCharacterEncoding("utf-8");
 
-            String code = req.getParameter("code");
-            String pwd = req.getParameter("pwd");
+            String character = req.getParameter("character");
 
-            obj = loginService.checkUserInfo(code,pwd);
-        } catch (Exception e){
-            obj.setCode(BaseEntity.FAILED);
+            obj = menuService.getMenu(character);
+        } catch (Exception e) {
+            obj.setCode(BaseBean.FAILED);
             obj.setData(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);

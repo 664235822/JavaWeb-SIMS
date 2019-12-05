@@ -9,10 +9,10 @@ public class LoginService {
 
     LoginDao loginDao;
 
-    public BaseEntity checkUserInfo(String code,String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        loginDao=new LoginDao();
+    public BaseEntity checkUserInfo(String code, String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        loginDao = new LoginDao();
 
-        BaseEntity result = loginDao.login(code,pwd);
+        BaseEntity result = loginDao.login(code, pwd);
         return result;
     }
 }

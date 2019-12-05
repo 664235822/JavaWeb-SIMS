@@ -20,20 +20,89 @@
     <div class="row">
         <div class="col-md-6 forms">
             <form class="layui-form">
+                <!--                姓名-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入姓名"
+                               class="layui-input">
                     </div>
                 </div>
-<!--                性别-->
+                <!--                性别-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男" checked=""><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>男</div></div>
-                        <input type="radio" name="sex" value="女" title="女"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>女</div></div>
+                        <input type="radio" name="sex" value="男" title="男" checked="">
+                        <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                                class="layui-anim layui-icon"></i>
+                            <div>男</div>
+                        </div>
+                        <input type="radio" name="sex" value="女" title="女">
+                        <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
+                            <div>女</div>
+                        </div>
                     </div>
                 </div>
+                <!--                年龄-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">年龄：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入年龄"
+                               class="layui-input">
+                    </div>
+                </div>
+                <!--                学历-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学历：</label>
+                    <div class="layui-input-block">
+                    <select name="city" lay-verify="">
+                        <option value="">请选择您的学历</option>
+                        <option value="1">小学</option>
+                        <option value="2">初中</option>
+                        <option value="3">高中</option>
+                        <option value="4">中职</option>
+                        <option value="5">高职</option>
+                        <option value="6">本科</option>
+                        <option value="7">研究生</option>
+                        <option value="8">硕士</option>
+                        <option value="9">博士</option>
+                    </select>
+                    <div class="layui-unselect layui-form-select">
+                        <div class="layui-select-title"><input type="text" placeholder="请选择一个城市" value="" readonly=""
+                                                               class="layui-input layui-unselect"><i
+                                class="layui-edge"></i></div>
+                        <dl class="layui-anim layui-anim-upbit" style="">
+                            <dd lay-value="" class="layui-select-tips">请选择一个城市</dd>
+                            <dd lay-value="1" class="layui-this">小学</dd>
+                            <dd lay-value="2" class="">初中</dd>
+                            <dd lay-value="3" class="">高中</dd>
+                            <dd lay-value="4" class="">中职</dd>
+                            <dd lay-value="5" class="">高职</dd>
+                            <dd lay-value="6" class="">本科</dd>
+                            <dd lay-value="7" class="">杭州</dd>
+                            <dd lay-value="8" class="">研究生</dd>
+                            <dd lay-value="9" class="">硕士</dd>
+                            <dd lay-value="9" class="">博士</dd>
+                        </dl>
+                    </div>
+                    </div>
+                </div>
+<!--                科目-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">擅长科目：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入擅长科目名称"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系电话：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入擅长科目名称"
+                               class="layui-input">
+                    </div>
+                </div>
+                <!--                表单结束-->
             </form>
         </div>
     </div>

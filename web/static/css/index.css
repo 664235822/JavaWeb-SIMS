@@ -73,8 +73,8 @@ a{
 
 .nav > li > a:hover, .nav > li > a:focus {
     text-decoration: none;
-    background-color: #FFFFFF;
-    color: #2F4056;
+    background-color: #009688;
+    color: rgb(191, 197, 203);
 }
 .layui-body{
     left: 250px;
@@ -89,4 +89,10 @@ a{
     position: relative;
     display: block;
     padding: 10px 30px;
+}
+/*主体内ifram框架*/
+.ifm{
+    border: none;
+    width: 100%;
+    overflow: hidden;
 }

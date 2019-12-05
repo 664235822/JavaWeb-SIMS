@@ -8,24 +8,28 @@
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" />
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet" />
     <link href="/JavaWeb_SIMS_war_exploded/static/css/login.css" rel="stylesheet" />
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Login.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <title>Document</title>
 </head>
 
 <body>
 <div class="container">
     <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
-        <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-main layui-anim layui-anim-scale">
             <div class="layadmin-user-login-box layadmin-user-login-header">
-                <h2>学生后台管理系统</h2>
+                <h2>学生信息管理系统</h2>
             </div>
 
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                 <!-- 分割线 -->
                 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this">管理员</li>
+                        <li class="layui-this">学生</li>
                         <li>教师</li>
-                        <li>学生</li>
+                        <li>管理员</li>
                     </ul>
                 </div>
                 <!-- 分割线 -->
@@ -51,7 +55,7 @@
                         </div>
                         <div class="layui-col-xs5">
                             <div style="margin-left: 10px;">
-                                <img src="https://www.oschina.net/action/user/captcha"
+                                <img src="/JavaWeb_SIMS_war_exploded/static/img/captcha.gif"
                                      class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
                             </div>
                         </div>

@@ -61,7 +61,7 @@
                 <!-- 权限二级菜单 -->
                 <li role="presentation" id="Scend-menue2">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col">
                             <ul class="nav nav-pills nav-stacked">
                                 <li role="presentation"><a class="userlist"><span class="glyphicon glyphicon-triangle-right Font-list"
                                                                                   aria-hidden="true"></span>更改教师权限</a></li>
@@ -87,7 +87,9 @@
 </div>
 <!-- //菜单 -->
 <div class="layui-body">
-    <div style="padding: 15px;">内容主体区域</div>
+    <div>
+        <iframe onload="setHeight()" scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/TeacherInfo.html"></iframe>
+    </div>
 </div>
 <!-- 底部导航栏 -->
 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -99,7 +101,13 @@
 </body>
 <script>
     var number = false;
+    function setHeight () {
+        var h = $(".ifm").contents().find("body").height();
+        $(".ifm").height(h+20);
+    }
+
     $(function () {
+
         //教师用户管理
         $("#Teacher").click(function () {
             if (number) {

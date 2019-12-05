@@ -10,7 +10,7 @@ public class MenuService {
     MenuDao menuDao;
 
     public BaseBean getMenu(String character) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        menuDao =new MenuDao();
+        menuDao = new MenuDao();
 
         return menuDao.getMenu(character);
     }

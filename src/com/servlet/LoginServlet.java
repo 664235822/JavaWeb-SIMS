@@ -1,7 +1,7 @@
 package com.servlet;
 
 import com.alibaba.fastjson.JSON;
-import com.entity.BaseEntity;
+import com.entity.BaseBean;
 import com.service.LoginService;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet{
 
     LoginService loginService;
-    BaseEntity obj;
+    BaseBean obj;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet{
 
             obj = loginService.checkUserInfo(code,pwd);
         } catch (Exception e){
-            obj.setCode(BaseEntity.FAILED);
+            obj.setCode(BaseBean.FAILED);
             obj.setData(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);

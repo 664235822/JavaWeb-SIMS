@@ -73,8 +73,8 @@ a{
 
 .nav > li > a:hover, .nav > li > a:focus {
     text-decoration: none;
-    background-color: #009688;
-    color: rgb(191, 197, 203);
+    background-color: #FFFFFF;
+    color: #2F4056;
 }
 .layui-body{
     left: 250px;

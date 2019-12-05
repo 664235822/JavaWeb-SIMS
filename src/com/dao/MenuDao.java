@@ -34,7 +34,13 @@ public class MenuDao extends BaseDao {
                 item.setMenuId(rs.getInt("menuId"));
                 item.setMenuName(rs.getString("menuName"));
                 item.setUrl(rs.getString("url"));
-                ((ArrayList<MenuParentBean>) result.getData()).get(rs.getInt("parent") - 1).getItems().add(item);
+
+                for (int i = 0; i < ((ArrayList<MenuParentBean>) result.getData()).size(); i++) {
+                    if (((ArrayList<MenuParentBean>) result.getData()).get(i).getMenuId() == rs.getInt("parent")) {
+                        ((ArrayList<MenuParentBean>) result.getData()).get(i).getItems().add(item);
+                        break;
+                    }
+                }
             }
         }
 

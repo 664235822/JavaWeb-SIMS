@@ -43,8 +43,7 @@ public class MenuDao extends BaseDao {
                 }
             }
         }
-
-        result.setData(result);
+        
         destroy(rs);
 
         return result;

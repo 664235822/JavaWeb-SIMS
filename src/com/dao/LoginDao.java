@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entity.BaseBean;
+import com.entity.MyException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ public class LoginDao extends BaseDao {
         super();
     }
 
-    public BaseBean login(String code, String pwd) throws SQLException {
+    public BaseBean login(String code, String pwd) throws SQLException, MyException {
         String sql = "select * from Login where code = '" + code + "' and pwd = '" + pwd + "';";
 
         ResultSet rs = querySelect(sql);
@@ -21,8 +22,7 @@ public class LoginDao extends BaseDao {
             result.setCode(BaseBean.SUCCESS);
             result.setData("登录成功");
         } else {
-            result.setCode(BaseBean.FAILED);
-            result.setData("登录失败，用户名和密码错误");
+            throw new MyException("登录失败，用户名和密码错误");
         }
 
         destroy(rs);

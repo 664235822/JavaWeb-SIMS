@@ -5027,3 +5027,7 @@ body{
     height: 50px;
     line-height: 50px;
 }
+.layui-form-label{
+    width: 110px;
+    text-align: left;
+}

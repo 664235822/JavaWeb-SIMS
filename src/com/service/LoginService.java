@@ -10,9 +10,9 @@ public class LoginService {
 
     LoginDao loginDao;
 
-    public BaseBean checkUserInfo(String code, String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+    public BaseBean checkUserInfo(String code, String pwd, int stateId) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
         loginDao = new LoginDao();
 
-        return loginDao.login(code, pwd);
+        return loginDao.login(code, pwd, stateId);
     }
 }

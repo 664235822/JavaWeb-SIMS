@@ -12,8 +12,8 @@ public class LoginDao extends BaseDao {
         super();
     }
 
-    public BaseBean login(String code, String pwd) throws SQLException, MyException {
-        String sql = "select * from Login where code = '" + code + "' and pwd = '" + pwd + "';";
+    public BaseBean login(String code, String pwd, int stateId) throws SQLException, MyException {
+        String sql = "select * from Login where code = '" + code + "' and pwd = '" + pwd + "' and stateId = '" + stateId + "';";
 
         ResultSet rs = querySelect(sql);
         BaseBean result = new BaseBean();

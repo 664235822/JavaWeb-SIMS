@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet{
+public class LoginServlet extends HttpServlet {
 
     LoginService loginService = new LoginService();
     BaseBean obj = new BaseBean();
@@ -32,9 +32,10 @@ public class LoginServlet extends HttpServlet{
 
             String code = req.getParameter("code");
             String pwd = req.getParameter("pwd");
+            int stateId = Integer.parseInt(req.getParameter("stateId"));
 
-            obj = loginService.checkUserInfo(code,pwd);
-        } catch (Exception e){
+            obj = loginService.checkUserInfo(code, pwd, stateId);
+        } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setData(e.getMessage());
         } finally {

@@ -15,8 +15,8 @@ import java.io.PrintWriter;
 @WebServlet("/menu")
 public class MenuServlet extends HttpServlet {
 
-    MenuService menuService;
-    BaseBean obj;
+    MenuService menuService = new MenuService();
+    BaseBean obj = new BaseBean();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

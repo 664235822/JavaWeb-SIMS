@@ -15,8 +15,8 @@ import java.io.PrintWriter;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet{
 
-    LoginService loginService;
-    BaseBean obj;
+    LoginService loginService = new LoginService();
+    BaseBean obj = new BaseBean();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -7,9 +7,10 @@
     <link href="/JavaWeb_SIMS_war_exploded/static/css/TeacherInfo.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherInfo.js"></script>
     <title>TeacherInfo</title>
 </head>
-<body>
+<body onload="addCode()">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <p class="text-left addtea">当前位置 > 首页 > 添加教师</p>
@@ -32,15 +33,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入账号"
-                               class="layui-input">
+                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder=""
+                               class="layui-input" id="TeacherCode">
                     </div>
                 </div>
                 <!--                密码-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入密码"
+                        <input type="text" name="password" lay-verify="pwd" autocomplete="off" placeholder="请输入密码"
                                class="layui-input">
                     </div>
                 </div>
@@ -48,7 +49,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男" checked="">
+                        <input type="radio" name="sex" value="男" title="男" checked="checked">
                         <div class="layui-unselect layui-form-radio layui-form-radioed"><i
                                 class="layui-anim layui-icon"></i>
                             <div>男</div>
@@ -63,7 +64,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">年龄：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入年龄"
+                        <input type="text" name="number" lay-verify="required|number" autocomplete="off"
+                               placeholder="请输入年龄"
                                class="layui-input">
                     </div>
                 </div>
@@ -71,86 +73,73 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">学历：</label>
                     <div class="layui-input-block">
-                    <select name="city" lay-verify="">
-                        <option value="">请选择您的学历</option>
-                        <option value="1">小学</option>
-                        <option value="2">初中</option>
-                        <option value="3">高中</option>
-                        <option value="4">中职</option>
-                        <option value="5">高职</option>
-                        <option value="6">本科</option>
-                        <option value="7">研究生</option>
-                        <option value="8">硕士</option>
-                        <option value="9">博士</option>
-                    </select>
-                    <div class="layui-unselect layui-form-select">
-                        <div class="layui-select-title"><input type="text" placeholder="请选择一个学历" value="" readonly=""
-                                                               class="layui-input layui-unselect"><i
-                                class="layui-edge"></i></div>
-                        <dl class="layui-anim layui-anim-upbit" style="">
-                            <dd lay-value="" class="layui-select-tips">请选择一个学历</dd>
-                            <dd lay-value="1" class="layui-this">小学</dd>
-                            <dd lay-value="2" class="">初中</dd>
-                            <dd lay-value="3" class="">高中</dd>
-                            <dd lay-value="4" class="">中职</dd>
-                            <dd lay-value="5" class="">高职</dd>
-                            <dd lay-value="6" class="">本科</dd>
-                            <dd lay-value="7" class="">杭州</dd>
-                            <dd lay-value="8" class="">研究生</dd>
-                            <dd lay-value="9" class="">硕士</dd>
-                            <dd lay-value="9" class="">博士</dd>
-                        </dl>
-                    </div>
+                        <select name="modules" lay-verify="required">
+                            <option value="">请选择您的学历</option>
+                            <option value="1">小学</option>
+                            <option value="2">初中</option>
+                            <option value="3">高中</option>
+                            <option value="4">中职</option>
+                            <option value="5">专科</option>
+                            <option value="6">本科</option>
+                            <option value="7">研究生</option>
+                            <option value="8">硕士</option>
+                            <option value="9">博士</option>
+                        </select>
+
+
                     </div>
                 </div>
-<!--                科目-->
+                <!--                科目-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">擅长科目：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入擅长科目名称"
+                        <input type="text" name="TeacherSkill" lay-verify="required" lay-reqtext="擅长科目是必填项！"
+                               autocomplete="off" placeholder="请输入擅长科目名称"
                                class="layui-input">
                     </div>
                 </div>
-<!--                电话-->
+                <!--                电话-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系电话：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入电话号码"
+                        <input type="text" name="phone" lay-verify="required|phone" autocomplete="off"
+                               placeholder="请输入电话号码"
                                class="layui-input">
                     </div>
                 </div>
-<!--                QQ-->
+                <!--                QQ-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">QQ号码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入QQ号码"
+                        <input type="text" name="number" lay-verify="required|number" autocomplete="off"
+                               placeholder="请输入QQ号码"
                                class="layui-input">
                     </div>
                 </div>
-<!--                E-meil-->
+                <!--                E-meil-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱地址：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入邮箱地址"
+                        <input type="email" name="email" lay-verify="email" autocomplete="off" placeholder="请输入邮箱地址"
                                class="layui-input">
                     </div>
                 </div>
-<!--                家庭住址-->
+                <!--                家庭住址-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">家庭地址：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入家庭地址"
+                        <input type="text" name="" lay-verify="" autocomplete="off" placeholder="请输入家庭地址"
                                class="layui-input">
                     </div>
                 </div>
-<!--                个人简介-->
+                <!--                个人简介-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">个人简介：</label>
                     <div class="layui-input-block">
-                        <textarea name="" placeholder="个人介绍" class="layui-textarea"></textarea>
+                        <textarea name="TeacherInfo" placeholder="个人介绍" class="layui-textarea"></textarea>
                     </div>
                 </div>
-<!--                提交按钮-->
+                <!--                提交按钮-->
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit="" lay-filter="component-form-element">立即提交</button>
@@ -160,16 +149,7 @@
                 <!--                表单结束-->
             </form>
         </div>
-        <div class="col-md-6 forms">
-            <form class="layui-form" action>
-                <div class="layui-form-item">
-                    <div class="layui-input-block backToLeft">
-<!--                        <label class="layui-form-label" style="color: darkred">*姓名不能为空！</label>-->
-                        <p style="color: darkred;height: 36px;line-height: 36px">*姓名不能为空！</p>
-                    </div>
-                </div>
-                </form>
-        </div>
+
     </div>
 </div>
 </body>

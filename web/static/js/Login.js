@@ -1,5 +1,13 @@
 
 var random=null;
+window.onload = function(){
+    if(localStorage.jzzh!=null){
+        var json2 = localStorage.jzzh;
+        var obj = JSON.parse(json2);
+        $("#LAY-user-login-username").val(obj.accout);
+        $("#LAY-user-login-password").val(obj.pass);
+    }
+}
 $(function () {
 
     // random=Math.random().toString(36).slice(-4);
@@ -32,15 +40,26 @@ $(function () {
             var url = "/JavaWeb_SIMS_war_exploded/login";
             var Menu = Ajax(url, str);
             if (Menu.code==1) {
-
+                CheckSave();
                 //登入成功的提示与跳转
-                layer.msg(Menu.date, {
+                layer.msg(Menu.data, {
                     offset: '15px'
                     , icon: 1
                     , time: 1000
                 }, function () {
                     location.href = "/JavaWeb_SIMS_war_exploded/"
                 });
+            }else{
+                layer.msg(Menu.data, {
+                    icon: 5
+                    ,anim: 6
+                    , time: 1000
+                },function () {
+                    RandomCode();
+                    $("#LAY-user-login-password").val("");
+                    $("#LAY-user-login-vercode").val("");
+                });
+
             }
         }
     })
@@ -49,7 +68,24 @@ function RandomCode(){
     random=Math.random().toString(36).slice(-4);
     $(".RandomCode").html(random);
 }
-
+function CheckSave(){
+    var b=$("input[title=记住密码]>div").hasClass("layui-form-checked");
+    alert(b);
+    if($("input[title=记住密码]>div").hasClass("layui-form-checked")){
+        var json1 = {};
+        alert("aaaaa")
+        json1.accout =  $("#LAY-user-login-username").val();
+        json1.pass = $("#LAY-user-login-password").val();
+        var str1 = JSON.stringify(json1);
+        localStorage.jzzh = str1;
+    }else{
+        var json1 = {};
+        json1.accout = "";
+        json1.pass = "";
+        var str1 = JSON.stringify(json1);
+        localStorage.jzzh = str1;
+    }
+}
 
 
 layui.use('element', function(){

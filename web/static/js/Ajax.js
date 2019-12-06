@@ -1,11 +1,17 @@
+
+
 function Ajax(url, data) {
+    var num={};
     $.ajax({
-        url: url,
+        url:url,
+        data:data,
         type: "post",
-        data: data,
         dataType: "json",
+        async: false,
+        // contentType: "application/json;charset=utf-8",
         success: function(e) {
-            return e;
+                num=e;
         },
     });
+    return num;
 }

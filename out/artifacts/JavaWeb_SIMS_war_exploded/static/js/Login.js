@@ -1,12 +1,55 @@
+
+
 $(function () {
-    var random=Math.random().toString(36).slice(-4);
+    // random=Math.random().toString(36).slice(-4);
+    // $(".RandomCode").html(random);
+    RandomCode();
+    $(".RandomCode").click(function () {
+        RandomCode();
+    })
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $("#btn-login").trigger("click");
+        }
+    });
     $("button[lay-filter=LAY-user-login-submit]").click(function () {
         var username=$("#LAY-user-login-username").val();
         var password=$("#LAY-user-login-password").val();
-        var password=$("#LAY-user-login-vercode").val();
+        var state=$("li[class=layui-this]").attr("name");
+        var randomcode=$("#LAY-user-login-vercode").val();
+        if(randomcode!=random&&randomcode!=""){
+            layer.msg('验证码错误', {
+                icon: 5,
+                anim: 6,
+                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+            });
 
+            RandomCode();
+        }
+        if(randomcode==random&&username!=""&&password!="") {
+            var str = {"code": username, "pwd": password, "stateId": state};
+            var url = "/JavaWeb_SIMS_war_exploded/login";
+            var Menu = Ajax(url, str);
+            if (Menu.code==1) {
+
+                //登入成功的提示与跳转
+                layer.msg(Menu.date, {
+                    offset: '15px'
+                    , icon: 1
+                    , time: 1000
+                }, function () {
+                    location.href = "/JavaWeb_SIMS_war_exploded/"
+                });
+            }
+        }
     })
 });
+function RandomCode(){
+    random=Math.random().toString(36).slice(-4);
+    $(".RandomCode").html(random);
+}
+
+
 
 layui.use('element', function(){
     var $ = layui.jquery,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块

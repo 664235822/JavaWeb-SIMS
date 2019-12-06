@@ -196,6 +196,7 @@ body {
     height: 38px;
     line-height: 38px;
     width: 100%;
+    letter-spacing:5px;
     cursor: pointer;
     text-align: center;
     font-size: 30px;

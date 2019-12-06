@@ -69,12 +69,11 @@ function RandomCode(){
     $(".RandomCode").html(random);
 }
 function CheckSave(){
-    var b=$("input[title=记住密码]>div").hasClass("layui-form-checked");
-    alert(b);
-    if($("input[title=记住密码]>div").hasClass("layui-form-checked")){
+
+    if($("input[type=checkbox]").prop("checked")){
         var json1 = {};
         alert("aaaaa")
-        json1.accout =  $("#LAY-user-login-username").val();
+        json1.accout =$("#LAY-user-login-username").val();
         json1.pass = $("#LAY-user-login-password").val();
         var str1 = JSON.stringify(json1);
         localStorage.jzzh = str1;

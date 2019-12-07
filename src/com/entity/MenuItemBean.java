@@ -1,9 +1,17 @@
 package com.entity;
 
+/*
+ * 子菜单实体类
+ */
 public class MenuItemBean {
 
+    //菜单序号
     private int menuId;
+
+    //菜单名
     private String menuName;
+
+    //菜单地址
     private String url;
 
     public String getMenuName() {

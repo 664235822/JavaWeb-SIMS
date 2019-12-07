@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/*
+ * 用户登录Servlet
+ */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
@@ -34,7 +37,7 @@ public class LoginServlet extends HttpServlet {
             String pwd = req.getParameter("pwd");
             int stateId = Integer.parseInt(req.getParameter("stateId"));
 
-            obj = loginService.checkUserInfo(code, pwd, stateId);
+            obj = loginService.login(code, pwd, stateId);
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setData(e.getMessage());

@@ -8,12 +8,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/*
+ * 获取主界面菜单类
+ */
 public class MenuDao extends BaseDao {
 
     public MenuDao() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         super();
     }
 
+    /*
+     * 获取主界面菜单
+     * @param character 登录角色
+     * @return BaseBean 返货菜单信息
+     * @throws SQLException
+     */
     public BaseBean getMenu(String character) throws SQLException {
         String sql = "select * from Menu where menuId in (select menuid from " + character + ")";
 

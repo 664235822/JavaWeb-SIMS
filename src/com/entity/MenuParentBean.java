@@ -2,10 +2,18 @@ package com.entity;
 
 import java.util.List;
 
+/*
+ * 父级菜单实体类
+ */
 public class MenuParentBean {
 
+    //菜单序号
     private int menuId;
+
+    //菜单名
     private String menuName;
+
+    //子菜单列表
     private List<MenuItemBean> items;
 
     public String getMenuName() {

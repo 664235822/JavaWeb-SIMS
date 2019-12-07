@@ -72,7 +72,6 @@ function CheckSave(){
 
     if($("input[type=checkbox]").prop("checked")){
         var json1 = {};
-        alert("aaaaa")
         json1.accout =$("#LAY-user-login-username").val();
         json1.pass = $("#LAY-user-login-password").val();
         var str1 = JSON.stringify(json1);

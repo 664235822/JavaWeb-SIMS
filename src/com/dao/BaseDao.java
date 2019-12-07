@@ -1,12 +1,21 @@
 package com.dao;
 
+import com.entity.MyException;
+
 import java.sql.*;
 
+/*
+ * 数据库连接类
+ */
 public class BaseDao {
 
     Connection conn;
     Statement st;
 
+    /*
+     * 连接到数据库
+     * throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException
+     */
     public BaseDao() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         conn = DriverManager.getConnection(
@@ -15,18 +24,34 @@ public class BaseDao {
         st = conn.createStatement();
     }
 
+    /*
+     * 查询数据
+     * @param sql 查询语句
+     * @return ResultSet 返回数据
+     * @throws SQLException
+     */
     public ResultSet querySelect(String sql) throws SQLException {
         return st.executeQuery(sql);
     }
 
-    public boolean queryUpdate(String sql) throws SQLException {
+    /*
+     * 添加、更新、删除数据
+     * @param sql 查询语句
+     * @throws SQLException, MyException
+     */
+    public void queryUpdate(String sql) throws SQLException, MyException {
         int index = st.executeUpdate(sql);
-        return index != 0;
+        if (index == 0) throw new MyException("数据库更新失败");
     }
 
-    public void destroy(ResultSet set) throws SQLException {
-        if (set != null)
-            set.close();
+    /*
+     * 关闭数据库连接
+     * @param rs 查询返回数据
+     * throws SQLException
+     */
+    public void destroy(ResultSet rs) throws SQLException {
+        if (rs != null)
+            rs.close();
         st.close();
         conn.close();
     }

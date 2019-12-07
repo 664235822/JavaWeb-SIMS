@@ -6,12 +6,23 @@ import com.entity.MyException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/*
+ * 用户登录类
+ */
 public class LoginDao extends BaseDao {
 
     public LoginDao() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         super();
     }
 
+    /*
+     * 用户登录
+     * @param code 用户名
+     * @param pwd 密码
+     * @param stateId 用户类型
+     * @return BaseBean 返回登录信息
+     * @throws SQLException, MyException
+     */
     public BaseBean login(String code, String pwd, int stateId) throws SQLException, MyException {
         String sql = "select * from Login where code = '" + code + "' and pwd = '" + pwd + "' and stateId = '" + stateId + "';";
 

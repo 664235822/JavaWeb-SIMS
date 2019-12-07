@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/*
+ * 获取主界面菜单Servlet
+ */
 @WebServlet("/menu")
 public class MenuServlet extends HttpServlet {
 

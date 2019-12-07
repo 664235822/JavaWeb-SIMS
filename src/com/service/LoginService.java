@@ -6,11 +6,22 @@ import com.entity.MyException;
 
 import java.sql.SQLException;
 
+/*
+ * 登录服务类
+ */
 public class LoginService {
 
     LoginDao loginDao;
 
-    public BaseBean checkUserInfo(String code, String pwd, int stateId) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+    /*
+     * 用户登录
+     * @param code 用户名
+     * @param pwd 密码
+     * @param stateId 用户类型
+     * @return BaseBean 返回登录信息
+     * @throws throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
+     */
+    public BaseBean login(String code, String pwd, int stateId) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
         loginDao = new LoginDao();
 
         return loginDao.login(code, pwd, stateId);

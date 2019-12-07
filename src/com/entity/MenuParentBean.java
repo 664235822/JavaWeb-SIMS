@@ -9,10 +9,8 @@ public class MenuParentBean {
 
     //菜单序号
     private int menuId;
-
     //菜单名
     private String menuName;
-
     //子菜单列表
     private List<MenuItemBean> items;
 

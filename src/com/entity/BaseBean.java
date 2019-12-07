@@ -10,7 +10,6 @@ public class BaseBean {
 
     //返回状态码
     private int code;
-
     //返回数据
     private Object data;
 

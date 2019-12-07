@@ -7,10 +7,8 @@ public class MenuItemBean {
 
     //菜单序号
     private int menuId;
-
     //菜单名
     private String menuName;
-
     //菜单地址
     private String url;
 

@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entity.BaseBean;
+import com.entity.LoginBean;
 import com.entity.MyException;
 
 import java.sql.ResultSet;
@@ -31,7 +32,32 @@ public class LoginDao extends BaseDao {
 
         if (rs.next()) {
             result.setCode(BaseBean.SUCCESS);
-            result.setData("登录成功");
+            LoginBean loginInfo = new LoginBean();
+            loginInfo.setMessage("登录成功");
+
+            switch (rs.getInt("stateId")) {
+                case 1:
+                    loginInfo.setUsername(rs.getString("code"));
+                    break;
+                case 2:
+                    sql = "select tName from Teacher where tCode = '" + rs.getString("code") + "'";
+                    rs = querySelect(sql);
+                    if (rs.next())
+                        loginInfo.setUsername(rs.getString("tName"));
+                    else
+                        throw new MyException("获取用户名失败");
+                    break;
+                case 3:
+                    sql = "select stuName from Student where stuCode = '" + rs.getString("code") + "'";
+                    rs = querySelect(sql);
+                    if (rs.next())
+                        loginInfo.setUsername(rs.getString("stuName"));
+                    else
+                        throw new MyException(("获取用户名失败"));
+                    break;
+            }
+
+            result.setData(loginInfo);
         } else {
             throw new MyException("登录失败，用户名和密码错误");
         }

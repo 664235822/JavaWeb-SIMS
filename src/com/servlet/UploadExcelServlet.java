@@ -55,7 +55,8 @@ public class UploadExcelServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
             resp.setContentType("text/html;charset=UTF-8");
 
-            String tableName = req.getParameter("tableName");
+            File importfile = null;
+            String tableName = null;
 
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setRepository(new File(TEMP_FOLDER));
@@ -71,16 +72,16 @@ public class UploadExcelServlet extends HttpServlet {
                     String filename = getUploadFileName(item);
                     String fx = filename.substring(filename.lastIndexOf("."));
                     String newfilename = System.currentTimeMillis() + fx;
-                    File newfile = new File(PATH_FOLDER, newfilename);
-                    item.write(newfile);
-
-                    excelService.importFromExcelToMysql(newfile.getPath(), tableName);
+                    importfile = new File(PATH_FOLDER, newfilename);
+                    item.write(importfile);
                 } else {
-                    if (item.getFieldName().equals("username")) {
-                        String userName = item.getString("utf-8");
+                    if (item.getFieldName().equals("tableName")) {
+                        tableName = item.getString("utf-8");
                     }
                 }
             }
+
+            excelService.importFromExcelToMysql(importfile.getPath(), tableName);
 
             obj.setCode(BaseBean.SUCCESS);
             obj.setData("操作成功");

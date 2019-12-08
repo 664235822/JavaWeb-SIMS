@@ -29,15 +29,15 @@ $(function () {
 function Menu(Menu) {
     var menuName=Menu.data;
     var text = "";
-    text += "<ul class=\"firstnv nav nav-pills nav-stacked\">";
+    text += "<ul class=\"firstnv nav nav-pills nav-stacked\" id=\"menu\">";
     for(var i=0;i<menuName.length;i++){
-        text += "<li role=\"presentation\"><a id=\"Teacher\" href=\"#\">";
+        text += "<li role=\"presentation\" id=\"Menu"+i+"\"><a  href=\"#\">";
         text += "<span class=\"glyphicon glyphicon-list-alt Font-list\" aria-hidden=\"true\"></span>";
         text += menuName[i].menuName;
         text += "<div class=\"pull-right\"><span class=\"caret\"></span></div></a></li>";
-        text += "<li role=\"presentation\" id=\"Scend-menue\"><div class=\"row\"><div class=\"col\">";
+        text += "<li role=\"presentation\" id=\"Menu"+i+"_Submenu\" style=\"display: none;\"><div class=\"row\"><div class=\"col\">";
         text += "<ul class=\"nav nav-pills nav-stacked\">";
-        for (var j=0;i<menuName[i].items.length;i++){
+        for (var j=0;j<menuName[i].items.length;j++){
             text += "<li role=\"presentation\">";
             text += "<a class=\"userlist\" href=\"#\">";
             text += "<span class=\"glyphicon glyphicon-triangle-right Font-list\" aria-hidden=\"true\"></span>";
@@ -51,3 +51,14 @@ function Menu(Menu) {
     text += "</ul>";
     $(".menue-box .col").html(text);
 }
+$(function () {
+    var Contral=null;
+    $(".menue-box #menu>li").click(function () {
+        if(Contral!=null){
+            $("#"+Contral).toggle();
+        }
+        var menuId=$(this).attr("id")+"_Submenu";
+        Contral=menuId;
+        $("#"+menuId).toggle();
+    });
+});

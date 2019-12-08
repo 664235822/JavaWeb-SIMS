@@ -40,7 +40,7 @@ $(function () {
             var url = "/JavaWeb_SIMS_war_exploded/login";
             var Menu = Ajax(url, str);
             if (Menu.code==1) {
-                CheckSave();
+                CheckSave(username,password,state);
                 //登入成功的提示与跳转
                 layer.msg(Menu.data, {
                     offset: '15px'
@@ -68,16 +68,15 @@ function RandomCode(){
     random=Math.random().toString(36).slice(-4);
     $(".RandomCode").html(random);
 }
-function CheckSave(){
-
+function CheckSave(username,password,state){
+    var json1 = {};
+    json1.stateId=state;
     if($("input[type=checkbox]").prop("checked")){
-        var json1 = {};
-        json1.accout =$("#LAY-user-login-username").val();
-        json1.pass = $("#LAY-user-login-password").val();
+        json1.accout =username;
+        json1.pass = password;
         var str1 = JSON.stringify(json1);
         localStorage.jzzh = str1;
     }else{
-        var json1 = {};
         json1.accout = "";
         json1.pass = "";
         var str1 = JSON.stringify(json1);

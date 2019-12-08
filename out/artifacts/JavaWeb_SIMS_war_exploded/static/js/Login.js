@@ -50,7 +50,7 @@ $(function () {
             if (Menu.code==1) {
                 CheckSave(username,password,state);
                 //登入成功的提示与跳转
-                layer.msg(Menu.data, {
+                layer.msg(Menu.data.message, {
                     offset: '15px'
                     , icon: 1
                     , time: 1000
@@ -72,6 +72,7 @@ $(function () {
         }
     })
 });
+//验证码
 function RandomCode(){
     random=Math.random().toString(36).slice(-4);
     $(".RandomCode").html(random);

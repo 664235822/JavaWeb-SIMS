@@ -15,6 +15,24 @@ function Ajax(url, data) {
     });
     return num;
 }
+//上传文件请求
+function ajaxFileUpload(url,fileToUpload,data) {
+    $.ajaxFileUpload({
+        url : url,   // servlet请求路径
+        secureuri : false,
+        fileElementId : fileToUpload,   // 上传控件的id
+        dataType : 'json',
+        data :{"tableName": "Teacher"},
+        success : function(data, status) {
+
+        },
+        error : function(data, status, e) {
+            alert('上传出错');
+        }
+    });
+    return false;
+}
+//记住密码
 function CheckSave(username,password,state){
     var json1 = {};
     json1.stateId=state;

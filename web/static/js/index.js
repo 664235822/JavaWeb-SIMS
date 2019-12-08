@@ -1,4 +1,5 @@
 $(function () {
+    //判断菜单权级
     if(localStorage.jzzh!=null){
         var json2 = localStorage.jzzh;
         var obj = JSON.parse(json2);
@@ -7,7 +8,7 @@ $(function () {
         // str+="obj.stateId</a>"
         // $("nav ul>li:first-of-type").html(str);
     }else {
-        return;
+        location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
     }
     var CharacterMenu = null;
     switch (obj.stateId) {
@@ -26,6 +27,7 @@ $(function () {
     var menu = Ajax(url, str);
     Menu(menu);
 });
+//生成菜单
 function Menu(Menu) {
     var menuName=Menu.data;
     var text = "";

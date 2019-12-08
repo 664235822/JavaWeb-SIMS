@@ -5,9 +5,13 @@
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/TeacherInfo.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherInfo.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
+
     <title>TeacherInfo</title>
 </head>
 <body onload="addCode()">
@@ -15,8 +19,9 @@
     <div class="container">
         <p class="text-left addtea pull-left">当前位置 > 首页 > 添加教师</p>
         <div class="pull-right">
+            <input type="file" id="btn_file" style="display:none">
             <button type="button" class="layui-btn" id="test1"  style="margin: 5px">
-                <i class="layui-icon">&#xe67c;</i>批量上传
+                <i class="layui-icon">&#xe67c;</i>上传Excel
             </button>
         </div>
     </div>
@@ -151,7 +156,6 @@
                 <!--                表单结束-->
             </form>
         </div>
-
     </div>
 </div>
 </body>

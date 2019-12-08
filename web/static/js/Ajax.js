@@ -18,18 +18,20 @@ function Ajax(url, data) {
 //上传文件请求
 function ajaxFileUpload(url,fileToUpload,data) {
     $.ajaxFileUpload({
-        url : url,   // servlet请求路径
+        url : url,   // servlet请求路径【需要更改】
         secureuri : false,
-        fileElementId : fileToUpload,   // 上传控件的id
+        fileElementId : "btn_file",   // 上传控件的id【需要更改】
         dataType : 'json',
-        data :data,
+        data : {
+            "aaaa":"aaa"
+        },
         success : function(data, status) {
 
         },
         error : function(data, status, e) {
             alert('上传出错');
         }
-    });
+    })
     return false;
 }
 //记住密码

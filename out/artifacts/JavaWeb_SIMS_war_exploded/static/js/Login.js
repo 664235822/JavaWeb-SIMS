@@ -1,6 +1,13 @@
 
 var random=null;
 window.onload = function(){
+    if(!localStorage){
+        layer.msg('浏览器不支持记住密码', {
+            icon: 5,
+            anim: 6,
+            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+    }
     if(localStorage.jzzh!=null){
         var json2 = localStorage.jzzh;
         var obj = JSON.parse(json2);
@@ -26,6 +33,7 @@ $(function () {
         var password=$("#LAY-user-login-password").val();
         var state=$("li[class=layui-this]").attr("name");
         var randomcode=$("#LAY-user-login-vercode").val();
+        var test=$("li[class=layui-this]").text();
         if(randomcode!=random&&randomcode!=""){
             layer.msg('验证码错误', {
                 icon: 5,
@@ -68,21 +76,7 @@ function RandomCode(){
     random=Math.random().toString(36).slice(-4);
     $(".RandomCode").html(random);
 }
-function CheckSave(username,password,state){
-    var json1 = {};
-    json1.stateId=state;
-    if($("input[type=checkbox]").prop("checked")){
-        json1.accout =username;
-        json1.pass = password;
-        var str1 = JSON.stringify(json1);
-        localStorage.jzzh = str1;
-    }else{
-        json1.accout = "";
-        json1.pass = "";
-        var str1 = JSON.stringify(json1);
-        localStorage.jzzh = str1;
-    }
-}
+
 
 
 layui.use('element', function(){

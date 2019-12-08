@@ -20,11 +20,9 @@ function ajaxFileUpload(url,fileToUpload,data) {
     $.ajaxFileUpload({
         url : url,   // servlet请求路径【需要更改】
         secureuri : false,
-        fileElementId : "btn_file",   // 上传控件的id【需要更改】
+        fileElementId : fileToUpload,   // 上传控件的id【需要更改】
         dataType : 'json',
-        data : {
-            "aaaa":"aaa"
-        },
+        data : data,
         success : function(data, status) {
 
         },

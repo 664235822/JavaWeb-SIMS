@@ -52,34 +52,10 @@
 </nav>
 </body>
 <script>
-    var number = false;
+    //自适应高度
     function setHeight () {
         var h = $(".ifm").contents().find("body").height();
         $(".ifm").height(h+20);
     }
-
-    $(function () {
-
-        //教师用户管理
-        $("#Teacher").click(function () {
-            if (number) {
-                $("#Scend-menue").hide();
-                number = false;
-            } else {
-                $("#Scend-menue").show();
-                number = true;
-            }
-        })
-    //    教师权限管理
-        $("#State").click(function () {
-            if (number) {
-                $("#Scend-menue2").hide();
-                number = false;
-            } else {
-                $("#Scend-menue2").show();
-                number = true;
-            }
-        })
-    })
 </script>
 </html>

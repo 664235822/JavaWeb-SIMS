@@ -37,11 +37,11 @@ function Menu(Menu) {
         text += "<div class=\"pull-right\"><span class=\"caret\"></span></div></a></li>";
         text += "<li role=\"presentation\" id=\"Scend-menue\"><div class=\"row\"><div class=\"col\">";
         text += "<ul class=\"nav nav-pills nav-stacked\">";
-        for (var j=0;i<menuName.items.length;i++){
+        for (var j=0;i<menuName[i].items.length;i++){
             text += "<li role=\"presentation\">";
             text += "<a class=\"userlist\" href=\"#\">";
             text += "<span class=\"glyphicon glyphicon-triangle-right Font-list\" aria-hidden=\"true\"></span>";
-            text += menuName.items[0].menuName;
+            text += menuName[i].items[j].menuName;
             text += "</a>";
             text += "</li>";
         }

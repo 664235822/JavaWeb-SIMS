@@ -19,17 +19,18 @@ public class InsertServlce {
      * 添加信息
      * @param tableName 数据库表名
      * @param info 要添加的信息实体
+     * @param pwd 要添加的用户密码
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
      */
-    public void Insert(String tableName, Object info) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+    public void Insert(String tableName, Object info, String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
         insertDao = new InsertDao();
 
         switch (tableName) {
             case "Teacher":
-                insertDao.insertTeacher((TeacherBean) info);
+                insertDao.insertTeacher((TeacherBean) info, pwd);
                 break;
             case "Student":
-                insertDao.insertStudent((StudentBean) info);
+                insertDao.insertStudent((StudentBean) info, pwd);
                 break;
         }
     }

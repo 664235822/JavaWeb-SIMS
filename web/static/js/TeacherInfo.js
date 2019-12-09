@@ -5,7 +5,7 @@ function addCode(){
    //截取后六位
     var Code = mydate.getTime().toString().slice(5,11);
     //获取教师账号标签
-    var TeacherCode = document.getElementById("TeacherCode");
+    var TeacherCode = document.getElementById("tCode");
     //添加生成随机账号
     TeacherCode.value="t"+Code;
 }

@@ -3,157 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" media="all"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/TeacherInfo.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/table.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/laypage.js"></script>
     <title>ShowTeachers</title>
 </head>
+<style>
+    body{
+        min-height: 300px;
+    }
+    p {
+        margin: 0px;
+    }
+</style>
 <body>
-<!--表格-->
-<div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-card-body">
-                    <table class="layui-hide" id="test-table-autowidth"></table>
-                    <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-4"
-                         lay-id="test-table-autowidth" style=" ">
-                        <div class="layui-table-box">
-                            <div class="layui-table-header">
-                                <table cellspacing="0" cellpadding="0" border="0"  class="layui-table">
-                                    <thead>
-                                    <tr>
-                                        <th data-field="id" width="11%" data-key="4-0-0" class=" layui-unselect">
-                                            <div class="layui-table-cell laytable-cell-4-0-0"><span>ID</span><span
-                                                    class="layui-table-sort layui-inline"><i
-                                                    class="layui-edge layui-table-sort-asc" title="升序"></i><i
-                                                    class="layui-edge layui-table-sort-desc" title="降序"></i></span>
-                                            </div>
-                                        </th>
-                                        <th data-field="username"  width="11%" data-key="4-0-1" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-1"><span>用户名</span></div>
-                                        </th>
-                                        <th data-field="sex" data-key="4-0-2" class=" layui-unselect">
-                                            <div class="layui-table-cell laytable-cell-4-0-2"><span>性别</span><span
-                                                    class="layui-table-sort layui-inline"><i
-                                                    class="layui-edge layui-table-sort-asc" title="升序"></i><i
-                                                    class="layui-edge layui-table-sort-desc" title="降序"></i></span>
-                                            </div>
-                                        </th>
-                                        <th data-field="city" width="11%" data-key="4-0-3" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-3"><span>城市</span></div>
-                                        </th>
-                                        <th data-field="sign" width="11%" data-key="4-0-4" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-4"><span>签名</span></div>
-                                        </th>
-                                        <th data-field="classify" width="11%" data-key="4-0-5" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-5" align="center">
-                                                <span>职业</span></div>
-                                        </th>
-                                        <th data-field="experience" width="11%" data-key="4-0-6" class=" layui-unselect">
-                                            <div class="layui-table-cell laytable-cell-4-0-6" align="right">
-                                                <span>积分</span><span class="layui-table-sort layui-inline"><i
-                                                    class="layui-edge layui-table-sort-asc" title="升序"></i><i
-                                                    class="layui-edge layui-table-sort-desc" title="降序"></i></span>
-                                            </div>
-                                        </th>
-                                        <th data-field="score" width="11%" data-key="4-0-7" class=" layui-unselect">
-                                            <div class="layui-table-cell laytable-cell-4-0-7" align="right">
-                                                <span>评分</span><span class="layui-table-sort layui-inline"><i
-                                                    class="layui-edge layui-table-sort-asc" title="升序"></i><i
-                                                    class="layui-edge layui-table-sort-desc" title="降序"></i></span>
-                                            </div>
-                                        </th>
-                                        <th data-field="wealth" width="11%" data-key="4-0-8" class=" layui-unselect">
-                                            <div class="layui-table-cell laytable-cell-4-0-8" align="right">
-                                                <span>财富</span><span class="layui-table-sort layui-inline"><i
-                                                    class="layui-edge layui-table-sort-asc" title="升序"></i><i
-                                                    class="layui-edge layui-table-sort-desc" title="降序"></i></span>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div class="layui-table-body layui-table-main">
-                                <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
-                                    <tbody>
-                                    <tr data-index="0" class="">
-                                        <td data-field="id" data-key="4-0-0" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-0">10000</div>
-                                        </td>
-                                        <td data-field="username" data-key="4-0-1" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-1">user-0</div>
-                                        </td>
-                                        <td data-field="sex" data-key="4-0-2" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-2">女</div>
-                                        </td>
-                                        <td data-field="city" data-key="4-0-3" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-3">城市-0</div>
-                                        </td>
-                                        <td data-field="sign" data-key="4-0-4" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-4">签名-0</div>
-                                        </td>
-                                        <td data-field="classify" data-key="4-0-5" align="center" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-5">作家</div>
-                                        </td>
-                                        <td data-field="experience" data-key="4-0-6" align="right" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-6">255</div>
-                                        </td>
-                                        <td data-field="score" data-key="4-0-7" align="right" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-7">57</div>
-                                        </td>
-                                        <td data-field="wealth" data-key="4-0-8" align="right" class="">
-                                            <div class="layui-table-cell laytable-cell-4-0-8">82830700</div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <style>.laytable-cell-4-0-0 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-1 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-2 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-3 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-4 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-5 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-6 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-7 {
-                            width: 100px;
-                        }
-
-                        .laytable-cell-4-0-8 {
-                            width: 100px;
-                        }</style>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--当前位置-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 查看教师</p>
     </div>
-</div>
+</nav>
+    <div class="container" >
+    <div id="LAY_preview">
+        <table class="layui-hide" id="test"></table>
+    </div>
+    </div>
 <!--表格-->
 </body>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
 
+        table.render({
+            elem: '#test'
+            , url: '/demo/table/user/'
+            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            , cols: [[
+                {field: 'id', width: 80, title: 'ID'}
+                , {field: 'username', width: 80, title: '用户名'}
+                , {field: 'sex', width: 80, title: '性别'}
+                , {field: 'city', width: 80, title: '城市'}
+                , {field: 'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , {field: 'experience', title: '积分'}
+                , {field: 'score', title: '评分'}
+                , {field: 'classify', title: '职业'}
+                , {field: 'wealth', width: 137, title: '财富'}
+            ]],page:true
+        });
+    });
+</script>
 </html>

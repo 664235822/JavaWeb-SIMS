@@ -41,19 +41,23 @@ function TeacherInfo() {
         $(function () {
             $("#referto").click(function () {
                 var data={};
-                data.tCode=Serch("tCode");
-                data.tName=Serch("tName");
-                data.tSex=$("input[type='radio']:checked").val();
-                data.tAge=Serch("tAge");
+                var Info={};
+                data.tableName="Teacher";
+                Info.code=Serch("tCode");
+                Info.name=Serch("tName");
+                Info.sex=$("input[type='radio']:checked").val();
+                Info.age=Serch("tAge");
                 var ID =Serch("tEducation");
-                data.tEducation= $("#Select1 option:eq(" + (parseInt(ID) - 1) + ")").text();
-                data.tGoodAt=Serch("tGoodAt");
-                data.tPone=Serch("tPone");
-                data.tQQ=Serch("tQQ");
-                data.tEmail=Serch("tEmail");
-                data.tAddress=Serch("tAddress");
-                data.tIntorduction=Serch("tIntorduction");
-                data.tPwd=Serch("tPwd");
+                Info.education= $("#Select1 option:eq(" + (parseInt(ID) - 1) + ")").text();
+                Info.goodAt=Serch("tGoodAt");
+                Info.phone=Serch("tPone");
+                Info.QQ=Serch("tQQ");
+                Info.email=Serch("tEmail");
+                Info.address=Serch("tAddress");
+                Info.introduction=Serch("tIntorduction");
+            
+                data.pwd=Serch("tPwd");
+                data.info=Info;
                 var url = "/JavaWeb_SIMS_war_exploded/login";
                 var Menu = Ajax(url, data);
 
@@ -66,6 +70,7 @@ function TeacherInfo() {
             $("#Download").click(function (e) {
                 layer.msg("请注意查看必读文档", {
                     icon: 6
+                    ,time: 2000
                     , offset: [
                         $(window).height() / 4+"px"
                         ,$(window).width() / 3+"px"

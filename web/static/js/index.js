@@ -55,7 +55,7 @@ function Menu(Menu) {
 }
 $(function () {
     var Contral=null;
-    $(".menue-box #menu>li").click(function () {
+    $(".menue-box #menu>li:nth-of-type(odd)").click(function () {
         var menuId=$(this).attr("id")+"_Submenu";
         if(Contral!=null && Contral!=menuId){
             $("#"+Contral).toggle();

@@ -1,5 +1,5 @@
 
-
+//
 function Ajax(url, data) {
     var num={};
     $.ajax({
@@ -27,11 +27,12 @@ function ajaxFileUpload(url,fileToUpload,data) {
 
         },
         error : function(data, status, e) {
-            alert('上传出错');
+
         }
     })
     return false;
 }
+
 //记住密码
 function CheckSave(username,password,state){
     var json1 = {};

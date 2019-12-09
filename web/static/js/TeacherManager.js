@@ -27,7 +27,7 @@ function TeacherInfo() {
                         icon: 2,
                         anim: 6,
                         offset: [
-                            $(window).height() / 3+"px"
+                            $(window).height() / 4+"px"
                             ,$(window).width() / 3+"px"
                         ]
                         ,time: 2000 //2秒关闭（如果不配置，默认是3秒）
@@ -58,6 +58,23 @@ function TeacherInfo() {
                 var Menu = Ajax(url, data);
 
             })
+        });
+        $(function () {
+            $("#test2").click(function() {
+                document.getElementById("Download").click();
+            });
+            $("#Download").click(function (e) {
+                layer.msg("请注意查看必读文档", {
+                    icon: 6
+                    , offset: [
+                        $(window).height() / 4+"px"
+                        ,$(window).width() / 3+"px"
+                    ]
+                }, function(index) {
+                    var herf=$("#Download").attr('herf');
+                    location.href =herf;
+                });
+            });
         });
 
 }

@@ -1,5 +1,6 @@
 package com.service;
 
+import com.alibaba.fastjson.JSON;
 import com.dao.InsertDao;
 import com.entity.MyException;
 import com.entity.StudentBean;
@@ -17,19 +18,21 @@ public class InsertServlce {
     /*
      * 添加信息
      * @param tableName 数据库表名
-     * @param info 要添加的信息实体
+     * @param info 要添加的信息JSON字符串
      * @param pwd 要添加的用户密码
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
      */
-    public void Insert(String tableName, Object info, String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+    public void Insert(String tableName, String info, String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
         insertDao = new InsertDao();
 
         switch (tableName) {
             case "Teacher":
-                insertDao.insertTeacher((TeacherBean) info, pwd);
+                TeacherBean teacher = JSON.parseObject(info, TeacherBean.class);
+                insertDao.insertTeacher(teacher, pwd);
                 break;
             case "Student":
-                insertDao.insertStudent((StudentBean) info, pwd);
+                StudentBean student = JSON.parseObject(info, StudentBean.class);
+                insertDao.insertStudent(student, pwd);
                 break;
         }
     }

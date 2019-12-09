@@ -34,10 +34,8 @@ public class InsertServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
 
             String tableName = req.getParameter("tableName");
-            String infoStr = req.getParameter("info");
+            String info = req.getParameter("info");
             String pwd = req.getParameter("pwd");
-
-            Object info = JSON.parse(infoStr);
 
             insertService.Insert(tableName, info, pwd);
 

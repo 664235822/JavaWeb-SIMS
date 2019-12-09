@@ -30,19 +30,19 @@ public class InsertDao extends BaseDao {
         columnNames.deleteCharAt(columnNames.length() - 1);
 
         StringBuffer values = new StringBuffer();
-        values.append(info.getCode()).append(",");
-        values.append(info.getName()).append(",");
-        values.append(info.getSex()).append(",");
-        values.append(info.getAge()).append(",");
-        values.append(info.getEducation()).append(",");
-        values.append(info.getGoodAt()).append(",");
-        values.append(info.getPhone()).append(",");
-        values.append(info.getQQ()).append(",");
-        values.append(info.getEmail()).append(",");
-        values.append(info.getAddress()).append(",");
-        values.append(info.getIntroduction());
+        values.append("'" + info.getCode() + "'").append(",");
+        values.append("'" + info.getName() + "'").append(",");
+        values.append("'" + info.getSex() + "'").append(",");
+        values.append("'" + info.getAge() + "'").append(",");
+        values.append("'" + info.getEducation() + "'").append(",");
+        values.append("'" + info.getGoodAt() + "'").append(",");
+        values.append("'" + info.getPhone() + "'").append(",");
+        values.append("'" + info.getQQ() + "'").append(",");
+        values.append("'" + info.getEmail() + "'").append(",");
+        values.append("'" + info.getAddress() + "'").append(",");
+        values.append("'" + info.getIntroduction() + "'");
 
-        String sql = "insert into Login (code,pwd,stateId) values (" + info.getCode() + "," + pwd + ",2);";
+        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + pwd + "','2');";
         queryUpdate(sql);
 
         sql = "insert into Teacher (" + columnNames.toString() + ") values (" + values.toString() + ");";
@@ -66,16 +66,16 @@ public class InsertDao extends BaseDao {
         columnNames.deleteCharAt(columnNames.length() - 1);
 
         StringBuffer values = new StringBuffer();
-        values.append(info.getCode()).append(",");
-        values.append(info.getName()).append(",");
-        values.append(info.getAge()).append(",");
-        values.append(info.getSex()).append(",");
-        values.append(info.getQQ()).append(",");
-        values.append(info.getPhone()).append(",");
-        values.append(info.getAddress()).append(",");
-        values.append(info.getClassId());
+        values.append("'" + info.getCode() + "'").append(",");
+        values.append("'" + info.getName() + "'").append(",");
+        values.append("'" + info.getAge() + "'").append(",");
+        values.append("'" + info.getSex() + "'").append(",");
+        values.append("'" + info.getQQ() + "'").append(",");
+        values.append("'" + info.getPhone() + "'").append(",");
+        values.append("'" + info.getAddress() + "'").append(",");
+        values.append("'" + info.getClassId() + "'");
 
-        String sql = "insert into Login (code,pwd,stateId) values (" + info.getCode() + "," + pwd + ",3);";
+        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + pwd + "','3');";
         queryUpdate(sql);
 
         sql = "insert into Teacher (" + columnNames.toString() + ") values (" + values.toString() + ");";

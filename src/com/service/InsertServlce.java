@@ -1,7 +1,6 @@
 package com.service;
 
 import com.dao.InsertDao;
-import com.entity.BaseBean;
 import com.entity.MyException;
 import com.entity.StudentBean;
 import com.entity.TeacherBean;

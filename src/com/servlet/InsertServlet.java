@@ -2,8 +2,6 @@ package com.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.entity.BaseBean;
-import com.entity.StudentBean;
-import com.entity.TeacherBean;
 import com.service.InsertServlce;
 
 import javax.servlet.ServletException;

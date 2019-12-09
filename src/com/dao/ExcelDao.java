@@ -54,8 +54,7 @@ public class ExcelDao extends BaseDao {
                 Row currentRow = sheet.getRow(j);
                 StringBuffer values = new StringBuffer();
                 for (int col = 0; col < colNum; col++) {
-                    Cell cell = currentRow.getCell(col);
-                    cell.setCellType(CellType.STRING);
+                    Cell cell = currentRow.getCell(col);;
                     values.append("'" + cell.getStringCellValue() + "'");
                     values.append(",");
                 }

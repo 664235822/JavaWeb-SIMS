@@ -16,6 +16,7 @@ layui.use(['form'], function () {
     var reg = /^[\u4e00-\u9fa5\u3001]+$/;
     //密码必须包含数字和字母，长度6-16！
     var regs = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+    //QQ账号
     //要放在form.on外面，千万不能放在提交步骤中，否则会不触发
     form.verify({
         title: function (value) {

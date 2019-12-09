@@ -38,45 +38,7 @@ function TeacherInfo() {
             });
 
         });
-        $(function () {
-            $("#referto").click(function () {
-                var data={};
-                var Info={};
-                data.tableName="Teacher";
-                Info.code=Serch("tCode");
-                Info.name=Serch("tName");
-                Info.sex=$("input[type='radio']:checked").val();
-                Info.age=Serch("tAge");
-                var ID =Serch("tEducation");
-                Info.education= $("#Select1 option:eq(" + (parseInt(ID) - 1) + ")").text();
-                Info.goodAt=Serch("tGoodAt");
-                Info.phone=Serch("tPone");
-                Info.QQ=Serch("tQQ");
-                Info.email=Serch("tEmail");
-                Info.address=Serch("tAddress");
-                Info.introduction=Serch("tIntorduction");
 
-                data.pwd=Serch("tPwd");
-                data.info=JSON.stringify(Info);
-                var url = "/JavaWeb_SIMS_war_exploded/insert";
-                var Menu = Ajax(url, data);
-                if (Menu.code==1) {
-                    //成功的
-                    layer.msg(Menu.data.message, {
-                        offset: '15px'
-                        , icon: 1
-                        , time: 1000
-                    });
-                }else{
-                    layer.msg(Menu.data, {
-                        icon: 5
-                        ,anim: 6
-                        , time: 1000
-                    });
-
-                }
-            })
-        });
         $(function () {
             $("#test2").click(function() {
                 document.getElementById("Download").click();
@@ -95,6 +57,45 @@ function TeacherInfo() {
                 });
             });
         });
+
+}
+//上传数据
+function UpTeacher() {
+            var data={};
+            var Info={};
+            data.tableName="Teacher";
+            Info.code=Serch("tCode");
+            Info.name=Serch("tName");
+            Info.sex=$("input[type='radio']:checked").val();
+            Info.age=Serch("tAge");
+            var ID =Serch("tEducation");
+            Info.education= $("#Select1 option:eq(" + (parseInt(ID) - 1) + ")").text();
+            Info.goodAt=Serch("tGoodAt");
+            Info.phone=Serch("tPone");
+            Info.QQ=Serch("tQQ");
+            Info.email=Serch("tEmail");
+            Info.address=Serch("tAddress");
+            Info.introduction=Serch("tIntorduction");
+
+            data.pwd=Serch("tPwd");
+            data.info=JSON.stringify(Info);
+            var url = "/JavaWeb_SIMS_war_exploded/insert";
+            var Menu = Ajax(url, data);
+            if (Menu.code==1) {
+                //成功的
+                layer.msg(Menu.data.message, {
+                    offset: '15px'
+                    , icon: 1
+                    , time: 1000
+                });
+            }else{
+                layer.msg(Menu.data, {
+                    icon: 5
+                    ,anim: 6
+                    , time: 1000
+                });
+
+            }
 
 }
 //查看数据

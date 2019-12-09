@@ -35,7 +35,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入姓名"
+                        <input type="text" id="tName" name="title" lay-verify="title" autocomplete="off" placeholder="请输入姓名"
                                class="layui-input">
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号：</label>
                     <div class="layui-input-block">
-                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder=""
+                        <input type="text" id="tCode" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder=""
                                class="layui-input" id="TeacherCode">
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="password" lay-verify="pwd" autocomplete="off" placeholder="请输入密码"
+                        <input type="text" id="tPwd" name="password" lay-verify="pwd" autocomplete="off" placeholder="请输入密码"
                                class="layui-input">
                     </div>
                 </div>
@@ -59,12 +59,12 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男" checked="checked">
+                        <input type="radio" id="tMan" name="sex" value="男" title="男" checked="checked">
                         <div class="layui-unselect layui-form-radio layui-form-radioed"><i
                                 class="layui-anim layui-icon"></i>
                             <div>男</div>
                         </div>
-                        <input type="radio" name="sex" value="女" title="女">
+                        <input type="radio" id="tWomen" name="sex" value="女" title="女">
                         <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
                             <div>女</div>
                         </div>
@@ -74,7 +74,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">年龄：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="number" lay-verify="required|number" autocomplete="off"
+                        <input type="text" id="tAge" name="number" lay-verify="required|number" autocomplete="off"
                                placeholder="请输入年龄"
                                class="layui-input">
                     </div>
@@ -83,7 +83,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">学历：</label>
                     <div class="layui-input-block">
-                        <select name="modules" lay-verify="required">
+                        <select id="tEducation" name="modules" lay-verify="required">
                             <option value="">请选择您的学历</option>
                             <option value="1">小学</option>
                             <option value="2">初中</option>
@@ -100,7 +100,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">擅长科目：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="TeacherSkill" lay-verify="required" lay-reqtext="擅长科目是必填项！"
+                        <input type="text" id="tGoodAt" name="TeacherSkill" lay-verify="required" lay-reqtext="擅长科目是必填项！"
                                autocomplete="off" placeholder="请输入擅长科目名称"
                                class="layui-input">
                     </div>
@@ -109,7 +109,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系电话：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="phone" lay-verify="required|phone" autocomplete="off"
+                        <input type="text" id="tPone" name="phone" lay-verify="required|phone" autocomplete="off"
                                placeholder="请输入电话号码"
                                class="layui-input">
                     </div>
@@ -118,7 +118,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">QQ号码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="number" lay-verify="required|number" autocomplete="off"
+                        <input type="text" id="tQQ" name="number" lay-verify="required|number" autocomplete="off"
                                placeholder="请输入QQ号码"
                                class="layui-input">
                     </div>
@@ -127,7 +127,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱地址：</label>
                     <div class="layui-input-block">
-                        <input type="email" name="email" lay-verify="email" autocomplete="off" placeholder="请输入邮箱地址"
+                        <input type="email" id="tEmail" name="email" lay-verify="email" autocomplete="off" placeholder="请输入邮箱地址"
                                class="layui-input">
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">家庭地址：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" lay-verify="" autocomplete="off" placeholder="请输入家庭地址"
+                        <input type="text" id="tAddress" name="" lay-verify="" autocomplete="off" placeholder="请输入家庭地址"
                                class="layui-input">
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">个人简介：</label>
                     <div class="layui-input-block">
-                        <textarea name="TeacherInfo" placeholder="个人介绍" class="layui-textarea"></textarea>
+                        <textarea name="" id="tIntorduction" placeholder="个人介绍" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <!--                提交按钮-->

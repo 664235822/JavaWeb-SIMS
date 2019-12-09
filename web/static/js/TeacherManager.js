@@ -54,6 +54,8 @@ function TeacherInfo() {
                 data.tAddress=Serch("tAddress");
                 data.tIntorduction=Serch("tIntorduction");
                 data.tPwd=Serch("tPwd");
+                var url = "/JavaWeb_SIMS_war_exploded/login";
+                var Menu = Ajax(url, data);
 
             })
         });
@@ -61,7 +63,7 @@ function TeacherInfo() {
 }
 //查看数据
 function Serch(id) {
-    return $(id).val();
+    return $("#"+id).val();
 }
 //判断文件类型
 function isPicFile(fileExt) {

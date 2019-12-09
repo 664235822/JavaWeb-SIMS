@@ -55,12 +55,26 @@ function TeacherInfo() {
                 Info.email=Serch("tEmail");
                 Info.address=Serch("tAddress");
                 Info.introduction=Serch("tIntorduction");
-            
+
                 data.pwd=Serch("tPwd");
                 data.info=Info;
-                var url = "/JavaWeb_SIMS_war_exploded/login";
+                var url = "/JavaWeb_SIMS_war_exploded/insert";
                 var Menu = Ajax(url, data);
+                if (Menu.code==1) {
+                    //成功的
+                    layer.msg(Menu.data.message, {
+                        offset: '15px'
+                        , icon: 1
+                        , time: 1000
+                    });
+                }else{
+                    layer.msg(Menu.data, {
+                        icon: 5
+                        ,anim: 6
+                        , time: 1000
+                    });
 
+                }
             })
         });
         $(function () {

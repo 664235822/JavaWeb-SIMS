@@ -17,7 +17,9 @@ layui.use(['form'], function () {
     //密码必须包含数字和字母，长度6-16！
     var regs = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
     //QQ账号
-    var regQQ = /^([1-9]\d*|0)(\.\d*[1-9])?${6,16}$/;
+    var regQQ = /^[1-9]{6,16}$/;
+    //年龄
+    var regage= /^[1-9]{1,3}$/;
     //要放在form.on外面，千万不能放在提交步骤中，否则会不触发
     form.verify({
         title: function (value) {
@@ -26,9 +28,7 @@ layui.use(['form'], function () {
             } else {
                 return '请输入姓名(仅中文汉字)！';
             }
-        }
-    });
-    form.verify({
+        },
         pwd: function (value) {
             if (value == "") {
                 return '密码不能为空！';
@@ -41,8 +41,24 @@ layui.use(['form'], function () {
                 }
 
             }
+        },
+        age: function (value) {
+            if (regage.test(value)) {
+                //    验证通过
+            } else {
+                return '请输入正确的年龄';
+            }
+        },
+        QQ: function (value) {
+            if (regQQ.test(value)) {
+                //    验证通过
+            } else {
+                return '请输入正确的QQ号';
+            }
         }
     });
+
+
 
     // 应该没有用form.on("submit(submit_button)", function (data) {
     //     return false;

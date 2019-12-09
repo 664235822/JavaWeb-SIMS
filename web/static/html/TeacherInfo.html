@@ -41,7 +41,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tName" name="title" lay-verify="title" autocomplete="off" placeholder="请输入姓名"
+                        <input type="text" id="tName" name="title" lay-verify="required|title" autocomplete="off" placeholder="请输入姓名"
                                class="layui-input">
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tCode" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder=""
+                        <input type="text" id="tCode" name=""  READONLY="true" lay-verify="required|newres" autocomplete="off" placeholder=""
                                class="layui-input">
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tPwd" name="password" lay-verify="pwd" autocomplete="off" placeholder="123456"
+                        <input type="text" id="tPwd" name="password" lay-verify="required|pwd" autocomplete="off" placeholder="123456"
                                class="layui-input">
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">年龄：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tAge" name="number" lay-verify="required|number" autocomplete="off"
+                        <input type="text" id="tAge" name="number" lay-verify="required|age" autocomplete="off"
                                placeholder="请输入年龄"
                                class="layui-input">
                     </div>
@@ -89,7 +89,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">学历：</label>
                     <div class="layui-input-block">
-                        <select id="tEducation" name="modules" lay-verify="required">
+                        <select id="tEducation" name="" lay-verify="required" lay-reqtext="学历是必填项！">
                             <option value="">请选择您的学历</option>
                             <option value="1">小学</option>
                             <option value="2">初中</option>
@@ -124,7 +124,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">QQ号码：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tQQ" name="number" lay-verify="required|number" autocomplete="off"
+                        <input type="text" id="tQQ" name="number" lay-verify="required|QQ" autocomplete="off"
                                placeholder="请输入QQ号码"
                                class="layui-input">
                     </div>
@@ -133,7 +133,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱地址：</label>
                     <div class="layui-input-block">
-                        <input type="email" id="tEmail" name="email" lay-verify="email" autocomplete="off" placeholder="请输入邮箱地址"
+                        <input type="email" id="tEmail" name="email" lay-verify="required|email" autocomplete="off" placeholder="请输入邮箱地址"
                                class="layui-input">
                     </div>
                 </div>

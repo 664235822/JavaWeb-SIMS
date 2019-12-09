@@ -19,7 +19,7 @@ public class BaseDao {
     public BaseDao() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         conn = DriverManager.getConnection(
-                "jdbc:mysql://129.28.136.155:3306/SIMS", "root", "zhuzhou9uu897@");
+                "jdbc:mysql://129.28.136.155:3306/SIMS?characterEncoding=UTF-8", "root", "zhuzhou9uu897@");
 
         st = conn.createStatement();
     }

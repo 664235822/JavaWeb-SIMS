@@ -1,6 +1,8 @@
 package com.dao;
 
 import com.entity.MyException;
+import com.entity.StudentBean;
+import com.entity.TeacherBean;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -44,8 +46,17 @@ public class ExcelDao extends BaseDao {
             int colNum = firstRow.getLastCellNum();
 
             StringBuffer columnNames = new StringBuffer();
+            String[] info = null;
+            switch (tableName) {
+                case "Teacher":
+                    info = TeacherBean.teacherInfo;
+                    break;
+                case "Student":
+                    info = StudentBean.studentInfo;
+                    break;
+            }
             for (int j = 0; j < colNum; j++) {
-                columnNames.append(firstRow.getCell(j).getStringCellValue());
+                columnNames.append(info[j]);
                 columnNames.append(",");
             }
             columnNames.deleteCharAt(columnNames.length() - 1);
@@ -54,7 +65,24 @@ public class ExcelDao extends BaseDao {
                 Row currentRow = sheet.getRow(j);
                 StringBuffer values = new StringBuffer();
                 for (int col = 0; col < colNum; col++) {
-                    Cell cell = currentRow.getCell(col);;
+                    Cell cell = currentRow.getCell(col);
+                    cell.setCellType(CellType.STRING);
+
+                    if (firstRow.getCell(col).getStringCellValue().equals("tCode")) {
+                        String code = cell.getStringCellValue();
+                        int stateId = 1;
+                        switch (tableName) {
+                            case "Teacher":
+                                stateId = 2;
+                                break;
+                            case "Student":
+                                stateId = 3;
+                                break;
+                        }
+                        String sql = "insert into Login (code,pwd,stateId) values (" + code + "," + code + "," + stateId + ");";
+                        queryUpdate(sql);
+                    }
+
                     values.append("'" + cell.getStringCellValue() + "'");
                     values.append(",");
                 }

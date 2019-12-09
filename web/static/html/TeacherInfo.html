@@ -8,7 +8,6 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherInfo.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
@@ -41,7 +40,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tName" name="title" lay-verify="required|title" autocomplete="off" placeholder="姓名必须为中文"
+                        <input type="text" id="tName" name="tName" lay-verify="required|title" autocomplete="off" placeholder="姓名必须为中文"
                                class="layui-input">
                     </div>
                 </div>
@@ -49,7 +48,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tCode" name=""  READONLY="true" lay-verify="required|newres" autocomplete="off" placeholder=""
+                        <input type="text" id="tCode" name="tCode"  READONLY="true" lay-verify="required|newres" autocomplete="off" placeholder=""
                                class="layui-input">
                     </div>
                 </div>
@@ -57,7 +56,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tPwd" name="password" lay-verify="required|pwd" autocomplete="off" placeholder="密码必须是6-16位字母加数字组合"
+                        <input type="text" id="tPwd" name="tPwd" lay-verify="required|pwd" autocomplete="off" placeholder="密码必须是6-16位字母加数字组合"
                                class="layui-input">
                     </div>
                 </div>
@@ -65,12 +64,12 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
                     <div class="layui-input-block">
-                        <input type="radio" id="tMan" name="sex" value="男" title="男" checked="checked">
+                        <input type="radio" id="tMan" name="tSex" value="男" title="男" checked="checked">
                         <div class="layui-unselect layui-form-radio layui-form-radioed"><i
                                 class="layui-anim layui-icon"></i>
                             <div>男</div>
                         </div>
-                        <input type="radio" id="tWomen" name="sex" value="女" title="女">
+                        <input type="radio" id="tWomen" name="tSex" value="女" title="女">
                         <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
                             <div>女</div>
                         </div>
@@ -80,7 +79,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">年龄：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tAge" name="number" lay-verify="required|age" autocomplete="off"
+                        <input type="text" id="tAge" name="tAge" lay-verify="required|age" autocomplete="off"
                                placeholder="请输入年龄"
                                class="layui-input">
                     </div>
@@ -89,7 +88,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">学历：</label>
                     <div class="layui-input-block">
-                        <select id="tEducation" name="" lay-verify="required" lay-reqtext="学历是必填项！">
+                        <select id="tEducation" name="tEducation" lay-verify="required" lay-reqtext="学历是必填项！">
                             <option value="">请选择您的学历</option>
                             <option value="1">小学</option>
                             <option value="2">初中</option>
@@ -106,7 +105,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">擅长科目：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tGoodAt" name="TeacherSkill" lay-verify="required" lay-reqtext="擅长科目是必填项！"
+                        <input type="text" id="tGoodAt" name="tGoodAt" lay-verify="required" lay-reqtext="擅长科目是必填项！"
                                autocomplete="off" placeholder="多个科目用逗号隔开！"
                                class="layui-input">
                     </div>
@@ -115,7 +114,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系电话：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tPone" name="phone" lay-verify="required|phone" autocomplete="off"
+                        <input type="text" id="tPone" name="tPone" lay-verify="required|phone" autocomplete="off"
                                placeholder="电话必须为11位数字"
                                class="layui-input">
                     </div>
@@ -124,7 +123,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">QQ号码：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tQQ" name="number" lay-verify="required|QQ" autocomplete="off"
+                        <input type="text" id="tQQ" name="tQQ" lay-verify="required|QQ" autocomplete="off"
                                placeholder="QQ必须为6-13位"
                                class="layui-input">
                     </div>
@@ -133,7 +132,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱地址：</label>
                     <div class="layui-input-block">
-                        <input type="email" id="tEmail" name="email" lay-verify="required|email" autocomplete="off" placeholder="必须包含@符号"
+                        <input type="email" id="tEmail" name="tEmail" lay-verify="required|email" autocomplete="off" placeholder="必须包含@符号"
                                class="layui-input">
                     </div>
                 </div>
@@ -141,7 +140,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">家庭地址：</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tAddress" name="" lay-verify="" autocomplete="off" placeholder="请输入家庭地址"
+                        <input type="text" id="tAddress" name="tAddress" lay-verify="" autocomplete="off" placeholder="请输入家庭地址"
                                class="layui-input">
                     </div>
                 </div>
@@ -149,13 +148,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">个人简介：</label>
                     <div class="layui-input-block">
-                        <textarea name="" id="tIntorduction" placeholder="个人介绍" class="layui-textarea"></textarea>
+                        <textarea name="tIntorduction" id="tIntorduction" placeholder="个人介绍" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <!--                提交按钮-->
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" id="referto" lay-submit="" lay-filter="component-form-element">立即提交</button>
+                        <button class="layui-btn" lay-submit  id="referto"  lay-filter="component-form-element">立即提交</button>
                         <button type="reset"  class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>

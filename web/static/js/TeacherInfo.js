@@ -12,7 +12,7 @@ function addCode(){
 <!--    表单验证-->
 layui.use(['form'], function () {
     var form = layui.form;
-    //仅输入中文
+    //     //仅输入中文
     var reg = /^[\u4e00-\u9fa5\u3001]+$/;
     //密码必须包含数字和字母，长度6-16！
     var regs = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
@@ -58,7 +58,12 @@ layui.use(['form'], function () {
         }
     });
 
-
+    form.on('submit()', function(data){
+        console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+        alert(data.field.tName);
+        UpTeacher();
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
 
     // 应该没有用form.on("submit(submit_button)", function (data) {
     //     return false;

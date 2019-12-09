@@ -57,7 +57,7 @@ function TeacherInfo() {
                 Info.introduction=Serch("tIntorduction");
 
                 data.pwd=Serch("tPwd");
-                data.info=Info;
+                data.info=JSON.stringify(Info);
                 var url = "/JavaWeb_SIMS_war_exploded/insert";
                 var Menu = Ajax(url, data);
                 if (Menu.code==1) {

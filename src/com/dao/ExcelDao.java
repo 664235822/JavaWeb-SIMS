@@ -1,11 +1,10 @@
 package com.dao;
 
 import com.entity.MyException;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
 import java.sql.ResultSet;
@@ -33,15 +32,15 @@ public class ExcelDao extends BaseDao {
         }
 
         InputStream in = new FileInputStream(filePath);
-        HSSFWorkbook workbook = new HSSFWorkbook(in);
+        Workbook workbook = WorkbookFactory.create(in);
 
         int sheetNum = workbook.getNumberOfSheets();
 
         for (int i = 0; i < sheetNum; i++) {
-            HSSFSheet sheet = workbook.getSheetAt(i);
+            Sheet sheet = workbook.getSheetAt(i);
             int rowNUm = sheet.getLastRowNum();
 
-            HSSFRow firstRow = sheet.getRow(0);
+            Row firstRow = sheet.getRow(0);
             int colNum = firstRow.getLastCellNum();
 
             StringBuffer columnNames = new StringBuffer();
@@ -52,10 +51,10 @@ public class ExcelDao extends BaseDao {
             columnNames.deleteCharAt(columnNames.length() - 1);
 
             for (int j = 1; j <= rowNUm; j++) {
-                HSSFRow currentRow = sheet.getRow(j);
+                Row currentRow = sheet.getRow(j);
                 StringBuffer values = new StringBuffer();
                 for (int col = 0; col < colNum; col++) {
-                    HSSFCell cell = currentRow.getCell(col);
+                    Cell cell = currentRow.getCell(col);
                     cell.setCellType(CellType.STRING);
                     values.append("'" + cell.getStringCellValue() + "'");
                     values.append(",");

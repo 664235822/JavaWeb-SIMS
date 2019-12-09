@@ -25,5 +25,7 @@
     <orderEntry type="library" name="poi-4.1.1" level="project" />
     <orderEntry type="library" name="commons-fileupload-1.2.2" level="project" />
     <orderEntry type="library" name="commons-io-2.4" level="project" />
+    <orderEntry type="library" name="poi-ooxml-4.1.1" level="project" />
+    <orderEntry type="library" name="commons-compress-1.19" level="project" />
   </component>
 </module>

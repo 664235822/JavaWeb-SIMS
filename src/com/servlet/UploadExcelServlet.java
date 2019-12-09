@@ -38,7 +38,7 @@ public class UploadExcelServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         ServletContext servletContext = config.getServletContext();
 
-        PATH_FOLDER = servletContext.getRealPath("/statics/upload");
+        PATH_FOLDER = servletContext.getRealPath("/static/upload");
         TEMP_FOLDER = servletContext.getRealPath("/uploadTemp");
     }
 

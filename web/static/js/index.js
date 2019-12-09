@@ -56,10 +56,10 @@ function Menu(Menu) {
 $(function () {
     var Contral=null;
     $(".menue-box #menu>li").click(function () {
-        if(Contral!=null){
+        var menuId=$(this).attr("id")+"_Submenu";
+        if(Contral!=null && Contral!=menuId){
             $("#"+Contral).toggle();
         }
-        var menuId=$(this).attr("id")+"_Submenu";
         Contral=menuId;
         $("#"+menuId).toggle();
     });

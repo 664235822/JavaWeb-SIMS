@@ -38,18 +38,41 @@ function TeacherInfo() {
             });
 
         });
+        $(function () {
+            $("#referto").click(function () {
+                var data={};
+                data.tCode=Serch("tCode");
+                data.tName=Serch("tName");
+                data.tSex=$("input[type='radio']:checked").val();
+                data.tAge=Serch("tAge");
+                var ID =Serch("tEducation");
+                data.tEducation= $("#Select1 option:eq(" + (parseInt(ID) - 1) + ")").text();
+                data.tGoodAt=Serch("tGoodAt");
+                data.tPone=Serch("tPone");
+                data.tQQ=Serch("tQQ");
+                data.tEmail=Serch("tEmail");
+                data.tAddress=Serch("tAddress");
+                data.tIntorduction=Serch("tIntorduction");
+                data.tPwd=Serch("tPwd");
 
-    //判断文件类型
-    function isPicFile(fileExt) {
-        var suppotFile = new Array();
-        // 存储格式类型
-        suppotFile[0] = "xlsx";
-        suppotFile[1] = "xls";
-        for (var i = 0; i < suppotFile.length; i++) {
-            if (suppotFile[i] == fileExt) {
-                return true;
-            }
+            })
+        });
+
+}
+//查看数据
+function Serch(id) {
+    return $(id).val();
+}
+//判断文件类型
+function isPicFile(fileExt) {
+    var suppotFile = new Array();
+    // 存储格式类型
+    suppotFile[0] = "xlsx";
+    suppotFile[1] = "xls";
+    for (var i = 0; i < suppotFile.length; i++) {
+        if (suppotFile[i] == fileExt) {
+            return true;
         }
-        return false;
     }
+    return false;
 }

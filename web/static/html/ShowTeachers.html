@@ -8,17 +8,38 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/table.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/laypage.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <title>ShowTeachers</title>
 </head>
 <style>
-    body{
+    body {
         min-height: 300px;
     }
+
     p {
         margin: 0px;
+    }
+
+    .layui-table th, td {
+        text-align: center;
+        font-weight: 400;
+    }
+
+    .layui-form-label {
+        width: 110px;
+        text-align: center;
+    }
+
+    .leaveTop {
+        margin-top: 19px;
+    }
+
+    .moveleft {
+        margin-top: 4px;
+        margin-left: 10px;
     }
 </style>
 <body onload="ShowTeachers()">
@@ -28,64 +49,244 @@
         <p class="text-left addtea pull-left">当前位置 > 首页 > 查看教师</p>
     </div>
 </nav>
-    <div class="container" >
-    <div id="LAY_preview">
-        MLlayui.code
-        <table class="layui-table">
+<div class="container">
+    <div class="layui-row leaveTop">
+        <div class="layui-col-md3">
+            <label class="layui-form-label">账号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required="" lay-verify="required" placeholder="请输入账号"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <label class="layui-form-label">姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required="" lay-verify="required" placeholder="请输入姓名"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-input-block moveleft">
+                <button type="button" class="layui-btn  layui-btn-sm layui-btn-normal">查询</button>
+            </div>
+        </div>
+    </div>
+    <div id="LAY_preview" style="margin-top: 10px">
+        <div class="layui-table-tool">
+            <div class="layui-table-tool-temp">
+                <div class="layui-inline" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>
+                <div class="layui-inline" title="导出" lay-event="LAYTABLE_EXPORT"><i
+                        class="layui-icon layui-icon-export"></i></div>
+            </div>
+        </div>
+        <table class="layui-table" style="margin-top: 0px" id="table">
             <colgroup>
+                <col width="50">
                 <col width="150">
                 <col width="200">
                 <col>
             </colgroup>
             <thead>
             <tr>
+                <th>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </th>
                 <th>账号</th>
                 <th>名字</th>
                 <th>年龄</th>
                 <th>性别</th>
                 <th>E-mail</th>
                 <th>练习电话</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>贤心</td>
-                <td>2016-11-29</td>
-                <td>人生就像是一场修行</td>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>张诗禹</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
             </tr>
             <tr>
-                <td>许闲心</td>
-                <td>2016-11-28</td>
-                <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                    </div>
+                </td>
+                <td>t123456</td>
+                <td>叶强</td>
+                <td>20</td>
+                <td>男</td>
+                <td>12346@qq.com</td>
+                <td>13245678999</td>
+                <td>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                </td>
             </tr>
             </tbody>
         </table>
+
+        <div id="test1"></div>
     </div>
-    </div>
+</div>
 <!--表格-->
 </body>
-<!--<script>-->
-<!--    layui.use('table', function () {-->
-<!--        var table = layui.table;-->
+<script>
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
 
-<!--        table.render({-->
-<!--            elem: '#test'-->
-<!--            , url: '/demo/table/user/'-->
-<!--            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增-->
-<!--            , cols: [[-->
-<!--                {field: 'id', width: 80, title: 'ID'}-->
-<!--                , {field: 'username', width: 80, title: '用户名'}-->
-<!--                , {field: 'sex', width: 80, title: '性别'}-->
-<!--                , {field: 'city', width: 80, title: '城市'}-->
-<!--                , {field: 'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增-->
-<!--                , {field: 'experience', title: '积分'}-->
-<!--                , {field: 'score', title: '评分'}-->
-<!--                , {field: 'classify', title: '职业'}-->
-<!--                , {field: 'wealth', width: 137, title: '财富'}-->
-<!--                , {field:'id', title:'ID', width:100}-->
-<!--                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器-->
-<!--            ]],page:true-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            , count: 50 //数据总数，从服务端得到
+            , page: true
+        });
+    });
+    // layui.use('table', function () {
+    //     var table = layui.table;
+    //
+    //     table.render({
+    //         elem: '#test'
+    //         , url: '/demo/table/user/'
+    //         , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+    //         , cols: [[
+    //             {field: 'id', width: 80, title: 'ID'}
+    //             , {field: 'username', width: 80, title: '用户名'}
+    //             , {field: 'sex', width: 80, title: '性别'}
+    //             , {field: 'city', width: 80, title: '城市'}
+    //             , {field: 'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+    //             , {field: 'experience', title: '积分'}
+    //             , {field: 'score', title: '评分'}
+    //             , {field: 'classify', title: '职业'}
+    //             , {field: 'wealth', width: 137, title: '财富'}
+    //             , {field:'id', title:'ID', width:100}
+    //             ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+    //         ]],page:true
+    //     });
+    // });
+</script>
 </html>

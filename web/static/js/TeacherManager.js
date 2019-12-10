@@ -114,35 +114,106 @@ function isPicFile(fileExt) {
         }
     }
     return false;
+
 }
 //查看教师列表
 function ShowTeachers() {
-    var url="/JavaWeb_SIMS_war_exploded/select";
-     var data={"tableName":"Teacher"};
-     var table=Ajax(url,data);
-    layui.use('table', function(){
-        var table = layui.table;
-
-        //第一个实例
-        table.render({
-            elem: '#test'
-            , url: ''
-            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            ,page:true
-            , cols: [[
-                {field: 'code', width: 80, title: '账号'}
-                , {field: '', width: 80, title: '姓名'}
-                , {field: 'sex', width: 80, title: '年龄'}
-                , {field: 'city', width: 80, title: '性别'}
-                , {field: 'sign', title: 'E-mail', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                , {field: 'experience', title: '联系人'}
-                , {field: 'score', title: '评分'}
-                , {field: 'classify', title: '职业'}
-                , {field: 'wealth', width: 137, title: '财富'}
-                ,{field:'id', title:'ID', width:100}
-                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-            ]]
+    var data = {"tableName": "Teacher", "code": "", "name": "","currentPage":1};
+    var table=getPage(data);
+    if (table.code == 1) {
+        TeachresTable(table.data.list);
+        layui.use('form', function () {
+            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+            form.render();
         });
+        Page("test1",table.data.pageCount,table.data.dataCount)
+        checkbox();
+    } else {
 
+    }
+}
+function getPage(data) {
+    var url = "/JavaWeb_SIMS_war_exploded/select";
+    var table = Ajax(url, data);
+    return table;
+}
+function checkbox() {
+    //全选
+    $(function () {
+        $("#allChoose").click(function () {
+            if($("#allChoose>input").is(':checked')){
+                $("input[name=checkbox]").prop("checked",true);
+            }else{
+                $("input[name=checkbox]").prop("checked",false);
+            }
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+            });
+        });
     });
+    //删除
+    $("table").find("button[name=delete]").click(function() {
+        $(this).parent().parent().prev().remove(); //删除前一<tr>
+        $(this).parent().parent().remove(); //删除当前<tr>
+    });
+
+}
+function Page(id,limit,count) {
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            , count:count //数据总数，从服务端得到
+            , limit:10
+            ,layout:['prev', 'page', 'next','skip']
+            ,jump: function(obj, first){
+            //首次不执行
+            if(!first){
+                var data = {"tableName": "Teacher", "code": "", "name": "","currentPage":obj.curr};
+                var table=getPage(data);
+                if (table.code == 1) {
+                    TeachresTable(table.data.list);
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                    });
+
+                }
+            }
+        }
+        });
+    });
+}
+function TeachresTable(data) {
+    var text = "";
+    text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
+    text += "<thead><tr>";
+    text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
+    text += "</div></th>"
+    text += "<th>账号</th><th>名字</th><th>年龄</th><th>性别</th><th>E-mail</th><th>练习电话</th><th>操作</th>";
+    text += "</tr></thead>";
+    text += "<tbody>";
+    for(var i=0;i<data.length;i++){
+        text += "<tr name=\'"+data[i].id+"\'>";
+        text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
+        text += "</div></td>"
+        text += "<td>"+data[i].code+"</td>";
+        text += "<td>"+data[i].name+"</td>";
+        text += "<td>"+data[i].age+"</td>";
+        text += "<td>"+data[i].sex+"</td>";
+        text += "<td>"+data[i].email+"</td>";
+        text += "<td>"+data[i].phone+"</td>";
+        text += "<td>";
+        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\">修改</button>";
+        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\">查看</button>";
+        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
+        text += "</td>";
+        text += "</tr>";
+    }
+    text += "</tbody>";
+    $("#table").html(text);
+
 }

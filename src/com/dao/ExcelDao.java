@@ -3,9 +3,6 @@ package com.dao;
 import com.entity.MyException;
 import com.entity.StudentBean;
 import com.entity.TeacherBean;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
@@ -35,6 +32,8 @@ public class ExcelDao extends BaseDao {
 
         InputStream in = new FileInputStream(filePath);
         Workbook workbook = WorkbookFactory.create(in);
+
+        in.close();
 
         int sheetNum = workbook.getNumberOfSheets();
 
@@ -106,29 +105,33 @@ public class ExcelDao extends BaseDao {
         String sql = "select * from " + tableName;
         ResultSet rs = querySelect(sql);
 
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet(tableName);
+        InputStream in = new FileInputStream(filePath);
+        Workbook workbook = WorkbookFactory.create(in);
 
-        ResultSetMetaData metadata = rs.getMetaData();
-        HSSFRow firstRow = sheet.createRow(0);
-        int colNum = metadata.getColumnCount();
-        for (int i = 0; i < colNum; i++) {
-            firstRow.createCell(i, CellType.STRING).setCellValue(metadata.getColumnName(i));
-        }
+        in.close();
 
-        int rowNum = 0;
-        while (rs.next()) {
-            rowNum++;
-            HSSFRow currentRow = sheet.createRow(rowNum);
-            for (int i = 0; i < colNum; i++) {
-                currentRow.createCell(i, CellType.STRING).setCellValue(rs.getObject(i).toString());
+        ResultSetMetaData metaData = rs.getMetaData();
+        int colNum = metaData.getColumnCount();
+
+        int sheetNum = workbook.getNumberOfSheets();
+
+        for (int i = 0; i < sheetNum; i++) {
+            Sheet sheet = workbook.getSheetAt(i);
+            int rowNum = 0;
+            while (rs.next()) {
+                rowNum++;
+                Row currentRow = sheet.createRow(rowNum);
+                for (int j = 0; j < colNum; j++) {
+                    currentRow.createCell(j, CellType.STRING).setCellValue(rs.getObject(j).toString());
+                }
             }
         }
 
         File file = new File(filePath);
-        FileOutputStream stream = new FileOutputStream(file);
-        workbook.write(stream);
+        OutputStream out = new FileOutputStream(file);
+        workbook.write(out);
 
+        out.close();
         destroy(rs);
     }
 }

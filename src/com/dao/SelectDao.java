@@ -64,7 +64,23 @@ public class SelectDao extends BaseDao {
 
         table.setList(list);
 
-        getCount("Teacher", table);
+        sql = "select count(*) as count from Teacher where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and tCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and tName like '%" + name + "%' ";
+        }
+        sql += ";";
+        rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        table.setDataCount(dataCount);
+        table.setPageCount(pageCount);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -87,7 +103,7 @@ public class SelectDao extends BaseDao {
             sql += "and stuCode like '%" + code + "%' ";
         }
         if (!name.isEmpty()) {
-            sql += "and stuName like '%" + name + "' ";
+            sql += "and stuName like '%" + name + "%' ";
         }
         sql += "limit " + (currentPage - 1) * 10 + ",10;";
         ResultSet rs = querySelect(sql);
@@ -112,24 +128,15 @@ public class SelectDao extends BaseDao {
             list.add(student);
         }
 
-        getCount("Student", table);
-
-        result.setCode(BaseBean.SUCCESS);
-        result.setData(table);
-        destroy(rs);
-
-        return result;
-    }
-
-    /*
-     * 获取表格总页数和总条数
-     * @param tableName 数据库表名
-     * @param table 表格实体类
-     * @throws SQLException
-     */
-    void getCount(String tableName, TableBean table) throws SQLException {
-        String sql = "select count(*) as count from " + tableName + ";";
-        ResultSet rs = querySelect(sql);
+        sql = "select count(*) as count from Student where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and stuCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and stuName like '%" + name + "%' ";
+        }
+        sql += ";";
+        rs = querySelect(sql);
         int dataCount = 0;
         int pageCount = 0;
         if (rs.next()) {
@@ -139,6 +146,10 @@ public class SelectDao extends BaseDao {
         table.setDataCount(dataCount);
         table.setPageCount(pageCount);
 
-        rs.close();
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        destroy(rs);
+
+        return result;
     }
 }

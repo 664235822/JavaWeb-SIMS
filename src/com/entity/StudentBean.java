@@ -8,6 +8,8 @@ public class StudentBean {
     //学生信息头部
     public static String[] studentInfo = {"stuCode", "stuName", "stuAge", "stuSex", "stuQQ", "stuPhone", "stuAddress", "classId"};
 
+    //学生id
+    private int id;
     //学生账号
     private String code;
     //学生姓名
@@ -24,6 +26,14 @@ public class StudentBean {
     private String address;
     //学生班级
     private int classId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;

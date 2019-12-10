@@ -43,6 +43,7 @@ public class SelectDao extends BaseDao {
         while (rs.next()) {
             TeacherBean teacher = new TeacherBean();
 
+            teacher.setId(rs.getInt("id"));
             teacher.setCode(rs.getString("tCode"));
             teacher.setName(rs.getString("tName"));
             teacher.setSex(rs.getString("tSex"));
@@ -89,6 +90,7 @@ public class SelectDao extends BaseDao {
         while (rs.next()) {
             StudentBean student = new StudentBean();
 
+            student.setId(rs.getInt("id"));
             student.setCode(rs.getString("stuCode"));
             student.setName(rs.getString("stuName"));
             student.setAge(rs.getInt("stuAge"));

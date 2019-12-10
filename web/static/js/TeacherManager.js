@@ -175,11 +175,55 @@ function TeacherFunction() {
             title: '提示',
             fixed: false,
         }, function(index) {
-
+            var data={}
+            var arrayId=new Array();
+            arrayId[0]=id;
+            data.tableName='Teacher';
+            data.idList=JSON.stringify(arrayId);
+            var url = "/JavaWeb_SIMS_war_exploded/delete";
+            var Delete = Ajax(url, data);
+            DeleteEnd(Delete);
             layer.close(index);
         });
     });
+    //批量删除
+    $("#LAY_preview [lay-event=delete]").click(function() {
+        var arrayId=new Array();
+        var num=0;
+        $("input[name=checkbox]:checked").each(function() {
+            arrayId[num]=$(this).parent().parent().parent().attr('name');
+            num++;
+        });
+        layer.confirm('确认删除', {
+            icon: 7,
+            title: '提示',
+            fixed: false,
+        }, function(index) {
+            var data={}
+            data.tableName='Teacher';
+            data.idList=JSON.stringify(arrayId);
+            var url = "/JavaWeb_SIMS_war_exploded/delete";
+            var Delete = Ajax(url, data);
+            DeleteEnd(Delete);
+            layer.close(index);
+        });
+    });
+}
+function DeleteEnd(Delete) {
+    if(Delete.code){
+        layer.msg(Delete.data, {
+            offset: '15px'
+            , icon: 1
+            , time: 1000
+        });
+    }else {
+        layer.msg(Delete.data, {
+            icon: 5
+            ,anim: 6
+            , time: 1000
+        });
 
+    }
 }
 function Page(id,limit,count) {
     layui.use('laypage', function () {

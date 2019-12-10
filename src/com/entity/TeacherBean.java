@@ -8,8 +8,6 @@ public class TeacherBean {
     //教师信息头部
     public static String[] teacherInfo = {"tCode", "tName", "tSex", "tAge", "tEducation", "tGoodAt", "tPhone", "tQQ", "tEmail", "tAddress", "tIntroduction"};
 
-    //教师id
-    private int id;
     //教师账号
     private String code;
     //教师姓名
@@ -32,14 +30,6 @@ public class TeacherBean {
     private String address;
     //教师信息
     private String introduction;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;

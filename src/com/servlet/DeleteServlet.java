@@ -35,11 +35,11 @@ public class DeleteServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
 
             String tableName = req.getParameter("tableName");
-            String idListStr = req.getParameter("idList");
+            String codeListStr = req.getParameter("codeList");
 
-            List<Integer> idList = JSON.parseObject(idListStr, List.class);
+            List<Integer> codeList = JSON.parseObject(codeListStr, List.class);
 
-            deleteService.delete(tableName, idList);
+            deleteService.delete(tableName, codeList);
 
             obj.setCode(BaseBean.SUCCESS);
             obj.setData("删除信息成功");

@@ -15,14 +15,34 @@ public class DeleteDao extends BaseDao {
     }
 
     /*
-     * 删除信息
+     * 删除教师信息
      * @param 数据库表名
-     * @param 要删除行的id字段列表
+     * @param 要删除行的账号字段列表
      * @throws SQLException, MyException
      */
-    public void delete(String tableName, List<Integer> idList) throws SQLException, MyException {
-        for (int i = 0; i < idList.size(); i++) {
-            String sql = "delete from " + tableName + " where id='" + idList.get(i) + "';";
+    public void deleteTeacher(List<Integer> codeList) throws SQLException, MyException {
+        for (int i = 0; i < codeList.size(); i++) {
+            String sql = "delete from Teacher where tCode='" + codeList.get(i) + "';";
+            queryUpdate(sql);
+
+            sql = "delete from Login where code='" + codeList.get(i) + "';";
+            queryUpdate(sql);
+        }
+
+        destroy(null);
+    }
+
+    /*
+     * 删除学生信息
+     * @param 要删除行的账号字段列表
+     * @throws SQLException, MyException
+     */
+    public void deleteStudent(List<Integer> codeList) throws SQLException, MyException {
+        for (int i = 0; i < codeList.size(); i++) {
+            String sql = "delete from Student where stuCode='" + codeList.get(i) + "';";
+            queryUpdate(sql);
+
+            sql = "delete from Login where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
         }
 

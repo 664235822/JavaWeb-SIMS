@@ -16,12 +16,20 @@ public class DeleteService {
     /*
      * 删除信息
      * @param 数据库表名
-     * @param 要删除行的id字段列表
+     * @param 要删除行的账号字段列表
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
      */
-    public void delete(String tableName, List<Integer> idList) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
-        deleteDao =new DeleteDao();
+    public void delete(String tableName, List<Integer> codeList) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+        deleteDao = new DeleteDao();
 
-        deleteDao.delete(tableName, idList);
+        switch (tableName) {
+            case "Teacher":
+                deleteDao.deleteTeacher(codeList);
+                break;
+            case "Student":
+                deleteDao.deleteStudent(codeList);
+                break;
+        }
+
     }
 }

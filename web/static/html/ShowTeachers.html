@@ -9,6 +9,8 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/table.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/laypage.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <title>ShowTeachers</title>
 </head>
 <style>
@@ -19,7 +21,7 @@
         margin: 0px;
     }
 </style>
-<body>
+<body onload="ShowTeachers()">
 <!--当前位置-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -28,31 +30,62 @@
 </nav>
     <div class="container" >
     <div id="LAY_preview">
-        <table class="layui-hide" id="test"></table>
+        MLlayui.code
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>账号</th>
+                <th>名字</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>E-mail</th>
+                <th>练习电话</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>贤心</td>
+                <td>2016-11-29</td>
+                <td>人生就像是一场修行</td>
+            </tr>
+            <tr>
+                <td>许闲心</td>
+                <td>2016-11-28</td>
+                <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     </div>
 <!--表格-->
 </body>
-<script>
-    layui.use('table', function () {
-        var table = layui.table;
+<!--<script>-->
+<!--    layui.use('table', function () {-->
+<!--        var table = layui.table;-->
 
-        table.render({
-            elem: '#test'
-            , url: '/demo/table/user/'
-            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            , cols: [[
-                {field: 'id', width: 80, title: 'ID'}
-                , {field: 'username', width: 80, title: '用户名'}
-                , {field: 'sex', width: 80, title: '性别'}
-                , {field: 'city', width: 80, title: '城市'}
-                , {field: 'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                , {field: 'experience', title: '积分'}
-                , {field: 'score', title: '评分'}
-                , {field: 'classify', title: '职业'}
-                , {field: 'wealth', width: 137, title: '财富'}
-            ]],page:true
-        });
-    });
-</script>
+<!--        table.render({-->
+<!--            elem: '#test'-->
+<!--            , url: '/demo/table/user/'-->
+<!--            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增-->
+<!--            , cols: [[-->
+<!--                {field: 'id', width: 80, title: 'ID'}-->
+<!--                , {field: 'username', width: 80, title: '用户名'}-->
+<!--                , {field: 'sex', width: 80, title: '性别'}-->
+<!--                , {field: 'city', width: 80, title: '城市'}-->
+<!--                , {field: 'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增-->
+<!--                , {field: 'experience', title: '积分'}-->
+<!--                , {field: 'score', title: '评分'}-->
+<!--                , {field: 'classify', title: '职业'}-->
+<!--                , {field: 'wealth', width: 137, title: '财富'}-->
+<!--                , {field:'id', title:'ID', width:100}-->
+<!--                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器-->
+<!--            ]],page:true-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 </html>

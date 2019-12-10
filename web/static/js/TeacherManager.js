@@ -1,3 +1,4 @@
+//添加教师
 function TeacherInfo() {
         $(function() {
             $("#test1").click(function() {
@@ -113,4 +114,35 @@ function isPicFile(fileExt) {
         }
     }
     return false;
+}
+//查看教师列表
+function ShowTeachers() {
+    var url="/JavaWeb_SIMS_war_exploded/select";
+     var data={"tableName":"Teacher"};
+     var table=Ajax(url,data);
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#test'
+            , url: ''
+            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,page:true
+            , cols: [[
+                {field: 'code', width: 80, title: '账号'}
+                , {field: '', width: 80, title: '姓名'}
+                , {field: 'sex', width: 80, title: '年龄'}
+                , {field: 'city', width: 80, title: '性别'}
+                , {field: 'sign', title: 'E-mail', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , {field: 'experience', title: '联系人'}
+                , {field: 'score', title: '评分'}
+                , {field: 'classify', title: '职业'}
+                , {field: 'wealth', width: 137, title: '财富'}
+                ,{field:'id', title:'ID', width:100}
+                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+            ]]
+        });
+
+    });
 }

@@ -1,7 +1,7 @@
 $(function () {
     //判断菜单权级
-    if(localStorage.jzzh!=null){
-        var json2 = localStorage.jzzh;
+    if(localStorage.Login!=null){
+        var json2 = localStorage.Login;
         var obj = JSON.parse(json2);
         // var str="<a class="bgclo" style="color: rgb(191, 197, 203);">";
         // str+="<span class=\"glyphicon glyphicon-user\"></span>";
@@ -22,6 +22,8 @@ $(function () {
             CharacterMenu = "StudentMenu";
             break;
     }
+    var name="<span class=\"glyphicon glyphicon-user\"></span>"+obj.name;
+    $(".nav li:first-of-type a").html(name);
     var str = {"character":CharacterMenu};
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);

@@ -48,13 +48,15 @@ $(function () {
             var url = "/JavaWeb_SIMS_war_exploded/login";
             var Menu = Ajax(url, str);
             if (Menu.code==1) {
-                CheckSave(username,password,state);
+
+                CheckSave(username,password,state,Menu.data.username);
                 //登入成功的提示与跳转
                 layer.msg(Menu.data.message, {
                     offset: '15px'
                     , icon: 1
                     , time: 1000
                 }, function () {
+                    $("#LAY-user-login-vercode").val("");
                     location.href = "/JavaWeb_SIMS_war_exploded/"
                 });
             }else{

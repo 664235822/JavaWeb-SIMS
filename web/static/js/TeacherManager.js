@@ -194,7 +194,9 @@ function Page(id,limit,count) {
             ,jump: function(obj, first){
             //首次不执行
             if(!first){
-                var data = {"tableName": "Teacher", "code": "", "name": "","currentPage":obj.curr};
+                var code=$("#code").val();
+                var name=$("#name").val();
+                var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":obj.curr};
                 var table=getPage(data);
                 if (table.code == 1) {
                     TeachresTable(table.data.list);

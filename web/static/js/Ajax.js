@@ -34,18 +34,19 @@ function ajaxFileUpload(url,fileToUpload,data) {
 }
 
 //记住密码
-function CheckSave(username,password,state){
+function CheckSave(username,password,state,name){
     var json1 = {};
     json1.stateId=state;
+    json1.name=name;
     if($("input[type=checkbox]").prop("checked")){
         json1.accout =username;
         json1.pass = password;
         var str1 = JSON.stringify(json1);
-        localStorage.jzzh = str1;
+        localStorage.Login= str1;
     }else{
         json1.accout = "";
         json1.pass = "";
         var str1 = JSON.stringify(json1);
-        localStorage.jzzh = str1;
+        localStorage.Login = str1;
     }
 }

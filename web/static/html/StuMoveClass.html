@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StuMoveClass.js"></script>
+    <title>学生转班</title>
+</head>
+<body>
+
+<!--          当前位置导航-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 学生转班</p>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <!--            表格-->
+        <div class="demoTable" style="margin-top: 20px">
+            搜索学生编号：
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+
+        <!--           主体-->
+        <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+        <!--        编辑按键-->
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">转移班级</a>
+        </script>
+        </div>
+
+        <!--       一键操作-->
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">一键转班</button>
+    </div>
+
+        <!--         居中弹出层-->
+        <div class="layui-layer layui-layer-page " id="layui-layer10" type="page" times="10" showtime="0" contype="string"
+             style="z-index: 19891024; top: 210.5px; left: 413px;">
+            <div class="layui-layer-title" style="background: #009688;color: #ffffff">将选此操作</div>
+
+            <div id="layerDemoauto" class="layui-layer-content">
+                <div class="ab">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">转移到：</label>
+                        <div class="layui-input-inline ine">
+                            <select name="quiz1">
+                                <option value="" selected="">请选择年级</option>
+                                <option value="浙江" >2018</option>
+                                <option value="你的工号">2019</option>
+                                <option value="你最喜欢的老师">2020</option>
+                            </select>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;级</span>
+                        </div>
+                        <div class="layui-input-inline ine">
+                            <select name="quiz2">
+                                <option value="" disabled="">请选择班级</option>
+                                <option value="杭州">1</option>
+                                <option value="宁波" >2</option>
+                                <option value="温州">3</option>
+                                <option value="温州">4</option>
+                                <option value="温州">5</option>
+                            </select>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;班</span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <span class="layui-layer-setwin">
+                <a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a>
+            </span>
+        </div>
+</div>
+</body>
+</html>

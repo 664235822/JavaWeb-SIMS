@@ -2,6 +2,7 @@ package com.dao;
 
 import com.entity.BaseBean;
 import com.entity.StudentBean;
+import com.entity.TableBean;
 import com.entity.TeacherBean;
 
 import java.sql.ResultSet;
@@ -22,10 +23,11 @@ public class SelectDao extends BaseDao {
      * 查询教师信息表
      * @param code 查询账号
      * @param name 查询用户名
+     * @param currentPage 当前页号
      * @return BaseBean 返回教师信息
      * @throws SQLException
      */
-    public BaseBean selectTeacher(String code, String name) throws SQLException {
+    public BaseBean selectTeacher(String code, String name, int currentPage) throws SQLException {
         String sql = "select * from Teacher where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and tCode like '%" + code + "%' ";
@@ -33,11 +35,12 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and tName like '%" + name + "%' ";
         }
-        sql += ";";
+        sql += "limit " + (currentPage - 1) * 10 + ",10;";
 
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
         List<TeacherBean> list = new ArrayList<>();
 
         while (rs.next()) {
@@ -59,8 +62,12 @@ public class SelectDao extends BaseDao {
             list.add(teacher);
         }
 
+        table.setList(list);
+
+        getCount("Teacher", table);
+
         result.setCode(BaseBean.SUCCESS);
-        result.setData(list);
+        result.setData(table);
         destroy(rs);
 
         return result;
@@ -70,10 +77,11 @@ public class SelectDao extends BaseDao {
      * 查看学生信息表
      * @param code 查询账号
      * @param name 查询用户名
+     * @param current
      * @return BaseBean 返回学生信息
      * @throws SQLException
      */
-    public BaseBean selectStudent(String code, String name) throws SQLException {
+    public BaseBean selectStudent(String code, String name, int currentPage) throws SQLException {
         String sql = "select * from Student where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and stuCode like '%" + code + "%' ";
@@ -81,10 +89,11 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and stuName like '%" + name + "' ";
         }
-        sql += ";";
+        sql += "limit " + (currentPage - 1) * 10 + ",10;";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
         List<StudentBean> list = new ArrayList<>();
 
         while (rs.next()) {
@@ -103,10 +112,33 @@ public class SelectDao extends BaseDao {
             list.add(student);
         }
 
+        getCount("Student", table);
+
         result.setCode(BaseBean.SUCCESS);
-        result.setData(list);
+        result.setData(table);
         destroy(rs);
 
         return result;
+    }
+
+    /*
+     * 获取表格总页数和总条数
+     * @param tableName 数据库表名
+     * @param table 表格实体类
+     * @throws SQLException
+     */
+    void getCount(String tableName, TableBean table) throws SQLException {
+        String sql = "select count(*) as count from " + tableName + ";";
+        ResultSet rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        table.setDataCount(dataCount);
+        table.setPageCount(pageCount);
+
+        rs.close();
     }
 }

@@ -126,10 +126,8 @@ function ShowTeachers() {
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
             form.render();
         });
-        Page("test1",table.data.pageCount,table.data.dataCount)
-        checkbox();
-    } else {
-
+        Page("test1",table.data.pageCount,table.data.dataCount);
+        TeacherFunction();
     }
 }
 function getPage(data) {
@@ -137,9 +135,26 @@ function getPage(data) {
     var table = Ajax(url, data);
     return table;
 }
-function checkbox() {
-    //全选
+function TeacherFunction() {
     $(function () {
+        //查询
+        $("#Select").click(function () {
+            var code=$("#code").val();
+            var name=$("#name").val();
+            var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":1};
+            var table=getPage(data);
+            if (table.code == 1) {
+                TeachresTable(table.data.list);
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                });
+                Page("test1",table.data.pageCount,table.data.dataCount);
+                TeacherFunction();
+            }
+        });
+
+        //全选
         $("#allChoose").click(function () {
             if($("#allChoose>input").is(':checked')){
                 $("input[name=checkbox]").prop("checked",true);
@@ -153,9 +168,16 @@ function checkbox() {
         });
     });
     //删除
-    $("table").find("button[name=delete]").click(function() {
-        $(this).parent().parent().prev().remove(); //删除前一<tr>
-        $(this).parent().parent().remove(); //删除当前<tr>
+    $("table tbody").find("button[name=delete]").click(function() {
+        var id=$(this).parent().parent().attr('name');
+        layer.confirm('确认删除', {
+            icon: 7,
+            title: '提示',
+            fixed: false,
+        }, function(index) {
+
+            layer.close(index);
+        });
     });
 
 }
@@ -180,7 +202,7 @@ function Page(id,limit,count) {
                         var form = layui.form;
                         form.render();
                     });
-
+                    TeacherFunction();
                 }
             }
         }

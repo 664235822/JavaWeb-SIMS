@@ -67,7 +67,7 @@
         </div>
         <div class="layui-col-md6">
             <div class="layui-input-block moveleft">
-                <button type="button" class="layui-btn  layui-btn-sm layui-btn-normal">查询</button>
+                <button type="button" id="Select" class="layui-btn  layui-btn-sm layui-btn-normal">查询</button>
             </div>
         </div>
     </div>
@@ -117,7 +117,7 @@
                 <td>13245678999</td>
                 <td>
                     <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
-                    <button type="button" class="layui-btn  layui-btn-sm">查看</button>
+                    <button type="button" id="ooo" class="layui-btn  layui-btn-sm">查看</button>
                     <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
                 </td>
             </tr>
@@ -142,7 +142,7 @@
             <tr>
                 <td>
                     <div class="layui-form">
-                        <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        <input type="checkbox" name="" title="" lay-skin="primary">
                     </div>
                 </td>
                 <td>t123456</td>
@@ -255,38 +255,4 @@
 </div>
 <!--表格-->
 </body>
-<script>
-    layui.use('laypage', function () {
-        var laypage = layui.laypage;
-
-        //执行一个laypage实例
-        laypage.render({
-            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-            , count: 50 //数据总数，从服务端得到
-            , page: true
-        });
-    });
-    // layui.use('table', function () {
-    //     var table = layui.table;
-    //
-    //     table.render({
-    //         elem: '#test'
-    //         , url: '/demo/table/user/'
-    //         , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-    //         , cols: [[
-    //             {field: 'id', width: 80, title: 'ID'}
-    //             , {field: 'username', width: 80, title: '用户名'}
-    //             , {field: 'sex', width: 80, title: '性别'}
-    //             , {field: 'city', width: 80, title: '城市'}
-    //             , {field: 'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-    //             , {field: 'experience', title: '积分'}
-    //             , {field: 'score', title: '评分'}
-    //             , {field: 'classify', title: '职业'}
-    //             , {field: 'wealth', width: 137, title: '财富'}
-    //             , {field:'id', title:'ID', width:100}
-    //             ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-    //         ]],page:true
-    //     });
-    // });
-</script>
 </html>

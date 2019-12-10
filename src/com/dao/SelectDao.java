@@ -20,11 +20,21 @@ public class SelectDao extends BaseDao {
 
     /*
      * 查询教师信息表
+     * @param code 查询账号
+     * @param name 查询用户名
      * @return BaseBean 返回教师信息
      * @throws SQLException
      */
-    public BaseBean selectTeacher() throws SQLException {
-        String sql = "select * from Teacher";
+    public BaseBean selectTeacher(String code, String name) throws SQLException {
+        String sql = "select * from Teacher where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and tCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and tName like '%" + name + "%' ";
+        }
+        sql += ";";
+
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
@@ -57,11 +67,20 @@ public class SelectDao extends BaseDao {
 
     /*
      * 查看学生信息表
+     * @param code 查询账号
+     * @param name 查询用户名
      * @return BaseBean 返回学生信息
      * @throws SQLException
      */
-    public BaseBean selectStudent() throws SQLException {
-        String sql = "select * from Student";
+    public BaseBean selectStudent(String code, String name) throws SQLException {
+        String sql = "select * from Student where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and stuCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and stuName like '%" + name + "' ";
+        }
+        sql += ";";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();

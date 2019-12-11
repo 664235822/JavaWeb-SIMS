@@ -36,4 +36,15 @@ public class SelectService {
 
         return result;
     }
+
+    /*
+     * 获取班级信息
+     * @return BaseBean 返回班级信息
+     * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
+     */
+    public BaseBean selectClassInfo() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        selectDao = new SelectDao();
+
+        return selectDao.selectClassInfo();
+    }
 }

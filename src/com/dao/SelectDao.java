@@ -1,9 +1,6 @@
 package com.dao;
 
-import com.entity.BaseBean;
-import com.entity.StudentBean;
-import com.entity.TableBean;
-import com.entity.TeacherBean;
+import com.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -157,6 +154,53 @@ public class SelectDao extends BaseDao {
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
         result.setMessage("查看学生信息成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
+     * 获取班级信息
+     * @return BaseBean 返回班级信息
+     * @throws SQLException
+     */
+    public BaseBean selectClassInfo() throws SQLException {
+        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl";
+        sql += "inner join Grade gr on cl.gradeId=gr.id;";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        List<GradeBean> list = new ArrayList<>();
+
+        int gradeId = 0;
+        while (rs.next()) ;
+        {
+            if (rs.getInt("gradeId") != gradeId) {
+                gradeId = rs.getInt(rs.getInt("gradeId"));
+
+                GradeBean grade = new GradeBean();
+                grade.setId(rs.getInt("gradeId"));
+                grade.setGradeCode(rs.getString("gradeCode"));
+                grade.setGradeName(rs.getString("gradeName"));
+                grade.setClasses(new ArrayList<>());
+                list.add(grade);
+            }
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getId() == gradeId) {
+                    ClassBean _class = new ClassBean();
+                    _class.setId(rs.getInt("classId"));
+                    _class.setClassCode(rs.getString("classCode"));
+                    _class.setClassName(rs.getString("className"));
+                    list.get(i).getClasses().add(_class);
+                    break;
+                }
+            }
+        }
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(list);
+        result.setMessage("获取班级信息成功");
         destroy(rs);
 
         return result;

@@ -165,7 +165,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectClassInfo() throws SQLException {
-        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl";
+        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl ";
         sql += "inner join Grade gr on cl.gradeId=gr.id;";
         ResultSet rs = querySelect(sql);
 

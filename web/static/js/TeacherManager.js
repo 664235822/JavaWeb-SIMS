@@ -83,13 +83,13 @@ function UpTeacher() {
             var Menu = Ajax(url, data);
             if (Menu.code==1) {
                 //成功的
-                layer.msg(Menu.data.message, {
+                layer.msg(Menu.message, {
                     offset: '15px'
                     , icon: 1
                     , time: 1000
                 });
             }else{
-                layer.msg(Menu.data, {
+                layer.msg(Menu.message, {
                     icon: 5
                     ,anim: 6
                     , time: 1000
@@ -223,13 +223,13 @@ function DeleteEnd(Delete) {
         });
         Page("test1",table.data.pageCount,table.data.dataCount);
         TeacherFunction();
-        layer.msg(Delete.data, {
+        layer.msg(Delete.message, {
             offset: '15px'
             , icon: 1
             , time: 1000
         });
     }else {
-        layer.msg(Delete.data, {
+        layer.msg(Delete.message, {
             icon: 5
             ,anim: 6
             , time: 1000

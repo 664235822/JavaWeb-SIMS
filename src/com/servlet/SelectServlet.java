@@ -41,7 +41,7 @@ public class SelectServlet extends HttpServlet {
             obj = selectService.selectTable(tableName, code, name, currentPage);
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
-            obj.setData(e.getMessage());
+            obj.setMessage(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);
             PrintWriter writer = resp.getWriter();

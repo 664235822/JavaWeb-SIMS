@@ -40,10 +40,10 @@ public class InsertServlet extends HttpServlet {
             insertService.Insert(tableName, info, pwd);
 
             obj.setCode(BaseBean.SUCCESS);
-            obj.setData("添加信息成功");
+            obj.setMessage("添加信息成功");
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
-            obj.setData(e.getMessage());
+            obj.setMessage(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);
             PrintWriter writer = resp.getWriter();

@@ -33,7 +33,6 @@ public class LoginDao extends BaseDao {
         if (rs.next()) {
             result.setCode(BaseBean.SUCCESS);
             LoginBean loginInfo = new LoginBean();
-            loginInfo.setMessage("登录成功");
 
             switch (rs.getInt("stateId")) {
                 case 1:
@@ -57,7 +56,9 @@ public class LoginDao extends BaseDao {
                     break;
             }
 
+            result.setCode(BaseBean.SUCCESS);
             result.setData(loginInfo);
+            result.setMessage("登录成功");
         } else {
             throw new MyException("登录失败，用户名和密码错误");
         }

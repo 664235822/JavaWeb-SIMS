@@ -7,6 +7,7 @@ import com.entity.MenuParentBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * 获取主界面菜单类
@@ -28,8 +29,8 @@ public class MenuDao extends BaseDao {
 
         ResultSet rs = querySelect(sql);
         BaseBean result = new BaseBean();
-        result.setCode(BaseBean.SUCCESS);
-        result.setData(new ArrayList<MenuParentBean>());
+
+        List<MenuParentBean> list = new ArrayList<>();
 
         while (rs.next()) {
             if (rs.getInt("parent") == 0) {
@@ -37,22 +38,25 @@ public class MenuDao extends BaseDao {
                 parent.setMenuId(rs.getInt("menuId"));
                 parent.setMenuName(rs.getString("menuName"));
                 parent.setItems(new ArrayList<MenuItemBean>());
-                ((ArrayList<MenuParentBean>) result.getData()).add(parent);
+                list.add(parent);
             } else {
                 MenuItemBean item = new MenuItemBean();
                 item.setMenuId(rs.getInt("menuId"));
                 item.setMenuName(rs.getString("menuName"));
                 item.setUrl(rs.getString("url"));
 
-                for (int i = 0; i < ((ArrayList<MenuParentBean>) result.getData()).size(); i++) {
-                    if (((ArrayList<MenuParentBean>) result.getData()).get(i).getMenuId() == rs.getInt("parent")) {
-                        ((ArrayList<MenuParentBean>) result.getData()).get(i).getItems().add(item);
+                for (int i = 0; i < (list).size(); i++) {
+                    if (list.get(i).getMenuId() == rs.getInt("parent")) {
+                        list.get(i).getItems().add(item);
                         break;
                     }
                 }
             }
         }
 
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(list);
+        result.setMessage("查看菜单成功");
         destroy(rs);
 
         return result;

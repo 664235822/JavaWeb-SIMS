@@ -12,6 +12,8 @@ public class BaseBean {
     private int code;
     //返回数据
     private Object data;
+    //返回信息
+    private String message;
 
     public int getCode() {
         return code;
@@ -27,5 +29,13 @@ public class BaseBean {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

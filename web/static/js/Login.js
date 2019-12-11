@@ -51,7 +51,7 @@ $(function () {
 
                 CheckSave(username,password,state,Menu.data.username);
                 //登入成功的提示与跳转
-                layer.msg(Menu.data.message, {
+                layer.msg(Menu.message, {
                     offset: '15px'
                     , icon: 1
                     , time: 1000
@@ -60,7 +60,7 @@ $(function () {
                     location.href = "/JavaWeb_SIMS_war_exploded/"
                 });
             }else{
-                layer.msg(Menu.data, {
+                layer.msg(Menu.message, {
                     icon: 5
                     ,anim: 6
                     , time: 1000

@@ -83,6 +83,7 @@ public class SelectDao extends BaseDao {
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
+        result.setMessage("查看教师信息成功");
         destroy(rs);
 
         return result;
@@ -113,7 +114,7 @@ public class SelectDao extends BaseDao {
 
         while (rs.next()) {
             StudentBean student = new StudentBean();
-            
+
             student.setCode(rs.getString("stuCode"));
             student.setName(rs.getString("stuName"));
             student.setAge(rs.getInt("stuAge"));
@@ -146,6 +147,7 @@ public class SelectDao extends BaseDao {
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
+        result.setMessage("查看学生信息成功");
         destroy(rs);
 
         return result;

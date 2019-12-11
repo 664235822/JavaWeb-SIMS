@@ -84,10 +84,10 @@ public class UploadExcelServlet extends HttpServlet {
             excelService.importFromExcelToMysql(importfile.getPath(), tableName);
 
             obj.setCode(BaseBean.SUCCESS);
-            obj.setData("操作成功");
+            obj.setMessage("操作成功");
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
-            obj.setData(e.getMessage());
+            obj.setMessage(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);
             PrintWriter writer = resp.getWriter();

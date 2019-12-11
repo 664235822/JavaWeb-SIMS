@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
             obj = loginService.login(code, pwd, stateId);
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
-            obj.setData(e.getMessage());
+            obj.setMessage(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);
             PrintWriter writer = resp.getWriter();

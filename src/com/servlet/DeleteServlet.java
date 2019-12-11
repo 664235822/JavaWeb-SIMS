@@ -42,10 +42,10 @@ public class DeleteServlet extends HttpServlet {
             deleteService.delete(tableName, codeList);
 
             obj.setCode(BaseBean.SUCCESS);
-            obj.setData("删除信息成功");
+            obj.setMessage("删除信息成功");
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
-            obj.setData(e.getMessage());
+            obj.setMessage(e.getMessage());
         } finally {
             String result = JSON.toJSONString(obj);
             PrintWriter writer = resp.getWriter();

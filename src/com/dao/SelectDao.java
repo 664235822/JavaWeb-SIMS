@@ -98,10 +98,10 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectStudent(String code, String name, int currentPage) throws SQLException {
-        String sql = "select st.stuCode,st.stuName,st.stuAge,st.stuSex,st.stuQQ,st.stuPhone,st.stuAddress,st.classId,cl.className,gr.gradeName,tea.tName from Student st " +
-                "inner join Class cl on st.classId=cl.id " +
+        String sql = "select st.stuCode,st.stuName,st.stuAge,st.stuSex,st.stuQQ,st.stuPhone,st.stuAddress,st.classId,cl.className,gr.gradeName,tea.tName from Class cl " +
+                "inner join Student st on st.classId=cl.id " +
+                "inner join TeacherClass tc on tc.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
-                "inner join TeacherClass tc on cl.id=tc.classId " +
                 "inner join Teacher tea on tc.tId=tea.id where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and st.stuCode like '%" + code + "%' ";

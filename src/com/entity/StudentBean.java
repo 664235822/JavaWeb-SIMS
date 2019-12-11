@@ -23,7 +23,11 @@ public class StudentBean {
     //学生地址
     private String address;
     //学生班级
-    private int classId;
+    private String className;
+    //学生年级
+    private String gradeName;
+    //教师姓名
+    private String teacherName;
 
     public String getCode() {
         return code;
@@ -81,11 +85,27 @@ public class StudentBean {
         this.address = address;
     }
 
-    public int getClassId() {
-        return classId;
+    public String getClassName() {
+        return className;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }

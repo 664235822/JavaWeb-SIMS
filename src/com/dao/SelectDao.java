@@ -93,17 +93,21 @@ public class SelectDao extends BaseDao {
      * 查看学生信息表
      * @param code 查询账号
      * @param name 查询用户名
-     * @param current
+     * @param currentPage 当前页号
      * @return BaseBean 返回学生信息
      * @throws SQLException
      */
     public BaseBean selectStudent(String code, String name, int currentPage) throws SQLException {
-        String sql = "select * from Student where 1=1 ";
+        String sql = "select st.stuCode,st.stuName,st.stuAge,st.stuSex,st.stuQQ,st.stuPhone,st.stuAddress,cl.className,gr.gradeName,tea.tName from Student st " +
+                "inner join Class cl on st.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join TeacherClass tc on cl.id=tc.classId " +
+                "inner join Teacher tea on tc.tId=tea.id where 1=1 ";
         if (!code.isEmpty()) {
-            sql += "and stuCode like '%" + code + "%' ";
+            sql += "and st.stuCode like '%" + code + "%' ";
         }
         if (!name.isEmpty()) {
-            sql += "and stuName like '%" + name + "%' ";
+            sql += "and st.stuName like '%" + name + "%' ";
         }
         sql += "limit " + (currentPage - 1) * 10 + ",10;";
         ResultSet rs = querySelect(sql);
@@ -122,7 +126,9 @@ public class SelectDao extends BaseDao {
             student.setQQ(rs.getString("stuQQ"));
             student.setPhone(rs.getString("stuPhone"));
             student.setAddress(rs.getString("stuAddress"));
-            student.setClassId(rs.getInt("classId"));
+            student.setClassName(rs.getString("className"));
+            student.setGradeName(rs.getString("gradeName"));
+            student.setTeacherName(rs.getString("tName"));
 
             list.add(student);
         }

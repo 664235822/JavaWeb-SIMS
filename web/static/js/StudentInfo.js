@@ -1,32 +1,33 @@
+//重置按钮会重启自动生成账号方法
 $(function () {
-    $("#chongzhi").click(function () {
-        layui.$('input').attr('value',"");
-        layui.$('select').attr('value',"");
-        layui.$('textarea').attr('value',"");
+    $("#Reset").click(function () {
+        layui.$('input').attr('value',null);
+        layui.$('select').attr('value',null);
         layui.form.render()
         addCode();
-        })
-
+    })
 });
-// <!--  页面加载完成就自动生成教师账号-->
+//自动生成账号
+<!--  页面加载完成就自动生成学生账号-->
 function addCode(){
     //获取1970到现在的时间（毫秒显示）
     var mydate= new Date();
-   //截取后六位
-    var Code = mydate.getTime().toString().slice(5,11);
+    //截取后六位
+    var Code = mydate.getTime().toString().slice(1,10);
+    var scode= mydate.getFullYear();
     //获取教师账号标签
     var TeacherCode = document.getElementById("tCode");
     //添加生成随机账号
-    TeacherCode.value="t"+Code;
+    TeacherCode.value="S"+scode+Code;
 }
 
-<!--    表单验证-->
+//表单验证
 layui.use(['form'], function () {
     var form = layui.form;
     //     //仅输入中文
     var reg = /^[\u4e00-\u9fa5\u3001]+$/;
     //密码必须包含数字和字母，长度6-16！
-    var regs = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+    var regs = /^[0-9a-zA-Z]{6,16}$/;
     //QQ账号
     var regQQ = /^[1-9][0-9]{6,16}$/;
     //年龄
@@ -42,7 +43,7 @@ layui.use(['form'], function () {
         },
         pwd: function (value) {
             if (value == "") {
-                return '密码不能为空！';
+                return '必填项不能为空！';
             }
             else {
                 if (regs.test(value)) {
@@ -67,6 +68,7 @@ layui.use(['form'], function () {
                 return '请输入正确的QQ号';
             }
         }
+
     });
 
     form.on('submit(component-form-element)', function(data){

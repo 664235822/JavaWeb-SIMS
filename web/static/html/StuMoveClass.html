@@ -214,42 +214,42 @@
 
         <!--         居中弹出层-->
         <div class="layui-layer layui-layer-page" id="layui-layer1" type="page" times="1" showtime="0" contype="string"
-             style="z-index: 19891015; top: 240px; left: 375px;height: 165px;display: none;">                                  //————弹出窗隐藏在这儿
+             style="z-index: 19891015; top: 240px; left: 375px;display: none">                                     <!--        弹出框隐藏在这儿-->
             <div class="layui-layer-title" style="cursor: move;background-color: #009688">将选此操作</div>
-            <div id="layerDemoauto" class="layui-layer-content">
+            <div id="layerDemoauto" class="layui-layer-content" style="height: 200px">
                 <div>
+                    <form class="layui-form">
                     <!--         下拉框选项-->
                     <div class="layui-form-item ine">
                         <label class="layui-form-label">转移到：</label>
-                        <div class="layui-input-inline" style="width: 145px">
-                            <select name="quiz1" style="width: 100px;height: 30px">
+                        <div class="layui-input-inline">
+                            <select name="quiz1">
                                 <option value=""  selected="">请选择年级</option>
                                 <option value="2018">2018</option>
                                 <option value="2019">2019</option>
                                 <option value="2020">2020</option>
                             </select>
-                            <span>&nbsp;&nbsp;&nbsp;级</span>
                         </div>
-                        <div class="layui-input-inline" style="width: 145px">
-                            <select name="quiz2" style="width: 100px;height: 30px">
-                                <option value="" disabled="">请选择班级</option>
+                        <div class="layui-input-inline">
+                            <select name="quiz2">
+                                <option value="" selected="">请选择班级</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
                                 <option value="03">03</option>
                                 <option value="04">04</option>
                                 <option value="05">05</option>
                             </select>
-                            <span>&nbsp;&nbsp;&nbsp;班</span>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
 
             <span class="layui-layer-setwin">
                 <a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a>
             </span>
-            <div class="layui-layer-btn layui-layer-btn-c" style="padding-top: 0px">
-            <a class="layui-layer-btn0 pull-right" style="background-color: #009688">确认转班</a>
+            <div class="layui-layer-btn layui-layer-btn-c" style="padding-top: 0px;">
+            <a class="layui-layer-btn0 pull-right" style="background-color: #009688;margin-bottom: 5px;">确认转班</a>
             </div>
             <span class="layui-layer-resize"></span>
         </div>

@@ -2,8 +2,10 @@
  * 学生管理js
  *
  * **/
+var ClassList={};
 //初始化
 function StuMoveClass() {
+    this.ClassList=Ajax("/JavaWeb_SIMS_war_exploded/getClass","");
     var data = {"tableName": "Student", "code": "", "name": "","currentPage":1};
     var table=getPage(data);
     if (table.code == 1) {
@@ -16,6 +18,7 @@ function StuMoveClass() {
         StuFunction();
     }
 }
+
 //获取页面
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
@@ -56,21 +59,7 @@ function StuFunction() {
     //单个转班
     $("table tbody").find("button[name=moveClass]").click(function() {
         var id=$(this).parent().parent().attr('name');
-        layer.confirm('确认删除', {
-            icon: 7,
-            title: '提示',
-            fixed: false,
-        }, function(index) {
-            var data={}
-            var codeList=new Array();
-            codeList[0]=id;
-            data.tableName='Teacher';
-            data.codeList=JSON.stringify(codeList);
-            var url = "/JavaWeb_SIMS_war_exploded/delete";
-            var Delete = Ajax(url, data);
-            DeleteEnd(Delete);
-            layer.close(index);
-        });
+        alert(ClassList.code);
     });
     //批量转班
     $("#moveClassAll").click(function() {

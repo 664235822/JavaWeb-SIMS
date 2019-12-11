@@ -25,6 +25,7 @@
 
 <div class="container">
     <div class="row">
+
         <!--            表格-->
         <div class="demoTable" style="margin-top: 20px">
             搜索学生编号：
@@ -34,12 +35,177 @@
             <button class="layui-btn" data-type="reload">搜索</button>
 
         <!--           主体-->
-        <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
-        <!--        编辑按键-->
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">转移班级</a>
-        </script>
-        </div>
+
+            <table class="layui-table" style="margin-top: 20px" id="table">
+                <colgroup>
+                    <col width="50">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </th>
+                    <th>学生编号</th>
+                    <th>学生姓名</th>
+                    <th>学生年龄</th>
+                    <th>性别</th>
+                    <th>当前年级</th>
+                    <th>当前班级</th>
+                    <th>班级教师</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>张诗禹</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary">
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
         <!--       一键操作-->
         <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
@@ -48,7 +214,7 @@
 
         <!--         居中弹出层-->
         <div class="layui-layer layui-layer-page" id="layui-layer1" type="page" times="1" showtime="0" contype="string"
-             style="z-index: 19891015; top: 240px; left: 375px;height: 165px">
+             style="z-index: 19891015; top: 240px; left: 375px;height: 165px;display: none;">                                  //————弹出窗隐藏在这儿
             <div class="layui-layer-title" style="cursor: move;background-color: #009688">将选此操作</div>
             <div id="layerDemoauto" class="layui-layer-content">
                 <div>

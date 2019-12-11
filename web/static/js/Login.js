@@ -1,4 +1,7 @@
-
+/**
+ * 登陆js
+ *
+ * **/
 var random=null;
 window.onload = function(){
     if(!localStorage){

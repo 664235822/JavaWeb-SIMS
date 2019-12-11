@@ -1,14 +1,19 @@
+/**
+ * 学生管理js
+ *
+ * **/
+//初始化
 function StuMoveClass() {
     var data = {"tableName": "Student", "code": "", "name": "","currentPage":1};
     var table=getPage(data);
     if (table.code == 1) {
-        TeachresTable(table.data.list);
+        StuTable(table.data.list);
         layui.use('form', function () {
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
             form.render();
         });
         Page("test1",table.data.pageCount,table.data.dataCount);
-        TeacherFunction();
+        StuFunction();
     }
 }
 //获取页面
@@ -17,22 +22,21 @@ function getPage(data) {
     var table = Ajax(url, data);
     return table;
 }
-function TeacherFunction() {
+function StuFunction() {
     $(function () {
         //查询
         $("#Select").click(function () {
             var code=$("#code").val();
-            var name=$("#name").val();
-            var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":1};
+            var data = {"tableName": "Student", "code": code, "name": "","currentPage":1};
             var table=getPage(data);
             if (table.code == 1) {
-                TeachresTable(table.data.list);
+                StuTable(table.data.list);
                 layui.use('form', function () {
                     var form = layui.form;
                     form.render();
                 });
                 Page("test1",table.data.pageCount,table.data.dataCount);
-                TeacherFunction();
+                StuFunction();
             }
         });
 
@@ -49,8 +53,8 @@ function TeacherFunction() {
             });
         });
     });
-    //删除
-    $("table tbody").find("button[name=delete]").click(function() {
+    //单个转班
+    $("table tbody").find("button[name=moveClass]").click(function() {
         var id=$(this).parent().parent().attr('name');
         layer.confirm('确认删除', {
             icon: 7,
@@ -68,8 +72,8 @@ function TeacherFunction() {
             layer.close(index);
         });
     });
-    //批量删除
-    $("#LAY_preview [lay-event=delete]").click(function() {
+    //批量转班
+    $("#moveClassAll").click(function() {
         var codeList=new Array();
         var num=0;
         $("input[name=checkbox]:checked").each(function() {
@@ -91,20 +95,20 @@ function TeacherFunction() {
         });
     });
 }
-//删除回调
+//转班回调
 function DeleteEnd(Delete) {
     if(Delete.code==1){
         var code=$("#code").val();
         var name=$("#name").val();
-        var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":1};
+        var data = {"tableName": "Student", "code": code, "name": name,"currentPage":1};
         var table=getPage(data);
-        TeachresTable(table.data.list);
+        StuTable(table.data.list);
         layui.use('form', function () {
             var form = layui.form;
             form.render();
         });
         Page("test1",table.data.pageCount,table.data.dataCount);
-        TeacherFunction();
+        StuFunction();
         layer.msg(Delete.message, {
             offset: '15px'
             , icon: 1
@@ -136,22 +140,23 @@ function Page(id,limit,count) {
                 if(!first){
                     var code=$("#code").val();
                     var name=$("#name").val();
-                    var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":obj.curr};
+                    var data = {"tableName": "Student", "code": code, "name": name,"currentPage":obj.curr};
                     var table=getPage(data);
                     if (table.code == 1) {
-                        TeachresTable(table.data.list);
+                        StuTable(table.data.list);
                         layui.use('form', function () {
                             var form = layui.form;
                             form.render();
                         });
-                        TeacherFunction();
+                        StuFunction();
                     }
                 }
             }
         });
     });
 }
-function TeachresTable(data) {
+
+function StuTable(data) {
     if(data!=null){
         var text = "";
         text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
@@ -169,13 +174,11 @@ function TeachresTable(data) {
             text += "<td>"+data[i].name+"</td>";
             text += "<td>"+data[i].age+"</td>";
             text += "<td>"+data[i].sex+"</td>";
-            text += "<td>"+data[i].email+"</td>";
-            text += "<td>"+data[i].phone+"</td>";
-            text += "<td>"+data[i].phone+"</td>";
+            text += "<td>"+data[i].gradeName+"</td>";
+            text += "<td>"+data[i].className+"</td>";
+            text += "<td>"+data[i].teacherName+"</td>";
             text += "<td>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\">修改</button>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\">查看</button>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
+            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"moveClass\">转班</button>";
             text += "</td>";
             text += "</tr>";
         }

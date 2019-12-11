@@ -1,3 +1,7 @@
+/**
+ * 首页js
+ * **/
+
 $(function () {
     //判断菜单权级
     if(localStorage.Login!=null){

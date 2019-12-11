@@ -1,3 +1,9 @@
+/**
+ *
+ * 教师管理js
+ * **/
+
+
 //添加教师
 function TeacherInfo() {
         $(function() {

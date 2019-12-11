@@ -32,7 +32,7 @@
             <div class="layui-inline">
                 <input class="layui-input" name="id" id="code" autocomplete="off">
             </div>
-            <button class="layui-btn" data-type="reload">搜索</button>
+            <button class="layui-btn" data-type="reload" id="Select">搜索</button>
 
         <!--           主体-->
 
@@ -206,15 +206,15 @@
                 </tr>
                 </tbody>
             </table>
-
+            <div id="test1"></div>
         <!--       一键操作-->
         <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">一键转班</button>
+            <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">一键转班</button>
     </div>
 
         <!--         居中弹出层-->
         <div class="layui-layer layui-layer-page" id="layui-layer1" type="page" times="1" showtime="0" contype="string"
-             style="z-index: 19891015; top: 240px; left: 375px;">                                     <!--        弹出框隐藏在这儿-->
+             style="z-index: 19891015; top: 240px; left: 375px; display: none">                                     <!--        弹出框隐藏在这儿-->
             <div class="layui-layer-title" style="cursor: move;background-color: #009688">将选此操作</div>
             <div id="layerDemoauto" class="layui-layer-content" style="height: 200px">
                 <div>

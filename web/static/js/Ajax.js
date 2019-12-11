@@ -1,4 +1,6 @@
-
+/**
+ * 接口
+ * **/
 //
 function Ajax(url, data) {
     var num={};

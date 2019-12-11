@@ -130,6 +130,7 @@ function ShowTeachers() {
         TeacherFunction();
     }
 }
+//获取页面
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var table = Ajax(url, data);

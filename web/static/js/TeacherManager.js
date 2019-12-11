@@ -176,10 +176,10 @@ function TeacherFunction() {
             fixed: false,
         }, function(index) {
             var data={}
-            var arrayId=new Array();
-            arrayId[0]=id;
+            var codeList=new Array();
+            codeList[0]=id;
             data.tableName='Teacher';
-            data.idList=JSON.stringify(arrayId);
+            data.codeList=JSON.stringify(codeList);
             var url = "/JavaWeb_SIMS_war_exploded/delete";
             var Delete = Ajax(url, data);
             DeleteEnd(Delete);
@@ -188,10 +188,10 @@ function TeacherFunction() {
     });
     //批量删除
     $("#LAY_preview [lay-event=delete]").click(function() {
-        var arrayId=new Array();
+        var codeList=new Array();
         var num=0;
         $("input[name=checkbox]:checked").each(function() {
-            arrayId[num]=$(this).parent().parent().parent().attr('name');
+            codeList[num]=$(this).parent().parent().parent().attr('name');
             num++;
         });
         layer.confirm('确认删除', {
@@ -201,7 +201,7 @@ function TeacherFunction() {
         }, function(index) {
             var data={}
             data.tableName='Teacher';
-            data.idList=JSON.stringify(arrayId);
+            data.codeList=JSON.stringify(codeList);
             var url = "/JavaWeb_SIMS_war_exploded/delete";
             var Delete = Ajax(url, data);
             DeleteEnd(Delete);
@@ -209,8 +209,20 @@ function TeacherFunction() {
         });
     });
 }
+//删除回调
 function DeleteEnd(Delete) {
-    if(Delete.code){
+    if(Delete.code==1){
+        var code=$("#code").val();
+        var name=$("#name").val();
+        var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":1};
+        var table=getPage(data);
+        TeachresTable(table.data.list);
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render();
+        });
+        Page("test1",table.data.pageCount,table.data.dataCount);
+        TeacherFunction();
         layer.msg(Delete.data, {
             offset: '15px'
             , icon: 1
@@ -224,7 +236,9 @@ function DeleteEnd(Delete) {
         });
 
     }
+
 }
+//分页
 function Page(id,limit,count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -256,32 +270,35 @@ function Page(id,limit,count) {
     });
 }
 function TeachresTable(data) {
-    var text = "";
-    text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
-    text += "<thead><tr>";
-    text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
-    text += "</div></th>"
-    text += "<th>账号</th><th>名字</th><th>年龄</th><th>性别</th><th>E-mail</th><th>练习电话</th><th>操作</th>";
-    text += "</tr></thead>";
-    text += "<tbody>";
-    for(var i=0;i<data.length;i++){
-        text += "<tr name=\'"+data[i].id+"\'>";
-        text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
-        text += "</div></td>"
-        text += "<td>"+data[i].code+"</td>";
-        text += "<td>"+data[i].name+"</td>";
-        text += "<td>"+data[i].age+"</td>";
-        text += "<td>"+data[i].sex+"</td>";
-        text += "<td>"+data[i].email+"</td>";
-        text += "<td>"+data[i].phone+"</td>";
-        text += "<td>";
-        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\">修改</button>";
-        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\">查看</button>";
-        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
-        text += "</td>";
-        text += "</tr>";
-    }
-    text += "</tbody>";
-    $("#table").html(text);
+   if(data!=null){
+       var text = "";
+       text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
+       text += "<thead><tr>";
+       text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
+       text += "</div></th>"
+       text += "<th>账号</th><th>名字</th><th>年龄</th><th>性别</th><th>E-mail</th><th>练习电话</th><th>操作</th>";
+       text += "</tr></thead>";
+       text += "<tbody>";
+       for(var i=0;i<data.length;i++){
+           text += "<tr name=\'"+data[i].code+"\'>";
+           text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
+           text += "</div></td>"
+           text += "<td>"+data[i].code+"</td>";
+           text += "<td>"+data[i].name+"</td>";
+           text += "<td>"+data[i].age+"</td>";
+           text += "<td>"+data[i].sex+"</td>";
+           text += "<td>"+data[i].email+"</td>";
+           text += "<td>"+data[i].phone+"</td>";
+           text += "<td>";
+           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\">修改</button>";
+           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\">查看</button>";
+           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
+           text += "</td>";
+           text += "</tr>";
+       }
+       text += "</tbody>";
+       $("#table").html(text);
+   }
+
 
 }

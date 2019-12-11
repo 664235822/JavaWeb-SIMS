@@ -22,6 +22,8 @@ public class StudentBean {
     private String phone;
     //学生地址
     private String address;
+    //学生班级id
+    private int classId;
     //学生班级
     private String className;
     //学生年级
@@ -79,6 +81,14 @@ public class StudentBean {
 
     public String getAddress() {
         return address;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
     public void setAddress(String address) {

@@ -173,10 +173,10 @@ public class SelectDao extends BaseDao {
         List<GradeBean> list = new ArrayList<>();
 
         int gradeId = 0;
-        while (rs.next()) ;
+        while (rs.next())
         {
             if (rs.getInt("gradeId") != gradeId) {
-                gradeId = rs.getInt(rs.getInt("gradeId"));
+                gradeId = rs.getInt("gradeId");
 
                 GradeBean grade = new GradeBean();
                 grade.setId(rs.getInt("gradeId"));

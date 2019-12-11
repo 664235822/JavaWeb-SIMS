@@ -98,7 +98,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectStudent(String code, String name, int currentPage) throws SQLException {
-        String sql = "select st.stuCode,st.stuName,st.stuAge,st.stuSex,st.stuQQ,st.stuPhone,st.stuAddress,cl.className,gr.gradeName,tea.tName from Student st " +
+        String sql = "select st.stuCode,st.stuName,st.stuAge,st.stuSex,st.stuQQ,st.stuPhone,st.stuAddress,st.classId,cl.className,gr.gradeName,tea.tName from Student st " +
                 "inner join Class cl on st.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
                 "inner join TeacherClass tc on cl.id=tc.classId " +
@@ -126,12 +126,15 @@ public class SelectDao extends BaseDao {
             student.setQQ(rs.getString("stuQQ"));
             student.setPhone(rs.getString("stuPhone"));
             student.setAddress(rs.getString("stuAddress"));
+            student.setClassId(rs.getInt("classId"));
             student.setClassName(rs.getString("className"));
             student.setGradeName(rs.getString("gradeName"));
             student.setTeacherName(rs.getString("tName"));
 
             list.add(student);
         }
+
+        table.setList(list);
 
         sql = "select count(*) as count from Student where 1=1 ";
         if (!code.isEmpty()) {

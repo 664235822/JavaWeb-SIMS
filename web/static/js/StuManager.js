@@ -25,6 +25,8 @@ function getPage(data) {
     var table = Ajax(url, data);
     return table;
 }
+
+//功能
 function StuFunction() {
     $(function () {
         //查询
@@ -59,7 +61,7 @@ function StuFunction() {
     //单个转班
     $("table tbody").find("button[name=moveClass]").click(function() {
         var id=$(this).parent().parent().attr('name');
-        alert(ClassList.code);
+        Move();
     });
     //批量转班
     $("#moveClassAll").click(function() {
@@ -69,7 +71,7 @@ function StuFunction() {
             codeList[num]=$(this).parent().parent().parent().attr('name');
             num++;
         });
-        layer.confirm('确认删除', {
+        layer.confirm('', {
             icon: 7,
             title: '提示',
             fixed: false,
@@ -78,15 +80,83 @@ function StuFunction() {
             data.tableName='Teacher';
             data.codeList=JSON.stringify(codeList);
             var url = "/JavaWeb_SIMS_war_exploded/delete";
-            var Delete = Ajax(url, data);
-            DeleteEnd(Delete);
+            var Data = Ajax(url, data);
+            MoveEnd(Data);
             layer.close(index);
         });
     });
 }
+//转班操作
+function Move() {
+    var text = "";
+    text += " <div class=\"layui-form\">";
+    text += "<select name=\"city\" lay-verify=\"\">";
+    text += "  <option value=\"\">请选择一个城市</option>";
+    text += "  <option value=\"010\">北京</option>";
+    text += "  <option value=\"021\">上海</option>";
+    text += "  <option value=\"0571\">杭州</option>";
+    text += "</select>  ";
+    text += "<select name=\"city\" lay-verify=\"\">";
+    text += "  <option value=\"\">请选择一个城市</option>";
+    text += "  <option value=\"010\">北京</option>";
+    text += "  <option value=\"021\">上海</option>";
+    text += "  <option value=\"0571\">杭州</option>";
+    text += "</select>    ";
+    text += "    </div>";
+
+    layer.open({
+        type: 1,
+        title: '影响范围',
+        btn: ['确定', '取消'],
+        content: text,
+        skin: 'demo-class',
+        btnAlign: 'c',
+        yes: function (index) {
+            layer.close(index);
+
+        }
+
+    })
+    layui.use('form', function () {
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        form.render();
+    })
+
+
+}
+//班级下拉框
+function MoveClass(gradeCode) {
+    var text = "";
+    if(ClassList.code==1){
+        var list=ClassList.data;
+        for(var i=0;i<list.length;i++){
+            if(list[i].gradeCode==gradeCode){
+                for(var j=0;j<list.classes.length;j++){
+                    text += " <option value=\""+list[i].classes.id+"\">";
+                    text += list[i].classes.className+"</option>";
+                }
+
+            }
+        }
+    }
+    return text;
+}
+//年级下拉框
+function grade() {
+    var text = "";
+    if(ClassList.code==1){
+        var list=ClassList.data;
+        for(var i=0;i<list.length;i++){
+            text += " <option value=\""+list[i].gradeCode+"\" >";
+            text += list[i].gradeName+"</option>";
+        }
+        $("#layui-layer1 [name=quiz1]").html(text);
+    }
+    return text;
+}
 //转班回调
-function DeleteEnd(Delete) {
-    if(Delete.code==1){
+function MoveEnd(Data) {
+    if(Data.code==1){
         var code=$("#code").val();
         var name=$("#name").val();
         var data = {"tableName": "Student", "code": code, "name": name,"currentPage":1};
@@ -98,13 +168,13 @@ function DeleteEnd(Delete) {
         });
         Page("test1",table.data.pageCount,table.data.dataCount);
         StuFunction();
-        layer.msg(Delete.message, {
+        layer.msg(Data.message, {
             offset: '15px'
             , icon: 1
             , time: 1000
         });
     }else {
-        layer.msg(Delete.message, {
+        layer.msg(Data.message, {
             icon: 5
             ,anim: 6
             , time: 1000
@@ -113,6 +183,7 @@ function DeleteEnd(Delete) {
     }
 
 }
+
 //分页
 function Page(id,limit,count) {
     layui.use('laypage', function () {

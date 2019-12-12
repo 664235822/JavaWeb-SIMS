@@ -13,6 +13,11 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StuManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <title>学生转班</title>
+    <style>
+        body .demo-class .layui-layer-content {
+            overflow: visible;
+        }
+    </style>
 </head>
 <body onload="StuMoveClass()">
 
@@ -216,7 +221,7 @@
         <div class="layui-layer layui-layer-page" id="layui-layer1" type="page" times="1" showtime="0" contype="string"
              style="z-index: 19891015; top: 240px; left: 375px; display: none">                                     <!--        弹出框隐藏在这儿-->
             <div class="layui-layer-title" style="cursor: move;background-color: #009688">将选此操作</div>
-            <div id="layerDemoauto" class="layui-layer-content" style="height: 200px">
+            <div id="layerDemoauto" class="layui-layer-content" style="height: 200px;overflow: none">
                 <div>
                     <form class="layui-form">
                     <!--         下拉框选项-->

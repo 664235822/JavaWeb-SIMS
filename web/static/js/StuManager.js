@@ -103,8 +103,10 @@ function Move() {
     text += "  <option value=\"0571\">杭州</option>";
     text += "</select>    ";
     text += "    </div>";
+
     layer.open({
-        title: '影响范围',
+        type: 1,
+        title: '影响',
         btn: ['确定', '取消'],
         content: text,
         skin: 'demo-class',
@@ -236,9 +238,7 @@ function StuTable(data) {
             text += "<td>"+data[i].className+"</td>";
             text += "<td>"+data[i].teacherName+"</td>";
             text += "<td>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"moveClass\">修改</button>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-red\" name=\"moveClass\">删除</button>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">转班</button>";
+            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"moveClass\">转班</button>";
             text += "</td>";
             text += "</tr>";
         }

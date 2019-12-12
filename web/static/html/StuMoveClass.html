@@ -17,17 +17,6 @@
         body .demo-class .layui-layer-content {
             overflow: visible;
         }
-        .leaveTop {
-            margin-top: 19px;
-        }
-        .moveleft{
-            margin-top: 3px;
-            margin-left: 15px;
-        }
-        .layui-form-label {
-            width: 110px;
-            text-align: right;
-        }
     </style>
 </head>
 <body onload="StuMoveClass()">
@@ -35,78 +24,240 @@
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left">当前位置 > 首页 > 查看学生列表</p>
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 学生转班</p>
     </div>
 </nav>
+
 <div class="container">
-    <div class="layui-row leaveTop">
-        <div class="layui-col-md3">
-            <label class="layui-form-label">学号：</label>
-            <div class="layui-input-block">
-                <input type="text" name="title" id="code" required="" lay-verify="required" placeholder="请输入账号"
-                       autocomplete="off" class="layui-input">
+    <div class="row">
+
+        <!--            表格-->
+        <div class="demoTable" style="margin-top: 20px">
+            搜索学生编号：
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="code" autocomplete="off">
             </div>
-        </div>
-        <div class="layui-col-md3">
-            <div class="layui-input-block moveleft">
-                <button type="button" id="Select" class="layui-btn pull-left  layui-btn-sm layui-btn-normal"><i class="layui-icon">&#xe615;</i>查询</button>
-            </div>
-        </div>
+            <button class="layui-btn" data-type="reload" id="Select">搜索</button>
+
+        <!--           主体-->
+
+            <table class="layui-table" style="margin-top: 20px" id="table">
+                <colgroup>
+                    <col width="50">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </th>
+                    <th>学生编号</th>
+                    <th>学生姓名</th>
+                    <th>学生年龄</th>
+                    <th>性别</th>
+                    <th>当前年级</th>
+                    <th>当前班级</th>
+                    <th>班级教师</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>张诗禹</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary">
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>t123456</td>
+                    <td>叶强</td>
+                    <td>20</td>
+                    <td>男</td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>王磊</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">转移班级</button>
+                    </td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="test1"></div>
+        <!--       一键操作-->
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">一键转班</button>
     </div>
-    <div id="LAY_preview" style="margin-top: 10px">
-        <div class="layui-table-tool">
-            <div class="layui-table-tool-temp">
-                <div class="layui-inline" title="批量删除" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>
-                <div class="layui-inline" title="导出" lay-event="LAYTABLE_EXPORT"><i
-                        class="layui-icon layui-icon-export"></i></div>
-                <div class="layui-inline" title="转班" lay-event="LAYTABLE_EXPORT"><i
-                        class="layui-icon layui-icon-edit"></i></div>
+
+        <!--         居中弹出层-->
+        <div class="layui-layer layui-layer-page" id="layui-layer1" type="page" times="1" showtime="0" contype="string"
+             style="z-index: 19891015; top: 240px; left: 375px; display: none">                                     <!--        弹出框隐藏在这儿-->
+            <div class="layui-layer-title" style="cursor: move;background-color: #009688">将选此操作</div>
+            <div id="layerDemoauto" class="layui-layer-content" style="height: 200px;overflow: none">
+                <div>
+                    <form class="layui-form">
+                    <!--         下拉框选项-->
+                    <div class="layui-form-item ine">
+                        <label class="layui-form-label">转移到：</label>
+                        <div class="layui-input-inline">
+                            <select name="quiz1">
+                                <option value=""  selected="">请选择年级</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz2">
+                                <option value="" selected="">请选择班级</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                            </select>
+                        </div>
+                    </div>
+                    </form>
+                </div>
             </div>
+
+            <span class="layui-layer-setwin">
+                <a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a>
+            </span>
+            <div class="layui-layer-btn layui-layer-btn-c" style="padding-top: 0px;">
+            <a class="layui-layer-btn0 pull-right" style="background-color: #009688;margin-bottom: 5px;">确认转班</a>
+            </div>
+            <span class="layui-layer-resize"></span>
         </div>
-        <table class="layui-table" style="margin-top: 0px" id="table">
-        </table>
-        <div id="test1"></div>
-        <!--        弹窗测试按钮-->
-        <button type="button" id="testBtn" class="layui-btn  layui-btn-sm">弹窗测试按钮</button>
-    </div>
 </div>
 </body>
-<script>
-    $(function () {
-        $("#testBtn").click(function () {
-            var text = "";
-            text += " <div class=\"layui-form\">";
-            text += "<select name=\"city\" lay-verify=\"\">";
-            text += "  <option value=\"\">请选择一个城市</option>";
-            text += "  <option value=\"010\">北京</option>";
-            text += "  <option value=\"021\">上海</option>";
-            text += "  <option value=\"0571\">杭州</option>";
-            text += "</select>  ";
-            text += "<select name=\"city\" lay-verify=\"\">";
-            text += "  <option value=\"\">请选择一个城市</option>";
-            text += "  <option value=\"010\">北京</option>";
-            text += "  <option value=\"021\">上海</option>";
-            text += "  <option value=\"0571\">杭州</option>";
-            text += "</select>    ";
-            text += "    </div>";
-            layer.open({
-                title: '影响范围',
-                btn: ['确定', '取消'],
-                content: text,
-                skin: 'demo-class',
-                btnAlign: 'c',
-                yes: function (index) {
-                    layer.close(index);
-
-                }
-
-            })
-            layui.use('form', function () {
-                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-                form.render();
-            })
-        })
-    })
-
-</script>
 </html>

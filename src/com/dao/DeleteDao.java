@@ -44,6 +44,9 @@ public class DeleteDao extends BaseDao {
 
             sql = "delete from Login where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
+
+            sql = "delete from Result where stuCode='" + codeList.get(i) + "';";
+            queryUpdate(sql);
         }
 
         destroy(null);

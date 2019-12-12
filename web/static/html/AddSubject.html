@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <title>科目添加</title>
+</head>
+<body>
+        <!--          当前位置导航-->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <p class="text-left addtea pull-left">当前位置 > 首页 > 添加科目</p>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+        <div class="col-md-4 forms">
+            <form class="layui-form">
+                <!--          科目名称-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">科目名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" lay-verify="newres" autocomplete="off" placeholder="请输入科目名称"
+                               class="layui-input" id="aa">
+                    </div>
+                </div>
+                <!--          科目编号-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">科目编号：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="1235452(自动生成，只读)"
+                               class="layui-input" id="s">
+                    </div>
+                </div>
+                <!--          创建人-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">创建人：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="王富贵(自动获取信息，只读)"
+                               class="layui-input" id="">
+                    </div>
+                </div>
+                <!--          创建时间-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">创建时间：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="2019-12-11(自动获取信息，只读)"
+                               class="layui-input" id="q">
+                    </div>
+                </div>
+                <!--          提交-->
+                <div class="site-demo-button" id="layerDemo">
+                    <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn pull-right">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -12,29 +12,25 @@
     <title>修改学生信息</title>
 </head>
 <body>
-
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <p class="text-left addtea pull-left">当前位置 > 首页 > 修改学生信息</p>
     </div>
 </nav>
-
 <!--注：本页面需将学生信息从数据库导入至修改信息界面，学生选择性修改需要修改的信息，不需要每次全部填入信息修改再提交-->
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 forms">
             <form class="layui-form">
                 <!--                学生编号(只读；需获知数据库中相关信息)-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">学生编号：</label>
+                    <label class="layui-form-label">学生学号：</label>
                     <div class="layui-input-block">
                         <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="123145"
                                class="layui-input" id="StuInfo">
                     </div>
                 </div>
-
                 <!--                学生姓名-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
@@ -43,7 +39,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                修改密码-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改密码：</label>
@@ -52,7 +47,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                确认密码-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">确认密码：</label>
@@ -61,7 +55,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                修改年龄-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改年龄：</label>
@@ -90,7 +83,6 @@
                         </select>
                     </div>
                 </div>
-
                 <!--                  修改性别-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
@@ -99,7 +91,6 @@
                         <input type="radio" name="sex" value="女" title="女">
                     </div>
                 </div>
-
                 <!--                  修改QQ-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改QQ：</label>
@@ -109,7 +100,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                修改电话-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改电话：</label>
@@ -119,7 +109,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                修改家庭住址-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改地址：</label>
@@ -128,7 +117,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                提交按钮-->
                 <div class="layui-form-item">
                     <div class="layui-input-block">
@@ -136,7 +124,6 @@
                         <button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>
-
                 <!--      表单结束-->
             </form>
         </div>

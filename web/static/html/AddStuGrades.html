@@ -9,15 +9,13 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
-    <title>查看个人成绩</title>
+    <title>录入成绩</title>
 </head>
 <body>
-<!--        该功能需要验证登录系统的角色,如果是管理员、教师登录，则年级、班级、科目、学生名字、学生编号均可以自行输入;
-           如果是学生登录，则年级、班级、学生名字、学生编号所有数据均自动绑定当前登录帐号的信息，且只读。只有科目下拉框可以选择   -->
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left">当前位置 > 首页 > 查看个人成绩</p>
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 录入成绩</p>
     </div>
 </nav>
 <div class="container">
@@ -54,18 +52,9 @@
                             <option value="英语">英语</option>
                         </select>
                     </div>
-                        <label class="layui-form-label" style="width: 72px">姓名：</label>
-                        <div class="layui-input-inline" style="width: 170px">
-                            <input type="text" name="title" required  lay-verify="required" READONLY="true" placeholder="叶强(当前学生权限只读)"
-                                   autocomplete="off" class="layui-input" >                        <!--此处若是管理员或教师改为placeholder="请输入姓名"，，删除READONLY="true"(非只读，可搜索)-->
-                        </div>
-                        <label class="layui-form-label" style="width: 72px">学号：</label>
-                        <div class="layui-input-inline" style="width: 170px">
-                            <input type="text" name="" required  lay-verify="required" READONLY="true"  placeholder="1314520((当前学生只读)"
-                                   autocomplete="off" class="layui-input">                         <!--此处若是管理员或教师改为placeholder="请输入编号"，删除READONLY="true"(非只读，可搜索)-->
-                        </div>
                     <button class="layui-btn" data-type="reload">搜索</button>
                 </div>
+
             </form>
             <!--           主体-->
             <table class="layui-table" style="margin-top: 20px" id="table">
@@ -75,8 +64,7 @@
                     <th>班级名称</th>
                     <th>学生学号</th>
                     <th>学生姓名</th>
-                    <th>科目名称</th>
-                    <th>成绩</th>
+                    <th>添加成绩</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -85,8 +73,7 @@
                     <td>01</td>
                     <td>1314520</td>
                     <td>叶强</td>
-                    <td>语文</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                     </td>
                 </tr>
                 <tr>
@@ -94,8 +81,7 @@
                     <td>01</td>
                     <td>1314520</td>
                     <td>张诗禹</td>
-                    <td>语文</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                     </td>
                 </tr>
                 <tr>
@@ -103,51 +89,49 @@
                     <td>01</td>
                     <td>1314520</td>
                     <td>叶强</td>
-                    <td>数学</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                 </tr>
                 <tr>
                     <td>2018</td>
                     <td>01</td>
                     <td>1314520</td>
                     <td>叶强</td>
-                    <td>数学</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                 </tr>
                 <tr>
                     <td>2018</td>
                     <td>01</td>
                     <td>1314520</td>
                     <td>张诗禹</td>
-                    <td>英语</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                 </tr>
                 <tr>
                     <td>2018</td>
                     <td>01</td>
                     <td>1314520</td>
                     <td>叶强</td>
-                    <td>英语</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                 </tr>
                 <tr>
                     <td>2018</td>
                     <td>01</td>
                     <td>1314520</td>
                     <td>张诗禹</td>
-                    <td>总成绩</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                 </tr>
                 <tr>
                     <td>2018</td>
                     <td>01</td>
                     <td>1314520</td>
                     <td>叶强</td>
-                    <td>总成绩</td>
-                    <td>250</td>
+                    <td contenteditable='true'></td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <!--          一键保存-->
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">一键保存</button>
         </div>
     </div>
 </div>

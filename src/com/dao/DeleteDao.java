@@ -2,6 +2,7 @@ package com.dao;
 
 import com.entity.MyException;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -45,8 +46,13 @@ public class DeleteDao extends BaseDao {
             sql = "delete from Login where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
 
-            sql = "delete from Result where stuCode='" + codeList.get(i) + "';";
-            queryUpdate(sql);
+            sql = "select * from Result where stuCode='" + codeList.get(i) + "';";
+            ResultSet rs = querySelect(sql);
+            if (rs.next()) {
+                sql = "delete from Result where stuCode='" + codeList.get(i) + "';";
+                queryUpdate(sql);
+            }
+            rs.close();
         }
 
         destroy(null);

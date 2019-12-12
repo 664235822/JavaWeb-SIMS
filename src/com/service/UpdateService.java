@@ -26,7 +26,7 @@ public class UpdateService {
 
         switch (tableName) {
             case "StudentClass":
-                List<StudentBean> studentInfo = JSON.parseArray("info", StudentBean.class);
+                List<StudentBean> studentInfo = JSON.parseArray(info, StudentBean.class);
                 updateDao.updateClassId(studentInfo);
                 break;
         }

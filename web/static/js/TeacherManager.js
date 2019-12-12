@@ -283,7 +283,7 @@ function TeachresTable(data) {
        text += "<thead><tr>";
        text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input  type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
        text += "</div></th>"
-       text += "<th>账号</th><th>名字</th><th>年龄</th><th>性别</th><th>E-mail</th><th>练习电话</th><th>操作</th>";
+       text += "<th>账号</th><th>名字</th><th>年龄</th><th>性别</th><th>E-mail</th><th>联系电话</th><th style='min-width: 240px'>操作</th>";
        text += "</tr></thead>";
        text += "<tbody>";
        for(var i=0;i<data.length;i++){
@@ -296,10 +296,10 @@ function TeachresTable(data) {
            text += "<td>"+data[i].sex+"</td>";
            text += "<td>"+data[i].email+"</td>";
            text += "<td>"+data[i].phone+"</td>";
-           text += "<td>";
+           text += "<td >";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\">修改</button>";
-           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\">查看</button>";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
+           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">分配班级</button>";
            text += "</td>";
            text += "</tr>";
        }

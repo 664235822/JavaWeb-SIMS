@@ -3,6 +3,7 @@
  *
  * **/
 var ClassList={};
+
 //初始化
 function StuMoveClass() {
     this.ClassList=Ajax("/JavaWeb_SIMS_war_exploded/getClass","");
@@ -110,13 +111,14 @@ function Delete(codeList) {
 }
 //转班操作
 function Move(codeList) {
+    var classId=0;
     var text = "";
     text += " <div class=\"layui-form\">";
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
     text += "</select>  ";
-    text += "<select name=\"quiz\" id=\"Class\" lay-verify=\"\">";
+    text += "<select name=\"quiz\" id=\"Class\"  lay-filter=\"quiz\" lay-verify=\"\">";
     text += "  <option value=\"\">请选择班级</option>";
     text += "</select>    ";
     text += "    </div>";
@@ -128,6 +130,18 @@ function Move(codeList) {
         btnAlign: 'c',
         shade: [0.1, '#ffffff'],
         yes: function (index) {
+            var list=new Array;
+            var obj={};
+            var data={};
+            for(var i=0;i<codeList.length;i++){
+                obj.stuCode=codeList[i];
+                obj.classId=classId;
+                list.push(obj);
+            }
+            var url = "/JavaWeb_SIMS_war_exploded/update";
+            data.tableName="StudentClass";
+            data.info=JSON.stringify(list);
+            var table = Ajax(url, data);
             layer.close(index);
         }
 
@@ -140,6 +154,9 @@ function Move(codeList) {
             var text=MoveClass(gradeCode);
             $("#Class").html(text);
             Refresh();
+        });
+        form.on('select(quiz)', function(data){
+          classId=data.value;
         });
     })
 
@@ -239,7 +256,7 @@ function StuTable(data) {
         text += "<thead><tr>";
         text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
         text += "</div></th>"
-        text += "<th>学号</th><th>名字</th><th>年龄</th><th>性别</th><th>当前年级</th><th>当前班级</th><th>班级教师</th><th>操作</th>";
+        text += "<th>学号</th><th>名字</th><th>年龄</th><th>性别</th><th>当前年级</th><th>当前班级</th><th>班级教师</th><th  style='min-width: 207px'>操作</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for(var i=0;i<data.length;i++){

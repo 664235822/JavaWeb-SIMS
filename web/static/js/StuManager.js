@@ -58,12 +58,22 @@ function StuFunction() {
             });
         });
     });
-    //单个转班
-    $("table tbody").find("button[name=moveClass]").click(function() {
+    //单个操作
+    $("table tbody").find("button[name]").click(function() {
         var id=$(this).parent().parent().attr('name');
-        Move();
+        if($(this).attr("name")=="delete"){
+            var codeList=new Array();
+            codeList[0]=id;
+            Delete(codeList);
+        }
+        if($(this).attr("name")=="moveClass"){
+            var codeList=new Array();
+            codeList[0]=id;
+            Move(codeList);
+        }
+
     });
-    //批量转班
+    //批量操作
     $("#moveClassAll").click(function() {
         var codeList=new Array();
         var num=0;
@@ -71,36 +81,43 @@ function StuFunction() {
             codeList[num]=$(this).parent().parent().parent().attr('name');
             num++;
         });
-        layer.confirm('', {
-            icon: 7,
-            title: '提示',
-            fixed: false,
-        }, function(index) {
-            var data={}
-            data.tableName='Teacher';
-            data.codeList=JSON.stringify(codeList);
-            var url = "/JavaWeb_SIMS_war_exploded/delete";
-            var Data = Ajax(url, data);
-            MoveEnd(Data);
-            layer.close(index);
-        });
+        if($(this).attr("name")=="delete"){
+            Delete(codeList);
+        }
+        if($(this).attr("name")=="moveClass"){
+            Move(codeList);
+        }
     });
+
+
+}
+//删除
+function Delete(codeList) {
+    layer.confirm('确认删除', {
+        icon: 7,
+        title: '提示',
+        fixed: false,
+    }, function(index) {
+        var data={}
+        data.tableName='Student';
+        data.codeList=JSON.stringify(codeList);
+        var url = "/JavaWeb_SIMS_war_exploded/delete";
+        var Delete = Ajax(url, data);
+        MoveEnd(Delete);
+        layer.close(index);
+    });
+
 }
 //转班操作
-function Move() {
+function Move(codeList) {
     var text = "";
     text += " <div class=\"layui-form\">";
-    text += "<select name=\"city\" lay-verify=\"\">";
-    text += "  <option value=\"\">请选择一个城市</option>";
-    text += "  <option value=\"010\">北京</option>";
-    text += "  <option value=\"021\">上海</option>";
-    text += "  <option value=\"0571\">杭州</option>";
+    text += "<select name=\"city\"  lay-filter=\"test\">";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += grade();
     text += "</select>  ";
-    text += "<select name=\"city\" lay-verify=\"\">";
-    text += "  <option value=\"\">请选择一个城市</option>";
-    text += "  <option value=\"010\">北京</option>";
-    text += "  <option value=\"021\">上海</option>";
-    text += "  <option value=\"0571\">杭州</option>";
+    text += "<select name=\"quiz\" id=\"Class\" lay-verify=\"\">";
+    text += "  <option value=\"\">请选择班级</option>";
     text += "</select>    ";
     text += "    </div>";
     layer.open({
@@ -109,15 +126,21 @@ function Move() {
         content: text,
         skin: 'demo-class',
         btnAlign: 'c',
+        shade: [0.1, '#ffffff'],
         yes: function (index) {
             layer.close(index);
-
         }
 
     })
     layui.use('form', function () {
-        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        var form = layui.form;
         form.render();
+        form.on('select(test)', function(data){
+            var gradeCode=data.value;
+            var text=MoveClass(gradeCode);
+            $("#Class").html(text);
+            Refresh();
+        });
     })
 
 
@@ -125,13 +148,14 @@ function Move() {
 //班级下拉框
 function MoveClass(gradeCode) {
     var text = "";
+    text += "  <option value=\"\">请选择班级</option>";
     if(ClassList.code==1){
         var list=ClassList.data;
         for(var i=0;i<list.length;i++){
             if(list[i].gradeCode==gradeCode){
-                for(var j=0;j<list.classes.length;j++){
-                    text += " <option value=\""+list[i].classes.id+"\">";
-                    text += list[i].classes.className+"</option>";
+                for(var j=0;j<list[i].classes.length;j++){
+                    text += " <option value=\""+list[i].classes[j].id+"\">";
+                    text += list[i].classes[j].className+"</option>";
                 }
 
             }
@@ -160,10 +184,7 @@ function MoveEnd(Data) {
         var data = {"tableName": "Student", "code": code, "name": name,"currentPage":1};
         var table=getPage(data);
         StuTable(table.data.list);
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-        });
+        Refresh();
         Page("test1",table.data.pageCount,table.data.dataCount);
         StuFunction();
         layer.msg(Data.message, {
@@ -202,10 +223,7 @@ function Page(id,limit,count) {
                     var table=getPage(data);
                     if (table.code == 1) {
                         StuTable(table.data.list);
-                        layui.use('form', function () {
-                            var form = layui.form;
-                            form.render();
-                        });
+                        Refresh();
                         StuFunction();
                     }
                 }
@@ -213,7 +231,7 @@ function Page(id,limit,count) {
         });
     });
 }
-
+//表格
 function StuTable(data) {
     if(data!=null){
         var text = "";
@@ -237,7 +255,7 @@ function StuTable(data) {
             text += "<td>"+data[i].teacherName+"</td>";
             text += "<td>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"moveClass\">修改</button>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-red\" name=\"moveClass\">删除</button>";
+            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-red\" name=\"delete\">删除</button>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">转班</button>";
             text += "</td>";
             text += "</tr>";
@@ -247,4 +265,11 @@ function StuTable(data) {
     }
 
 
+}
+//刷新
+function Refresh() {
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+    });
 }

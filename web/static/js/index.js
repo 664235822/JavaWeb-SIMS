@@ -1,7 +1,6 @@
 /**
  * 首页js
  * **/
-
 $(function () {
     //判断菜单权级
     if(localStorage.Login!=null){
@@ -32,6 +31,16 @@ $(function () {
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);
     Menu(menu);
+    $(".nav a.userlist").click(function () {
+        var url="/JavaWeb_SIMS_war_exploded/static/html/"+$(this).attr("name");
+        if($(this).attr("name")!=undefined){
+            $(".layui-body>iframe").attr("src",url);
+        }else {
+
+        }
+
+
+    })
 });
 //生成菜单
 function Menu(Menu) {
@@ -47,7 +56,7 @@ function Menu(Menu) {
         text += "<ul class=\"nav nav-pills nav-stacked\">";
         for (var j=0;j<menuName[i].items.length;j++){
             text += "<li role=\"presentation\">";
-            text += "<a class=\"userlist\" href=\"#\">";
+            text += "<a class=\"userlist\" name=\""+ menuName[i].items[j].url+"\" href=\"#\">";
             text += "<span class=\"glyphicon glyphicon-triangle-right Font-list\" aria-hidden=\"true\"></span>";
             text += menuName[i].items[j].menuName;
             text += "</a>";

@@ -17,6 +17,9 @@
         body .demo-class .layui-layer-content {
             overflow: visible;
         }
+        body {
+            min-height: 400px;
+        }
         .leaveTop {
             margin-top: 19px;
         }
@@ -71,42 +74,4 @@
     </div>
 </div>
 </body>
-<script>
-    $(function () {
-        $("#testBtn").click(function () {
-            var text = "";
-            text += " <div class=\"layui-form\">";
-            text += "<select name=\"city\" lay-verify=\"\">";
-            text += "  <option value=\"\">请选择一个城市</option>";
-            text += "  <option value=\"010\">北京</option>";
-            text += "  <option value=\"021\">上海</option>";
-            text += "  <option value=\"0571\">杭州</option>";
-            text += "</select>  ";
-            text += "<select name=\"city\" lay-verify=\"\">";
-            text += "  <option value=\"\">请选择一个城市</option>";
-            text += "  <option value=\"010\">北京</option>";
-            text += "  <option value=\"021\">上海</option>";
-            text += "  <option value=\"0571\">杭州</option>";
-            text += "</select>    ";
-            text += "    </div>";
-            layer.open({
-                title: '影响范围',
-                btn: ['确定', '取消'],
-                content: text,
-                skin: 'demo-class',
-                btnAlign: 'c',
-                yes: function (index) {
-                    layer.close(index);
-
-                }
-
-            })
-            layui.use('form', function () {
-                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-                form.render();
-            })
-        })
-    })
-
-</script>
 </html>

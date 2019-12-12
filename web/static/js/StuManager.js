@@ -134,7 +134,7 @@ function Move(codeList) {
             var obj={};
             var data={};
             for(var i=0;i<codeList.length;i++){
-                obj.stuCode=codeList[i];
+                obj.code=codeList[i];
                 obj.classId=classId;
                 list.push(obj);
             }

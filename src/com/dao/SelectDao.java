@@ -27,10 +27,10 @@ public class SelectDao extends BaseDao {
     public BaseBean selectTeacher(String code, String name, int currentPage) throws SQLException {
         String sql = "select * from Teacher where 1=1 ";
         if (!code.isEmpty()) {
-            sql += "and tCode like '%" + code + "%' ";
+            sql += "and code like '%" + code + "%' ";
         }
         if (!name.isEmpty()) {
-            sql += "and tName like '%" + name + "%' ";
+            sql += "and name like '%" + name + "%' ";
         }
         sql += "limit " + (currentPage - 1) * 10 + ",10;";
 
@@ -89,10 +89,10 @@ public class SelectDao extends BaseDao {
                 "inner join Grade gr on cl.gradeId=gr.id " +
                 "inner join Teacher tea on tc.tId=tea.id where 1=1 ";
         if (!code.isEmpty()) {
-            sql += "and st.stuCode like '%" + code + "%' ";
+            sql += "and st.code like '%" + code + "%' ";
         }
         if (!name.isEmpty()) {
-            sql += "and st.stuName like '%" + name + "%' ";
+            sql += "and st.name like '%" + name + "%' ";
         }
         sql += "limit " + (currentPage - 1) * 10 + ",10;";
         ResultSet rs = querySelect(sql);

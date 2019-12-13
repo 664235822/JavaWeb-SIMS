@@ -1,97 +1,29 @@
+*{
+    text-decoration: none;
+}
 body {
-    padding-top: 65px;
     overflow-y: hidden;
 }
 
-.ToRight {
-    margin-top: 10px;
-    float: right;
-}
-
-/*隐藏二级菜单*/
-#Scend-menue,#Scend-menue2{
-    display: none;
-}
-
-.userlist {
-    color: rgb(191, 197, 203);
-    font-size: 12px;
-}
-/*菜单列表字体大小*/
-.Font-list {
-    font-size: 10px;
-    margin-right: 5px;
-}
-
-.container-fluid {
-    width: 100%;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.row {
-    margin: 0px;
-}
-
-.navbar-header {
-    margin-left: 50px;
-}
-
-.col-md-2,
-.col-md-10 {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.glyphicon-folder-open {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.menue-box {
-    max-width: 250px;
-    height: 1000px;
-    background-color: #2F4056;
-}
-.glyphicon-user{
-    margin-right: 10px;
-}
-img{
-    height: 65px;
-    margin-left: 20px;
-    padding-top: 8px;
-}
-.navbar-fixed-top{
-    background-color: #2F4056;
-}
-.topimg{
-    float: left;
-}
-a{
-    color: rgb(191, 197, 203);
-}
-
-.nav > li > a:hover, .nav > li > a:focus {
+a:hover {
     text-decoration: none;
-    background-color: #ffffff;
-    color: #2F4056;
 }
-.layui-body{
-    left: 250px;
-    top: 65px;
-    bottom: 50px;
+a:visited{
+    text-decoration: none;
 }
-/*修改hover效果*/
-.nav-pills > li > a {
-    border-radius: 0px;
+
+.menu,.layui-body{
+    margin-top: 60px;
 }
-.nav > li > .userlist {
-    position: relative;
-    display: block;
-    padding: 10px 30px;
+
+.layui-logo img {
+    height: 50px;
+    margin: 0px;
+    padding: 0px;
 }
+
 /*主体内ifram框架*/
-.ifm{
+.ifm {
     border: none;
     width: 100%;
     overflow: hidden;

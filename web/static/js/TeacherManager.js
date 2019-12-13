@@ -3,7 +3,7 @@
  * 教师管理js
  * **/
 
-
+var ClassList={};
 //添加教师
 function TeacherInfo() {
         $(function() {
@@ -124,6 +124,7 @@ function isPicFile(fileExt) {
 }
 //查看教师列表
 function ShowTeachers() {
+    this.ClassList=Ajax("/JavaWeb_SIMS_war_exploded/getClass","");
     var data = {"tableName": "Teacher", "code": "", "name": "","currentPage":1};
     var table=getPage(data);
     if (table.code == 1) {
@@ -174,48 +175,191 @@ function TeacherFunction() {
             });
         });
     });
-    //删除
-    $("table tbody").find("button[name=delete]").click(function() {
+    //单个操作
+    $("table tbody").find("button[name]").click(function() {
         var id=$(this).parent().parent().attr('name');
-        layer.confirm('确认删除', {
-            icon: 7,
-            title: '提示',
-            fixed: false,
-        }, function(index) {
-            var data={}
+        if($(this).attr("name")=="delete"){
             var codeList=new Array();
             codeList[0]=id;
-            data.tableName='Teacher';
-            data.codeList=JSON.stringify(codeList);
-            var url = "/JavaWeb_SIMS_war_exploded/delete";
-            var Delete = Ajax(url, data);
-            DeleteEnd(Delete);
-            layer.close(index);
-        });
+            Delete(codeList);
+        }
+        if($(this).attr("name")=="moveClass"){
+            var codeList=new Array();
+            codeList[0]=id;
+            Move(codeList);
+        }
+        if($(this).attr("name")=="modify"){
+            ShowModify(id);
+        }
+
     });
-    //批量删除
-    $("#LAY_preview [lay-event=delete]").click(function() {
+    //批量操作
+    $("#moveClassAll").click(function() {
         var codeList=new Array();
         var num=0;
         $("input[name=checkbox]:checked").each(function() {
             codeList[num]=$(this).parent().parent().parent().attr('name');
             num++;
         });
-        layer.confirm('确认删除', {
-            icon: 7,
-            title: '提示',
-            fixed: false,
-        }, function(index) {
-            var data={}
-            data.tableName='Teacher';
-            data.codeList=JSON.stringify(codeList);
-            var url = "/JavaWeb_SIMS_war_exploded/delete";
-            var Delete = Ajax(url, data);
-            DeleteEnd(Delete);
-            layer.close(index);
+        if($(this).attr("name")=="delete"){
+            Delete(codeList);
+        }
+        if($(this).attr("name")=="moveClass"){
+            Move(codeList);
+        }
+    });
+}
+function Modify() {
+    if(localStorage.ModifyId!=null){
+        var json2 = localStorage.ModifyId;
+        var obj = JSON.parse(json2);
+    }
+    var data = {"tableName": "Teacher", "code": obj.teacherId, "name": "","currentPage":1};
+    var table=getPage(data);
+    var list=table.data.list[0];
+    $("#tCode").val(list.code);
+    $("#tName").val(list.name);
+    var sex=list.sex;
+    if(sex=="男")
+    {
+        $("input[type='radio']").eq(0).attr("checked", true);
+        $("input[type='radio']").eq(1).attr("checked", false);
+    }else {
+        $("input[type='radio']").eq(0).attr("checked", false);
+        $("input[type='radio']").eq(1).attr("checked", true);
+    }
+    $("#tAge").val(list.age);
+    $("#tGoodAt").val(list.goodAt);
+    $("#tPone").val(list.phone);
+    $("#tQQ").val(list.qQ);
+    $("#tEmail").val(list.email);
+    $("#tAddress").val(list.address);
+    $("#tIntorduction").val(list.introduction);
+    $("#tPwd").val(list.pwd);
+    $("#tEducation option:contains("+list.education+")").prop("selected",true);
+    Refresh();
+}
+
+
+//显示修改信息页面
+function ShowModify(id) {
+    var json1 = {};
+    json1.teacherId=id;
+    var str1 = JSON.stringify(json1);
+    localStorage.ModifyId= str1;
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.open({
+            type: 2
+            ,closeBtn: 2
+            ,title:['查看信息','color:#ffffff;background-color:#009688;']
+            ,content:'/JavaWeb_SIMS_war_exploded/static/html/Revise.html'
+            ,area:['650px','500px']
         });
     });
 }
+//删除
+function Delete(codeList) {
+    layer.confirm('确认删除', {
+        icon: 7,
+        title: '提示',
+        fixed: false,
+    }, function(index) {
+        var data={}
+        data.tableName='Student';
+        data.codeList=JSON.stringify(codeList);
+        var url = "/JavaWeb_SIMS_war_exploded/delete";
+        var Delete = Ajax(url, data);
+        MoveEnd(Delete);
+        layer.close(index);
+    });
+
+}
+//转班操作
+function Move(codeList) {
+    var classId=0;
+    var text = "";
+    text += " <div class=\"layui-form\">";
+    text += "<select name=\"city\"  lay-filter=\"test\">";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += grade();
+    text += "</select>  ";
+    text += "<select name=\"quiz\" id=\"Class\"  lay-filter=\"quiz\" lay-verify=\"\">";
+    text += "  <option value=\"\">请选择班级</option>";
+    text += "</select>    ";
+    text += "    </div>";
+    layer.open({
+        title: '影响范围',
+        btn: ['确定', '取消'],
+        content: text,
+        skin: 'demo-class',
+        btnAlign: 'c',
+        shade: [0.1, '#ffffff'],
+        yes: function (index) {
+            var list=new Array;
+            var obj={};
+            var data={};
+            for(var i=0;i<codeList.length;i++){
+                obj.code=codeList[i];
+                obj.classId=classId;
+                list.push(obj);
+            }
+            var url = "/JavaWeb_SIMS_war_exploded/update";
+            data.tableName="StudentClass";
+            data.info=JSON.stringify(list);
+            var table = Ajax(url, data);
+            layer.close(index);
+        }
+
+    })
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('select(test)', function(data){
+            var gradeCode=data.value;
+            var text=MoveClass(gradeCode);
+            $("#Class").html(text);
+            Refresh();
+        });
+        form.on('select(quiz)', function(data){
+            classId=data.value;
+        });
+    })
+
+
+}
+//班级下拉框
+function MoveClass(gradeCode) {
+    var text = "";
+    text += "  <option value=\"\">请选择班级</option>";
+    if(ClassList.code==1){
+        var list=ClassList.data;
+        for(var i=0;i<list.length;i++){
+            if(list[i].gradeCode==gradeCode){
+                for(var j=0;j<list[i].classes.length;j++){
+                    text += " <option value=\""+list[i].classes[j].id+"\">";
+                    text += list[i].classes[j].className+"</option>";
+                }
+
+            }
+        }
+    }
+    return text;
+}
+//年级下拉框
+function grade() {
+    var text = "";
+    if(ClassList.code==1){
+        var list=ClassList.data;
+        for(var i=0;i<list.length;i++){
+            text += " <option value=\""+list[i].gradeCode+"\" >";
+            text += list[i].gradeName+"</option>";
+        }
+        $("#layui-layer1 [name=quiz1]").html(text);
+    }
+    return text;
+}
+
 //删除回调
 function DeleteEnd(Delete) {
     if(Delete.code==1){
@@ -224,10 +368,7 @@ function DeleteEnd(Delete) {
         var data = {"tableName": "Teacher", "code": code, "name": name,"currentPage":1};
         var table=getPage(data);
         TeachresTable(table.data.list);
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-        });
+        Refresh();
         Page("test1",table.data.pageCount,table.data.dataCount);
         TeacherFunction();
         layer.msg(Delete.message, {
@@ -245,6 +386,7 @@ function DeleteEnd(Delete) {
     }
 
 }
+
 //分页
 function Page(id,limit,count) {
     layui.use('laypage', function () {
@@ -265,10 +407,7 @@ function Page(id,limit,count) {
                 var table=getPage(data);
                 if (table.code == 1) {
                     TeachresTable(table.data.list);
-                    layui.use('form', function () {
-                        var form = layui.form;
-                        form.render();
-                    });
+                    Refresh();
                     TeacherFunction();
                 }
             }
@@ -297,7 +436,7 @@ function TeachresTable(data) {
            text += "<td>"+data[i].email+"</td>";
            text += "<td>"+data[i].phone+"</td>";
            text += "<td >";
-           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\">修改</button>";
+           text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">分配班级</button>";
            text += "</td>";
@@ -308,4 +447,11 @@ function TeachresTable(data) {
    }
 
 
+}
+//刷新
+function Refresh() {
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+    });
 }

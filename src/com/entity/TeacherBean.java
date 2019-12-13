@@ -6,12 +6,14 @@ package com.entity;
 public class TeacherBean {
 
     //教师信息头部
-    public static String[] teacherInfo = {"tCode", "tName", "tSex", "tAge", "tEducation", "tGoodAt", "tPhone", "tQQ", "tEmail", "tAddress", "tIntroduction"};
+    public static String[] teacherInfo = {"code", "name", "sex", "age", "education", "goodAt", "phone", "QQ", "email", "address", "introduction"};
 
     //教师账号
     private String code;
     //教师姓名
     private String name;
+    //教师密码
+    private String pwd;
     //教师性别
     private String sex;
     //教师年龄
@@ -45,6 +47,14 @@ public class TeacherBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getSex() {

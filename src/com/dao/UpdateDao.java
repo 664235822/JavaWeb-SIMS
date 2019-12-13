@@ -24,7 +24,7 @@ public class UpdateDao extends BaseDao {
         for (int i = 0; i < studentInfo.size(); i++) {
             String sql = "update Student ";
             sql += "set classId='" + studentInfo.get(i).getClassId() + "' ";
-            sql += "where stuCode='" + studentInfo.get(i).getCode() + "';";
+            sql += "where code='" + studentInfo.get(i).getCode() + "';";
 
             queryUpdate(sql);
         }

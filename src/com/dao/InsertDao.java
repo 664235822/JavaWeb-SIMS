@@ -18,10 +18,9 @@ public class InsertDao extends BaseDao {
     /*
      * 添加教师信息
      * @param info 教师信息
-     * @param pwd 教师密码
      * @throws SQLException, MyException
      */
-    public void insertTeacher(TeacherBean info, String pwd) throws SQLException, MyException {
+    public void insertTeacher(TeacherBean info) throws SQLException, MyException {
         StringBuffer columnNames = new StringBuffer();
         for (int i = 0; i < TeacherBean.teacherInfo.length; i++) {
             columnNames.append(TeacherBean.teacherInfo[i]);
@@ -42,7 +41,7 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getAddress() + "'").append(",");
         values.append("'" + info.getIntroduction() + "'");
 
-        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + pwd + "','2');";
+        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + info.getPwd() + "','2');";
         queryUpdate(sql);
 
         sql = "insert into Teacher (" + columnNames.toString() + ") values (" + values.toString() + ");";
@@ -54,10 +53,9 @@ public class InsertDao extends BaseDao {
     /*
      * 添加学生信息
      * @param info 学生信息
-     * @param pwd 学生密码
      * @throws SQLException, MyException
      */
-    public void insertStudent(StudentBean info, String pwd) throws SQLException, MyException {
+    public void insertStudent(StudentBean info) throws SQLException, MyException {
         StringBuffer columnNames = new StringBuffer();
         for (int i = 0; i < StudentBean.studentInfo.length; i++) {
             columnNames.append(StudentBean.studentInfo[i]);
@@ -75,7 +73,7 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getAddress() + "'").append(",");
         values.append("'" + info.getClassId() + "'");
 
-        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + pwd + "','3');";
+        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + info.getPwd() + "','3');";
         queryUpdate(sql);
 
         sql = "insert into Teacher (" + columnNames.toString() + ") values (" + values.toString() + ");";

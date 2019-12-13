@@ -42,9 +42,9 @@ public class SelectService {
      * @return BaseBean 返回班级信息
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
      */
-    public BaseBean selectClassInfo() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public BaseBean selectClass() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         selectDao = new SelectDao();
 
-        return selectDao.selectClassInfo();
+        return selectDao.selectClass();
     }
 }

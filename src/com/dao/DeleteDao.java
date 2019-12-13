@@ -23,7 +23,7 @@ public class DeleteDao extends BaseDao {
      */
     public void deleteTeacher(List<Integer> codeList) throws SQLException, MyException {
         for (int i = 0; i < codeList.size(); i++) {
-            String sql = "delete from Teacher where tCode='" + codeList.get(i) + "';";
+            String sql = "delete from Teacher where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
 
             sql = "delete from Login where code='" + codeList.get(i) + "';";
@@ -40,7 +40,7 @@ public class DeleteDao extends BaseDao {
      */
     public void deleteStudent(List<Integer> codeList) throws SQLException, MyException {
         for (int i = 0; i < codeList.size(); i++) {
-            String sql = "delete from Student where stuCode='" + codeList.get(i) + "';";
+            String sql = "delete from Student where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
 
             sql = "delete from Login where code='" + codeList.get(i) + "';";

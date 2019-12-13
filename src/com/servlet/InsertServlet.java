@@ -35,9 +35,8 @@ public class InsertServlet extends HttpServlet {
 
             String tableName = req.getParameter("tableName");
             String info = req.getParameter("info");
-            String pwd = req.getParameter("pwd");
 
-            insertService.Insert(tableName, info, pwd);
+            insertService.Insert(tableName, info);
 
             obj.setCode(BaseBean.SUCCESS);
             obj.setMessage("添加信息成功");

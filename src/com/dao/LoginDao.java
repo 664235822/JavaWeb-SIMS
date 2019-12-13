@@ -39,18 +39,18 @@ public class LoginDao extends BaseDao {
                     loginInfo.setUsername(rs.getString("code"));
                     break;
                 case 2:
-                    sql = "select tName from Teacher where tCode = '" + rs.getString("code") + "'";
+                    sql = "select name from Teacher where code = '" + rs.getString("code") + "'";
                     rs = querySelect(sql);
                     if (rs.next())
-                        loginInfo.setUsername(rs.getString("tName"));
+                        loginInfo.setUsername(rs.getString("name"));
                     else
                         throw new MyException("获取用户名失败");
                     break;
                 case 3:
-                    sql = "select stuName from Student where stuCode = '" + rs.getString("code") + "'";
+                    sql = "select name from Student where code = '" + rs.getString("code") + "'";
                     rs = querySelect(sql);
                     if (rs.next())
-                        loginInfo.setUsername(rs.getString("stuName"));
+                        loginInfo.setUsername(rs.getString("name"));
                     else
                         throw new MyException(("获取用户名失败"));
                     break;

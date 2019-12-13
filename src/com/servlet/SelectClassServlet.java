@@ -16,7 +16,7 @@ import java.io.PrintWriter;
  * 获取班级信息Servlet类
  */
 @WebServlet("/getClass")
-public class SelectClassInfoServlet extends HttpServlet {
+public class SelectClassServlet extends HttpServlet {
 
     SelectService selectService = new SelectService();
     BaseBean obj = new BaseBean();
@@ -33,7 +33,7 @@ public class SelectClassInfoServlet extends HttpServlet {
             req.setCharacterEncoding("utf-8");
             resp.setCharacterEncoding("utf-8");
 
-            obj = selectService.selectClassInfo();
+            obj = selectService.selectClass();
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setMessage(e.getMessage());

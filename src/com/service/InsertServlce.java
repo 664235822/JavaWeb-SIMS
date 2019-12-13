@@ -22,17 +22,17 @@ public class InsertServlce {
      * @param pwd 要添加的用户密码
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
      */
-    public void Insert(String tableName, String info, String pwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+    public void Insert(String tableName, String info) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
         insertDao = new InsertDao();
 
         switch (tableName) {
             case "Teacher":
                 TeacherBean teacher = JSON.parseObject(info, TeacherBean.class);
-                insertDao.insertTeacher(teacher, pwd);
+                insertDao.insertTeacher(teacher);
                 break;
             case "Student":
                 StudentBean student = JSON.parseObject(info, StudentBean.class);
-                insertDao.insertStudent(student, pwd);
+                insertDao.insertStudent(student);
                 break;
         }
     }

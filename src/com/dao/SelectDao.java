@@ -43,40 +43,26 @@ public class SelectDao extends BaseDao {
         while (rs.next()) {
             TeacherBean teacher = new TeacherBean();
 
-            teacher.setCode(rs.getString("tCode"));
-            teacher.setName(rs.getString("tName"));
-            teacher.setSex(rs.getString("tSex"));
-            teacher.setAge(rs.getInt("tAge"));
-            teacher.setEducation(rs.getString("tEducation"));
-            teacher.setGoodAt(rs.getString("tGoodAt"));
-            teacher.setPhone(rs.getString("tPhone"));
-            teacher.setQQ(rs.getString("tQQ"));
-            teacher.setEmail(rs.getString("tEmail"));
-            teacher.setAddress(rs.getString("tAddress"));
-            teacher.setIntroduction(rs.getString("tIntroduction"));
+            teacher.setCode(rs.getString("code"));
+            teacher.setName(rs.getString("name"));
+            teacher.setSex(rs.getString("sex"));
+            teacher.setAge(rs.getInt("age"));
+            teacher.setEducation(rs.getString("education"));
+            teacher.setGoodAt(rs.getString("goodAt"));
+            teacher.setPhone(rs.getString("phone"));
+            teacher.setQQ(rs.getString("QQ"));
+            teacher.setEmail(rs.getString("email"));
+            teacher.setAddress(rs.getString("address"));
+            teacher.setIntroduction(rs.getString("introduction"));
+
+            teacher.setPwd(selectPwd(teacher.getCode()));
 
             list.add(teacher);
         }
 
         table.setList(list);
 
-        sql = "select count(*) as count from Teacher where 1=1 ";
-        if (!code.isEmpty()) {
-            sql += "and tCode like '%" + code + "%' ";
-        }
-        if (!name.isEmpty()) {
-            sql += "and tName like '%" + name + "%' ";
-        }
-        sql += ";";
-        rs = querySelect(sql);
-        int dataCount = 0;
-        int pageCount = 0;
-        if (rs.next()) {
-            dataCount = rs.getInt("count");
-            pageCount = (dataCount + 10 - 1) / 10;
-        }
-        table.setDataCount(dataCount);
-        table.setPageCount(pageCount);
+        selectCount("Teacher", code, name, table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -95,7 +81,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectStudent(String code, String name, int currentPage) throws SQLException {
-        String sql = "select st.stuCode,st.stuName,st.stuAge,st.stuSex,st.stuQQ,st.stuPhone,st.stuAddress,st.classId,cl.className,gr.gradeName,tea.tName from Class cl " +
+        String sql = "select st.code,st.name,st.age,st.sex,st.QQ,st.phone,st.address,st.classId,cl.className,gr.gradeName,tea.name tName from Class cl " +
                 "inner join Student st on st.classId=cl.id " +
                 "inner join TeacherClass tc on tc.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
@@ -116,40 +102,26 @@ public class SelectDao extends BaseDao {
         while (rs.next()) {
             StudentBean student = new StudentBean();
 
-            student.setCode(rs.getString("stuCode"));
-            student.setName(rs.getString("stuName"));
-            student.setAge(rs.getInt("stuAge"));
-            student.setSex(rs.getString("stuSex"));
-            student.setQQ(rs.getString("stuQQ"));
-            student.setPhone(rs.getString("stuPhone"));
-            student.setAddress(rs.getString("stuAddress"));
+            student.setCode(rs.getString("code"));
+            student.setName(rs.getString("name"));
+            student.setAge(rs.getInt("sge"));
+            student.setSex(rs.getString("sex"));
+            student.setQQ(rs.getString("QQ"));
+            student.setPhone(rs.getString("phone"));
+            student.setAddress(rs.getString("address"));
             student.setClassId(rs.getInt("classId"));
             student.setClassName(rs.getString("className"));
             student.setGradeName(rs.getString("gradeName"));
             student.setTeacherName(rs.getString("tName"));
+
+            student.setPwd(selectPwd(student.getCode()));
 
             list.add(student);
         }
 
         table.setList(list);
 
-        sql = "select count(*) as count from Student where 1=1 ";
-        if (!code.isEmpty()) {
-            sql += "and stuCode like '%" + code + "%' ";
-        }
-        if (!name.isEmpty()) {
-            sql += "and stuName like '%" + name + "%' ";
-        }
-        sql += ";";
-        rs = querySelect(sql);
-        int dataCount = 0;
-        int pageCount = 0;
-        if (rs.next()) {
-            dataCount = rs.getInt("count");
-            pageCount = (dataCount + 10 - 1) / 10;
-        }
-        table.setDataCount(dataCount);
-        table.setPageCount(pageCount);
+        selectCount("Student", code, name, table);
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
@@ -164,7 +136,7 @@ public class SelectDao extends BaseDao {
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
-    public BaseBean selectClassInfo() throws SQLException {
+    public BaseBean selectClass() throws SQLException {
         String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl ";
         sql += "inner join Grade gr on cl.gradeId=gr.id;";
         ResultSet rs = querySelect(sql);
@@ -173,8 +145,7 @@ public class SelectDao extends BaseDao {
         List<GradeBean> list = new ArrayList<>();
 
         int gradeId = 0;
-        while (rs.next())
-        {
+        while (rs.next()) {
             if (rs.getInt("gradeId") != gradeId) {
                 gradeId = rs.getInt("gradeId");
 
@@ -204,5 +175,53 @@ public class SelectDao extends BaseDao {
         destroy(rs);
 
         return result;
+    }
+
+    /*
+     * 获取表格行数和页数
+     * @param 数据库表名
+     * @param 查询账号
+     * @param 查询用户名
+     * @param 返回表格实体类
+     * @throws SQLException
+     */
+    void selectCount(String tableName, String code, String name, TableBean obj) throws SQLException {
+        String sql = "select count(*) as count from " + tableName + " where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and code like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and name like '%" + name + "%' ";
+        }
+        sql += ";";
+        ResultSet rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        obj.setDataCount(dataCount);
+        obj.setPageCount(pageCount);
+
+        rs.close();
+    }
+
+    /*
+     * 获取密码
+     * @param 查询账号
+     * @return String 密码
+     * @throws SQLException
+     */
+    String selectPwd(String code) throws SQLException {
+        String sql = "select * from Login where code='" + code + "';";
+        String pwd = null;
+        ResultSet rs = querySelect(sql);
+        if (rs.next()) {
+            pwd = rs.getString("pwd");
+            rs.close();
+        }
+
+        return pwd;
     }
 }

@@ -55,9 +55,11 @@ public class SelectDao extends BaseDao {
             teacher.setAddress(rs.getString("address"));
             teacher.setIntroduction(rs.getString("introduction"));
 
-            teacher.setPwd(selectPwd(teacher.getCode()));
-
             list.add(teacher);
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setPwd(selectPwd(list.get(i).getCode()));
         }
 
         table.setList(list);
@@ -104,7 +106,7 @@ public class SelectDao extends BaseDao {
 
             student.setCode(rs.getString("code"));
             student.setName(rs.getString("name"));
-            student.setAge(rs.getInt("sge"));
+            student.setAge(rs.getInt("age"));
             student.setSex(rs.getString("sex"));
             student.setQQ(rs.getString("QQ"));
             student.setPhone(rs.getString("phone"));
@@ -114,9 +116,11 @@ public class SelectDao extends BaseDao {
             student.setGradeName(rs.getString("gradeName"));
             student.setTeacherName(rs.getString("tName"));
 
-            student.setPwd(selectPwd(student.getCode()));
-
             list.add(student);
+        }
+
+        for(int i=0;i<list.size();i++){
+            list.get(i).setPwd(selectPwd(list.get(i).getCode()));
         }
 
         table.setList(list);
@@ -219,9 +223,9 @@ public class SelectDao extends BaseDao {
         ResultSet rs = querySelect(sql);
         if (rs.next()) {
             pwd = rs.getString("pwd");
-            rs.close();
         }
 
+        rs.close();
         return pwd;
     }
 }

@@ -1,0 +1,25 @@
+body {
+    min-height: 300px;
+}
+p {
+    margin: 0px;
+}
+
+.layui-table th, td {
+    text-align: center;
+    font-weight: 400;
+}
+
+.layui-form-label {
+    width: 110px;
+    text-align: center;
+}
+
+.leaveTop {
+    margin-top: 19px;
+}
+
+.moveleft {
+    margin-top: 4px;
+    margin-left: 10px;
+}

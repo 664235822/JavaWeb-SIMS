@@ -42,8 +42,8 @@
 </div>
 <!-- iframe框架-->
 <div class="layui-body">
-        <iframe onload="setHeight()"  scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/TeacherInfo.html"></iframe>
-<!--    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/ShowTeachers.html"></iframe>-->
+<!--        <iframe onload="setHeight()"  scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/TeacherInfo.html"></iframe>-->
+    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/ShowTeachers.html"></iframe>
 <!--    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/StudentInfo.html"></iframe>-->
 </div>
 <!-- 底部导航栏 -->
@@ -54,8 +54,13 @@
 <script>
     //自适应高度
     function setHeight () {
-            var h = $(".ifm").contents().find("body").height();
-            $(".ifm").height(h+60);
+            var h = $(".ifm").contents().find("body").height()+60;
+            $(".ifm").height(h);
     }
+    //窗体改变大小时后执行一次函数
+    window.onresize = function(){
+        setHeight();
+    }
+
 </script>
 </html>

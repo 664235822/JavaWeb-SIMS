@@ -6,7 +6,7 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/TeacherInfo.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Revise.js"></script>
     <title>修改个人信息</title>
     <style>
         .layui-container{
@@ -137,9 +137,7 @@
                 <!--                提交按钮-->
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button type="reset" id="chakan"  class="layui-btn layui-btn-primary">查看</button>
-                        <button type="reset" id="revise"  class="layui-btn layui-btn-primary">修改</button>
-                        <button type="reset"  class="layui-btn layui-btn-primary">重置</button>
+                        <button type="layui-btn" id="Reset"  class="layui-btn layui-btn-primary">重置</button>
                         <button class="layui-btn" lay-submit  id="referto"  lay-filter="component-form-element">立即提交</button>
                     </div>
                 </div>
@@ -149,23 +147,4 @@
     </div>
 </div>
 </body>
-<script>
-    $(function () {
-       // 点击查看按钮
-       $("#chakan").click(function () {
-           layui.$('input').attr('disabled',true);
-           layui.$('input[id=tCode]').attr('disabled',false);
-           layui.$('select').attr('disabled',true);
-           layui.$('textarea').attr('disabled',true);
-           layui.form.render()
-       })
-        $("#revise").click(function () {
-            layui.$('input').attr('disabled',false);
-            layui.$('select').attr('disabled',false);
-            layui.$('textarea').attr('disabled',false);
-            layui.form.render()
-        })
-    })
-
-</script>
 </html>

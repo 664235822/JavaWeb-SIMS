@@ -48,7 +48,7 @@ function Menu(Menu) {
     var text = "";
     text += "<ul class=\"layui-nav layui-nav-tree\" id=\"menu\">";
     for(var i=0;i<menuName.length;i++){
-        text += "<li class=\"layui-nav-item\" id=\"Menu"+i+"\"><a  href=\"#\">";
+        text += "<li class=\"layui-nav-item\" id=\"Menu"+i+"\"><a >";
         text += menuName[i].menuName;
         text += "</a>";
         text += "<dl class=\"layui-nav-child\" id=\"Menu"+i+"_Submenu\">";

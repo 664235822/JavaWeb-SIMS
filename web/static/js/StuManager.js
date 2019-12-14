@@ -3,18 +3,81 @@
  *
  * **/
 var ClassList={};
+//添加学生
+function StuInfo() {
+    this.ClassList=Ajax("/JavaWeb_SIMS_war_exploded/getClass","");
+    $(function() {
+        $("#test1").click(function() {
+            $("input[type='file']").val("");
+            $("#btn_file").click();
+        });
+        $("#btn_file").change(function() {
+            uploadExcel('Student');
+        });
 
-//初始化
+    }); var text="";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += grade();
+    $("#tGrade").html(text);
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('select(test)', function(data){
+            var gradeCode=data.value;
+            var text=MoveClass(gradeCode);
+            $("#tClass").html(text);
+            Refresh();
+        });
+
+    });
+
+
+}
+//获取学生信息
+function UpStudent() {
+    var data={};
+    var Info={};
+    data.tableName="Student";
+    Info.code=Serch("tCode");
+    Info.name=Serch("tName");
+    Info.sex=$("input[type='radio']:checked").val();
+    Info.age=Serch("tAge");
+    Info.classId=  $("#tClass option:selected").val();
+    Info.phone=Serch("tPone");
+    Info.QQ=Serch("tQQ");
+    Info.address=Serch("tAddress");
+    Info.pwd=Serch("tPwd");
+    data.info=JSON.stringify(Info);
+    var url = "/JavaWeb_SIMS_war_exploded/insert";
+    var Menu = Ajax(url, data);
+    if (Menu.code==1) {
+        //成功的
+        layer.msg(Menu.message, {
+             icon: 1
+            , time: 1000
+        });
+    }else{
+        layer.msg(Menu.message, {
+            icon: 5
+            ,anim: 6
+            , time: 1000
+        });
+
+    }
+}
+
+//查看数据
+function Serch(id) {
+    return $("#"+id).val();
+}
+//学生管理初始化
 function StuMoveClass() {
     this.ClassList=Ajax("/JavaWeb_SIMS_war_exploded/getClass","");
     var data = {"tableName": "Student", "code": "", "name": "","currentPage":1};
     var table=getPage(data);
     if (table.code == 1) {
         StuTable(table.data.list);
-        layui.use('form', function () {
-            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-            form.render();
-        });
+        Refresh();
         Page("test1",table.data.pageCount,table.data.dataCount);
         StuFunction();
     }
@@ -37,10 +100,7 @@ function StuFunction() {
             var table=getPage(data);
             if (table.code == 1) {
                 StuTable(table.data.list);
-                layui.use('form', function () {
-                    var form = layui.form;
-                    form.render();
-                });
+                Refresh();
                 Page("test1",table.data.pageCount,table.data.dataCount);
                 StuFunction();
             }
@@ -142,6 +202,7 @@ function Move(codeList) {
             data.tableName="StudentClass";
             data.info=JSON.stringify(list);
             var table = Ajax(url, data);
+            MoveEnd(table);
             layer.close(index);
         }
 
@@ -189,7 +250,6 @@ function grade() {
             text += " <option value=\""+list[i].gradeCode+"\" >";
             text += list[i].gradeName+"</option>";
         }
-        $("#layui-layer1 [name=quiz1]").html(text);
     }
     return text;
 }
@@ -210,7 +270,7 @@ function MoveEnd(Data) {
             , time: 1000
         });
     }else {
-        layer.msg(Data.message, {
+        layer.msg("操作失败", {
             icon: 5
             ,anim: 6
             , time: 1000

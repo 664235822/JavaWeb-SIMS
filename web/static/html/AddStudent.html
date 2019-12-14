@@ -9,14 +9,13 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StudentInfo.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StuManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>StudentInfo</title>
 </head>
-<body onload="addCode()">
+<body onload="addCode();StuInfo()">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <p class="text-left addtea pull-left">当前位置 > 首页 > 添加学生</p>
@@ -90,7 +89,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">所在年级：</label>
                     <div class="layui-input-block">
-                        <select id="tGrade" name="tGrade" lay-verify="required" lay-reqtext="年级是必填项！">
+                        <select id="tGrade" name="tGrade" lay-verify="required" lay-filter="test" lay-reqtext="年级是必填项！">
                             <option value="">请选择你的年级</option>
                             <option value="1">2018级</option>
                             <option value="2">2019级</option>

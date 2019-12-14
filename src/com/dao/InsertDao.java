@@ -76,7 +76,7 @@ public class InsertDao extends BaseDao {
         String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "','" + info.getPwd() + "','3');";
         queryUpdate(sql);
 
-        sql = "insert into Teacher (" + columnNames.toString() + ") values (" + values.toString() + ");";
+        sql = "insert into Student (" + columnNames.toString() + ") values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);

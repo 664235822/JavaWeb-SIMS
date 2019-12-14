@@ -14,29 +14,6 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>查看学生信息</title>
-    <style>
-        body .demo-class .layui-layer-content {
-            overflow: visible;
-        }
-        body {
-            min-height: 400px;
-        }
-        .leaveTop {
-            margin-top: 19px;
-        }
-        .moveleft{
-            margin-top: 3px;
-            margin-left: 15px;
-        }
-        .layui-table th, td {
-            text-align: center;
-            font-weight: 400;
-        }
-        .layui-form-label {
-            width: 110px;
-            text-align: right;
-        }
-    </style>
 </head>
 <body onload="StuMoveClass()">
 
@@ -48,6 +25,13 @@
 </nav>
 <div class="container">
     <div class="layui-row leaveTop">
+        <div class="layui-col-md3">
+            <label class="layui-form-label">姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" id="name" required="" lay-verify="required" placeholder="请输入姓名"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
         <div class="layui-col-md3">
             <label class="layui-form-label">学号：</label>
             <div class="layui-input-block">

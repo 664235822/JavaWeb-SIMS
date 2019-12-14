@@ -72,7 +72,7 @@ layui.use(['form'], function () {
     });
 
     form.on('submit(component-form-element)', function(data){
-        UpTeacher();
+        UpStudent();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
 

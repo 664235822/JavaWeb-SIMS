@@ -220,11 +220,8 @@ function Modify() {
     $("#tCode").val(list.code);
     $("#tName").val(list.name);
     var sex=list.sex;
-    if(sex=="男")
+    if(sex=="女")
     {
-        $("input[type='radio']").eq(0).attr("checked", true);
-        $("input[type='radio']").eq(1).attr("checked", false);
-    }else {
         $("input[type='radio']").eq(0).attr("checked", false);
         $("input[type='radio']").eq(1).attr("checked", true);
     }

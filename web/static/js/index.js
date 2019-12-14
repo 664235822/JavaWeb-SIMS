@@ -25,8 +25,8 @@ $(function () {
             CharacterMenu = "StudentMenu";
             break;
     }
-    var name="<span class=\"glyphicon glyphicon-user\"></span>"+obj.name;
-    $(".nav li:first-of-type a").html(name);
+    var name="<span class=\"glyphicon glyphicon-user\"></span>  "+obj.name;
+    $("nav ul.layui-nav li:first-of-type a").html(name);
     var str = {"character":CharacterMenu};
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);
@@ -66,12 +66,8 @@ function Menu(Menu) {
 }
 $(function () {
     var Contral=null;
-    $(".menue-box #menu>li:nth-of-type(odd)").click(function () {
-        var menuId=$(this).attr("id")+"_Submenu";
-        if(Contral!=null && Contral!=menuId){
-            $("#"+Contral).toggle();
-        }
-        Contral=menuId;
-        $("#"+menuId).toggle();
+    $(".menu #menu>li").click(function () {
+        var menuId="#"+$(this).attr("id");
+        $("li").not(menuId).removeClass("layui-nav-itemed");
     });
 });

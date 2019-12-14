@@ -14,9 +14,9 @@ public class BaseDao {
 
     /*
      * 连接到数据库
-     * throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException
+     * @throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException
      */
-    public BaseDao() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    protected BaseDao() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         conn = DriverManager.getConnection(
                 "jdbc:mysql://129.28.136.155:3306/SIMS?characterEncoding=UTF-8", "root", "zhuzhou9uu897@");
@@ -30,7 +30,7 @@ public class BaseDao {
      * @return ResultSet 返回数据
      * @throws SQLException
      */
-    public ResultSet querySelect(String sql) throws SQLException {
+    protected ResultSet querySelect(String sql) throws SQLException {
         return st.executeQuery(sql);
     }
 
@@ -39,7 +39,7 @@ public class BaseDao {
      * @param sql 查询语句
      * @throws SQLException, MyException
      */
-    public void queryUpdate(String sql) throws SQLException, MyException {
+    protected void queryUpdate(String sql) throws SQLException, MyException {
         int index = st.executeUpdate(sql);
         if (index == 0) throw new MyException("数据库更新失败");
     }
@@ -47,9 +47,9 @@ public class BaseDao {
     /*
      * 关闭数据库连接
      * @param rs 查询返回数据
-     * throws SQLException
+     * @throws SQLException
      */
-    public void destroy(ResultSet rs) throws SQLException {
+    protected void destroy(ResultSet rs) throws SQLException {
         if (rs != null)
             rs.close();
         st.close();

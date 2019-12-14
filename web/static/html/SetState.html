@@ -7,18 +7,10 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/element.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
-    <title>SetTeacherState</title>
+    <title>SetState</title>
 </head>
-<style>
-    body {
-        padding-top: 50px;
-    }
-    .layui-table th,.layui-table td{
-        text-align: center;
-        font-weight: 400;
-    }
-</style>
 <body>
 <!--导航栏>当前位置-->
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,6 +20,16 @@
 </nav>
 <!--权限列表-->
 <div class="container">
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">网站设置</li>
+            <li>用户管理</li>
+            <li>权限分配</li>
+            <li>商品管理</li>
+            <li>订单管理</li>
+        </ul>
+        <div class="layui-tab-content"></div>
+    </div>
     <div id="LAY_preview" style="margin-top: 10px">
         <table class="layui-table ">
             <colgroup>
@@ -87,6 +89,7 @@
             </tr>
             </tbody>
         </table>
+<!--        分页框-->
         <div id="test1"></div>
     </div>
 </div>

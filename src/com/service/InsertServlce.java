@@ -34,6 +34,10 @@ public class InsertServlce {
                 StudentBean student = JSON.parseObject(info, StudentBean.class);
                 insertDao.insertStudent(student);
                 break;
+            case "TeacherClass":
+                TeacherBean teacherClass = JSON.parseObject(info, TeacherBean.class);
+                insertDao.insertTeacherClass(teacherClass);
+                break;
         }
     }
 }

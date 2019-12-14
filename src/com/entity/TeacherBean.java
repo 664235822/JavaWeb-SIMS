@@ -8,6 +8,8 @@ public class TeacherBean {
     //教师信息头部
     public static String[] teacherInfo = {"code", "name", "sex", "age", "education", "goodAt", "phone", "QQ", "email", "address", "introduction"};
 
+    //教师Id
+    private int id;
     //教师账号
     private String code;
     //教师姓名
@@ -32,6 +34,18 @@ public class TeacherBean {
     private String address;
     //教师信息
     private String introduction;
+    //教师班级Id
+    private int classId;
+    //教师科目Id
+    private int subId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
@@ -127,5 +141,21 @@ public class TeacherBean {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
+    public int getSubId() {
+        return subId;
+    }
+
+    public void setSubId(int subId) {
+        this.subId = subId;
     }
 }

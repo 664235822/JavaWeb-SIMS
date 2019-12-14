@@ -208,7 +208,7 @@ function ShowModify(id) {
             type: 2
             ,closeBtn: 2
             ,title:['查看信息','color:#ffffff;background-color:#009688;']
-            ,content:'/JavaWeb_SIMS_war_exploded/static/html/Revise.html'
+            ,content:'/JavaWeb_SIMS_war_exploded/static/html/UpdateInfo.html'
             ,area:['650px','500px']
         });
     });
@@ -283,6 +283,26 @@ function Move(codeList) {
     })
 
 
+}
+//科目下拉框
+function Subjects(gradeCode) {
+    var text = "";
+    text += "  <option value=\"\">请选择科目</option>";
+    if(ClassList.code==1){
+        var list=ClassList.data;
+        for(var i=0;i<list.length;i++){
+            if(list[i].gradeCode==gradeCode){
+                if(list[i].subjects==undefined){
+                    for(var j=0;j<list[i].subjects.length;j++){
+                        text += " <option value=\""+list[i].subjects[j].id+"\">";
+                        text += list[i].subjects[j].className+"</option>";
+                    }
+                }
+
+            }
+        }
+    }
+    return text;
 }
 //班级下拉框
 function MoveClass(gradeCode) {

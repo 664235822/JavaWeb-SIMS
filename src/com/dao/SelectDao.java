@@ -119,7 +119,7 @@ public class SelectDao extends BaseDao {
             list.add(student);
         }
 
-        for(int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             list.get(i).setPwd(selectPwd(list.get(i).getCode()));
         }
 
@@ -141,14 +141,16 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectClass() throws SQLException {
-        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl ";
-        sql += "inner join Grade gr on cl.gradeId=gr.id;";
+        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName,su.id subjectId,su.subjectCode,su.subjectName from Class cl ";
+        sql += "inner join Grade gr on cl.gradeId=gr.id ";
+        sql += "inner join Subject su on su.gradeId=gr.id;";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
         List<GradeBean> list = new ArrayList<>();
 
         int gradeId = 0;
+        int classId = 0;
         while (rs.next()) {
             if (rs.getInt("gradeId") != gradeId) {
                 gradeId = rs.getInt("gradeId");
@@ -158,17 +160,32 @@ public class SelectDao extends BaseDao {
                 grade.setGradeCode(rs.getString("gradeCode"));
                 grade.setGradeName(rs.getString("gradeName"));
                 grade.setClasses(new ArrayList<>());
+
                 list.add(grade);
             }
 
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getId() == gradeId) {
+                if (list.get(i).getId() == gradeId && rs.getInt("classId") != classId) {
+                    classId = rs.getInt("classId");
+
                     ClassBean _class = new ClassBean();
                     _class.setId(rs.getInt("classId"));
                     _class.setClassCode(rs.getString("classCode"));
                     _class.setClassName(rs.getString("className"));
+                    _class.setSubjects(new ArrayList<>());
+
                     list.get(i).getClasses().add(_class);
-                    break;
+                }
+
+                for (int j = 0; j < list.get(i).getClasses().size(); j++) {
+                    if (list.get(i).getClasses().get(j).getId() == classId) {
+                        SubjectBean subject = new SubjectBean();
+                        subject.setId(rs.getInt("subjectId"));
+                        subject.setSubjectCode(rs.getString("subjectCode"));
+                        subject.setSubjectName(rs.getString("subjectName"));
+
+                        list.get(i).getClasses().get(j).getSubjects().add(subject);
+                    }
                 }
             }
         }

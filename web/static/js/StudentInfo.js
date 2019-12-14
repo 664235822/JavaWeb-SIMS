@@ -1,10 +1,17 @@
 //重置按钮会重启自动生成账号方法
 $(function () {
     $("#Reset").click(function () {
-        layui.$('input').attr('value',null);
-        layui.$('select').attr('value',null);
-        layui.form.render()
-        addCode();
+        $("#tName").val("");
+        $("#tAge").val("");
+        $("#tGoodAt").val("");
+        $("#tPone").val("");
+        $("#tQQ").val("");
+        $("#tEmail").val("");
+        $("#tAddress").val("");
+        $("#tPwd").val("123456");
+        $("#tGrade option").eq(0).prop("selected",true);
+        $("#tClass option").eq(0).prop("selected",true);
+        Refresh();
     })
 });
 //自动生成账号
@@ -31,7 +38,7 @@ layui.use(['form'], function () {
     //QQ账号
     var regQQ = /^[1-9][0-9]{6,16}$/;
     //年龄
-    var regage= /^[1-9][0-9]{1,3}$/;
+    var regage= /^[1-9][0-9]*$/;
     //要放在form.on外面，千万不能放在提交步骤中，否则会不触发
     form.verify({
         title: function (value) {

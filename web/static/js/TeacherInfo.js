@@ -1,12 +1,17 @@
 $(function () {
     $("#chongzhi").click(function () {
-        layui.$('input').attr('value',"");
-        layui.$('select').attr('value',"");
-        layui.$('textarea').attr('value',"");
-        layui.form.render()
-        addCode();
-        })
-
+        $("#tName").val("");
+        $("#tAge").val("");
+        $("#tGoodAt").val("");
+        $("#tPone").val("");
+        $("#tQQ").val("");
+        $("#tEmail").val("");
+        $("#tAddress").val("");
+        $("#tIntorduction").val("");
+        $("#tPwd").val("");
+        $("#tEducation option").eq(0).prop("selected",true);
+        Refresh();
+    })
 });
 // <!--  页面加载完成就自动生成教师账号-->
 function addCode(){

@@ -5,6 +5,9 @@ body {
 a{
     text-decoration: none !important;
 }
+.pointer a:hover{
+    cursor: pointer !important;
+}
 
 .layui-this,.layui-this a {
     background: white !important;

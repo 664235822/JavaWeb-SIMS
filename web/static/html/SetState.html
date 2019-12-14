@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/SetState.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" media="all"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
@@ -9,9 +10,11 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/element.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StateManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <title>SetState</title>
 </head>
-<body>
+<body style="padding-top: 50px;">
 <!--导航栏>当前位置-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -20,18 +23,15 @@
 </nav>
 <!--权限列表-->
 <div class="container">
-    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-        <ul class="layui-tab-title">
-            <li class="layui-this">网站设置</li>
-            <li>用户管理</li>
-            <li>权限分配</li>
-            <li>商品管理</li>
-            <li>订单管理</li>
-        </ul>
-        <div class="layui-tab-content"></div>
-    </div>
     <div id="LAY_preview" style="margin-top: 10px">
         <table class="layui-table ">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">教师权限</li>
+                    <li>学生权限</li>
+                </ul>
+                <div class="layui-tab-content"></div>
+            </div>
             <colgroup>
                 <col width="150">
                 <col width="200">
@@ -88,7 +88,11 @@
                 </td>
             </tr>
             </tbody>
+
         </table>
+        <div class="layui-btn-container">
+            <button type="button" class="layui-btn pull-right">确认更改</button>
+        </div>
 <!--        分页框-->
         <div id="test1"></div>
     </div>

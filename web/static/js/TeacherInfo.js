@@ -30,7 +30,7 @@ layui.use(['form'], function () {
     //QQ账号
     var regQQ = /^[1-9][0-9]{6,16}$/;
     //年龄
-    var regage= /^[1-9][0-9]{1,3}$/;
+    var regage= /^[1-9][0-9]*$/;
     //要放在form.on外面，千万不能放在提交步骤中，否则会不触发
     form.verify({
         title: function (value) {

@@ -1,7 +1,4 @@
-body {
-    padding-top: 50px;
-}
-.layui-table th,.layui-table td{
+body .layui-table th,td{
     text-align: center;
     font-weight: 400;
 }

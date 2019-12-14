@@ -250,7 +250,7 @@ function ShowModify(id) {
             type: 2
             ,closeBtn: 2
             ,title:['查看信息','color:#ffffff;background-color:#009688;']
-            ,content:'/JavaWeb_SIMS_war_exploded/static/html/Revise.html'
+            ,content:'/JavaWeb_SIMS_war_exploded/static/html/UpdateInfo.html'
             ,area:['650px','500px']
         });
     });

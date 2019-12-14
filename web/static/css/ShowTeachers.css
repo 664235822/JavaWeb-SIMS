@@ -4,7 +4,9 @@ body {
 p {
     margin: 0px;
 }
-
+body .demo-class .layui-layer-content {
+    overflow: visible;
+}
 .layui-table th, td {
     text-align: center;
     font-weight: 400;

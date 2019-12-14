@@ -25,21 +25,21 @@
 </nav>
 <div class="container">
     <div class="layui-row leaveTop">
-        <div class="layui-col-md3">
+        <div class="layui-col-md4">
             <label class="layui-form-label">账号：</label>
             <div class="layui-input-block">
                 <input type="text" name="title" id="code" required="" lay-verify="required" placeholder="请输入账号"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-col-md3">
+        <div class="layui-col-md4">
             <label class="layui-form-label">姓名：</label>
             <div class="layui-input-block">
                 <input type="text" name="title" id="name" required="" lay-verify="required" placeholder="请输入姓名"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-col-md6">
+        <div class="layui-col-md4">
             <div class="layui-input-block moveleft">
                 <button type="button" id="Select" class="layui-btn  layui-btn-sm layui-btn-normal">查询</button>
             </div>
@@ -56,26 +56,10 @@
         <table class="layui-table" style="margin-top: 0px" id="table">
         </table>
         <div id="test1"></div>
-<!--        弹窗测试按钮-->
-        <button type="button" id="testBtn" class="layui-btn  layui-btn-sm">弹窗测试按钮</button>
+
     </div>
 </div>
 <!--表格-->
 </body>
-<script>
-    $(function () {
-        $("#testBtn").click(function () {
-            layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.open({
-                    type: 2
-                    ,closeBtn: 2
-                    ,title:['查看信息','color:#ffffff;background-color:#009688;']
-                    ,content:'/JavaWeb_SIMS_war_exploded/static/html/Revise.html'
-                    ,area:['650px','500px']
-                });
-            });
-        })
-    })
-</script>
+
 </html>

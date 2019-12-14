@@ -56,7 +56,15 @@
         var h = $(".ifm").contents().find("body").height();
         $(".ifm").height(h + 60);
     }
-
+    //浏览器窗口大小发生变化则再次执行自适应高度函数，以适应高度
+    window.onresize = function(){
+        setHeight();
+        if (window.innerWidth<1500){
+            $(".navbar-fixed-bottom").hide();
+        }else {
+            $(".navbar-fixed-bottom").show();
+        }
+    }
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;

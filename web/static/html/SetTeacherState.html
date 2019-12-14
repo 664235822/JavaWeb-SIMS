@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" media="all"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
+    <title>SetTeacherState</title>
+</head>
+<style>
+    body {
+        padding-top: 50px;
+    }
+    .layui-table th,.layui-table td{
+        text-align: center;
+        font-weight: 400;
+    }
+</style>
+<body>
+<!--导航栏>当前位置-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left" style="margin: 0px;height: 50px;line-height: 50px">当前位置 > 首页 > 更改教师权限</p>
+    </div>
+</nav>
+<!--权限列表-->
+<div class="container">
+    <div id="LAY_preview" style="margin-top: 10px">
+        <table class="layui-table ">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col width="200">
+                <col width="200">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>权限主菜单</th>
+                <th>权限子菜单</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>教师用户管理</td>
+                <td>修改教师账号信息</td>
+                <td>
+                    <div class="layui-form">
+                <input type="checkbox" name="" lay-skin="switch" lay-text="开启|关闭">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>教师用户管理</td>
+                <td>查看教师所带班级</td>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" lay-skin="switch" lay-text="开启|关闭">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>教师用户管理</td>
+                <td>修改教师账号信息</td>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" lay-skin="switch" lay-text="开启|关闭">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>教师用户管理</td>
+                <td>修改教师账号信息</td>
+                <td>
+                    <div class="layui-form">
+                        <input type="checkbox" name="" lay-skin="switch" lay-text="开启|关闭">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="test1"></div>
+    </div>
+</div>
+</body>
+
+</html>

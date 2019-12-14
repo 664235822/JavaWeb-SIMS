@@ -1,13 +1,18 @@
 body {
     min-height: 300px;
 }
-p {
+body p {
     margin: 0px;
 }
 body .demo-class .layui-layer-content {
     overflow: visible;
 }
-.layui-table th, td {
+
+body .layui-table th{
+    text-align: center;
+    font-weight: 400;
+}
+body .layui-table td{
     text-align: center;
     font-weight: 400;
 }

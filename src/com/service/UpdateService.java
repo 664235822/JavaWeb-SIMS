@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.dao.UpdateDao;
 import com.entity.MyException;
 import com.entity.StudentBean;
+import com.entity.TeacherBean;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -25,9 +26,16 @@ public class UpdateService {
         updateDao = new UpdateDao();
 
         switch (tableName) {
+            case "Teacher":
+                TeacherBean teacherInfo=JSON.parseObject(info,TeacherBean.class);
+                updateDao.updateTeacher(teacherInfo);
+                break;
+            case "Student":
+                StudentBean studentInfo=JSON.parseObject(info,StudentBean.class);
+                updateDao.updateStudent(studentInfo);
             case "StudentClass":
-                List<StudentBean> studentInfo = JSON.parseArray(info, StudentBean.class);
-                updateDao.updateClassId(studentInfo);
+                List<StudentBean> classInfo = JSON.parseArray(info, StudentBean.class);
+                updateDao.updateClassId(classInfo);
                 break;
         }
     }

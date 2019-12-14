@@ -13,8 +13,6 @@ public class ClassBean {
     private String classCode;
     //班级名
     private String className;
-    //科目列表
-    private List<SubjectBean> subjects;
 
     public int getId() {
         return id;
@@ -38,13 +36,5 @@ public class ClassBean {
 
     public void setClassName(String className) {
         this.className = className;
-    }
-
-    public List<SubjectBean> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<SubjectBean> subjects) {
-        this.subjects = subjects;
     }
 }

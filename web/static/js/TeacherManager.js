@@ -142,11 +142,11 @@ function TeacherFunction() {
             Delete(codeList);
         }
         if($(this).attr("name")=="moveClass"){
-            var codeList=new Array();
-            codeList[0]=id;
-            Move(codeList);
+            var subid=$(this).parent().attr('name');
+            Move(subid);
         }
         if($(this).attr("name")=="modify"){
+
             ShowModify(id);
         }
 
@@ -233,15 +233,21 @@ function Delete(codeList) {
 //转班操作
 function Move(codeList) {
     var classId=0;
+    var SubjectsId=0;
+    var gradeCode=0;
     var text = "";
     text += " <div class=\"layui-form\">";
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
-    text += "</select>  ";
+    text += "</select>";
     text += "<select name=\"quiz\" id=\"Class\"  lay-filter=\"quiz\" lay-verify=\"\">";
     text += "  <option value=\"\">请选择班级</option>";
-    text += "</select>    ";
+    text += "</select> ";
+    text += "</select>";
+    text += "<select name=\"subjects\" id=\"Subjects\"  lay-filter=\"Subjects\" lay-verify=\"\">";
+    text += "  <option value=\"\">请选择科目</option>";
+    text += "</select> ";
     text += "    </div>";
     layer.open({
         title: '分配班级',
@@ -251,17 +257,14 @@ function Move(codeList) {
         btnAlign: 'c',
         shade: [0.1, '#ffffff'],
         yes: function (index) {
-            var list=new Array;
-            var obj={};
             var data={};
-            for(var i=0;i<codeList.length;i++){
-                obj.code=codeList[i];
-                obj.classId=classId;
-                list.push(obj);
-            }
-            var url = "/JavaWeb_SIMS_war_exploded/update";
-            data.tableName="StudentClass";
-            data.info=JSON.stringify(list);
+            var url = "/JavaWeb_SIMS_war_exploded/insert";
+            data.tableName="TeacherClass";
+            var info={};
+            info.id=codeList;
+            info.ClassId=classId;
+            info.SubId=SubjectsId;
+            data.info=JSON.stringify(info);
             var table = Ajax(url, data);
             DeleteEnd(table);
             layer.close(index);
@@ -272,13 +275,19 @@ function Move(codeList) {
         var form = layui.form;
         form.render();
         form.on('select(test)', function(data){
-            var gradeCode=data.value;
+            gradeCode=data.value;
             var text=MoveClass(gradeCode);
             $("#Class").html(text);
             Refresh();
         });
         form.on('select(quiz)', function(data){
             classId=data.value;
+            var text=Subjects(gradeCode);
+            $("#Subjects").html(text);
+            Refresh();
+        });
+        form.on('select(Subjects)', function(data){
+            SubjectsId=data.value;
         });
     })
 
@@ -292,10 +301,10 @@ function Subjects(gradeCode) {
         var list=ClassList.data;
         for(var i=0;i<list.length;i++){
             if(list[i].gradeCode==gradeCode){
-                if(list[i].subjects==undefined){
+                if(list[i].subjects!=undefined){
                     for(var j=0;j<list[i].subjects.length;j++){
                         text += " <option value=\""+list[i].subjects[j].id+"\">";
-                        text += list[i].subjects[j].className+"</option>";
+                        text += list[i].subjects[j].subjectName+"</option>";
                     }
                 }
 
@@ -411,7 +420,7 @@ function TeachresTable(data) {
            text += "<td>"+data[i].sex+"</td>";
            text += "<td>"+data[i].email+"</td>";
            text += "<td>"+data[i].phone+"</td>";
-           text += "<td >";
+           text += "<td  name=\'"+data[i].id+"\'>";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">分配班级</button>";

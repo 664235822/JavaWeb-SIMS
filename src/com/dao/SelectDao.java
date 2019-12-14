@@ -43,6 +43,7 @@ public class SelectDao extends BaseDao {
         while (rs.next()) {
             TeacherBean teacher = new TeacherBean();
 
+            teacher.setId(rs.getInt("id"));
             teacher.setCode(rs.getString("code"));
             teacher.setName(rs.getString("name"));
             teacher.setSex(rs.getString("sex"));
@@ -83,7 +84,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectStudent(String code, String name, int currentPage) throws SQLException {
-        String sql = "select st.code,st.name,st.age,st.sex,st.QQ,st.phone,st.address,st.classId,cl.className,gr.gradeName,tea.name tName from Class cl " +
+        String sql = "select st.id,st.code,st.name,st.age,st.sex,st.QQ,st.phone,st.address,st.classId,cl.className,gr.gradeName,tea.name tName from Class cl " +
                 "inner join Student st on st.classId=cl.id " +
                 "inner join TeacherClass tc on tc.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
@@ -104,6 +105,7 @@ public class SelectDao extends BaseDao {
         while (rs.next()) {
             StudentBean student = new StudentBean();
 
+            student.setId(rs.getInt("id"));
             student.setCode(rs.getString("code"));
             student.setName(rs.getString("name"));
             student.setAge(rs.getInt("age"));

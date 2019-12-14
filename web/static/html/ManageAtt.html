@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <title>考勤管理</title>
+</head>
+<body>
+<!--       教师登录自动获取教师所在年级班级科目，若所在多个班级即只能选择所教班级-->
+<!--          当前位置导航-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 考勤管理</p>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <!--            表格-->
+        <div class="demoTable" style="margin-top: 20px">
+            <!--        内联搜索框-->
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline">
+                        <select name="quiz1">
+                            <option value="" selected="">请选择年级</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="quiz2">
+                            <option value="" selected="">请选择班级</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="quiz3">
+                            <option value="" selected="">请选择科目</option>
+                            <option value="JAVA">JAVA</option>
+                            <option value="语文">语文</option>
+                            <option value="数学">数学</option>
+                            <option value="英语">英语</option>
+                        </select>
+                    </div>
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </div>
+            </form>
+            <!--           主体-->
+            <table class="layui-table" style="margin-top: 20px" id="table">
+                <colgroup>
+                    <col width="50">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </th>
+                    <th>考勤年级</th>
+                    <th>考勤班级</th>
+                    <th>考勤科目</th>
+                    <th>科目教师</th>
+                    <th>班级总人数</th>
+                    <th>考勤起止时间</th>
+                    <th>考勤截止时间</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>2018</td>
+                    <td>01</td>
+                    <td>JAVA</td>
+                    <td>王磊</td>
+                    <td>49</td>
+                    <td>2019/12/12/18:00</td>
+                    <td>2019/12/12/18:05</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm  layui-btn-danger">删除考勤</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--          添加考勤与一键删除-->
+            <div class="layui-form-item">
+                <div class="layui-input-block pull-right">
+                    <button type="button" class="layui-btn">添加考勤</button>
+                    <button type="button" class="layui-btn layui-btn-danger">一键删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

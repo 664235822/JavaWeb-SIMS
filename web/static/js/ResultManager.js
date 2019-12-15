@@ -3,11 +3,22 @@
  * 成绩管理js
  * **/
 var ClassList = {};
+var classId = 0;
+var SubjectsId = 0;
+var gradeId = 0;
 
 //查看成绩列表
 function ShowResult() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", "");
-    var data = {"tableName": "Result", "code": "", "name": "", "classId": 0, "subjectId": 0, "currentPage": 1};
+    var data = {
+        "tableName": "Result",
+        "code": "",
+        "name": "",
+        "gradeId": gradeId,
+        "classId": classId,
+        "subjectId": SubjectsId,
+        "currentPage": 1
+    };
     var table = getPage(data);
     if (table.code == 1) {
         ResultTable(table.data.list);
@@ -15,6 +26,8 @@ function ShowResult() {
         Page("test1", table.data.pageCount, table.data.dataCount);
         ResultFunction();
     }
+
+    GetGrades();
 }
 
 //分页
@@ -37,8 +50,9 @@ function Page(id, limit, count) {
                         "tableName": "Result",
                         "code": code,
                         "name": name,
-                        "classId": 0,
-                        "subjectId": 0,
+                        "gradeId": gradeId,
+                        "classId": classId,
+                        "subjectId": SubjectsId,
                         "currentPage": obj.curr
                     };
                     var table = getPage(data);
@@ -70,8 +84,9 @@ function ResultFunction() {
                 "tableName": "Result",
                 "code": code,
                 "name": name,
-                "classId": 0,
-                "subjectId": 0,
+                "gradeId": gradeId,
+                "classId": classId,
+                "subjectId": SubjectsId,
                 "currentPage": 1
             };
             var table = getPage(data);
@@ -86,13 +101,13 @@ function ResultFunction() {
 }
 
 //科目下拉框
-function Subjects(gradeCode) {
+function Subjects() {
     var text = "";
     text += "  <option value=\"\">请选择科目</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
-            if (list[i].gradeCode == gradeCode) {
+            if (list[i].id == gradeId) {
                 if (list[i].subjects != undefined) {
                     for (var j = 0; j < list[i].subjects.length; j++) {
                         text += " <option value=\"" + list[i].subjects[j].id + "\">";
@@ -107,13 +122,13 @@ function Subjects(gradeCode) {
 }
 
 //班级下拉框
-function MoveClass(gradeCode) {
+function MoveClass() {
     var text = "";
-    text += "  <option value=\"\">请选择班级</option>";
+    text += " <option value=\"\">请选择班级</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
-            if (list[i].gradeCode == gradeCode) {
+            if (list[i].id == gradeId) {
                 for (var j = 0; j < list[i].classes.length; j++) {
                     text += " <option value=\"" + list[i].classes[j].id + "\">";
                     text += list[i].classes[j].className + "</option>";
@@ -128,13 +143,13 @@ function MoveClass(gradeCode) {
 //年级下拉框
 function Grade() {
     var text = "";
+    text += "<option value=\"\" selected=\"\">请选择年级</option>"
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
-            text += " <option value=\"" + list[i].gradeCode + "\" >";
+            text += " <option value=\"" + list[i].id + "\" >";
             text += list[i].gradeName + "</option>";
         }
-        $("#layui-layer1 [name=quiz1]").html(text);
     }
     return text;
 }
@@ -159,6 +174,33 @@ function ResultTable(data) {
         text += "</tbody>";
         $("#table").html(text);
     }
+}
+
+function GetGrades() {
+    var text = Grade();
+    $("#Grades").html(text);
+
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('select(test)', function (data) {
+            gradeId = data.value;
+            var text = MoveClass();
+            $("#Class").html(text);
+            var text = Subjects();
+            $("#Subjects").html(text);
+            Refresh();
+        });
+        form.on('select(quiz)', function (data) {
+            classId = data.value;
+            var text = Subjects();
+            $("#Subjects").html(text);
+            Refresh();
+        });
+        form.on('select(Subjects)', function (data) {
+            SubjectsId = data.value;
+        });
+    })
 }
 
 //刷新

@@ -23,7 +23,7 @@ public class SelectService {
      * @result 返回表格信息
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
      */
-    public BaseBean selectTable(String tableName, String code, String name, String classId, String subjectId, int currentPage) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public BaseBean selectTable(String tableName, String code, String name, String gradeId, String classId, String subjectId, int currentPage) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         selectDao = new SelectDao();
 
         BaseBean result = new BaseBean();
@@ -35,7 +35,7 @@ public class SelectService {
                 result = selectDao.selectStudent(code, name, currentPage);
                 break;
             case "Result":
-                result = selectDao.selectResult(code, name, Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
+                result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
                 break;
         }
 

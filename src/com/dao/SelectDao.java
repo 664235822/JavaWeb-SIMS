@@ -218,7 +218,7 @@ public class SelectDao extends BaseDao {
      * @param currentPage 当前页号
      * @throws SQLException
      */
-    public BaseBean selectResult(String code, String name, int classId, int subjectId, int currentPage) throws SQLException {
+    public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
         String sql = "select re.id,re.subId,re.sId,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re ";
         sql += "inner join Student st on re.sid=st.id ";
         sql += "inner join Class cl on st.classId=cl.id ";
@@ -230,6 +230,9 @@ public class SelectDao extends BaseDao {
         }
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
+        }
+        if (gradeId != 0) {
+            sql += "and cl.gradeId='" + gradeId + "' ";
         }
         if (classId != 0) {
             sql += "and st.classId='" + classId + "' ";
@@ -273,6 +276,9 @@ public class SelectDao extends BaseDao {
         }
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
+        }
+        if (gradeId != 0) {
+            sql += "and cl.gradeId='" + gradeId + "' ";
         }
         if (classId != 0) {
             sql += "and st.classId='" + classId + "' ";

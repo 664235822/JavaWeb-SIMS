@@ -20,7 +20,7 @@ public class MenuDao extends BaseDao {
      * 获取主界面菜单
      * @param character 登录角色
      * @param currentPage 当前页码
-     * @return BaseBean 返货菜单信息
+     * @return BaseBean 返回菜单信息
      * @throws SQLException
      */
     public BaseBean getMenu(String character, int currentPage) throws SQLException {
@@ -80,7 +80,7 @@ public class MenuDao extends BaseDao {
     /*
      * 获取菜单Id
      * @param character 登录角色
-     * @return BaseBean 返货菜单Id信息
+     * @return BaseBean 返回菜单Id信息
      * @throws SQLException
      */
     public BaseBean getMenuId(String character) throws SQLException {

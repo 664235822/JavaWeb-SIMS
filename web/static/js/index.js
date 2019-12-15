@@ -44,7 +44,7 @@ $(function () {
 });
 //生成菜单
 function Menu(Menu) {
-    var menuName=Menu.data.list;
+    var menuName=Menu.data;
     var text = "";
     text += "<ul class=\"layui-nav layui-nav-tree\" id=\"menu\">";
     for(var i=0;i<menuName.length;i++){

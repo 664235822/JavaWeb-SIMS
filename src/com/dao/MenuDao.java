@@ -99,7 +99,7 @@ public class MenuDao extends BaseDao {
         table.setPageCount(pageCount);
 
         result.setCode(BaseBean.SUCCESS);
-        result.setData(list);
+        result.setData(table);
         result.setMessage("查看菜单成功");
         destroy(rs);
 

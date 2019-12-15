@@ -34,7 +34,7 @@ function ajaxFileUpload(url,fileToUpload,data) {
     })
     return false;
 }
-
+//上传功能
 function uploadExcel(tableName) {
 
     var file = $("input[type='file']").val();

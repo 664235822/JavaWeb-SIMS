@@ -87,10 +87,7 @@ function ShowTeachers() {
     var table=getPage(data);
     if (table.code == 1) {
         TeachresTable(table.data.list);
-        layui.use('form', function () {
-            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-            form.render();
-        });
+        Refresh();
         Page("test1",table.data.pageCount,table.data.dataCount);
         TeacherFunction();
     }
@@ -111,10 +108,7 @@ function TeacherFunction() {
             var table=getPage(data);
             if (table.code == 1) {
                 TeachresTable(table.data.list);
-                layui.use('form', function () {
-                    var form = layui.form;
-                    form.render();
-                });
+                Refresh();
                 Page("test1",table.data.pageCount,table.data.dataCount);
                 TeacherFunction();
             }
@@ -167,6 +161,7 @@ function TeacherFunction() {
         }
     });
 }
+//显示信息数据
 function Modify() {
     if(localStorage.ModifyId!=null){
         var json2 = localStorage.ModifyId;

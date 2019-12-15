@@ -8,7 +8,6 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/element.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StateManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
@@ -24,14 +23,14 @@
 <!--权限列表-->
 <div class="container">
     <div id="LAY_preview" style="margin-top: 10px">
-        <table class="layui-table ">
-            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">教师权限</li>
-                    <li>学生权限</li>
-                </ul>
-                <div class="layui-tab-content"></div>
-            </div>
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">教师权限</li>
+                <li>学生权限</li>
+            </ul>
+            <div class="layui-tab-content"></div>
+        </div>
+        <table class="layui-table " id="table">
             <colgroup>
                 <col width="150">
                 <col width="200">

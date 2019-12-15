@@ -10,7 +10,7 @@ $(function () {
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);
     if (menu.code == 1) {
-        StateTable(menu.data,0);
+        StateTable(menu.data);
         Refresh();
         Page("test1",menu.data.pageCount,menu.data.dataCount);
         // TeacherFunction();
@@ -45,20 +45,32 @@ function Page(id,limit,count) {
     });
 }
 //权限表格
-function StateTable(menu,limit) {
+var tableMenu={};
+function StateTable(menu) {
+    var MenuTable=menu.list;
     var text = "";
-    if(menu!=null){
+    if(MenuTable!=null){
         text += " <colgroup><col width=\"150\"><col width=\"200\"><col width=\"200\"><col width=\"200\"></colgroup>";
         text += "<thead>";
         text += "<tr><th>ID</th><th>权限主菜单</th><th>权限子菜单</th><th>操作</th></tr>";
         text += "</thead>";
         text += "<tbody>";
-        var num=limit*10+1;
-        for(var i=0;i<10;i++){
+        for(var i=0;i<MenuTable.length;i++){
             text += "<tr>";
-            text += "<td>"+menu[i].menuId+"</td>";
-            text += "<td>"+menu[i].menuName+"</td>";
-            text += "<td></td>";
+            text += "<td>"+MenuTable[i].menuId+"</td>";
+            if(MenuTable[i].parent==0){
+                var id=MenuTable[i].menuId
+                tableMenu[id]=MenuTable[i].menuName;
+                text += "<td>"+MenuTable[i].menuName+"</td>";
+                text += "<td></td>";
+            }else {
+                for(var key in tableMenu){
+                   if(key==MenuTable[i].parent){
+                       text += "<td>"+tableMenu[key]+"</td>";
+                       text += "<td>"+MenuTable[i].menuName+"</td>";
+                   }
+                }
+            }
             text += "<td>";
             text += "<div class=\"layui-form\">";
             text += "<input type=\"checkbox\" name=\"\" lay-skin=\"switch\" lay-text=\"开启|关闭\">";

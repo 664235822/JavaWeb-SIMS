@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /*
  * 获取主界面菜单类
@@ -106,33 +105,19 @@ public class MenuDao extends BaseDao {
     /*
      * 更新菜单权限
      * @param 登录角色
-     * @param menuInfo 菜单权限集合
+     * @param menuId 菜单编号
+     * @param update 更新行为
      * @throws SQLException, MyException
      */
-    public void updateMenu(String character, Map<Integer, Boolean> menuInfo) throws SQLException, MyException {
-        ResultSet rs = null;
-
-        for (int key : menuInfo.keySet()) {
-            boolean update = menuInfo.get(key);
-            String sql = "select * from " + character + " where menuId='" + key + "';";
-            rs = querySelect(sql);
-            boolean isExist = false;
-            while (rs.next()) {
-                isExist = true;
-            }
-            if (update) {
-                if (!isExist) {
-                    sql = "insert " + character + " (menuId) values ('" + key + "');";
-                    queryUpdate(sql);
-                }
-            } else {
-                if (isExist) {
-                    sql = "delete from " + character + " where menuId='" + key + "';";
-                    queryUpdate(sql);
-                }
-            }
+    public void updateMenu(String character, int menuId, boolean update) throws SQLException, MyException {
+        if (update) {
+            String sql = "insert " + character + " (menuId) values ('" + menuId + "');";
+            queryUpdate(sql);
+        } else {
+            String sql = "delete from " + character + " where menuId='" + menuId + "';";
+            queryUpdate(sql);
         }
 
-        destroy(rs);
+        destroy(null);
     }
 }

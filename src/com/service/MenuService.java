@@ -1,12 +1,10 @@
 package com.service;
 
-import com.alibaba.fastjson.JSON;
 import com.dao.MenuDao;
 import com.entity.BaseBean;
 import com.entity.MyException;
 
 import java.sql.SQLException;
-import java.util.Map;
 
 
 /*
@@ -39,13 +37,13 @@ public class MenuService {
     /*
      * 更新菜单权限
      * @param 登录角色
-     * @param menuInfo 菜单权限集合Json字符串
+     * @param menuId 菜单编号
+     * @param update 更新行为
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
      */
-    public void updateMenu(String character, String menuInfo) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+    public void updateMenu(String character, int menuId, boolean update) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
         menuDao = new MenuDao();
 
-        Map<Integer, Boolean> menuInfoMap = JSON.parseObject(menuInfo, Map.class);
-        menuDao.updateMenu(character, menuInfoMap);
+        menuDao.updateMenu(character, menuId, update);
     }
 }

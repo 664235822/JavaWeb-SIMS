@@ -34,9 +34,10 @@ public class UpdateMenuServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
 
             String character = req.getParameter("character");
-            String menuInfo = req.getParameter("menuInfo");
+            int menuId = Integer.parseInt((req.getParameter("menuId")));
+            boolean update = Boolean.parseBoolean(req.getParameter("update"));
 
-            menuService.updateMenu(character, menuInfo);
+            menuService.updateMenu(character, menuId, update);
 
             obj.setCode(BaseBean.SUCCESS);
             obj.setMessage("更新菜单权限成功");

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/AddGrade.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" media="all"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
@@ -12,13 +13,13 @@
 <body style="padding-top: 50px;">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left" style="margin: 0px;height: 50px;line-height: 50px">当前位置 > 首页 > 添加年级</p>
+        <p class="text-left addtea pull-left" style="margin: 0px;height: 50px;line-height: 50px">当前位置 > 首页 > <i class="layui-icon">&#xe653;</i>年级管理</p>
     </div>
 </nav>
 <div class="container">
-    <div class="layui-row">
-        <div class="layui-col-md4">
-<!--            年级名称-->
+    <div class="row">
+        <div class="col-md-4 forms">
+            <!--            年级名称-->
             <div class="layui-form-item">
                 <label class="layui-form-label">年级名称：</label>
                 <div class="layui-input-block">
@@ -27,6 +28,8 @@
                            class="layui-input">
                 </div>
             </div>
+        </div>
+        <div class="col-md-4 forms">
             <!--            年级编号-->
             <div class="layui-form-item">
                 <label class="layui-form-label">年级编号：</label>
@@ -36,29 +39,59 @@
                            class="layui-input">
                 </div>
             </div>
-            <!--            创建时间-->
+        </div>
+        <div class="col-md-4 forms">
+            <!--            创建年级按钮-->
             <div class="layui-form-item">
-                <label class="layui-form-label">创建时间：</label>
-                <div class="layui-input-block">
-                    <input type="text" id="AddTime" name="" lay-verify="required" autocomplete="off"
-                           placeholder="必填项不能为空！"
-                           class="layui-input">
-                </div>
-            </div>
-            <!--            创建人-->
-            <div class="layui-form-item">
-                <label class="layui-form-label">创建人：</label>
-                <div class="layui-input-block">
-                    <input type="text" id="AddPeople" name="" lay-verify="required" autocomplete="off"
-                           placeholder="必填项不能为空！"
-                           class="layui-input">
-                </div>
-            </div>
-            <!--            创建人-->
-            <div class="layui-form-item">
-                <div  class="layui-btn pull-right">提交</div>
+                <div class="layui-btn pull-left"><i class="layui-icon">&#xe61f;</i>添加年级</div>
             </div>
         </div>
+    </div>
+    <!--表格-->
+    <div id="LAY_preview" style="margin-top: 10px">
+        <table class="layui-table">
+            <colgroup>
+
+            </colgroup>
+            <thead>
+            <tr>
+                <th>年级编号</th>
+                <th>年级名称</th>
+                <th>创建人</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>201801</td>
+                <td>java</td>
+                <td>株洲6</td>
+                <td>2019-12-15</td>
+                <td>
+                    <button class="layui-btn">为课程添加班级</button>
+                </td>
+            </tr>
+            <tr>
+                <td>201801</td>
+                <td>java</td>
+                <td>株洲6</td>
+                <td>2019-12-15</td>
+                <td>
+                    <button class="layui-btn">为课程添加班级</button>
+                </td>
+            </tr>
+            <tr>
+                <td>201802</td>
+                <td>javascript</td>
+                <td>株洲7</td>
+                <td>2019-12-15</td>
+                <td>
+                    <button class="layui-btn">为课程添加班级</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

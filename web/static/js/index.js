@@ -27,7 +27,7 @@ $(function () {
     }
     var name="<span class=\"glyphicon glyphicon-user\"></span>  "+obj.name;
     $("nav ul.layui-nav li:first-of-type a").html(name);
-    var str = {"character":CharacterMenu};
+    var str = {"character":CharacterMenu,"currentPage":"0","getId":'false'};
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);
     Menu(menu);
@@ -44,7 +44,7 @@ $(function () {
 });
 //生成菜单
 function Menu(Menu) {
-    var menuName=Menu.data;
+    var menuName=Menu.data.list;
     var text = "";
     text += "<ul class=\"layui-nav layui-nav-tree\" id=\"menu\">";
     for(var i=0;i<menuName.length;i++){

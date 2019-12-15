@@ -36,9 +36,11 @@ public class SelectServlet extends HttpServlet {
             String tableName = req.getParameter("tableName");
             String code = req.getParameter("code");
             String name = req.getParameter("name");
+            String classId = req.getParameter("classId");
+            String subjectId = req.getParameter("subjectId");
             int currentPage = Integer.parseInt(req.getParameter("currentPage"));
 
-            obj = selectService.selectTable(tableName, code, name, currentPage);
+            obj = selectService.selectTable(tableName, code, name, classId, subjectId, currentPage);
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setMessage(e.getMessage());

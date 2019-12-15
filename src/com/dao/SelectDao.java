@@ -210,6 +210,97 @@ public class SelectDao extends BaseDao {
     }
 
     /*
+     * 查看学生成绩表
+     * @param code 查询账号
+     * @param name 查询用户名
+     * @param classId 班级编号
+     * @param subjectId 科目编号
+     * @param currentPage 当前页号
+     * @throws SQLException
+     */
+    public BaseBean selectResult(String code, String name, String classId, String subjectId, int currentPage) throws SQLException {
+        String sql = "select re.id,re.subId,re.sId,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re ";
+        sql += "inner join Student st on re.sid=st.id ";
+        sql += "inner join Class cl on st.classId=cl.id ";
+        sql += "inner join Grade gr on cl.gradeId=gr.id ";
+        sql += "inner join Subject su on re.subId=su.id ";
+        sql += "where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and st.code like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and st.name like '%" + name + "%' ";
+        }
+        if (!classId.isEmpty()) {
+            sql += "and st.classId='" + classId + "' ";
+        }
+        if (!subjectId.isEmpty()) {
+            sql += "and re.subId='" + subjectId + "' ";
+        }
+        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<ResultBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            ResultBean _result = new ResultBean();
+            _result.setId(rs.getInt("id"));
+            _result.setSubId(rs.getInt("subId"));
+            _result.setsId(rs.getInt("sId"));
+            _result.setResult(rs.getDouble("result"));
+            _result.setGradeName("gradeName");
+            _result.setClassName("className");
+            _result.setCode(rs.getString("code"));
+            _result.setName(rs.getString("name"));
+            _result.setSubjectName(rs.getString("subjectName"));
+
+            list.add(_result);
+        }
+
+        table.setList(list);
+
+        sql = "select count(*) as count from Result re ";
+        sql += "inner join Student st on re.sid=st.id ";
+        sql += "inner join Class cl on st.classId=cl.id ";
+        sql += "inner join Grade gr on cl.gradeId=gr.id ";
+        sql += "inner join Subject su on re.subId=su.id ";
+        sql += "where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and st.code like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and st.name like '%" + name + "%' ";
+        }
+        if (!classId.isEmpty()) {
+            sql += "and st.classId='" + classId + "' ";
+        }
+        if (!subjectId.isEmpty()) {
+            sql += "and re.subId='" + subjectId + "' ";
+        }
+        sql += ";";
+        rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        table.setDataCount(dataCount);
+        table.setPageCount(pageCount);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看学生成绩成功");
+        destroy(rs);
+
+        return result;
+    }
+
+
+    /*
      * 获取表格行数和页数
      * @param 数据库表名
      * @param 查询账号

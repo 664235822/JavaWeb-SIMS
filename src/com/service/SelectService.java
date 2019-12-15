@@ -35,7 +35,7 @@ public class SelectService {
                 result = selectDao.selectStudent(code, name, currentPage);
                 break;
             case "Result":
-                result = selectDao.selectResult(code, name, classId, subjectId, currentPage);
+                result = selectDao.selectResult(code, name, Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
                 break;
         }
 

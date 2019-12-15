@@ -23,15 +23,11 @@ public class MenuDao extends BaseDao {
      * @return BaseBean 返回菜单信息
      * @throws SQLException
      */
-    public BaseBean getMenu(String character, int currentPage) throws SQLException {
-        String sql = "select * from Menu where menuId in (select menuid from " + character + ")";
-        if (currentPage != 0) {
-            sql += "limit " + (currentPage - 1) * 10 + ",10;";
-        }
+    public BaseBean getMenu(String character) throws SQLException {
+        String sql = "select * from Menu where menuId in (select menuid from " + character + ");";
 
         ResultSet rs = querySelect(sql);
         BaseBean result = new BaseBean();
-        TableBean table = new TableBean();
         List<MenuParentBean> list = new ArrayList<>();
 
         while (rs.next()) {
@@ -56,9 +52,42 @@ public class MenuDao extends BaseDao {
             }
         }
 
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(list);
+        result.setMessage("查看菜单成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
+     * 查看菜单权限表
+     * @param 当前页码
+     * @return BaseBean 返回菜单权限表
+     * @throws SQLException
+     */
+    public BaseBean getMenuTable(int currentPage) throws SQLException {
+        String sql = "select * from Menu ";
+        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+
+        ResultSet rs = querySelect(sql);
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<MenuBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            MenuBean menu = new MenuBean();
+            menu.setMenuId(rs.getInt("menuId"));
+            menu.setMenuName(rs.getString("menuName"));
+            menu.setParent(rs.getInt("parent"));
+            menu.setUrl(rs.getString("url"));
+
+            list.add(menu);
+        }
+
         table.setList(list);
 
-        sql = "select count(*) as count from Menu where menuId in (select menuid from " + character + ");";
+        sql = "select count(*) as count from Menu;";
         rs = querySelect(sql);
         int dataCount = 0;
         int pageCount = 0;
@@ -70,7 +99,7 @@ public class MenuDao extends BaseDao {
         table.setPageCount(pageCount);
 
         result.setCode(BaseBean.SUCCESS);
-        result.setData(table);
+        result.setData(list);
         result.setMessage("查看菜单成功");
         destroy(rs);
 
@@ -78,7 +107,7 @@ public class MenuDao extends BaseDao {
     }
 
     /*
-     * 获取菜单Id
+     * 获取菜单权限Id
      * @param character 登录角色
      * @return BaseBean 返回菜单Id信息
      * @throws SQLException

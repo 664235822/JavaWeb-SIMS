@@ -6,13 +6,16 @@
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/table.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/laypage.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ResultManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>查看个人成绩</title>
 </head>
-<body>
+<body onload="ShowResult()">
 <!--        该功能需要验证登录系统的角色,如果是管理员、教师登录，则年级、班级、科目、学生名字、学生编号均可以自行输入;
            如果是学生登录，则年级、班级、学生名字、学生编号所有数据均自动绑定当前登录帐号的信息，且只读。只有科目下拉框可以选择   -->
 <!--          当前位置导航-->
@@ -55,100 +58,37 @@
                             <option value="英语">英语</option>
                         </select>
                     </div>
-                        <label class="layui-form-label" style="width: 72px">姓名：</label>
-                        <div class="layui-input-inline" style="width: 170px">
-                            <input type="text" name="title" required  lay-verify="required" READONLY="true" placeholder="叶强(当前学生权限只读)"
-                                   autocomplete="off" class="layui-input" >                        <!--此处若是管理员或教师改为placeholder="请输入姓名"，，删除READONLY="true"(非只读，可搜索)-->
-                        </div>
-                        <label class="layui-form-label" style="width: 72px">学号：</label>
-                        <div class="layui-input-inline" style="width: 170px">
-                            <input type="text" name="" required  lay-verify="required" READONLY="true"  placeholder="1314520((当前学生只读)"
-                                   autocomplete="off" class="layui-input">                         <!--此处若是管理员或教师改为placeholder="请输入编号"，删除READONLY="true"(非只读，可搜索)-->
-                        </div>
+                    <label class="layui-form-label" style="width: 72px">姓名：</label>
+                    <div class="layui-input-inline" style="width: 170px">
+                        <input type="text" name="title" required id="name" lay-verify="required" READONLY="true"
+                               placeholder="叶强(当前学生权限只读)"
+                               autocomplete="off" class="layui-input">
+                        <!--此处若是管理员或教师改为placeholder="请输入姓名"，，删除READONLY="true"(非只读，可搜索)-->
+                    </div>
+                    <label class="layui-form-label" style="width: 72px">学号：</label>
+                    <div class="layui-input-inline" style="width: 170px">
+                        <input type="text" name="" required id="code" lay-verify="required" READONLY="true"
+                               placeholder="1314520((当前学生只读)"
+                               autocomplete="off" class="layui-input">
+                        <!--此处若是管理员或教师改为placeholder="请输入编号"，删除READONLY="true"(非只读，可搜索)-->
+                    </div>
                     <button class="layui-btn" data-type="reload">搜索</button>
                 </div>
             </form>
             <!--           主体-->
-            <table class="layui-table" style="margin-top: 20px" id="table">
-                <thead>
-                <tr>
-                    <th>年级名称</th>
-                    <th>班级名称</th>
-                    <th>学生学号</th>
-                    <th>学生姓名</th>
-                    <th>科目名称</th>
-                    <th>成绩</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>叶强</td>
-                    <td>语文</td>
-                    <td>250</td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>张诗禹</td>
-                    <td>语文</td>
-                    <td>250</td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>叶强</td>
-                    <td>数学</td>
-                    <td>250</td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>叶强</td>
-                    <td>数学</td>
-                    <td>250</td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>张诗禹</td>
-                    <td>英语</td>
-                    <td>250</td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>叶强</td>
-                    <td>英语</td>
-                    <td>250</td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>张诗禹</td>
-                    <td>总成绩</td>
-                    <td>250</td>
-                </tr>
-                <tr>
-                    <td>2018</td>
-                    <td>01</td>
-                    <td>1314520</td>
-                    <td>叶强</td>
-                    <td>总成绩</td>
-                    <td>250</td>
-                </tr>
-                </tbody>
-            </table>
+            <div id="LAY_preview" style="margin-top: 10px">
+                <div class="layui-table-tool">
+                    <div class="layui-table-tool-temp">
+                        <div class="layui-inline" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>
+                        <div class="layui-inline" title="导出" lay-event="LAYTABLE_EXPORT"><i
+                                class="layui-icon layui-icon-export"></i></div>
+                    </div>
+                </div>
+                <table class="layui-table" style="margin-top: 0px" id="table">
+                </table>
+                <div id="test1"></div>
+
+            </div>
         </div>
     </div>
 </div>

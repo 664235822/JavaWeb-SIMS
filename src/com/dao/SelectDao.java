@@ -218,7 +218,7 @@ public class SelectDao extends BaseDao {
      * @param currentPage 当前页号
      * @throws SQLException
      */
-    public BaseBean selectResult(String code, String name, String classId, String subjectId, int currentPage) throws SQLException {
+    public BaseBean selectResult(String code, String name, int classId, int subjectId, int currentPage) throws SQLException {
         String sql = "select re.id,re.subId,re.sId,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re ";
         sql += "inner join Student st on re.sid=st.id ";
         sql += "inner join Class cl on st.classId=cl.id ";
@@ -231,10 +231,10 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
         }
-        if (!classId.isEmpty()) {
+        if (classId != 0) {
             sql += "and st.classId='" + classId + "' ";
         }
-        if (!subjectId.isEmpty()) {
+        if (subjectId != 0) {
             sql += "and re.subId='" + subjectId + "' ";
         }
         sql += "limit " + (currentPage - 1) * 10 + ",10;";
@@ -251,8 +251,8 @@ public class SelectDao extends BaseDao {
             _result.setSubId(rs.getInt("subId"));
             _result.setsId(rs.getInt("sId"));
             _result.setResult(rs.getDouble("result"));
-            _result.setGradeName("gradeName");
-            _result.setClassName("className");
+            _result.setGradeName(rs.getString("gradeName"));
+            _result.setClassName(rs.getString("className"));
             _result.setCode(rs.getString("code"));
             _result.setName(rs.getString("name"));
             _result.setSubjectName(rs.getString("subjectName"));
@@ -274,10 +274,10 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
         }
-        if (!classId.isEmpty()) {
+        if (classId != 0) {
             sql += "and st.classId='" + classId + "' ";
         }
-        if (!subjectId.isEmpty()) {
+        if (subjectId != 0) {
             sql += "and re.subId='" + subjectId + "' ";
         }
         sql += ";";

@@ -27,7 +27,11 @@ public class MenuService {
 
         BaseBean result = null;
         if (!getId) {
-            result = menuDao.getMenu(character, currentPage);
+            if (currentPage == 0) {
+                result = menuDao.getMenu(character);
+            } else {
+                result = menuDao.getMenuTable(currentPage);
+            }
         } else {
             result = menuDao.getMenuId(character);
         }

@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /*
- * 获取主界面菜单Servlet
+ * 更新菜单权限Servlet类
  */
-@WebServlet("/menu")
-public class MenuServlet extends HttpServlet {
+@WebServlet("/updateMenu")
+public class UpdateMenuServlet extends HttpServlet {
 
     MenuService menuService = new MenuService();
     BaseBean obj = new BaseBean();
@@ -34,10 +34,12 @@ public class MenuServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
 
             String character = req.getParameter("character");
-            int currentPage = Integer.parseInt(req.getParameter("currentPage"));
-            boolean getId = Boolean.parseBoolean(req.getParameter("getId"));
+            String menuInfo = req.getParameter("menuInfo");
 
-            obj = menuService.getMenu(character, currentPage, getId);
+            menuService.updateMenu(character, menuInfo);
+
+            obj.setCode(BaseBean.SUCCESS);
+            obj.setMessage("更新菜单权限成功");
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setMessage(e.getMessage());

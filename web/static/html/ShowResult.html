@@ -32,7 +32,7 @@
             <form class="layui-form">
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <select name="quiz1">
+                        <select name="quiz1" id="Grades">
                             <option value="" selected="">请选择年级</option>
                             <option value="2017">2017</option>
                             <option value="2018">2018</option>
@@ -60,19 +60,19 @@
                     </div>
                     <label class="layui-form-label" style="width: 72px">姓名：</label>
                     <div class="layui-input-inline" style="width: 170px">
-                        <input type="text" name="title" required id="name" lay-verify="required" READONLY="true"
+                        <input type="text" name="title" required id="name" lay-verify="required"
                                placeholder="叶强(当前学生权限只读)"
                                autocomplete="off" class="layui-input">
                         <!--此处若是管理员或教师改为placeholder="请输入姓名"，，删除READONLY="true"(非只读，可搜索)-->
                     </div>
                     <label class="layui-form-label" style="width: 72px">学号：</label>
                     <div class="layui-input-inline" style="width: 170px">
-                        <input type="text" name="" required id="code" lay-verify="required" READONLY="true"
+                        <input type="text" name="" required id="code" lay-verify="required"
                                placeholder="1314520((当前学生只读)"
                                autocomplete="off" class="layui-input">
                         <!--此处若是管理员或教师改为placeholder="请输入编号"，删除READONLY="true"(非只读，可搜索)-->
                     </div>
-                    <button class="layui-btn" data-type="reload">搜索</button>
+                    <button class="layui-btn" id="Select" data-type="reload">查询</button>
                 </div>
             </form>
             <!--           主体-->

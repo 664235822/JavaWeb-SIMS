@@ -33,7 +33,14 @@ function Page(id, limit, count) {
                 if (!first) {
                     var code = $("#code").val();
                     var name = $("#name").val();
-                    var data = {"tableName": "Result", "code": code, "name": name, "currentPage": obj.curr};
+                    var data = {
+                        "tableName": "Result",
+                        "code": code,
+                        "name": name,
+                        "classId": 0,
+                        "subjectId": 0,
+                        "currentPage": obj.curr
+                    };
                     var table = getPage(data);
                     if (table.code == 1) {
                         ResultTable(table.data.list);
@@ -59,7 +66,14 @@ function ResultFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
-            var data = {"tableName": "Teacher", "code": code, "name": name, "currentPage": 1};
+            var data = {
+                "tableName": "Result",
+                "code": code,
+                "name": name,
+                "classId": 0,
+                "subjectId": 0,
+                "currentPage": 1
+            };
             var table = getPage(data);
             if (table.code == 1) {
                 ResultTable(table.data.list);
@@ -112,7 +126,7 @@ function MoveClass(gradeCode) {
 }
 
 //年级下拉框
-function grade() {
+function Grade() {
     var text = "";
     if (ClassList.code == 1) {
         var list = ClassList.data;

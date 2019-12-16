@@ -3,7 +3,7 @@ body .demo-class .layui-layer-content {
 }
 body{
     padding-top: 50px;
-    min-height: 400px;
+    min-height: 600px;
 }
 body .layui-table  th,td{
     text-align: center;

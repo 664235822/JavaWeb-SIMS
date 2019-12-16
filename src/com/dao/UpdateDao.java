@@ -25,7 +25,7 @@ public class UpdateDao extends BaseDao {
         String sql = "update Teacher ";
         sql += "set code='" + teacherInfo.getCode() + "',";
         sql += "name='" + teacherInfo.getName() + "',";
-        sql += "sex='," + teacherInfo.getSex() + "',";
+        sql += "sex='" + teacherInfo.getSex() + "',";
         sql += "age='" + teacherInfo.getAge() + "',";
         sql += "education='" + teacherInfo.getEducation() + "',";
         sql += "goodAt='" + teacherInfo.getGoodAt() + "',";

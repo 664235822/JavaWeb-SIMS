@@ -306,6 +306,82 @@ public class SelectDao extends BaseDao {
         return result;
     }
 
+    /*
+     * 查看添加学生成绩信息
+     * @param classId 班级编号
+     * @param subjectId 科目编号
+     * @param currentPage 当前页号
+     * @throws SQLException
+     */
+    public BaseBean selectAddResult(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
+        String sql = "select st.id,su.id subjectId,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Student st ";
+        sql += "inner join Class cl on st.classId=cl.id ";
+        sql += "inner join Grade gr on cl.gradeId=gr.id ";
+        sql += "inner join Subject su on su.gradeId=gr.id ";
+        sql += "where 1=1 ";
+        if (gradeId != 0) {
+            sql += "and cl.gradeId='" + gradeId + "' ";
+        }
+        if (classId != 0) {
+            sql += "and st.classId='" + classId + "' ";
+        }
+        if (subjectId != 0) {
+            sql += "and su.id='" + subjectId + "' ";
+        }
+        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<ResultBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            ResultBean _result = new ResultBean();
+            _result.setsId(rs.getInt("id"));
+            _result.setSubId(rs.getInt("subjectId"));
+            _result.setGradeName(rs.getString("gradeName"));
+            _result.setClassName(rs.getString("className"));
+            _result.setCode(rs.getString("code"));
+            _result.setName(rs.getString("name"));
+            _result.setSubjectName(rs.getString("subjectName"));
+
+            list.add(_result);
+        }
+
+        table.setList(list);
+
+        sql = "select count(*) as count from Student st ";
+        sql += "inner join Class cl on st.classId=cl.id ";
+        sql += "inner join Grade gr on cl.gradeId=gr.id ";
+        sql += "inner join Subject su on su.gradeId=gr.id ";
+        sql += "where 1=1 ";
+        if (gradeId != 0) {
+            sql += "and cl.gradeId='" + gradeId + "' ";
+        }
+        if (classId != 0) {
+            sql += "and st.classId='" + classId + "' ";
+        }
+        if (subjectId != 0) {
+            sql += "and su.id='" + subjectId + "' ";
+        }
+        sql += ";";
+        rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        table.setDataCount(dataCount);
+        table.setPageCount(pageCount);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看添加学生成绩信息成功");
+        destroy(rs);
+
+        return result;
+    }
 
     /*
      * 获取表格行数和页数

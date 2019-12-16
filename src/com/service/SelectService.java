@@ -37,6 +37,9 @@ public class SelectService {
             case "Result":
                 result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
                 break;
+            case "AddResult":
+                result = selectDao.selectAddResult(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
+                break;
         }
 
         return result;

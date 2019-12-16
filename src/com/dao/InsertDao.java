@@ -1,10 +1,12 @@
 package com.dao;
 
 import com.entity.MyException;
+import com.entity.ResultBean;
 import com.entity.StudentBean;
 import com.entity.TeacherBean;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /*
  * 添加信息类
@@ -95,6 +97,28 @@ public class InsertDao extends BaseDao {
 
         String sql = "insert into TeacherClass (tId,classId,subId) values (" + values.toString() + ");";
         queryUpdate(sql);
+
+        destroy(null);
+    }
+
+    /*
+     * 添加学生成绩
+     * @param 学生成绩信息列表
+     * @throws SQLException, MyException
+     */
+    public void insertResult(List<ResultBean> resultInfo) throws SQLException, MyException {
+        for (ResultBean info : resultInfo) {
+            if (info.getsId() == 0 || info.getSubId() == 0)
+                continue;
+
+            StringBuffer values = new StringBuffer();
+            values.append("'" + info.getsId() + "'").append(",");
+            values.append("'" + info.getSubId() + "'").append(",");
+            values.append("'" + info.getResult() + "'");
+
+            String sql = "insert into Result (sId,subId,result) values (" + values.toString() + ");";
+            queryUpdate(sql);
+        }
 
         destroy(null);
     }

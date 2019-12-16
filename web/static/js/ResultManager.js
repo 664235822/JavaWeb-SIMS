@@ -187,6 +187,9 @@ function AddResultFunction() {
                 Refresh();
             }
         });
+        $("#SubmitResult").click(function () {
+            SubmitResult();
+        });
     })
 }
 
@@ -282,9 +285,9 @@ function AddResultTable(data) {
             text += "<td>" + data[i].gradeName + "</td>";
             text += "<td>" + data[i].className + "</td>";
             text += "<td>" + data[i].code + "</td>";
-            text += "<td name='" + data[i].sId + "'>" + data[i].name + "</td>";
-            text += "<td name='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
-            text += "<td contenteditable='true'></td>";
+            text += "<td name='studentId' value='" + data[i].sId + "'>" + data[i].name + "</td>";
+            text += "<td name='subjectId' value='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
+            text += "<td name='result' contenteditable='true'></td>";
             text += "</tr>";
         }
         text += "</tbody>";
@@ -326,4 +329,49 @@ function Refresh() {
         var form = layui.form;
         form.render();
     });
+}
+
+//保存成绩
+function SubmitResult() {
+    var list = new Array();
+    $("#table").find("tr").each(function () {
+        var obj = new Object();
+        $(this).find("td").each(function () {
+            switch ($(this).attr("name")) {
+                case "studentId":
+                    obj.sId = $(this).attr("value");
+                    break;
+                case "subjectId":
+                    obj.subId = $(this).attr("value");
+                    break;
+                case "result":
+                    obj.result = $(this).html();
+                    break;
+            }
+        })
+        if (obj.result !== "") {
+            list.push(obj);
+        }
+    })
+
+    var data = {
+        "tableName": "Result",
+        "info": JSON.stringify(list)
+    }
+    var url = "/JavaWeb_SIMS_war_exploded/insert"
+    var Menu = Ajax(url, data);
+    if (Menu.code == 1) {
+        //操作成功的提示
+        layer.msg(Menu.message, {
+            offset: '15px'
+            , icon: 1
+            , time: 1000
+        })
+    } else {
+        layer.msg(Menu.message, {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        })
+    }
 }

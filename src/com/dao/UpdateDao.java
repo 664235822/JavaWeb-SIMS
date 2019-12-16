@@ -22,18 +22,18 @@ public class UpdateDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void updateTeacher(TeacherBean teacherInfo) throws SQLException, MyException {
-        String sql = "update Teacher ";
-        sql += "set code='" + teacherInfo.getCode() + "',";
-        sql += "name='" + teacherInfo.getName() + "',";
-        sql += "sex='" + teacherInfo.getSex() + "',";
-        sql += "age='" + teacherInfo.getAge() + "',";
-        sql += "education='" + teacherInfo.getEducation() + "',";
-        sql += "goodAt='" + teacherInfo.getGoodAt() + "',";
-        sql += "phone='" + teacherInfo.getPhone() + "',";
-        sql += "QQ='" + teacherInfo.getQQ() + "',";
-        sql += "email='" + teacherInfo.getEmail() + "',";
-        sql += "introduction='" + teacherInfo.getIntroduction() + "' ";
-        sql += "where code='" + teacherInfo.getCode() + "';";
+        String sql = "update Teacher " +
+                "set code='" + teacherInfo.getCode() + "'," +
+                "name='" + teacherInfo.getName() + "'," +
+                "sex='" + teacherInfo.getSex() + "'," +
+                "age='" + teacherInfo.getAge() + "'," +
+                "education='" + teacherInfo.getEducation() + "'," +
+                "goodAt='" + teacherInfo.getGoodAt() + "'," +
+                "phone='" + teacherInfo.getPhone() + "'," +
+                "QQ='" + teacherInfo.getQQ() + "'," +
+                "email='" + teacherInfo.getEmail() + "'," +
+                "introduction='" + teacherInfo.getIntroduction() + "' " +
+                "where code='" + teacherInfo.getCode() + "';";
 
         queryUpdate(sql);
 
@@ -48,15 +48,15 @@ public class UpdateDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void updateStudent(StudentBean studentInfo) throws SQLException, MyException {
-        String sql = "update Student ";
-        sql += "set code='" + studentInfo.getCode() + "',";
-        sql += "name='" + studentInfo.getName() + "',";
-        sql += "age='" + studentInfo.getAge() + "',";
-        sql += "sex='," + studentInfo.getSex() + "',";
-        sql += "QQ='" + studentInfo.getQQ() + "',";
-        sql += "phone='" + studentInfo.getPhone() + "',";
-        sql += "email='" + studentInfo.getAddress() + "',";
-        sql += "where code='" + studentInfo.getCode() + "';";
+        String sql = "update Student " +
+                "set code='" + studentInfo.getCode() + "'," +
+                "name='" + studentInfo.getName() + "'," +
+                "age='" + studentInfo.getAge() + "'," +
+                "sex='," + studentInfo.getSex() + "'," +
+                "QQ='" + studentInfo.getQQ() + "'," +
+                "phone='" + studentInfo.getPhone() + "'," +
+                "email='" + studentInfo.getAddress() + "'," +
+                "where code='" + studentInfo.getCode() + "';";
 
         queryUpdate(sql);
 
@@ -72,9 +72,9 @@ public class UpdateDao extends BaseDao {
      */
     public void updateClassId(List<StudentBean> classInfo) throws SQLException, MyException {
         for (int i = 0; i < classInfo.size(); i++) {
-            String sql = "update Student ";
-            sql += "set classId='" + classInfo.get(i).getClassId() + "' ";
-            sql += "where code='" + classInfo.get(i).getCode() + "';";
+            String sql = "update Student " +
+                    "set classId='" + classInfo.get(i).getClassId() + "' " +
+                    "where code='" + classInfo.get(i).getCode() + "';";
 
             queryUpdate(sql);
         }
@@ -89,9 +89,9 @@ public class UpdateDao extends BaseDao {
      * @throws SQLException, MyException
      */
     void updatePwd(String code, String pwd) throws SQLException, MyException {
-        String sql = "update Login ";
-        sql += "set pwd='" + pwd + "' ";
-        sql += "where code='" + code + "';";
+        String sql = "update Login " +
+                "set pwd='" + pwd + "' " +
+                "where code='" + code + "';";
 
         queryUpdate(sql);
     }

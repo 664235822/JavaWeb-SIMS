@@ -219,12 +219,12 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re ";
-        sql += "inner join Student st on re.sid=st.id ";
-        sql += "inner join Class cl on st.classId=cl.id ";
-        sql += "inner join Grade gr on cl.gradeId=gr.id ";
-        sql += "inner join Subject su on re.subId=su.id ";
-        sql += "where 1=1 ";
+        String sql = "select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re " +
+                "inner join Student st on re.sid=st.id " +
+                "inner join Class cl on st.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join Subject su on re.subId=su.id " +
+                "where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and st.code like '%" + code + "%' ";
         }
@@ -266,12 +266,12 @@ public class SelectDao extends BaseDao {
 
         table.setList(list);
 
-        sql = "select count(*) as count from Result re ";
-        sql += "inner join Student st on re.sid=st.id ";
-        sql += "inner join Class cl on st.classId=cl.id ";
-        sql += "inner join Grade gr on cl.gradeId=gr.id ";
-        sql += "inner join Subject su on re.subId=su.id ";
-        sql += "where 1=1 ";
+        sql = "select count(*) as count from Result re " +
+                "inner join Student st on re.sid=st.id " +
+                "inner join Class cl on st.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join Subject su on re.subId=su.id " +
+                "where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and st.code like '%" + code + "%' ";
         }
@@ -314,11 +314,11 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectAddResult(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "select st.id,su.id subjectId,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Student st ";
-        sql += "inner join Class cl on st.classId=cl.id ";
-        sql += "inner join Grade gr on cl.gradeId=gr.id ";
-        sql += "inner join Subject su on su.gradeId=gr.id ";
-        sql += "where 1=1 ";
+        String sql = "select st.id,su.id subjectId,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Student st " +
+                "inner join Class cl on st.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join Subject su on su.gradeId=gr.id " +
+                "where 1=1 ";
         if (gradeId != 0) {
             sql += "and cl.gradeId='" + gradeId + "' ";
         }
@@ -350,11 +350,11 @@ public class SelectDao extends BaseDao {
 
         table.setList(list);
 
-        sql = "select count(*) as count from Student st ";
-        sql += "inner join Class cl on st.classId=cl.id ";
-        sql += "inner join Grade gr on cl.gradeId=gr.id ";
-        sql += "inner join Subject su on su.gradeId=gr.id ";
-        sql += "where 1=1 ";
+        sql = "select count(*) as count from Student st " +
+                "inner join Class cl on st.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join Subject su on su.gradeId=gr.id " +
+                "where 1=1 ";
         if (gradeId != 0) {
             sql += "and cl.gradeId='" + gradeId + "' ";
         }

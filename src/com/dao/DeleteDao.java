@@ -40,19 +40,26 @@ public class DeleteDao extends BaseDao {
      */
     public void deleteStudent(List<Integer> codeList) throws SQLException, MyException {
         for (int i = 0; i < codeList.size(); i++) {
-            String sql = "delete from Student where code='" + codeList.get(i) + "';";
+            String sql = "select id from Student where code='" + codeList.get(i) + "';";
+            ResultSet rs = querySelect(sql);
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+            sql = "select * from Result where sId='" + id + "';";
+            rs = querySelect(sql);
+            if (rs.next()) {
+                sql = "delete from Result where sId='" + id + "';";
+                queryUpdate(sql);
+            }
+            rs.close();
+
+            sql = "delete from Student where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
 
             sql = "delete from Login where code='" + codeList.get(i) + "';";
             queryUpdate(sql);
-
-            sql = "select * from Result where stuCode='" + codeList.get(i) + "';";
-            ResultSet rs = querySelect(sql);
-            if (rs.next()) {
-                sql = "delete from Result where stuCode='" + codeList.get(i) + "';";
-                queryUpdate(sql);
-            }
-            rs.close();
         }
 
         destroy(null);

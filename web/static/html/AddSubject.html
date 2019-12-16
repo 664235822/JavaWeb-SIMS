@@ -21,46 +21,74 @@
         </nav>
         <div class="container">
             <div class="row">
-        <div class="col-md-4 forms">
-            <form class="layui-form">
-                <!--          科目名称-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">科目名称：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="" lay-verify="newres" autocomplete="off" placeholder="请输入科目名称"
-                               class="layui-input" id="aa">
-                    </div>
+                <!--            表格-->
+                <div class="demoTable" style="margin-top: 20px">
+                <!--           主体-->
+                <table class="layui-table" style="margin-top: 20px" id="table">
+                    <thead>
+                    <tr>
+                        <th>科目编号</th>
+                        <th>科目名称</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    <tr>
+                        <td>1234545</td>
+                        <td>JAVA</td>
+                        <td>王富贵</td>
+                        <td>2019/12/15/12:00</td>
+                    </tr>
+                    </tbody>
+                </table>
                 </div>
-                <!--          科目编号-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">科目编号：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="1235452(自动生成，只读)"
-                               class="layui-input" id="s">
-                    </div>
+                <!--          添加科目-->
+                <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                    <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">添加科目</button>
                 </div>
-                <!--          创建人-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建人：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="王富贵(自动获取信息，只读)"
-                               class="layui-input" id="">
-                    </div>
-                </div>
-                <!--          创建时间-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建时间：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="2019-12-11(自动获取信息，只读)"
-                               class="layui-input" id="q">
-                    </div>
-                </div>
-                <!--          提交-->
-                <div class="site-demo-button" id="layerDemo">
-                    <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn pull-right">提交</button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
 </body>

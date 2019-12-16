@@ -75,6 +75,7 @@ function Serch(id) {
 }
 //显示信息数据
 function Modify() {
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", "");
     if (localStorage.ModifyId != null) {
         var json2 = localStorage.ModifyId;
         var obj = JSON.parse(json2);
@@ -94,7 +95,20 @@ function Modify() {
     $("#tQQ").val(list.qQ);
     $("#tAddress").val(list.address);
     $("#tPwd").val(list.pwd);
-    $("#tEducation option:contains(" + list.education + ")").prop("selected", true);
+    var text = "";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += grade();
+    $("#tGrade").html(text);
+    $("#tGrade option:contains(" + list.gradeName + ")").prop("selected", true);
+    for(var i=0;i<ClassList.data.length; i++){
+        if(ClassList.data[i].gradeName==list.gradeName){
+            var gradeCode =ClassList.data[i].id;
+            break;
+        }
+    }
+    var text = MoveClass(gradeCode);
+    $("#tClass").html(text);
+    $("#tClass option:contains(" + list.className + ")").prop("selected", true);
     Refresh();
 }
 
@@ -144,7 +158,8 @@ function StuFunction() {
         //查询
         $("#Select").click(function () {
             var code = $("#code").val();
-            var data = {"tableName": "Student", "code": code, "name": "", "currentPage": 1};
+            var name = $("#name").val();
+            var data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
             var table = getPage(data);
             if (table.code == 1) {
                 StuTable(table.data.list);
@@ -241,6 +256,7 @@ function Move(codeList) {
         content: text,
         skin: 'demo-class',
         btnAlign: 'c',
+        move: false,
         shade: [0.1, '#ffffff'],
         yes: function (index) {
             var list = new Array;

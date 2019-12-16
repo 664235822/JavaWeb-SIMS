@@ -86,7 +86,7 @@ layui.use(['form'], function () {
         Info.name = Serch("tName");
         Info.sex = $("input[type='radio']:checked").val();
         Info.age = Serch("tAge");
-        Info.education = $("#tClass option:selected").text();
+        Info.education = $("#tEducation option:selected").text();
         Info.goodAt = Serch("tGoodAt");
         Info.phone = Serch("tPone");
         Info.QQ = Serch("tQQ");

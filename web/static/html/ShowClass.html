@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <title>查看班级列表</title>
+</head>
+<body>
+<!--              本页面已与修改、删除班级信息，为班级分配教师、年级合并！！！(似于管理教师页面)-->
+
+<!--      注NO.1：     修改班级信息与操作列中修改按钮合并，点击修改即跳转到修改页面，该页面通过表单元素显示：班级编号、班级名称、创建人、创建时间。
+              只允许修改班级名称，其余只读。修改班级名称需要注意名称不允许重复！为班级分配年级和修改班级信息合并，在修改页面增加一个年级下拉框即可-->
+
+<!--      注NO.2：      在操作列中点击删除，弹窗确认是否删除？点击确定，需要判断该班级是否存在学生，如果存在学生是不允许删除。-->
+
+<!--      注NO.3：      在操作列中点击分配(即为班级分配教师)，即跳转到分配页面。分配页面分为两大板块。第一版通过表单元素显示当前点击的班级信息：
+              班级编号、班级名称、科目下拉框。科目信息根据当前班级所在的年级匹配。如果当前班级没有分配年级，即无法操作分配教师功能。第二版即通过
+              table显示当前系统中所有教师信息。每一个教师信息前面增加一个复选框。在table下面增加一个分配按钮，点击分配即将数据更新到数据库中。-->
+
+<!--          当前位置导航-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 查看班级列表</p>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <!--            表格-->
+        <div class="demoTable" style="margin-top: 20px">
+            <div class="demoTable">
+                搜索：
+                <div class="layui-inline">
+                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入班级编号">
+                </div>
+                <div class="layui-inline">
+                    <input class="layui-input" name="id" id="demoReloa" autocomplete="off" placeholder="请输入班级名称">
+                </div>
+                <button class="layui-btn" data-type="reload">搜索</button>
+            </div>
+            <!--           主体-->
+            <table class="layui-table" style="margin-top: 20px" id="table">
+                <colgroup>
+                    <col width="50">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </th>
+                    <th>年级编号</th>
+                    <th>年级名称</th>
+                    <th>班级编号</th>
+                    <th>班级名称</th>
+                    <th>创建人</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>2018</td>
+                    <td>135448</td>
+                    <td>一班</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/13:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm">分配</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-warm">修改</button>
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -2,7 +2,7 @@ body .demo-class .layui-layer-content {
     overflow: visible;
 }
 body{
-    padding-top: 50px;
+    padding-top: 50px!important;
     min-height: 600px;
 }
 body .layui-table  th,td{

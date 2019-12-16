@@ -350,8 +350,6 @@ function StuTable(data) {
         text += "</tbody>";
         $("#table").html(text);
     }
-
-
 }
 
 //刷新

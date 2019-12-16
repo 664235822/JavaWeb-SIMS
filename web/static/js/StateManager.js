@@ -93,6 +93,7 @@ function Page(id,limit,count) {
         });
 
     });
+    //监听选项卡
     layui.use('element', function(){
         var element = layui.element;
         element.render();
@@ -101,6 +102,135 @@ function Page(id,limit,count) {
             StateIf(index);
             Refresh();
         });
+    });
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('switch(filter)', function(data){
+            var Switch=data.elem.checked;//开关是否开启，true或者false
+            State(data.value,index,Switch);
+            Refresh();
+        });
+    })
+
+}
+function State(menuId,index,Switch) {
+    var close={};//关
+    var open={};//开
+    close.update=false;
+    open.update=true;
+    var url = "/JavaWeb_SIMS_war_exploded/menu";
+    var str={};
+    str.currentPage=0;
+    str.getId='false';
+    str.character = 'AdminMenu';
+    var OpenMenu = Ajax(url, str);
+    if(index==0){
+        close.character="TeacherMenu";
+        open.character="TeacherMenu";
+        str.character = 'TeacherMenu';
+        var ClosMenu = Ajax(url, str);
+    }
+    if(index==1){
+        close.character='StudentMenu';
+        open.character='StudentMenu';
+        str.character = 'StudentMenu';
+        var ClosMenu = Ajax(url, str);
+    }
+    if(Switch){
+        Open(OpenMenu,menuId,open,ClosMenu);
+    }else {
+        Close(ClosMenu,menuId,close);
+    }
+
+}
+//开启操作
+function Open(OpenMenu,menuId,open,menu) {
+    var Judge=true;
+    if(OpenMenu.code==1){
+        OpenMenu=OpenMenu.data;
+        for(var i=0;i<OpenMenu.length;i++){
+            if(OpenMenu[i].menuId==menuId){
+                for (var j=0;j<OpenMenu[i].items.length;j++){
+                    open.menuId=OpenMenu[i].items[j].menuId;
+                    AjaxAsync(open);
+                    $("#table tr[name="+OpenMenu[i].items[j].menuId+"]").find("input[type=checkbox]").attr("checked", true);
+                }
+                open.menuId=OpenMenu[i].menuId;
+                AjaxAsync(open);
+                Judge=false;
+                break;
+            }
+        }
+        if(Judge){
+            for(var i=0;i<OpenMenu.length;i++){
+                for (var j=0;j<OpenMenu[i].items.length;j++){
+                    if(OpenMenu[i].items[j].menuId==menuId){
+                        open.menuId=OpenMenu[i].items[j].menuId;
+                        AjaxAsync(open);
+                        for(var k=0;k<menu.data.length;k++){
+                            if(menu.data[k].menuId==OpenMenu[i].menuId){
+                                Judge=false;
+                                break;
+                            }
+                        }
+                        if(Judge){
+                            open.menuId=OpenMenu[i].menuId;
+                            AjaxAsync(open);
+                            $("#table tr[name="+OpenMenu[i].menuId+"]").find("input[type=checkbox]").attr("checked", true);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+//关闭操作
+function Close(menu,menuId,close) {
+    var Judge=true;
+    if(menu.code==1){
+        menu=menu.data;
+        for(var i=0;i<menu.length;i++){
+            if(menu[i].menuId==menuId){
+                for (var j=0;j<menu[i].items.length;j++){
+                    close.menuId=menu[i].items[j].menuId;
+                    AjaxAsync(close);
+                    $("#table tr[name="+menu[i].items[j].menuId+"]").find("input[type=checkbox]").attr("checked", false);
+                }
+                close.menuId=menu[i].menuId;
+                AjaxAsync(close);
+                Judge=false;
+                break;
+            }
+        }
+        if(Judge){
+            for(var i=0;i<menu.length;i++){
+                for (var j=0;j<menu[i].items.length;j++){
+                    if(menu[i].items[j].menuId==menuId){
+                        close.menuId=menu[i].items[j].menuId;
+                        AjaxAsync(close);
+                        if(menu[i].items.length==1){
+                            close.menuId=menu[i].menuId;
+                            AjaxAsync(close);
+                            $("#table tr[name="+menu[i].menuId+"]").find("input[type=checkbox]").attr("checked", false);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+function AjaxAsync(data) {
+    $.ajax({
+        url:"/JavaWeb_SIMS_war_exploded/updateMenu",
+        data:data,
+        type: "post",
+        dataType: "json",
+        // contentType: "application/json;charset=utf-8",
+        success: function(e) {
+            num=e;
+        },
     });
 }
 //权限表格
@@ -132,7 +262,7 @@ function StateTable(menu) {
             }
             text += "<td>";
             text += "<div class=\"layui-form\">";
-            text += "<input type=\"checkbox\" name=\"\" lay-skin=\"switch\" lay-text=\"开启|关闭\">";
+            text += "<input type=\"checkbox\" name=\"\" lay-filter=\"filter\" value=\""+MenuTable[i].menuId+"\" lay-skin=\"switch\" lay-text=\"开启|关闭\">";
             text += "</div>";
             text += " </td>";
             text += "</tr>";

@@ -78,7 +78,45 @@ layui.use(['form'], function () {
         UpTeacher();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
+    form.on('submit(modify)', function(data){
+        var data = {};
+        var Info = {};
+        data.tableName = "Teacher";
+        Info.code = Serch("tCode");
+        Info.name = Serch("tName");
+        Info.sex = $("input[type='radio']:checked").val();
+        Info.age = Serch("tAge");
+        Info.education = $("#tClass option:selected").text();
+        Info.goodAt = Serch("tGoodAt");
+        Info.phone = Serch("tPone");
+        Info.QQ = Serch("tQQ");
+        Info.email = Serch("tEmail");
+        Info.address = Serch("tAddress");
+        Info.introduction = Serch("tIntorduction");
+        Info.pwd = Serch("tPwd");
+        data.info = JSON.stringify(Info);
+        var url = "/JavaWeb_SIMS_war_exploded/update";
+        var Menu = Ajax(url, data);
+        if (Menu.code == 1) {
+            //成功的
+            layer.msg(Menu.message, {
+                icon: 1
+                , time: 1000
+            });
+        } else {
+            layer.msg(Menu.message, {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
 
+        }
+        ShowTeachers();
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
+    function Serch(id) {
+        return $("#" + id).val();
+    }
     // 应该没有用form.on("submit(submit_button)", function (data) {
     //     return false;
     // });

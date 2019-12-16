@@ -73,6 +73,50 @@ function UpStudent() {
 function Serch(id) {
     return $("#" + id).val();
 }
+//显示信息数据
+function Modify() {
+    if (localStorage.ModifyId != null) {
+        var json2 = localStorage.ModifyId;
+        var obj = JSON.parse(json2);
+    }
+    var data = {"tableName": "Student", "code": obj.teacherId, "name": "", "currentPage": 1};
+    var table = getPage(data);
+    var list = table.data.list[0];
+    $("#tCode").val(list.code);
+    $("#tName").val(list.name);
+    var sex = list.sex;
+    if (sex == "女") {
+        $("input[type='radio']").eq(0).attr("checked", false);
+        $("input[type='radio']").eq(1).attr("checked", true);
+    }
+    $("#tAge").val(list.age);
+    $("#tPone").val(list.phone);
+    $("#tQQ").val(list.qQ);
+    $("#tAddress").val(list.address);
+    $("#tPwd").val(list.pwd);
+    $("#tEducation option:contains(" + list.education + ")").prop("selected", true);
+    Refresh();
+}
+
+
+//显示修改信息页面
+function ShowModify(id) {
+    var json1 = {};
+    json1.teacherId = id;
+    var str1 = JSON.stringify(json1);
+    localStorage.ModifyId = str1;
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        layer.open({
+            type: 2
+            , closeBtn: 2
+            ,shade: [0.1, '#ffffff']
+            , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
+            , content: '/JavaWeb_SIMS_war_exploded/static/html/UpdateStudent.html'
+            , area: ['650px', '500px']
+        });
+    });
+}
 
 //学生管理初始化
 function StuMoveClass() {
@@ -136,6 +180,9 @@ function StuFunction() {
             codeList[0] = id;
             Move(codeList);
         }
+        if ($(this).attr("name") == "modify") {
+            ShowModify(id);
+        }
 
     });
     //批量操作
@@ -189,7 +236,7 @@ function Move(codeList) {
     text += "</select>    ";
     text += "    </div>";
     layer.open({
-        title: '影响范围',
+        title: '转班',
         btn: ['确定', '取消'],
         content: text,
         skin: 'demo-class',
@@ -341,7 +388,7 @@ function StuTable(data) {
             text += "<td>" + data[i].className + "</td>";
             text += "<td>" + data[i].teacherName + "</td>";
             text += "<td>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"moveClass\">修改</button>";
+            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-red\" name=\"delete\">删除</button>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">转班</button>";
             text += "</td>";

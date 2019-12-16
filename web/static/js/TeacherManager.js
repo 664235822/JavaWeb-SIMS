@@ -209,6 +209,7 @@ function ShowModify(id) {
         layer.open({
             type: 2
             , closeBtn: 2
+            ,shade: [0.1, '#ffffff']
             , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
             , content: '/JavaWeb_SIMS_war_exploded/static/html/UpdateInfo.html'
             , area: ['650px', '500px']

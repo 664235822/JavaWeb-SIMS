@@ -8,11 +8,13 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StudentInfo.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StuManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>修改学生信息</title>
 </head>
-<body>
+<body onload="Modify()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -23,109 +25,112 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 forms">
-            <form class="layui-form">
-                <!--                学生编号(只读；需获知数据库中相关信息)-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学生学号：</label>
-                    <div class="layui-input-block">
-                        <input type="text" name=""  READONLY="true" lay-verify="newres" autocomplete="off" placeholder="123145"
-                               class="layui-input" id="StuInfo">
-                    </div>
-                </div>
-                <!--                学生姓名-->
+            <form class="layui-form" method="post">
+                <!--                姓名-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请修改姓名"
+                        <input type="text" id="tName" name="tName" lay-verify="required|title" autocomplete="off" placeholder="姓名必须为中文"
                                class="layui-input">
                     </div>
                 </div>
-                <!--                修改密码-->
+                <!--                账号-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">修改密码：</label>
+                    <label class="layui-form-label">账号：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="password" lay-verify="pwd" autocomplete="off" placeholder="请输入新密码"
+                        <input type="text" id="tCode" name="tCode"  READONLY="true" lay-verify="required|newres" autocomplete="off" placeholder=""
                                class="layui-input">
                     </div>
                 </div>
-                <!--                确认密码-->
+                <!--                密码-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">确认密码：</label>
+                    <label class="layui-form-label">密码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="password" lay-verify="pwd" autocomplete="off" placeholder="请再次输入新密码"
+                        <input type="text" id="tPwd" name="tPwd" lay-verify="required|pwd" autocomplete="off" value="123456" placeholder="密码必须是6-16位字母加数字组合"
                                class="layui-input">
                     </div>
                 </div>
-                <!--                修改年龄-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">修改年龄：</label>
-                    <div class="layui-input-block">
-                        <select name="interest" lay-filter="aihao">
-                            <option value="" selected=""></option>
-                            <option value="7" >7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                        </select>
-                    </div>
-                </div>
-                <!--                  修改性别-->
+                <!--                性别-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男" checked="">
-                        <input type="radio" name="sex" value="女" title="女">
+                        <input type="radio" id="tMan" name="tSex" value="男" title="男" checked="checked">
+                        <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                                class="layui-anim layui-icon"></i>
+                            <div>男</div>
+                        </div>
+                        <input type="radio" id="tWomen" name="tSex" value="女" title="女">
+                        <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
+                            <div>女</div>
+                        </div>
                     </div>
                 </div>
-                <!--                  修改QQ-->
+                <!--                年龄-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">修改QQ：</label>
+                    <label class="layui-form-label">年龄：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="number" lay-verify="required|number" autocomplete="off"
-                               placeholder="请修改QQ号码"
+                        <input type="text" id="tAge" name="tAge" lay-verify="required|age" autocomplete="off"
+                               placeholder="请输入年龄"
                                class="layui-input">
                     </div>
                 </div>
-                <!--                修改电话-->
+                <!--                年级-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">修改电话：</label>
+                    <label class="layui-form-label">所在年级：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="phone" lay-verify="required|phone" autocomplete="off"
-                               placeholder="请修改电话号码"
+                        <select id="tGrade" name="tGrade" lay-verify="required" lay-filter="test" lay-reqtext="年级是必填项！">
+                            <option value="">请选择你的年级</option>
+                            <option value="1">2018级</option>
+                            <option value="2">2019级</option>
+                            <option value="3">2020级</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所在班级：</label>
+                    <div class="layui-input-block">
+                        <select id="tClass" name="tClass" lay-verify="required" lay-reqtext="班级是必填项！">
+                            <option value="">请选择你的班级</option>
+                            <option value="1">软件1831</option>
+                            <option value="2">软件1832</option>
+                            <option value="3">软件1833</option>
+                        </select>
+                    </div>
+                </div>
+                <!--                电话-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系电话：</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="tPone" name="tPone" lay-verify="required|phone" autocomplete="off"
+                               placeholder="电话必须为11位数字"
                                class="layui-input">
                     </div>
                 </div>
-                <!--                修改家庭住址-->
+                <!--                QQ-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">修改地址：</label>
+                    <label class="layui-form-label">QQ号码：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" lay-verify="" autocomplete="off" placeholder="请修改家庭地址"
+                        <input type="text" id="tQQ" name="tQQ" lay-verify="required|QQ" autocomplete="off"
+                               placeholder="QQ必须为6-13位"
+                               class="layui-input">
+                    </div>
+                </div>
+                <!--                家庭住址-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">家庭地址：</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="tAddress" name="tAddress" lay-verify="" autocomplete="off" placeholder="请输入家庭地址"
                                class="layui-input">
                     </div>
                 </div>
                 <!--                提交按钮-->
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit="" lay-filter="component-form-element">立即提交</button>
-                        <button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
+                        <button class="layui-btn" lay-submit  id="referto"  lay-filter="modify">立即提交</button>
+                        <div  id="Reset"  class="layui-btn layui-btn-primary">重置</div>
                     </div>
                 </div>
-                <!--      表单结束-->
+                <!--                表单结束-->
             </form>
         </div>
     </div>

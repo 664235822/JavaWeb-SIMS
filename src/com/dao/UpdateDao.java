@@ -25,7 +25,6 @@ public class UpdateDao extends BaseDao {
         String sql = "update Teacher ";
         sql += "set code='" + teacherInfo.getCode() + "',";
         sql += "name='" + teacherInfo.getName() + "',";
-        sql += "pwd='" + teacherInfo.getPwd() + "',";
         sql += "sex='," + teacherInfo.getSex() + "',";
         sql += "age='" + teacherInfo.getAge() + "',";
         sql += "education='" + teacherInfo.getEducation() + "',";
@@ -37,6 +36,9 @@ public class UpdateDao extends BaseDao {
         sql += "where code='" + teacherInfo.getCode() + "';";
 
         queryUpdate(sql);
+
+        updatePwd(teacherInfo.getCode(), teacherInfo.getPwd());
+
         destroy(null);
     }
 
@@ -49,7 +51,6 @@ public class UpdateDao extends BaseDao {
         String sql = "update Student ";
         sql += "set code='" + studentInfo.getCode() + "',";
         sql += "name='" + studentInfo.getName() + "',";
-        sql += "pwd='" + studentInfo.getPwd() + "',";
         sql += "age='" + studentInfo.getAge() + "',";
         sql += "sex='," + studentInfo.getSex() + "',";
         sql += "QQ='" + studentInfo.getQQ() + "',";
@@ -58,6 +59,9 @@ public class UpdateDao extends BaseDao {
         sql += "where code='" + studentInfo.getCode() + "';";
 
         queryUpdate(sql);
+
+        updatePwd(studentInfo.getCode(), studentInfo.getPwd());
+
         destroy(null);
     }
 
@@ -76,5 +80,19 @@ public class UpdateDao extends BaseDao {
         }
 
         destroy(null);
+    }
+
+    /*
+     * 更新用户密码
+     * @param code 账户名
+     * @param pwd 密码
+     * @throws SQLException, MyException
+     */
+    void updatePwd(String code, String pwd) throws SQLException, MyException {
+        String sql = "update Login ";
+        sql += "set pwd='" + pwd + "' ";
+        sql += "where code='" + code + "';";
+
+        queryUpdate(sql);
     }
 }

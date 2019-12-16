@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="/JavaWeb_SIMS_war_exploded/static/css/AddGrade.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" media="all"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/AddGrade.js"></script>
-    <title>AddGrade</title>
+    <title>为年级添加班级</title>
 </head>
 <body style="padding-top: 50px;">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -17,46 +15,48 @@
     </div>
 </nav>
 <div class="container">
-    <div class="row">
-        <div class="col-md-4 forms">
-            <!--            年级名称-->
-            <div class="layui-form-item">
-                <label class="layui-form-label">年级名称：</label>
-                <div class="layui-input-block">
-                    <input type="text" id="GradeName" name="" lay-verify="required" autocomplete="off"
-                           placeholder="必填项不能为空！"
-                           class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 forms">
-            <!--            年级编号-->
-            <div class="layui-form-item">
-                <label class="layui-form-label">年级编号：</label>
-                <div class="layui-input-block">
-                    <input type="text" id="GradeCode" name="" lay-verify="required" autocomplete="off"
-                           placeholder="必填项不能为空！"
-                           class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 forms">
-            <!--            创建年级按钮-->
-            <div class="layui-form-item">
-                <div class="layui-btn pull-left"><i class="layui-icon">&#xe61f;</i>添加年级</div>
-            </div>
-        </div>
-    </div>
-    <!--表格-->
+<!--    当前年级信息展示-->
+
+    <!--未加入年级的班级展示-->
     <div id="LAY_preview" style="margin-top: 10px">
+        <table class="layui-table">
+            <colgroup>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>
+<!--                    复选框-->
+                </th>
+                <th>年级编号</th>
+                <th>年级名称</th>
+                <th>创建人</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>
+                    <!--                    复选框-->
+                </th>
+                <td>201801</td>
+                <td>2018级</td>
+                <td>株洲6</td>
+                <td>2019-12-15</td>
+                <td>
+                    <button class="layui-btn">为年级添加班级</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
         <table class="layui-table">
             <colgroup>
 
             </colgroup>
             <thead>
             <tr>
-                <th>年级编号</th>
-                <th>年级名称</th>
+                <th>班级编号</th>
+                <th>班级名称</th>
                 <th>创建人</th>
                 <th>创建时间</th>
                 <th>操作</th>
@@ -92,7 +92,7 @@
             </tr>
             </tbody>
         </table>
-<!--        分页框-->
+        <!--        分页框-->
         <div id="test1"></div>
     </div>
 </div>

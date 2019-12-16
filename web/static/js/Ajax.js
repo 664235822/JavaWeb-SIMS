@@ -3,37 +3,39 @@
  * **/
 //
 function Ajax(url, data) {
-    var num={};
+    var num = {};
     $.ajax({
-        url:url,
-        data:data,
+        url: url,
+        data: data,
         type: "post",
         dataType: "json",
         async: false,
         // contentType: "application/json;charset=utf-8",
-        success: function(e) {
-                num=e;
+        success: function (e) {
+            num = e;
         },
     });
     return num;
 }
+
 //上传文件请求
-function ajaxFileUpload(url,fileToUpload,data) {
+function ajaxFileUpload(url, fileToUpload, data) {
     $.ajaxFileUpload({
-        url : url,   // servlet请求路径【需要更改】
-        secureuri : false,
-        fileElementId : fileToUpload,   // 上传控件的id【需要更改】
-        dataType : 'json',
-        data : data,
-        success : function(data, status) {
+        url: url,   // servlet请求路径【需要更改】
+        secureuri: false,
+        fileElementId: fileToUpload,   // 上传控件的id【需要更改】
+        dataType: 'json',
+        data: data,
+        success: function (data, status) {
 
         },
-        error : function(data, status, e) {
+        error: function (data, status, e) {
 
         }
     })
     return false;
 }
+
 //上传功能
 function uploadExcel(tableName) {
 
@@ -45,9 +47,9 @@ function uploadExcel(tableName) {
             icon: 3,
             title: '提示',
             offset: [
-                ($(window).height()/4) + "px", ($(window).width()/3) + "px"
+                ($(window).height() / 4) + "px", ($(window).width() / 3) + "px"
             ]
-        }, function(index) {
+        }, function (index) {
             var url = "/JavaWeb_SIMS_war_exploded/uploadExcel";
             var fileToUpload = $("input[type=file]").attr("id");
             var data = {"tableName": tableName};
@@ -60,14 +62,15 @@ function uploadExcel(tableName) {
             icon: 2,
             anim: 6,
             offset: [
-                $(window).height() / 4+"px"
-                ,$(window).width() / 3+"px"
+                $(window).height() / 4 + "px"
+                , $(window).width() / 3 + "px"
             ]
-            ,time: 2000 //2秒关闭（如果不配置，默认是3秒）
+            , time: 2000 //2秒关闭（如果不配置，默认是3秒）
         });
         $("input[type='file']").val("");
     }
 }
+
 //判断文件类型
 function isPicFile(fileExt) {
     var suppotFile = new Array();
@@ -82,20 +85,18 @@ function isPicFile(fileExt) {
     return false;
 
 }
+
 //记住密码
-function CheckSave(username,password,state,name){
+function CheckSave(username, password, state, name) {
     var json1 = {};
-    json1.stateId=state;
-    json1.name=name;
-    if($("input[type=checkbox]").prop("checked")){
-        json1.accout =username;
+    json1.stateId = state;
+    json1.accout = username;
+    json1.name = name;
+    if ($("input[type=checkbox]").prop("checked")) {
         json1.pass = password;
-        var str1 = JSON.stringify(json1);
-        localStorage.Login= str1;
-    }else{
-        json1.accout = "";
+    } else {
         json1.pass = "";
-        var str1 = JSON.stringify(json1);
-        localStorage.Login = str1;
     }
+    var str1 = JSON.stringify(json1);
+    localStorage.Login = str1;
 }

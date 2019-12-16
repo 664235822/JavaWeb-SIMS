@@ -21,6 +21,8 @@ public class ResultBean {
     private String code;
     //学生名称
     private String name;
+    //时间
+    private String time;
     //科目名称
     private String subjectName;
 
@@ -86,6 +88,14 @@ public class ResultBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getSubjectName() {

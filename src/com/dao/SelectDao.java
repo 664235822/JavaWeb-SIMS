@@ -219,7 +219,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "select re.id,re.subId,re.sId,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re ";
+        String sql = "select re.id,re.subId,re.sId,re.time,re.result,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Result re ";
         sql += "inner join Student st on re.sid=st.id ";
         sql += "inner join Class cl on st.classId=cl.id ";
         sql += "inner join Grade gr on cl.gradeId=gr.id ";
@@ -253,6 +253,7 @@ public class SelectDao extends BaseDao {
             _result.setId(rs.getInt("id"));
             _result.setSubId(rs.getInt("subId"));
             _result.setsId(rs.getInt("sId"));
+            _result.setTime(rs.getDate("time").toString());
             _result.setResult(rs.getDouble("result"));
             _result.setGradeName(rs.getString("gradeName"));
             _result.setClassName(rs.getString("className"));

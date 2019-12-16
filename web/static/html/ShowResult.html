@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ResultManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
-    <title>查看个人成绩</title>
+    <title>查看成绩</title>
 </head>
 <body onload="ShowResult()">
 <!--        该功能需要验证登录系统的角色,如果是管理员、教师登录，则年级、班级、科目、学生名字、学生编号均可以自行输入;
@@ -21,7 +21,7 @@
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left">当前位置 > 首页 > 查看个人成绩</p>
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 查看成绩</p>
     </div>
 </nav>
 <div class="container">
@@ -49,19 +49,17 @@
 
                         </select>
                     </div>
-                    <label class="layui-form-label" style="width: 72px">姓名：</label>
-                    <div class="layui-input-inline" style="width: 170px">
-                        <input type="text" name="title" required id="name" lay-verify="required"
-                               placeholder="叶强(当前学生权限只读)"
-                               autocomplete="off" class="layui-input">
-                        <!--此处若是管理员或教师改为placeholder="请输入姓名"，，删除READONLY="true"(非只读，可搜索)-->
-                    </div>
                     <label class="layui-form-label" style="width: 72px">学号：</label>
                     <div class="layui-input-inline" style="width: 170px">
                         <input type="text" name="" required id="code" lay-verify="required"
-                               placeholder="1314520((当前学生只读)"
+                               placeholder="请输入学号"
                                autocomplete="off" class="layui-input">
-                        <!--此处若是管理员或教师改为placeholder="请输入编号"，删除READONLY="true"(非只读，可搜索)-->
+                    </div>
+                    <label class="layui-form-label" style="width: 72px">姓名：</label>
+                    <div class="layui-input-inline" style="width: 170px">
+                        <input type="text" name="title" required id="name" lay-verify="required"
+                               placeholder="请输入姓名"
+                               autocomplete="off" class="layui-input">
                     </div>
                     <button class="layui-btn" id="Select" data-type="reload">查询</button>
                 </div>

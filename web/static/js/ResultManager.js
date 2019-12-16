@@ -6,14 +6,28 @@ var ClassList = {};
 var classId = 0;
 var SubjectsId = 0;
 var gradeId = 0;
+var code = "";
+var name = "";
 
 //查看成绩列表
 function ShowResult() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", "");
-    var data = {
+    if (localStorage.Login != null) {
+        var json = localStorage.Login;
+        var obj = JSON.parse(json);
+        var stateId = 0;
+        stateId = obj.stateId;
+        if (stateId == 3) {
+            code = obj.accout;
+            name = obj.name;
+            $("#code").val(code).attr("readonly", "true");
+            $("#name").val(name).attr("readonly", "true");
+        }
+    }
+    data = {
         "tableName": "Result",
-        "code": "",
-        "name": "",
+        "code": code,
+        "name": name,
         "gradeId": gradeId,
         "classId": classId,
         "subjectId": SubjectsId,
@@ -44,8 +58,8 @@ function Page(id, limit, count) {
             , jump: function (obj, first) {
                 //首次不执行
                 if (!first) {
-                    var code = $("#code").val();
-                    var name = $("#name").val();
+                    code = $("#code").val();
+                    name = $("#name").val();
                     var data = {
                         "tableName": "Result",
                         "code": code,
@@ -78,8 +92,8 @@ function ResultFunction() {
     $(function () {
         //查询
         $("#Select").click(function () {
-            var code = $("#code").val();
-            var name = $("#name").val();
+            code = $("#code").val();
+            name = $("#name").val();
             var data = {
                 "tableName": "Result",
                 "code": code,
@@ -158,7 +172,7 @@ function ResultTable(data) {
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
-        text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>成绩</th>";
+        text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>时间</th><th>成绩</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
@@ -168,6 +182,7 @@ function ResultTable(data) {
             text += "<td>" + data[i].code + "</td>";
             text += "<td>" + data[i].name + "</td>";
             text += "<td>" + data[i].subjectName + "</td>";
+            text += "<td>" + data[i].time + "</td>";
             text += "<td>" + data[i].result + "</td>";
             text += "</tr>";
         }

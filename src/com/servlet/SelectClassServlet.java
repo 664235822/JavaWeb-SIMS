@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /*
- * 获取班级信息Servlet类
+ * 获取年级班级科目信息Servlet类
  */
 @WebServlet("/getClass")
 public class SelectClassServlet extends HttpServlet {
@@ -33,7 +33,9 @@ public class SelectClassServlet extends HttpServlet {
             req.setCharacterEncoding("utf-8");
             resp.setCharacterEncoding("utf-8");
 
-            obj = selectService.selectClass();
+            String tableName = req.getParameter("tableName");
+
+            obj = selectService.selectClass(tableName);
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setMessage(e.getMessage());

@@ -11,6 +11,10 @@ public class SubjectBean {
     private String subjectCode;
     //科目名
     private String subjectName;
+    //创建人
+    private String createMessage;
+    //创建时间
+    private String createTime;
 
     public int getId() {
         return id;
@@ -34,5 +38,21 @@ public class SubjectBean {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public String getCreateMessage() {
+        return createMessage;
+    }
+
+    public void setCreateMessage(String createMessage) {
+        this.createMessage = createMessage;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

@@ -138,16 +138,121 @@ public class SelectDao extends BaseDao {
     }
 
     /*
+     * 获取年级信息
+     * @return BaseBean 返回年级信息
+     * @throws SQLException
+     */
+    public BaseBean selectGrade() throws SQLException {
+        String sql = "select * from Grade;";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<GradeBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            GradeBean grade = new GradeBean();
+            grade.setId(rs.getInt("id"));
+            grade.setGradeCode(rs.getString("gradeCode"));
+            grade.setGradeName(rs.getString("gradeName"));
+            grade.setCreateMessage(rs.getString("createMessage"));
+            grade.setCreateTime(rs.getDate("createTime").toString());
+            list.add(grade);
+        }
+
+        table.setList(list);
+
+        selectCount("Grade", "", "", table);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看年级信息成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
      * 获取班级信息
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
     public BaseBean selectClass() throws SQLException {
+        String sql = "select * from Class;";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<ClassBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            ClassBean _class = new ClassBean();
+            _class.setId(rs.getInt("id"));
+            _class.setClassCode(rs.getString("classCode"));
+            _class.setClassName(rs.getString("className"));
+            _class.setCreateMessage(rs.getString("createMessage"));
+            _class.setCreateTime(rs.getDate("createTime").toString());
+            list.add(_class);
+        }
+
+        table.setList(list);
+
+        selectCount("Class", "", "", table);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看班级信息成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
+     * 获取科目信息
+     * @return BaseBean 返回班级信息
+     * @throws SQLException
+     */
+    public BaseBean selectSubject() throws SQLException {
+        String sql = "select * from Subject;";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<SubjectBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            SubjectBean subject = new SubjectBean();
+            subject.setId(rs.getInt("id"));
+            subject.setSubjectCode(rs.getString("subjectCode"));
+            subject.setSubjectName(rs.getString("subjectName"));
+            subject.setCreateMessage(rs.getString("createMessage"));
+            subject.setCreateTime(rs.getDate("createTime").toString());
+            list.add(subject);
+        }
+
+        table.setList(list);
+
+        selectCount("Subject", "", "", table);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看科目信息成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
+     * 获取年级班级科目信息
+     * @return BaseBean 返回年级班级科目信息
+     * @throws SQLException
+     */
+    public BaseBean selectGradeAll() throws SQLException {
         BaseBean result = new BaseBean();
         List<GradeBean> list = new ArrayList<>();
 
-        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl ";
-        sql += "inner join Grade gr on cl.gradeId=gr.id;";
+        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl " +
+                "inner join Grade gr on cl.gradeId=gr.id;";
         ResultSet rs = querySelect(sql);
 
         int gradeId = 0;
@@ -178,8 +283,8 @@ public class SelectDao extends BaseDao {
             }
         }
 
-        sql = "select su.id subjectId,su.subjectCode,su.subjectName,gr.id gradeId from Subject su ";
-        sql += "inner join Grade gr on su.gradeId=gr.id;";
+        sql = "select su.id subjectId,su.subjectCode,su.subjectName,gr.id gradeId from Subject su " +
+                "inner join Grade gr on su.gradeId=gr.id;";
         rs = querySelect(sql);
 
         gradeId = 0;

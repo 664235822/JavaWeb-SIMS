@@ -2,10 +2,7 @@ package com.service;
 
 import com.alibaba.fastjson.JSON;
 import com.dao.InsertDao;
-import com.entity.MyException;
-import com.entity.ResultBean;
-import com.entity.StudentBean;
-import com.entity.TeacherBean;
+import com.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +40,18 @@ public class InsertServlce {
             case "Result":
                 List<ResultBean> resultInfo = JSON.parseArray(info, ResultBean.class);
                 insertDao.insertResult(resultInfo);
+                break;
+            case "Grade":
+                GradeBean grade = JSON.parseObject(info, GradeBean.class);
+                insertDao.insertGrade(grade);
+                break;
+            case "Class":
+                ClassBean _class = JSON.parseObject(info, ClassBean.class);
+                insertDao.insertClass(_class);
+                break;
+            case "Subject":
+                SubjectBean subject=JSON.parseObject(info,SubjectBean.class);
+                insertDao.insertSubject(subject);
                 break;
         }
     }

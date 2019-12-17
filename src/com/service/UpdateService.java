@@ -8,6 +8,7 @@ import com.entity.TeacherBean;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /*
  * 更新信息服务类
@@ -27,15 +28,23 @@ public class UpdateService {
 
         switch (tableName) {
             case "Teacher":
-                TeacherBean teacherInfo=JSON.parseObject(info,TeacherBean.class);
+                TeacherBean teacherInfo = JSON.parseObject(info, TeacherBean.class);
                 updateDao.updateTeacher(teacherInfo);
                 break;
             case "Student":
-                StudentBean studentInfo=JSON.parseObject(info,StudentBean.class);
+                StudentBean studentInfo = JSON.parseObject(info, StudentBean.class);
                 updateDao.updateStudent(studentInfo);
             case "StudentClass":
                 List<StudentBean> classInfo = JSON.parseArray(info, StudentBean.class);
                 updateDao.updateClassId(classInfo);
+                break;
+            case "Class":
+                Map<String, Integer> classMap = JSON.parseObject(info, Map.class);
+                updateDao.updateClass(classMap);
+                break;
+            case "Subject":
+                Map<String, Integer> subjectMap = JSON.parseObject(info, Map.class);
+                updateDao.updateSubject(subjectMap);
                 break;
         }
     }

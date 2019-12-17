@@ -1,9 +1,6 @@
 package com.dao;
 
-import com.entity.MyException;
-import com.entity.ResultBean;
-import com.entity.StudentBean;
-import com.entity.TeacherBean;
+import com.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -86,7 +83,7 @@ public class InsertDao extends BaseDao {
 
     /*
      * 为教师分配班级
-     * @param 要分配的教师信息
+     * @param info 要分配的教师信息
      * @throws SQLException, MyException
      */
     public void insertTeacherClass(TeacherBean info) throws SQLException, MyException {
@@ -96,6 +93,57 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getSubId() + "'");
 
         String sql = "insert into TeacherClass (tId,classId,subId) values (" + values.toString() + ");";
+        queryUpdate(sql);
+
+        destroy(null);
+    }
+
+    /*
+     * 添加年级信息
+     * @param info 年级信息
+     * @throws SQLException, MyException
+     */
+    public void insertGrade(GradeBean info) throws SQLException, MyException {
+        StringBuffer values = new StringBuffer();
+        values.append("'" + info.getGradeCode() + "'").append(",");
+        values.append("'" + info.getGradeName() + "'").append(",");
+        values.append("'" + info.getCreateMessage() + "'").append(",");
+
+        String sql = "insert into Grade (gradeCode,gradeName,createMessage) values (" + values.toString() + ");";
+        queryUpdate(sql);
+
+        destroy(null);
+    }
+
+    /*
+     * 添加班级信息
+     * @param info 班级信息
+     * @throws SQLException, MyException
+     */
+    public void insertClass(ClassBean info) throws SQLException, MyException {
+        StringBuffer values = new StringBuffer();
+        values.append("'" + info.getClassCode() + "'").append(",");
+        values.append("'" + info.getClassName() + "'").append(",");
+        values.append("'" + info.getCreateMessage() + "'").append(",");
+
+        String sql = "insert into Grade (classCode,className,createMessage) values (" + values.toString() + ");";
+        queryUpdate(sql);
+
+        destroy(null);
+    }
+
+    /*
+     * 添加科目信息
+     * @param info 科目信息
+     * @throws SQLException, MyException
+     */
+    public void insertSubject(SubjectBean info) throws SQLException, MyException {
+        StringBuffer values = new StringBuffer();
+        values.append("'" + info.getSubjectCode() + "'").append(",");
+        values.append("'" + info.getSubjectName() + "'").append(",");
+        values.append("'" + info.getCreateMessage() + "'").append(",");
+
+        String sql = "insert into Grade (subjectCode,subjectName,createMessage) values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);

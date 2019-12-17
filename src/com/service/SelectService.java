@@ -46,13 +46,29 @@ public class SelectService {
     }
 
     /*
-     * 获取班级信息
-     * @return BaseBean 返回班级信息
+     * 获取年级、班级、科目信息
+     * @return BaseBean 返回年级、班级、科目信息
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
      */
-    public BaseBean selectClass() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public BaseBean selectClass(String tableName) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         selectDao = new SelectDao();
 
-        return selectDao.selectClass();
+        BaseBean result = new BaseBean();
+        switch (tableName) {
+            case "Grade":
+                result = selectDao.selectGrade();
+                break;
+            case "Class":
+                result = selectDao.selectClass();
+                break;
+            case "Subject":
+                result = selectDao.selectSubject();
+                break;
+            case "GradeAll":
+                result = selectDao.selectGradeAll();
+                break;
+        }
+
+        return result;
     }
 }

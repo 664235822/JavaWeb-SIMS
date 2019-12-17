@@ -13,6 +13,10 @@ public class GradeBean {
     private String gradeCode;
     //年级名
     private String gradeName;
+    //创建人
+    private String createMessage;
+    //创建时间
+    private String createTime;
     //班级列表
     private List<ClassBean> classes;
     //科目列表
@@ -36,6 +40,22 @@ public class GradeBean {
 
     public String getGradeName() {
         return gradeName;
+    }
+
+    public String getCreateMessage() {
+        return createMessage;
+    }
+
+    public void setCreateMessage(String createMessage) {
+        this.createMessage = createMessage;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public void setGradeName(String gradeName) {

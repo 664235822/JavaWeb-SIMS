@@ -28,5 +28,8 @@ body .layui-table td{
 
 .moveleft {
     margin-top: 4px;
-    margin-left: 10px;
+    margin-left: 10px!important;
+}
+.onmove{
+    margin-left: 0px!important;
 }

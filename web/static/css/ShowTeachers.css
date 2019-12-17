@@ -1,5 +1,6 @@
 body {
     min-height: 300px;
+    padding-top: 60px!important;
 }
 body p {
     margin: 0px;
@@ -32,4 +33,7 @@ body .layui-table td{
 }
 .onmove{
     margin-left: 0px!important;
+}
+.Toleftbutton{
+    margin-left: 15px!important;
 }

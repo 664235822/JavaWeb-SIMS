@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
-    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/AddClass.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
@@ -19,9 +19,35 @@
     </div>
 </nav>
 <div class="container">
+    <div class="row"  style="margin-top: 20px">
+        <div class="col-md-4 forms">
+            <!--            年级名称-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">年级名称：</label>
+                <div class="layui-input-block">
+                    <input type="text" id="GradeName" name="" lay-verify="required" autocomplete="off" placeholder="必填项不能为空！" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 forms">
+            <!--            年级编号-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">年级编号：</label>
+                <div class="layui-input-block">
+                    <input type="text" id="GradeCode" name="" lay-verify="required" autocomplete="off" placeholder="必填项不能为空！" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 forms">
+            <!--            创建年级按钮-->
+            <div class="layui-form-item">
+                <div class="layui-btn pull-left"><i class="layui-icon"></i>添加年级</div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <!--            表格-->
-        <div class="demoTable" style="margin-top: 20px">
+        <div class="demoTable">
             <!--           主体-->
             <table class="layui-table" style="margin-top: 20px" id="table">
                 <thead>
@@ -83,10 +109,6 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <!--          添加科目-->
-        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-            <button id="moveClassAll" data-method="offset" data-type="auto" class="layui-btn layui-btn-aa pull-right">添加班级</button>
         </div>
     </div>
 </div>

@@ -4,114 +4,183 @@
     <meta charset="UTF-8">
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
-    <link href="/JavaWeb_SIMS_war_exploded/static/css/AddClass.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/SubjectManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
-    <title>科目添加</title>
+    <title>科目管理</title>
 </head>
-<body>
-        <!--          当前位置导航-->
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <p class="text-left addtea pull-left">当前位置 > 首页 > 添加科目</p>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="row" style="margin-top: 20px">
-                <div class="col-md-4 forms">
-                    <!--            年级名称-->
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">年级名称：</label>
-                        <div class="layui-input-block">
-                            <input type="text" id="GradeName" name="" lay-verify="required" autocomplete="off" placeholder="必填项不能为空！" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 forms">
-                    <!--            年级编号-->
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">年级编号：</label>
-                        <div class="layui-input-block">
-                            <input type="text" id="GradeCode" name="" lay-verify="required" autocomplete="off" placeholder="必填项不能为空！" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 forms">
-                    <!--            创建年级按钮-->
-                    <div class="layui-form-item">
-                        <div class="layui-btn pull-left"><i class="layui-icon"></i>添加年级</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!--            表格-->
-                <div class="demoTable" style="margin-top: 20px">
-                <!--           主体-->
-                <table class="layui-table" style="margin-top: 20px" id="table">
-                    <thead>
-                    <tr>
-                        <th>科目编号</th>
-                        <th>科目名称</th>
-                        <th>创建人</th>
-                        <th>创建时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    <tr>
-                        <td>1234545</td>
-                        <td>JAVA</td>
-                        <td>王富贵</td>
-                        <td>2019/12/15/12:00</td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
+<body onload="Submanage()">
+<!--          当前位置导航-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 科目管理</p>
     </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="demoTable" style="margin-top: 20px">
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="demoReloa" autocomplete="off" placeholder="请输入科目名称">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+            <!--            创建年级按钮-->
+            <div class="layui-form-item pull-right">
+                <div class="layui-btn" id="Addbut"><i class="layui-icon">&#xe61f;</i>添加科目</div>
+            </div>
+        </div>
+
+        <!--            表格-->
+        <div class="demoTable" style="margin-top: 20px">
+            <!--           主体-->
+            <table class="layui-table" style="margin-top: 20px" id="table">
+                <colgroup>
+                    <col width="50">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </th>
+                    <th>科目编号</th>
+                    <th>科目名称</th>
+                    <th>创建人</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-form">
+                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
+                        </div>
+                    </td>
+                    <td>1234545</td>
+                    <td>JAVA</td>
+                    <td>王富贵</td>
+                    <td>2019/12/15/12:00</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger">删除科目</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div style="display: none;margin-left: 45px;margin-top: 17px" id="AddTan">
+    <div class="layui-inline">
+        <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入添加科目名称">
+    </div>
+    <button class="layui-btn" data-type="reload">提交</button>
 </div>
 </body>
 </html>

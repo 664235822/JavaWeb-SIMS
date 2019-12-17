@@ -107,7 +107,7 @@ public class InsertDao extends BaseDao {
         StringBuffer values = new StringBuffer();
         values.append("'" + info.getGradeCode() + "'").append(",");
         values.append("'" + info.getGradeName() + "'").append(",");
-        values.append("'" + info.getCreateMessage() + "'").append(",");
+        values.append("'" + info.getCreateMessage() + "'");
 
         String sql = "insert into Grade (gradeCode,gradeName,createMessage) values (" + values.toString() + ");";
         queryUpdate(sql);
@@ -124,7 +124,7 @@ public class InsertDao extends BaseDao {
         StringBuffer values = new StringBuffer();
         values.append("'" + info.getClassCode() + "'").append(",");
         values.append("'" + info.getClassName() + "'").append(",");
-        values.append("'" + info.getCreateMessage() + "'").append(",");
+        values.append("'" + info.getCreateMessage() + "'");
 
         String sql = "insert into Grade (classCode,className,createMessage) values (" + values.toString() + ");";
         queryUpdate(sql);
@@ -141,7 +141,7 @@ public class InsertDao extends BaseDao {
         StringBuffer values = new StringBuffer();
         values.append("'" + info.getSubjectCode() + "'").append(",");
         values.append("'" + info.getSubjectName() + "'").append(",");
-        values.append("'" + info.getCreateMessage() + "'").append(",");
+        values.append("'" + info.getCreateMessage() + "'");
 
         String sql = "insert into Grade (subjectCode,subjectName,createMessage) values (" + values.toString() + ");";
         queryUpdate(sql);

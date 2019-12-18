@@ -49,19 +49,10 @@ public class SelectService {
             case "Subject":
                 result = selectDao.selectSubject(currentPage);
                 break;
+            case "GradeAll":
+                result = selectDao.selectGradeAll();
         }
 
         return result;
-    }
-
-    /*
-     * 获取年级、班级、科目信息
-     * @return BaseBean 返回年级、班级、科目信息
-     * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
-     */
-    public BaseBean selectGradeAll() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        selectDao = new SelectDao();
-
-        return selectDao.selectGradeAll();
     }
 }

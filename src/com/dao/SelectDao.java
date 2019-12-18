@@ -140,15 +140,16 @@ public class SelectDao extends BaseDao {
     /*
      * 获取年级信息
      * @param 年级Id
+     * @param currentPage 当前页号
      * @return BaseBean 返回年级信息
      * @throws SQLException
      */
-    public BaseBean selectGrade(String gradeId) throws SQLException {
+    public BaseBean selectGrade(String gradeId, int currentPage) throws SQLException {
         String sql = "select * from Grade where 1=1 ";
         if (!gradeId.isEmpty()) {
             sql += "and id='" + gradeId + "' ";
         }
-        sql += ";";
+        sql += "limit " + (currentPage - 1) * 10 + ",10;";
 
         ResultSet rs = querySelect(sql);
 
@@ -180,11 +181,14 @@ public class SelectDao extends BaseDao {
 
     /*
      * 获取班级信息
+     * @param currentPage 当前页号
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
-    public BaseBean selectClass() throws SQLException {
-        String sql = "select * from Class;";
+    public BaseBean selectClass(int currentPage) throws SQLException {
+        String sql = "select * from Class " +
+                "limit " + (currentPage - 1) * 10 + ",10;";
+        ;
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
@@ -198,6 +202,7 @@ public class SelectDao extends BaseDao {
             _class.setClassName(rs.getString("className"));
             _class.setCreateMessage(rs.getString("createMessage"));
             _class.setCreateTime(rs.getDate("createTime").toString());
+            _class.setGradeId(rs.getInt("gradeId"));
             list.add(_class);
         }
 
@@ -215,11 +220,13 @@ public class SelectDao extends BaseDao {
 
     /*
      * 获取科目信息
+     * @param currentPage 当前页号
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
-    public BaseBean selectSubject() throws SQLException {
-        String sql = "select * from Subject;";
+    public BaseBean selectSubject(int currentPage) throws SQLException {
+        String sql = "select * from Subject " +
+                "limit " + (currentPage - 1) * 10 + ",10;";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
@@ -233,6 +240,7 @@ public class SelectDao extends BaseDao {
             subject.setSubjectName(rs.getString("subjectName"));
             subject.setCreateMessage(rs.getString("createMessage"));
             subject.setCreateTime(rs.getDate("createTime").toString());
+            subject.setGradeId(rs.getInt("gradeId"));
             list.add(subject);
         }
 
@@ -314,7 +322,7 @@ public class SelectDao extends BaseDao {
 
         result.setCode(BaseBean.SUCCESS);
         result.setData(list);
-        result.setMessage("获取班级信息成功");
+        result.setMessage("获取年级班级科目信息成功");
         destroy(rs);
 
         return result;

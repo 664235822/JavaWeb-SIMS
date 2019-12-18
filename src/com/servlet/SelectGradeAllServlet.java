@@ -15,8 +15,8 @@ import java.io.PrintWriter;
 /*
  * 获取年级班级科目信息Servlet类
  */
-@WebServlet("/getClass")
-public class SelectClassServlet extends HttpServlet {
+@WebServlet("/getGradeAll")
+public class SelectGradeAllServlet extends HttpServlet {
 
     SelectService selectService = new SelectService();
     BaseBean obj = new BaseBean();
@@ -33,10 +33,7 @@ public class SelectClassServlet extends HttpServlet {
             req.setCharacterEncoding("utf-8");
             resp.setCharacterEncoding("utf-8");
 
-            String tableName = req.getParameter("tableName");
-            String gradeId = req.getParameter("gradeId");
-
-            obj = selectService.selectClass(tableName, gradeId);
+            obj = selectService.selectGradeAll();
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setMessage(e.getMessage());

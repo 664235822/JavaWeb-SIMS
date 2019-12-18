@@ -40,6 +40,15 @@ public class SelectService {
             case "AddResult":
                 result = selectDao.selectAddResult(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
                 break;
+            case "Grade":
+                result = selectDao.selectGrade(gradeId, currentPage);
+                break;
+            case "Class":
+                result = selectDao.selectClass(currentPage);
+                break;
+            case "Subject":
+                result = selectDao.selectSubject(currentPage);
+                break;
         }
 
         return result;
@@ -47,30 +56,12 @@ public class SelectService {
 
     /*
      * 获取年级、班级、科目信息
-     * @param tableName 要查询的表名
-     * @param gradeId 年级id（只在查询年级时有用）
      * @return BaseBean 返回年级、班级、科目信息
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
      */
-    public BaseBean selectClass(String tableName, String gradeId) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public BaseBean selectGradeAll() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         selectDao = new SelectDao();
 
-        BaseBean result = new BaseBean();
-        switch (tableName) {
-            case "Grade":
-                result = selectDao.selectGrade(gradeId);
-                break;
-            case "Class":
-                result = selectDao.selectClass();
-                break;
-            case "Subject":
-                result = selectDao.selectSubject();
-                break;
-            case "GradeAll":
-                result = selectDao.selectGradeAll();
-                break;
-        }
-
-        return result;
+        return selectDao.selectGradeAll();
     }
 }

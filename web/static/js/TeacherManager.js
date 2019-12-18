@@ -225,7 +225,7 @@ function Delete(codeList) {
         fixed: false,
     }, function (index) {
         var data = {}
-        data.tableName = 'Student';
+        data.tableName = 'Teacher';
         data.codeList = JSON.stringify(codeList);
         var url = "/JavaWeb_SIMS_war_exploded/delete";
         var Delete = Ajax(url, data);
@@ -364,8 +364,7 @@ function DeleteEnd(Delete) {
         Page("test1", table.data.pageCount, table.data.dataCount);
         TeacherFunction();
         layer.msg(Delete.message, {
-            offset: '15px'
-            , icon: 1
+            icon: 1
             , time: 1000
         });
     } else {

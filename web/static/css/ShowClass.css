@@ -8,3 +8,17 @@ body .layui-table  th,td{
     text-align: center;
     font-weight: 400;
 }
+.layui-table {
+    margin:  0;
+}
+.addtea{
+    height: 50px;
+    line-height: 50px;
+}
+p{
+    margin: 0px;
+}
+/*工具l*/
+.layui-table-tool{
+    margin-top: 20px;
+}

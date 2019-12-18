@@ -33,9 +33,22 @@
     <div class="row">
         <!--            表格-->
         <div class="demoTable" style="margin-top: 20px">
-            <div class="demoTable">
+            <div class="demoTable ">
                 <div class="layui-inline">
                     <label class="layui-form-label">搜索：</label>
+                </div>
+                <div class="layui-inline ">
+                    <div class="layui-unselect layui-form layui-form-select">
+                        <div class="layui-select-title"><input type="text" placeholder="请选择一个城市" value="" readonly=""
+                                                               class="layui-input layui-unselect"><i
+                                class="layui-edge"></i></div>
+                        <dl class="layui-anim layui-anim-upbit" style="">
+                            <dd lay-value="" class="layui-select-tips layui-this">请选择一个城市</dd>
+                            <dd lay-value="010" class="">北京</dd>
+                            <dd lay-value="021" class="">上海</dd>
+                            <dd lay-value="0571" class="">杭州</dd>
+                        </dl>
+                    </div>
                 </div>
                 <div class="layui-inline">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入班级编号">
@@ -48,8 +61,17 @@
                 </div>
 
             </div>
+            <!--            工具-->
+            <div class="layui-table-tool">
+                <div class="layui-table-tool-temp">
+                    <div class="layui-inline" title="删除所有选中项" lay-event="delete"><i
+                            class="layui-icon layui-icon-delete"></i></div>
+                    <div class="layui-inline" title="导出" lay-event="LAYTABLE_EXPORT"><i
+                            class="layui-icon layui-icon-export"></i></div>
+                </div>
+            </div>
             <!--           主体-->
-            <table class="layui-table" style="margin-top: 20px" id="table">
+            <table class="layui-table" id="table">
                 <colgroup>
                     <col width="50">
                     <col width="150">
@@ -223,4 +245,14 @@
     </div>
 </div>
 </body>
+<script>
+    layui.use('form', function(){  //如果只加载一个模块，可以不填数组。如：layui.use('form')
+        var form = layui.form //获取form模块
+
+        //…
+    });
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>
 </html>

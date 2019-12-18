@@ -32,7 +32,10 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
-        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
 
         ResultSet rs = querySelect(sql);
 
@@ -95,7 +98,10 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
         }
-        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
@@ -149,7 +155,10 @@ public class SelectDao extends BaseDao {
         if (!gradeId.isEmpty()) {
             sql += "and id='" + gradeId + "' ";
         }
-        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
 
         ResultSet rs = querySelect(sql);
 
@@ -186,9 +195,11 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectClass(int currentPage) throws SQLException {
-        String sql = "select * from Class " +
-                "limit " + (currentPage - 1) * 10 + ",10;";
-        ;
+        String sql = "select * from Class ";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
@@ -225,8 +236,11 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(int currentPage) throws SQLException {
-        String sql = "select * from Subject " +
-                "limit " + (currentPage - 1) * 10 + ",10;";
+        String sql = "select * from Subject ";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
@@ -359,7 +373,10 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and re.subId='" + subjectId + "' ";
         }
-        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
 
         ResultSet rs = querySelect(sql);
 
@@ -447,7 +464,10 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
-        sql += "limit " + (currentPage - 1) * 10 + ",10;";
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();

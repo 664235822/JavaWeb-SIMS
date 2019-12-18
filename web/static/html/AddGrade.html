@@ -51,6 +51,14 @@
     </div>
     <!--表格-->
     <div id="LAY_preview" style="margin-top: 10px">
+<!--        选项卡-->
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">选项卡1</li>
+                <li>选项卡2</li>
+            </ul>
+            <div class="layui-tab-content"></div>
+        </div>
         <table class="layui-table" id="table">
             <colgroup>
 
@@ -102,4 +110,11 @@
     </div>
 </div>
 </body>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+</script>
 </html>

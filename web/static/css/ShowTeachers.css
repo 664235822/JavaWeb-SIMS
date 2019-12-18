@@ -26,6 +26,10 @@ body .layui-table td{
 .leaveTop {
     margin-top: 19px;
 }
+.addtea {
+    height: 50px;
+    line-height: 50px;
+}
 
 .moveleft {
     margin-top: 4px;

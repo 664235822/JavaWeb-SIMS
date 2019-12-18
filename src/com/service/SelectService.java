@@ -23,34 +23,35 @@ public class SelectService {
      * @result 返回表格信息
      * @throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException
      */
-    public BaseBean selectTable(String tableName, String code, String name, String gradeId, String classId, String subjectId, int currentPage) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public BaseBean select(String tableName, String code, String name, String gradeId, String classId, String subjectId, String currentPage) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         selectDao = new SelectDao();
 
         BaseBean result = new BaseBean();
         switch (tableName) {
             case "Teacher":
-                result = selectDao.selectTeacher(code, name, currentPage);
+                result = selectDao.selectTeacher(code, name, Integer.parseInt(currentPage));
                 break;
             case "Student":
-                result = selectDao.selectStudent(code, name, currentPage);
+                result = selectDao.selectStudent(code, name, Integer.parseInt(currentPage));
                 break;
             case "Result":
-                result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
+                result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
             case "AddResult":
-                result = selectDao.selectAddResult(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), currentPage);
+                result = selectDao.selectAddResult(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
             case "Grade":
-                result = selectDao.selectGrade(gradeId, currentPage);
+                result = selectDao.selectGrade(gradeId, Integer.parseInt(currentPage));
                 break;
             case "Class":
-                result = selectDao.selectClass(currentPage);
+                result = selectDao.selectClass(Integer.parseInt(currentPage));
                 break;
             case "Subject":
-                result = selectDao.selectSubject(currentPage);
+                result = selectDao.selectSubject(Integer.parseInt(currentPage));
                 break;
             case "GradeAll":
                 result = selectDao.selectGradeAll();
+                break;
         }
 
         return result;

@@ -86,13 +86,13 @@ public class UpdateDao extends BaseDao {
 
     /*
      * 为年级添加班级
-     * @param classMap @key 班级编号 @value 年级Id
+     * @param classMap @key 班级编号 @value 班级名称
      * @throws SQLException, MyException
      */
-    public void updateClass(Map<String, Integer> classMap) throws SQLException, MyException {
+    public void updateClass(Map<String, String> classMap) throws SQLException, MyException {
         for (String classCode : classMap.keySet()) {
             String sql = "update Class " +
-                    "set gradeId='" + classMap.get(classCode) + "' " +
+                    "set className='" + classMap.get(classCode) + "' " +
                     "where classCode='" + classCode + "';";
 
             queryUpdate(sql);
@@ -103,13 +103,13 @@ public class UpdateDao extends BaseDao {
 
     /*
      * 为年级添加科目
-     * @param classMap @key 科目编号 @value 年级Id
+     * @param classMap @key 科目编号 @value 科目名称
      * @throws SQLException, MyException
      */
-    public void updateSubject(Map<String, Integer> subjectMap) throws SQLException, MyException {
+    public void updateSubject(Map<String, String> subjectMap) throws SQLException, MyException {
         for (String classCode : subjectMap.keySet()) {
             String sql = "update Subject " +
-                    "set gradeId='" + subjectMap.get(classCode) + "' " +
+                    "set subjectName='" + subjectMap.get(classCode) + "' " +
                     "where subjectCode='" + classCode + "';";
 
             queryUpdate(sql);

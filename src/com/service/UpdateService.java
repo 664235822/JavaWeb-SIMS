@@ -39,11 +39,11 @@ public class UpdateService {
                 updateDao.updateClassId(classInfo);
                 break;
             case "Class":
-                Map<String, Integer> classMap = JSON.parseObject(info, Map.class);
+                Map<String, String> classMap = JSON.parseObject(info, Map.class);
                 updateDao.updateClass(classMap);
                 break;
             case "Subject":
-                Map<String, Integer> subjectMap = JSON.parseObject(info, Map.class);
+                Map<String, String> subjectMap = JSON.parseObject(info, Map.class);
                 updateDao.updateSubject(subjectMap);
                 break;
         }

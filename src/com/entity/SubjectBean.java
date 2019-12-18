@@ -15,6 +15,8 @@ public class SubjectBean {
     private String createMessage;
     //创建时间
     private String createTime;
+    //年级Id
+    private int gradeId;
 
     public int getId() {
         return id;
@@ -54,5 +56,13 @@ public class SubjectBean {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
     }
 }

@@ -4,13 +4,13 @@
 
 //年级初始化
 function GradeInfo() {
-    var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade'});
+    var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade', "gradeId": ""});
     if (grande.code == 1) {
         GradeTable(grande);
         Refresh();
         Page("test1", grande.data.grande, grande.data.dataCount);
-        gradeFunction();
     }
+    gradeFunction();
 }
 
 //年级功能模块
@@ -31,57 +31,33 @@ function gradeFunction() {
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
     });
-    $(function () {
-        //单个操作
-        $("table tbody").find("button[name]").click(function () {
-            var id = $(this).parent().parent().attr('name');
-            if ($(this).attr("name") == "moveClass") {
-                var subid = $(this).parent().attr('name');
-                ShowGrabe(subid);
-            }
-        });
-    });
+
 }
 
-//年级添加班级页面初始化
-function Modify() {
-    if (localStorage.ModifyId != null) {
-        var json2 = localStorage.ModifyId;
-        var obj = JSON.parse(json2);
+//选项卡切换
+function Change(index) {
+    if (index == 0) {
+        GradeInfo();
     }
-    var grade=Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade',"gradeId":1});
-    var Class=Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Class'});
-    ClassTable(grade,Class);
-    Refresh();
-}
-
-//显示为年级添加班级页面
-function ShowGrabe(id) {
-    var json1 = {};
-    json1.teacherId = id;
-    var str1 = JSON.stringify(json1);
-    localStorage.ModifyId = str1;
-    layui.use('layer', function () {
-        var layer = layui.layer;
-        layer.open({
-            type: 2
-            , closeBtn: 2
-            , shade: [0.1, '#ffffff']
-            , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
-            , content: '/JavaWeb_SIMS_war_exploded/static/html/ForGradeAddClass.html'
-            , area: ['650px', '500px']
-        });
-    });
+    if (index == 1) {
+        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'GradeAll'});
+        if (grande.code == 1) {
+            GradeClass(grande);
+            Refresh();
+            Page("", grande.data.grande, grande.data.dataCount);
+        }
+        gradeFunction();
+    }
 }
 
 
 //回调功能
 function Callback(Callback) {
     if (Callback.code == 1) {
-        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade'});
+        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade', "gradeId": ""});
         GradeTable(grande);
         Refresh();
-        Page("test1", grande.data.grande, grande.data.dataCount);
+        Page("test1", "", );
         gradeFunction();
         layer.msg(Callback.message, {
             icon: 1
@@ -100,6 +76,7 @@ function Callback(Callback) {
 
 //分页
 function Page(id, limit, count) {
+    var index = 0;
     layui.use('laypage', function () {
         var laypage = layui.laypage;
 
@@ -112,43 +89,54 @@ function Page(id, limit, count) {
             , jump: function (obj, first) {
                 //首次不执行
                 if (!first) {
-                    var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade'});
-                    if (table.code == 1) {
-                        GradeTable(grande);
-                        Refresh();
-                        gradeFunction();
+                    if (index == 0) {
+                        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade', "gradeId": ""});
+                        if (grande.code == 1) {
+                            GradeTable(grande);
+                            Refresh();
+                            gradeFunction();
+                        }
                     }
                 }
             }
         });
     });
+    //监听选项卡
+    layui.use('element', function () {
+        var element = layui.element;
+        element.render();
+        element.on('tab(docDemoTabBrief)', function (data) {
+            index = data.index;
+            Change(index);
+        });
+    });
 }
-//年级添加班级
-function ClassTable(garade,Class) {
-    var data=Class.data.list;
+
+//年级班级表格
+function GradeClass(data) {
+    data = data.data;
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
-        text += "<th>年级编号</th><th>年级名称</th><th>创建人</th><th>创建时间</th><th>操作</th>";
+        text += "<th>年级编号</th><th>年级名称</th><th>班级编号</th><th>班级名称</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
-            text += "<tr name=\'" + data[i].id + "\'>";
-            text += "<td>" + data[i].gradeCode + "</td>";
-            text += "<td>" + data[i].gradeName + "</td>";
-            text += "<td>" + data[i].createMessage + "</td>";
-            text += "<td>" + data[i].createTime + "</td>";
-            text += "<td>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">分配班级</button>";
-            text += "</td>";
-            text += "</tr>";
+            for (var j = 0; j < data[i].classes.length; j++) {
+                text += "<tr name=\'" + data[i].id + "\'>";
+                text += "<td>" + data[i].gradeCode + "</td>";
+                text += "<td>" + data[i].gradeName + "</td>";
+                text += "<td>" + data[i].classes[j].classCode + "</td>";
+                text += "<td>" + data[i].classes[j].className + "</td>";
+                text += "</tr>";
+            }
         }
         text += "</tbody>";
         $("#table").html(text);
     }
-
-
 }
+
+//年级表格
 function GradeTable(data) {
     var num = parseInt(data.data.list[data.data.list.length - 1].gradeCode);
     $("#gradeCode").val((num + 1));
@@ -156,7 +144,7 @@ function GradeTable(data) {
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
-        text += "<th>年级编号</th><th>年级名称</th><th>创建人</th><th>创建时间</th><th>操作</th>";
+        text += "<th>年级编号</th><th>年级名称</th><th>创建人</th><th>创建时间</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
@@ -165,16 +153,11 @@ function GradeTable(data) {
             text += "<td>" + data[i].gradeName + "</td>";
             text += "<td>" + data[i].createMessage + "</td>";
             text += "<td>" + data[i].createTime + "</td>";
-            text += "<td>";
-            text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">分配班级</button>";
-            text += "</td>";
             text += "</tr>";
         }
         text += "</tbody>";
         $("#table").html(text);
     }
-
-
 }
 
 //刷新

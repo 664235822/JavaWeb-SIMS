@@ -87,7 +87,7 @@ function Serch(id) {
 
 //查看教师列表
 function ShowTeachers() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", "");
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName':"GradeAll"});
     var data = {"tableName": "Teacher", "code": "", "name": "", "currentPage": 1};
     var table = getPage(data);
     if (table.code == 1) {

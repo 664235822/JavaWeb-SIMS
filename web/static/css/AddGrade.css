@@ -9,8 +9,8 @@ body .layui-table  th,td{
     text-align: center;
     font-weight: 400;
 }
-.forms {
-    padding-top: 20px;
+.row {
+    margin-top: 20px!important;
 }
 .layui-form-item{
     margin-bottom: 0px !important;

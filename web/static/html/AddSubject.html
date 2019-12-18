@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
-    <link href="/JavaWeb_SIMS_war_exploded/static/css/StuInfo.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/AddSubject.css" rel="stylesheet"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
@@ -23,17 +23,22 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="demoTable" style="margin-top: 20px">
-            <div class="layui-inline">
-                <input class="layui-input" name="id" id="demoReloa" autocomplete="off" placeholder="请输入科目名称">
-            </div>
-            <button class="layui-btn" data-type="reload">搜索</button>
-            <!--            创建年级按钮-->
-            <div class="layui-form-item pull-right">
-                <div class="layui-btn" id="Addbut"><i class="layui-icon">&#xe61f;</i>添加科目</div>
+        <div class="layui-col-md4">
+            <div class="layui-form-item">
+                <label class="layui-form-label">搜索:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="" placeholder="请输入科目名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+
             </div>
         </div>
-
+        <div class="layui-col-md5">
+            <div class="layui-input-block toleft">
+                <button class="layui-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button class="layui-btn"><i class="layui-icon">&#xe61f;</i>添加科目</button>
+            </div>
+        </div>
         <!--            表格-->
         <div class="demoTable" style="margin-top: 20px">
             <!--           主体-->

@@ -1,0 +1,10 @@
+body{
+    padding-top: 50px!important;
+}
+.layui-form-label{
+    margin-bottom: 0px!important;
+}
+body .layui-table  th,td{
+    text-align: center;
+    font-weight: 400;
+}

@@ -1,0 +1,12 @@
+body{
+    padding-top: 50px;
+}
+.toleft{
+    margin-left: 20px!important;
+}
+.row{
+    margin-top: 5px;
+}
+.layui-form-item{
+    margin-bottom: 0px;
+}

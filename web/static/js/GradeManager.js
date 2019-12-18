@@ -4,13 +4,27 @@
 
 //年级初始化
 function GradeInfo() {
-    var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade', "gradeId": ""});
+    var grande = getGrade(1);
     if (grande.code == 1) {
         GradeTable(grande);
         Refresh();
         Page("test1", grande.data.grande, grande.data.dataCount);
     }
     gradeFunction();
+}
+
+//获取年级
+function getGrade(page) {
+    var url = "/JavaWeb_SIMS_war_exploded/select";
+    var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", 'currentPage': page});
+    return data;
+}
+
+//获取班级
+function getClass(page) {
+    var url = "/JavaWeb_SIMS_war_exploded/select";
+    var data = Ajax(url, {'tableName': 'Class', "gradeId": "", 'currentPage': page});
+    return data;
 }
 
 //年级功能模块
@@ -35,29 +49,55 @@ function gradeFunction() {
 }
 
 //选项卡切换
-function Change(index) {
+function Change(index, page) {
     if (index == 0) {
+        $("#test2").html("");
         GradeInfo();
     }
     if (index == 1) {
-        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'GradeAll'});
+        var grande = getGrade(0);
+        var Class = getClass(page);
         if (grande.code == 1) {
-            GradeClass(grande);
+            GradeClass(grande.data.list, Class.data.list);
             Refresh();
-            Page("", grande.data.grande, grande.data.dataCount);
+            $("#test1").html("");
+            ClassPage(Class.data.dataCount);
         }
         gradeFunction();
     }
 }
+//班级分页
+function ClassPage(count) {
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+        laypage.render({
+            elem: 'test2'
+            , count: count
+            , limit: 10
+            , layout: ['prev', 'page', 'next', 'skip']
+            , jump: function (obj, first) {
+                //首次不执行
+                if (!first) {
+                        var grande = getGrade(0);
+                        var Class = getClass(obj.curr);
+                        if (grande.code == 1) {
+                            GradeClass(grande.data.list, Class.data.list);
+                            Refresh();
+                            gradeFunction();
+                        }
 
-
+                }
+            }
+        });
+    });
+}
 //回调功能
 function Callback(Callback) {
     if (Callback.code == 1) {
-        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade', "gradeId": ""});
+        var grande = getGrade();
         GradeTable(grande);
         Refresh();
-        Page("test1", "", );
+        Page("test1", "",);
         gradeFunction();
         layer.msg(Callback.message, {
             icon: 1
@@ -90,7 +130,7 @@ function Page(id, limit, count) {
                 //首次不执行
                 if (!first) {
                     if (index == 0) {
-                        var grande = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName': 'Grade', "gradeId": ""});
+                        var grande = getGrade(obj.curr);
                         if (grande.code == 1) {
                             GradeTable(grande);
                             Refresh();
@@ -107,14 +147,14 @@ function Page(id, limit, count) {
         element.render();
         element.on('tab(docDemoTabBrief)', function (data) {
             index = data.index;
-            Change(index);
+            Change(index, 1);
         });
     });
 }
 
 //年级班级表格
-function GradeClass(data) {
-    data = data.data;
+function GradeClass(grade, Class) {
+    var data = Class;
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
@@ -122,13 +162,16 @@ function GradeClass(data) {
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
-            for (var j = 0; j < data[i].classes.length; j++) {
-                text += "<tr name=\'" + data[i].id + "\'>";
-                text += "<td>" + data[i].gradeCode + "</td>";
-                text += "<td>" + data[i].gradeName + "</td>";
-                text += "<td>" + data[i].classes[j].classCode + "</td>";
-                text += "<td>" + data[i].classes[j].className + "</td>";
-                text += "</tr>";
+            for (var j = 0; j < grade.length; j++) {
+                if (data[i].gradeId == grade[j].id) {
+                    text += "<tr name=\'" + data[i].id + "\'>";
+                    text += "<td>" + grade[j].gradeCode + "</td>";
+                    text += "<td>" + grade[j].gradeName + "</td>";
+                    text += "<td>" + data[i].classCode + "</td>";
+                    text += "<td>" + data[i].className + "</td>";
+                    text += "</tr>";
+                    break;
+                }
             }
         }
         text += "</tbody>";

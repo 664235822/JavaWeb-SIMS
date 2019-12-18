@@ -6,7 +6,7 @@ var ClassList = {};
 
 //添加学生
 function StuInfo() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll"});
+    getClassList();
     $(function () {
         $("#test1").click(function () {
             $("input[type='file']").val("");
@@ -35,7 +35,10 @@ function StuInfo() {
 
 
 }
-
+//获取班级
+function getClassList() {
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll"});
+}
 //获取学生信息
 function UpStudent() {
     var data = {};
@@ -75,7 +78,7 @@ function Serch(id) {
 }
 //显示信息数据
 function Modify() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll"});
+    getClassList();
     if (localStorage.ModifyId != null) {
         var json2 = localStorage.ModifyId;
         var obj = JSON.parse(json2);
@@ -134,7 +137,7 @@ function ShowModify(id) {
 
 //学生管理初始化
 function StuMoveClass() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll"});
+    getClassList();
     var data = {"tableName": "Student", "code": "", "name": "", "currentPage": 1};
     var table = getPage(data);
     if (table.code == 1) {

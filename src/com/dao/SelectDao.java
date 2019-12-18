@@ -139,11 +139,17 @@ public class SelectDao extends BaseDao {
 
     /*
      * 获取年级信息
+     * @param 年级Id
      * @return BaseBean 返回年级信息
      * @throws SQLException
      */
-    public BaseBean selectGrade() throws SQLException {
-        String sql = "select * from Grade;";
+    public BaseBean selectGrade(String gradeId) throws SQLException {
+        String sql = "select * from Grade where 1=1 ";
+        if (!gradeId.isEmpty()) {
+            sql += "and id='" + gradeId + "' ";
+        }
+        sql += ";";
+
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();

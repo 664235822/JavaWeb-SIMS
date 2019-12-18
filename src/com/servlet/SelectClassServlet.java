@@ -34,8 +34,9 @@ public class SelectClassServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
 
             String tableName = req.getParameter("tableName");
+            String gradeId = req.getParameter("gradeId");
 
-            obj = selectService.selectClass(tableName);
+            obj = selectService.selectClass(tableName, gradeId);
         } catch (Exception e) {
             obj.setCode(BaseBean.FAILED);
             obj.setMessage(e.getMessage());

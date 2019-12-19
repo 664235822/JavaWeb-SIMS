@@ -65,12 +65,10 @@ function ClassFunction() {
             codeList[0] = id;
             Delete(codeList);
         }
-        if ($(this).attr("name") == "moveClass") {
-            var subid = $(this).parent().attr('name');
-            Move(subid);
+        if ($(this).attr("name") == "moveGrade") {
+            Move(id);
         }
         if ($(this).attr("name") == "modify") {
-
             ShowModify(id);
         }
 
@@ -86,6 +84,38 @@ function ClassFunction() {
             Delete(codeList);
     });
 
+}
+function ShowModify(code) {
+    var Class = getClass(0,code,"");
+    var text = "";
+    text += "<div class=\"layui-inline\">";
+    text += "<input class=\"layui-input\" id=\"Classcode\" autocomplete=\"off\" value=\""+Class.data.list[0].classCode+"\"disabled >";
+    text += "</div>";
+    text += "<div class=\"layui-inline\">";
+    text += "<input class=\"layui-input\" id=\"Classname\" autocomplete=\"off\" value=\""+Class.data.list[0].className+"\">";
+    text += "</div>";
+    layer.open({
+        title: '更改班级名称',
+        btn: ['确定', '取消'],
+        content: text,
+        skin: 'demo-class',
+        btnAlign: 'c',
+        move: false,
+        shade: [0.1, '#ffffff'],
+        yes: function (index) {
+            var data = {};
+            var url = "/JavaWeb_SIMS_war_exploded/update";
+            data.tableName = "Class";
+            var info = {};
+            info.classCode = Class.data.list[0].classCode;
+            info.className = $("#Classname").val();
+            data.info = JSON.stringify(info);
+            var table = Ajax(url, data);
+            Callback(table);
+            layer.close(index);
+        }
+
+    })
 }
 //删除
 function Delete(codeList) {
@@ -178,7 +208,7 @@ function ClassTable(grade,Class) {
                     text += "<td  name=\'" + data[i].id + "\'>";
                     text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";
                     text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
-                    text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveClass\">分配班级</button>";
+                    text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-green\" name=\"moveGrade\">转级</button>";
                     text += "</td>";
                     text += "</tr>";
                     break;

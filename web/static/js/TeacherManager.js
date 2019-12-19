@@ -268,7 +268,7 @@ function Move(codeList) {
             layer.close(index);
         }
 
-    })
+    });
     layui.use('form', function () {
         var form = layui.form;
         form.render();

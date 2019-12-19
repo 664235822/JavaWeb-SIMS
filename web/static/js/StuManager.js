@@ -266,7 +266,7 @@ function Move(codeList) {
                 list.push(obj);
             }
             var url = "/JavaWeb_SIMS_war_exploded/update";
-            data.tableName = "StudentClass";
+            data.tableName = "ClassId";
             data.info = JSON.stringify(list);
             var table = Ajax(url, data);
             MoveEnd(table);

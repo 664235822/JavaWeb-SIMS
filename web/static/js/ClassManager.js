@@ -88,12 +88,16 @@ function ClassFunction() {
 function ShowModify(code) {
     var Class = getClass(0,code,"");
     var text = "";
-    text += "<div class=\"layui-inline\">";
-    text += "<input class=\"layui-input\" id=\"Classcode\" autocomplete=\"off\" value=\""+Class.data.list[0].classCode+"\"disabled >";
-    text += "</div>";
-    text += "<div class=\"layui-inline\">";
-    text += "<input class=\"layui-input\" id=\"Classname\" autocomplete=\"off\" value=\""+Class.data.list[0].className+"\">";
-    text += "</div>";
+    text += "<div class=\"layui-form-item\">";
+    text +="<label class=\"layui-form-label\">编号</label>";
+    text += "<div class=\"layui-input-block\">";
+    text += "<input type=\"text\" name=\"title\" value=\""+Class.data.list[0].classCode+"\"disabled autocomplete=\"off\" class=\"layui-input\">";
+    text += "</div></div>";
+    text += "<div class=\"layui-form-item\">";
+    text +="<label class=\"layui-form-label\">名称</label>";
+    text += "<div class=\"layui-input-block\">";
+    text += "<input type=\"text\" name=\"title\" value=\""+Class.data.list[0].className+"\" autocomplete=\"off\" class=\"layui-input\">";
+    text += "</div></div>";
     layer.open({
         title: '更改班级名称',
         btn: ['确定', '取消'],
@@ -115,7 +119,7 @@ function ShowModify(code) {
             layer.close(index);
         }
 
-    })
+    });
 }
 //删除
 function Delete(codeList) {

@@ -12,7 +12,7 @@ var name = "";
 
 //查看成绩列表
 function ShowResult() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName':"GradeAll"});
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
     if (localStorage.Login != null) {
         var json = localStorage.Login;
         var obj = JSON.parse(json);
@@ -47,7 +47,7 @@ function ShowResult() {
 
 //添加成绩
 function ResultInfo() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/getClass", {'tableName':"GradeAll"});
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
     var data = {
         "tableName": "AddResult",
         "gradeId": gradeId,

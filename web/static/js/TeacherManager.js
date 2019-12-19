@@ -160,12 +160,7 @@ function TeacherFunction() {
             codeList[num] = $(this).parent().parent().parent().attr('name');
             num++;
         });
-        if ($(this).attr("name") == "delete") {
-            Delete(codeList);
-        }
-        if ($(this).attr("name") == "moveClass") {
-            Move(codeList);
-        }
+        Delete(codeList);
     });
 }
 

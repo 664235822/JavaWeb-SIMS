@@ -8,10 +8,13 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/laypage.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ClassManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>查看班级列表</title>
 </head>
-<body>
+<body onload="ShowClass()">
 <!--              本页面已与修改、删除班级信息，为班级分配教师、年级合并！！！(似于管理教师页面)-->
 
 <!--      注NO.1：     修改班级信息与操作列中修改按钮合并，点击修改即跳转到修改页面，该页面通过表单元素显示：班级编号、班级名称、创建人、创建时间。
@@ -36,19 +39,6 @@
             <div class="demoTable ">
                 <div class="layui-inline">
                     <label class="layui-form-label">搜索：</label>
-                </div>
-                <div class="layui-inline ">
-                    <div class="layui-unselect layui-form layui-form-select">
-                        <div class="layui-select-title"><input type="text" placeholder="请选择一个城市" value="" readonly=""
-                                                               class="layui-input layui-unselect"><i
-                                class="layui-edge"></i></div>
-                        <dl class="layui-anim layui-anim-upbit" style="">
-                            <dd lay-value="" class="layui-select-tips layui-this">请选择一个城市</dd>
-                            <dd lay-value="010" class="">北京</dd>
-                            <dd lay-value="021" class="">上海</dd>
-                            <dd lay-value="0571" class="">杭州</dd>
-                        </dl>
-                    </div>
                 </div>
                 <div class="layui-inline">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入班级编号">
@@ -241,12 +231,13 @@
                 </tr>
                 </tbody>
             </table>
+            <div id="test1"></div>
         </div>
     </div>
 </div>
 </body>
 <script>
-    layui.use('form', function(){  //如果只加载一个模块，可以不填数组。如：layui.use('form')
+    layui.use('form', function(){
         var form = layui.form //获取form模块
 
         //…

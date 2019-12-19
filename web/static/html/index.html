@@ -23,7 +23,16 @@
             <img src="/JavaWeb_SIMS_war_exploded/static/img/logo.png"/>
         </div>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item"><a href=""><span class="glyphicon glyphicon-user"></span>管理员</a></li>
+            <li class="layui-nav-item">
+                <a href="">
+                    <span class="glyphicon glyphicon-user"></span>管理员
+                </a>
+                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                    <dd><a href="">注销</a></dd>
+                    <dd><a href="">操作2</a></dd>
+                    <dd><a href="">操作3</a></dd>
+                </dl>
+            </li>
             <li class="layui-nav-item"><a href="">帮助</a></li>
             <li class="layui-nav-item"><a href="">关于</a></li>
         </ul>

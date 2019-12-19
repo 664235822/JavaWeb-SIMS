@@ -1,9 +1,6 @@
 package com.dao;
 
-import com.entity.ClassBean;
-import com.entity.MyException;
-import com.entity.StudentBean;
-import com.entity.TeacherBean;
+import com.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -69,14 +66,14 @@ public class UpdateDao extends BaseDao {
 
     /*
      * 学生转班
-     * @param studentInfo 要转班的学生信息列表
+     * @param classList 要转班的学生信息列表
      * @throws SQLException, MyException
      */
-    public void updateClassId(List<StudentBean> classInfo) throws SQLException, MyException {
-        for (int i = 0; i < classInfo.size(); i++) {
+    public void updateClassId(List<StudentBean> classList) throws SQLException, MyException {
+        for (int i = 0; i < classList.size(); i++) {
             String sql = "update Student " +
-                    "set classId='" + classInfo.get(i).getClassId() + "' " +
-                    "where code='" + classInfo.get(i).getCode() + "';";
+                    "set classId='" + classList.get(i).getClassId() + "' " +
+                    "where code='" + classList.get(i).getCode() + "';";
 
             queryUpdate(sql);
         }
@@ -85,15 +82,15 @@ public class UpdateDao extends BaseDao {
     }
 
     /*
-     * 为年级添加班级
-     * @param classMap @key 班级编号 @value 班级名称
+     * 班级转年级
+     * @param classList 要转班的学生信息列表
      * @throws SQLException, MyException
      */
-    public void updateClass(Map<String, String> classMap) throws SQLException, MyException {
-        for (String classCode : classMap.keySet()) {
+    public void updateGradeId(List<ClassBean> gradeList) throws SQLException, MyException {
+        for (int i = 0; i < gradeList.size(); i++) {
             String sql = "update Class " +
-                    "set className='" + classMap.get(classCode) + "' " +
-                    "where classCode='" + classCode + "';";
+                    "set gradeId='" + gradeList.get(i).getGradeId() + "' " +
+                    "where classCode='" + gradeList.get(i).getClassCode() + "';";
 
             queryUpdate(sql);
         }
@@ -102,18 +99,32 @@ public class UpdateDao extends BaseDao {
     }
 
     /*
-     * 为年级添加科目
-     * @param classMap @key 科目编号 @value 科目名称
+     * 更新班级名
+     * @param classInfo 要更新的班级信息
      * @throws SQLException, MyException
      */
-    public void updateSubject(Map<String, String> subjectMap) throws SQLException, MyException {
-        for (String classCode : subjectMap.keySet()) {
-            String sql = "update Subject " +
-                    "set subjectName='" + subjectMap.get(classCode) + "' " +
-                    "where subjectCode='" + classCode + "';";
+    public void updateClass(ClassBean classInfo) throws SQLException, MyException {
+        String sql = "update Class " +
+                "set className='" + classInfo.getClassName() + "' " +
+                "where classCode='" + classInfo.getClassCode() + "';";
 
-            queryUpdate(sql);
-        }
+        queryUpdate(sql);
+
+        destroy(null);
+    }
+
+    /*
+     * 更新科目名
+     * @param 要更新的科目信息
+     * @throws SQLException, MyException
+     */
+    public void updateSubject(SubjectBean subjectInfo) throws SQLException, MyException {
+        String sql = "update Subject " +
+                "set subjectName='" + subjectInfo.getSubjectName() + "' " +
+                "where subjectCode='" + subjectInfo.getSubjectCode() + "';";
+
+        queryUpdate(sql);
+
 
         destroy(null);
     }

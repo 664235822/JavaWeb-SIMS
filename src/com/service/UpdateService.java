@@ -2,9 +2,7 @@ package com.service;
 
 import com.alibaba.fastjson.JSON;
 import com.dao.UpdateDao;
-import com.entity.MyException;
-import com.entity.StudentBean;
-import com.entity.TeacherBean;
+import com.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -34,17 +32,21 @@ public class UpdateService {
             case "Student":
                 StudentBean studentInfo = JSON.parseObject(info, StudentBean.class);
                 updateDao.updateStudent(studentInfo);
-            case "StudentClass":
-                List<StudentBean> classInfo = JSON.parseArray(info, StudentBean.class);
-                updateDao.updateClassId(classInfo);
+            case "ClassId":
+                List<StudentBean> ClassList = JSON.parseArray(info, StudentBean.class);
+                updateDao.updateClassId(ClassList);
+                break;
+            case "GradeId":
+                List<ClassBean> gradeList = JSON.parseArray(info, ClassBean.class);
+                updateDao.updateGradeId(gradeList);
                 break;
             case "Class":
-                Map<String, String> classMap = JSON.parseObject(info, Map.class);
-                updateDao.updateClass(classMap);
+                ClassBean classInfo = JSON.parseObject(info, ClassBean.class);
+                updateDao.updateClass(classInfo);
                 break;
             case "Subject":
-                Map<String, String> subjectMap = JSON.parseObject(info, Map.class);
-                updateDao.updateSubject(subjectMap);
+                SubjectBean subjectInfo = JSON.parseObject(info, SubjectBean.class);
+                updateDao.updateSubject(subjectInfo);
                 break;
         }
     }

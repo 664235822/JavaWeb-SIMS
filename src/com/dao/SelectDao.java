@@ -131,7 +131,7 @@ public class SelectDao extends BaseDao {
 
         return result;
     }
-    
+
     /*
      * 查看学生信息表
      * @param code 查询账号

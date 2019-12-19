@@ -4,7 +4,6 @@ import com.entity.*;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 /*
  * 更新信息类
@@ -54,7 +53,7 @@ public class UpdateDao extends BaseDao {
                 "sex='," + studentInfo.getSex() + "'," +
                 "QQ='" + studentInfo.getQQ() + "'," +
                 "phone='" + studentInfo.getPhone() + "'," +
-                "email='" + studentInfo.getAddress() + "'," +
+                "email='" + studentInfo.getAddress() + "' " +
                 "where code='" + studentInfo.getCode() + "';";
 
         queryUpdate(sql);

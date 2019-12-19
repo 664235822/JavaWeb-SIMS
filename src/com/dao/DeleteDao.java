@@ -93,7 +93,7 @@ public class DeleteDao extends BaseDao {
                 id = rs.getInt("id");
             }
 
-            sql = "select * from TeacherCLass where classId='" + id + "';";
+            sql = "select * from TeacherClass where classId='" + id + "';";
             rs = querySelect(sql);
             if (rs.next()) {
                 sql = "delete from TeacherClass where classId='" + id + "';";

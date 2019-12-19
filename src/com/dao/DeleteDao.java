@@ -86,7 +86,7 @@ public class DeleteDao extends BaseDao {
      */
     public void deleteClass(List<Integer> codeList) throws SQLException, MyException {
         for (int i = 0; i < codeList.size(); i++) {
-            String sql = "select id from Class where code='" + codeList.get(i) + "';";
+            String sql = "select id from Class where classCode='" + codeList.get(i) + "';";
             ResultSet rs = querySelect(sql);
             int id = 0;
             if (rs.next()) {

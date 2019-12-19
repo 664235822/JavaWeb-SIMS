@@ -4,7 +4,7 @@
 //查看班级初始化
 function ShowClass() {
     var grade=getGrade(0);
-    var Class=getClass(1);
+    var Class=getClass(1,"","");
     if (Class.code == 1) {
         ClassTable(grade.data.list,Class.data.list);
         Refresh();
@@ -20,9 +20,9 @@ function getGrade(page) {
 }
 
 //获取班级
-function getClass(page) {
+function getClass(page,code,name) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
-    var data = Ajax(url, {'tableName': 'Class', "gradeId": "", 'currentPage': page});
+    var data = Ajax(url, {'tableName': 'Class','code':code,'name':name,  "gradeId": "", 'currentPage': page});
     return data;
 }
 
@@ -33,14 +33,15 @@ function ClassFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
-            var data = {"tableName": "Teacher", "code": code, "name": name, "currentPage": 1};
-            var table = getPage(data);
-            if (table.code == 1) {
-                TeachresTable(table.data.list);
+            var Class = getClass(0,code,name);
+            var grade=getGrade(0);
+            if (Class.code == 1) {
+                ClassTable(grade.data.list,Class.data.list);
                 Refresh();
-                Page("test1", table.data.pageCount, table.data.dataCount);
-                TeacherFunction();
+                Page("test1", Class.data.pageCount, Class.data.dataCount);
+                ClassFunction();
             }
+
         });
 
         //全选
@@ -82,13 +83,43 @@ function ClassFunction() {
             codeList[num] = $(this).parent().parent().parent().attr('name');
             num++;
         });
-        if ($(this).attr("name") == "delete") {
             Delete(codeList);
-        }
-        if ($(this).attr("name") == "moveClass") {
-            Move(codeList);
-        }
     });
+
+}
+//删除
+function Delete(codeList) {
+    layer.confirm('确认删除', {
+        icon: 7,
+        title: '提示',
+        fixed: false,
+    }, function (index) {
+        var data = {}
+        data.tableName = 'Class';
+        data.codeList = JSON.stringify(codeList);
+        var url = "/JavaWeb_SIMS_war_exploded/delete";
+        var Delete = Ajax(url, data);
+        Callback(Delete);
+        layer.close(index);
+    });
+
+}
+//回调功能
+function Callback(Callback) {
+    if (Callback.code == 1) {
+        ShowClass();
+        layer.msg(Callback.message, {
+            icon: 1
+            , time: 1000
+        });
+    } else {
+        layer.msg("操作失败", {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
+
+    }
 
 }
 //分页
@@ -135,7 +166,7 @@ function ClassTable(grade,Class) {
         for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < grade.length; j++) {
                 if (data[i].gradeId == grade[j].id) {
-                    text += "<tr name=\'" + data[i].code+ "\'>";
+                    text += "<tr name=\'" + data[i].classCode+ "\'>";
                     text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
                     text += "</div></td>";
                     text += "<td>" + data[i].classCode + "</td>";

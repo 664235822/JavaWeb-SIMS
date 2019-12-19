@@ -23,7 +23,7 @@ function getGrade(page) {
 //获取班级
 function getClass(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
-    var data = Ajax(url, {'tableName': 'Class', "gradeId": "", 'currentPage': page});
+    var data = Ajax(url, {'tableName': 'Class','code':"",'name':"", "gradeId": "", 'currentPage': page});
     return data;
 }
 

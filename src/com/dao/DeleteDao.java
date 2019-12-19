@@ -101,7 +101,7 @@ public class DeleteDao extends BaseDao {
             }
             rs.close();
 
-            sql = "delete from Class where code='" + codeList.get(i) + "';";
+            sql = "delete from Class where classCode='" + codeList.get(i) + "';";
             queryUpdate(sql);
         }
 

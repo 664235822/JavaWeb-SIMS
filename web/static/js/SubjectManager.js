@@ -4,10 +4,11 @@
  * **/
 
 /**NO.1科目添加与删除**/
-//添加科目
 //预加载
 function Submanage() {
     Addsub();
+    Showsub();
+    Delsub();
 }
 
 //弹出添加科目页面
@@ -29,4 +30,12 @@ function Addsub() {
     });
 }
 
-//表格主体
+//查看、表格主体
+function Showsub() {
+
+}
+
+//删除
+function Delsub() {
+
+}

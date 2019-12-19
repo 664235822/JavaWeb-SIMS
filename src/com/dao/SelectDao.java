@@ -91,7 +91,8 @@ public class SelectDao extends BaseDao {
                 "inner join Student st on st.classId=cl.id " +
                 "inner join TeacherClass tc on tc.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
-                "inner join Teacher tea on tc.tId=tea.id where 1=1 ";
+                "inner join Teacher tea on tc.tId=tea.id " +
+                "where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and st.code like '%" + code + "%' ";
         }
@@ -197,7 +198,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectClass(String code, String name, int currentPage) throws SQLException {
-        String sql = "select * from Class ";
+        String sql = "select * from Class where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and classCode like '%" + code + "%' ";
         }
@@ -246,7 +247,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
-        String sql = "select * from Subject ";
+        String sql = "select * from Subject where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and subjectCode like '%" + code + "%' ";
         }

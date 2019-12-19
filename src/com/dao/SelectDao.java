@@ -79,6 +79,60 @@ public class SelectDao extends BaseDao {
     }
 
     /*
+     * 单独查看学生信息表
+     * @param code 查询账号
+     * @param name 查询用户名
+     * @param currentPage 当前页号
+     * @return BaseBean 返回学生信息
+     * @throws SQLException
+     */
+    public BaseBean selectStudentOnly(String code, String name, int currentPage) throws SQLException {
+        String sql = "select * from Student ";
+        if (!code.isEmpty()) {
+            sql += "and code like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and name like '%" + name + "%' ";
+        }
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<StudentBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            StudentBean student = new StudentBean();
+
+            student.setId(rs.getInt("id"));
+            student.setCode(rs.getString("code"));
+            student.setName(rs.getString("name"));
+            student.setAge(rs.getInt("age"));
+            student.setSex(rs.getString("sex"));
+            student.setQQ(rs.getString("QQ"));
+            student.setPhone(rs.getString("phone"));
+            student.setAddress(rs.getString("address"));
+            student.setClassId(rs.getInt("classId"));
+
+            list.add(student);
+        }
+
+        table.setList(list);
+
+        selectCount("Student", code, name, table);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("单独查看学生信息成功");
+        destroy(rs);
+
+        return result;
+    }
+    
+    /*
      * 查看学生信息表
      * @param code 查询账号
      * @param name 查询用户名

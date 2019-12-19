@@ -44,10 +44,10 @@ public class SelectService {
                 result = selectDao.selectGrade(gradeId, Integer.parseInt(currentPage));
                 break;
             case "Class":
-                result = selectDao.selectClass(Integer.parseInt(currentPage));
+                result = selectDao.selectClass(code, name, Integer.parseInt(currentPage));
                 break;
             case "Subject":
-                result = selectDao.selectSubject(Integer.parseInt(currentPage));
+                result = selectDao.selectSubject(code, name, Integer.parseInt(currentPage));
                 break;
             case "GradeAll":
                 result = selectDao.selectGradeAll();

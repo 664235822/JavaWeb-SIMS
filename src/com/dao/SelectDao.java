@@ -190,12 +190,20 @@ public class SelectDao extends BaseDao {
 
     /*
      * 获取班级信息
+     * @param code 查询班级编号
+     * @param name 查询班级名
      * @param currentPage 当前页号
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
-    public BaseBean selectClass(int currentPage) throws SQLException {
+    public BaseBean selectClass(String code, String name, int currentPage) throws SQLException {
         String sql = "select * from Class ";
+        if (!code.isEmpty()) {
+            sql += "and classCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and className like '%" + name + "%' ";
+        }
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -231,12 +239,20 @@ public class SelectDao extends BaseDao {
 
     /*
      * 获取科目信息
+     * @param code 查询科目编号
+     * @param name 查询科目名
      * @param currentPage 当前页号
      * @return BaseBean 返回班级信息
      * @throws SQLException
      */
-    public BaseBean selectSubject(int currentPage) throws SQLException {
+    public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
         String sql = "select * from Subject ";
+        if (!code.isEmpty()) {
+            sql += "and subjectCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and subjectName like '%" + name + "%' ";
+        }
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }

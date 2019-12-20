@@ -127,7 +127,7 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getCreateMessage() + "'").append(",");
         values.append("'" + info.getGradeId() + "'");
 
-        String sql = "insert into Grade (classCode,className,createMessage,gradeId) values (" + values.toString() + ");";
+        String sql = "insert into Class (classCode,className,createMessage,gradeId) values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);
@@ -145,7 +145,7 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getCreateMessage() + "'").append(",");
         values.append("'" + info.getGradeId() + "'");
 
-        String sql = "insert into Grade (subjectCode,subjectName,createMessage,gradeId) values (" + values.toString() + ");";
+        String sql = "insert into Subject (subjectCode,subjectName,createMessage,gradeId) values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);

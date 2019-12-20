@@ -104,7 +104,8 @@ public class UpdateDao extends BaseDao {
      */
     public void updateClass(ClassBean classInfo) throws SQLException, MyException {
         String sql = "update Class " +
-                "set className='" + classInfo.getClassName() + "' " +
+                "set classCode='" + classInfo.getClassCode() + "' ," +
+                "className='" + classInfo.getClassName() + "' " +
                 "where classCode='" + classInfo.getClassCode() + "';";
 
         queryUpdate(sql);
@@ -119,7 +120,8 @@ public class UpdateDao extends BaseDao {
      */
     public void updateSubject(SubjectBean subjectInfo) throws SQLException, MyException {
         String sql = "update Subject " +
-                "set subjectName='" + subjectInfo.getSubjectName() + "' " +
+                "set subjectCode='" + subjectInfo.getSubjectCode() + "'," +
+                "subjectName='" + subjectInfo.getSubjectName() + "' " +
                 "where subjectCode='" + subjectInfo.getSubjectCode() + "';";
 
         queryUpdate(sql);

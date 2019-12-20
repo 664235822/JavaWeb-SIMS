@@ -12,8 +12,91 @@ function ShowClass() {
         ClassFunction();
     }
 }
+//新增班级
 function ClassInfo() {
+    var grade = getGrade(0);
+    var Class = getClass(1, "", "");
+    if (Class.code == 1) {
+        AddClassTable(grade.data.list, Class.data.list);
+        Refresh();
+        Page("test1", Class.data.pageCount, Class.data.dataCount);
+        AddClass(Class);
+    }
+}
+//增加班级
+function AddClass() {
+    var GradeAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
+    var gradeId=-1;
+    var num=-1;
+    var text="";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += grade();
+    $("#electgGrade").html(text);
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('submit(component-form-element)', function(data){
+            var ClassName=$("#ClassName").val();
+            erifydata(ClassName,GradeAll,gradeId,num);
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        form.on('select(quiz1)', function (data) {
+            gradeId = data.value;
+            for (var i=0;i<GradeAll.data.length;i++){
+                if(GradeAll.data[i].id==gradeId){
+                    num= parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length-1].classCode)+1;
+                    $("#ClassCode").val(num);
+                    break;
+                }
+            }
+        });
+    })
+}
+//验证班级数据
+function erifydata(ClassName,GradeAll,gradeId,num) {
+    var Judge=false;
+    for (var i=0;i<GradeAll.data.length;i++){
+        if(GradeAll.data[i].id==gradeId){
+            for(var j=0;j<GradeAll.data[i].classes.length;j++){
+                if(GradeAll.data[i].classes[j].className==ClassName){
+                    Judge=true;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    if(Judge){
+        layer.msg("班级名称重复", {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
+    }else{
+        var data = {};
+        var Info = {};
+        Info.ClassName = ClassName;
+        Info.GradeId = gradeId;
+        Info.ClassCode = num;
+        Info.CreateMessage = JSON.parse(localStorage.Login).name;
+        data.info = JSON.stringify(Info);
+        data.tableName = "Class";
+        var grande = Ajax("/JavaWeb_SIMS_war_exploded/insert", data);
+        if (grande.code == 1) {
+            ClassInfo();
+            layer.msg(grande.message, {
+                icon: 1
+                , time: 1000
+            });
+        } else {
+            layer.msg("操作失败", {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
 
+        }
+    }
 }
 //获取年级
 function getGrade(page) {
@@ -171,9 +254,7 @@ function ShowModify(code) {
             Callback(table);
             layer.close(index);
         }
-
     });
-
 }
 
 //年级下拉框
@@ -254,7 +335,33 @@ function Page(id, limit, count) {
     });
 
 }
+//添加班级页面表格
+function AddClassTable(grade, Class) {
+    var data = Class;
+    if (data != null) {
+        var text = "";
+        text += "<thead><tr>";
+        text += "<th>班级编号</th><th>班级名称</th><th>创建人</th><th>创建时间</th>>";
+        text += "</tr></thead>";
+        text += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            for (var j = 0; j < grade.length; j++) {
+                if (data[i].gradeId == grade[j].id) {
+                    text += "<tr name=\'" + data[i].classCode + "\'>";
+                    text += "<td>" + data[i].classCode + "</td>";
+                    text += "<td>" + data[i].className + "</td>";
+                    text += "<td>" + data[i].createMessage + "</td>";
+                    text += "<td>" + data[i].createTime + "</td>";
+                    text += "</tr>";
+                    break;
+                }
+            }
+        }
 
+        text += "</tbody>";
+        $("#table").html(text);
+    }
+}
 //班级表格
 function ClassTable(grade, Class) {
     var data = Class;

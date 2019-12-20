@@ -8,7 +8,6 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
-    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ClassManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
@@ -27,7 +26,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">年级：</label>
                     <div class="layui-input-block">
-                        <select name="quiz1">
+                        <select name="quiz1" id="electgGrade" lay-filter="quiz1" lay-verify="required">
                             <option value="" selected="">请选择年级</option>
                             <option value="2017">2017</option>
                             <option value="2018">2018</option>
@@ -41,7 +40,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">班级名称：</label>
                 <div class="layui-input-block">
-                    <input type="text" id="GradeName" name="" lay-verify="required" autocomplete="off"
+                    <input type="text" id="ClassName" name="" lay-verify="required" autocomplete="off"
                            placeholder="必填项不能为空！" class="layui-input">
                 </div>
             </div>
@@ -51,15 +50,15 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">班级编号：</label>
                 <div class="layui-input-block">
-                    <input type="text" id="GradeCode" name="" lay-verify="required" autocomplete="off"
-                           placeholder="必填项不能为空！" class="layui-input">
+                    <input type="text" id="ClassCode" name="" lay-verify="required" autocomplete="off"
+                           placeholder="请选择年级！"class="layui-input" disabled>
                 </div>
             </div>
         </div>
         <div class="col-md-1 forms">
             <!--            创建年级按钮-->
             <div class="layui-form-item">
-                <div class="layui-btn pull-left"><i class="layui-icon"></i>添加班级</div>
+                <div class="layui-btn pull-left" lay-submit   lay-filter="component-form-element"><i class="layui-icon"></i>添加班级</div>
             </div>
         </div>
     </div>
@@ -128,6 +127,7 @@
                 </tbody>
             </table>
         </div>
+        <div id="test1"></div>
     </div>
 </div>
 </body>

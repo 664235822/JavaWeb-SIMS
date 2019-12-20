@@ -289,7 +289,7 @@ function Move(codeList) {
         form.on('select(Subjects)', function (data) {
             SubjectsId = data.value;
         });
-    })
+    });
 
 
 }

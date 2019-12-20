@@ -10,3 +10,7 @@ body{
 .layui-form-item{
     margin-bottom: 0px;
 }
+body .layui-table  th,td{
+    text-align: center;
+    font-weight: 400;
+}

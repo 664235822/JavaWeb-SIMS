@@ -3,14 +3,17 @@
  * **/
 //查看班级初始化
 function ShowClass() {
-    var grade=getGrade(0);
-    var Class=getClass(1,"","");
+    var grade = getGrade(0);
+    var Class = getClass(1, "", "");
     if (Class.code == 1) {
-        ClassTable(grade.data.list,Class.data.list);
+        ClassTable(grade.data.list, Class.data.list);
         Refresh();
         Page("test1", Class.data.pageCount, Class.data.dataCount);
         ClassFunction();
     }
+}
+function ClassInfo() {
+
 }
 //获取年级
 function getGrade(page) {
@@ -20,9 +23,9 @@ function getGrade(page) {
 }
 
 //获取班级
-function getClass(page,code,name) {
+function getClass(page, code, name) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
-    var data = Ajax(url, {'tableName': 'Class','code':code,'name':name,  "gradeId": "", 'currentPage': page});
+    var data = Ajax(url, {'tableName': 'Class', 'code': code, 'name': name, "gradeId": "", 'currentPage': page});
     return data;
 }
 
@@ -33,10 +36,10 @@ function ClassFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
-            var Class = getClass(0,code,name);
-            var grade=getGrade(0);
+            var Class = getClass(0, code, name);
+            var grade = getGrade(0);
             if (Class.code == 1) {
-                ClassTable(grade.data.list,Class.data.list);
+                ClassTable(grade.data.list, Class.data.list);
                 Refresh();
                 Page("test1", Class.data.pageCount, Class.data.dataCount);
                 ClassFunction();
@@ -66,7 +69,9 @@ function ClassFunction() {
             Delete(codeList);
         }
         if ($(this).attr("name") == "moveGrade") {
-            Move(id);
+            var codeList = new Array();
+            codeList[0] = id;
+            Move(codeList);
         }
         if ($(this).attr("name") == "modify") {
             ShowModify(id);
@@ -81,22 +86,70 @@ function ClassFunction() {
             codeList[num] = $(this).parent().parent().parent().attr('name');
             num++;
         });
-            Delete(codeList);
+        Delete(codeList);
     });
 
 }
+
+
+//转班操作
+function Move(codeList) {
+    var gradeId=0;
+    var text = "";
+    text += " <div class=\"layui-form\">";
+    text += "<select name=\"city\"  lay-filter=\"test\">";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += grade();
+    text += "</select>";
+    text += "</div>";
+    layer.open({
+        title: '更改年级',
+        btn: ['确定', '取消'],
+        content: text,
+        skin: 'demo-class',
+        btnAlign: 'c',
+        move: false,
+        shade: [0.1, '#ffffff'],
+        yes: function (index) {
+            var list = new Array;
+            var obj = {};
+            var data = {};
+            for (var i = 0; i < codeList.length; i++) {
+                obj.ClassCode = codeList[i];
+                obj.gradeId = gradeId;
+                list.push(obj);
+            }
+            var url = "/JavaWeb_SIMS_war_exploded/update";
+            data.tableName = "GradeId";
+            data.info = JSON.stringify(list);
+            var table = Ajax(url, data);
+            Callback(table);
+            layer.close(index);
+        }
+
+    });
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('select(test)', function (data) {
+            gradeId = data.value;
+        });
+    })
+}
+
+//修改班级名称
 function ShowModify(code) {
-    var Class = getClass(0,code,"");
+    var Class = getClass(0, code, "");
     var text = "";
     text += "<div class=\"layui-form-item\">";
-    text +="<label class=\"layui-form-label\">编号</label>";
+    text += "<label class=\"layui-form-label\">编号</label>";
     text += "<div class=\"layui-input-block\">";
-    text += "<input type=\"text\" name=\"title\" value=\""+Class.data.list[0].classCode+"\"disabled autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"text\" name=\"title\" value=\"" + Class.data.list[0].classCode + "\"disabled autocomplete=\"off\" class=\"layui-input\">";
     text += "</div></div>";
     text += "<div class=\"layui-form-item\">";
-    text +="<label class=\"layui-form-label\">名称</label>";
+    text += "<label class=\"layui-form-label\">名称</label>";
     text += "<div class=\"layui-input-block\">";
-    text += "<input type=\"text\" name=\"title\" value=\""+Class.data.list[0].className+"\" autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"text\" name=\"title\" id='Classname' value=\"" + Class.data.list[0].className + "\" autocomplete=\"off\" class=\"layui-input\">";
     text += "</div></div>";
     layer.open({
         title: '更改班级名称',
@@ -120,6 +173,21 @@ function ShowModify(code) {
         }
 
     });
+
+}
+
+//年级下拉框
+function grade() {
+    var grade=getGrade(0);
+    var text = "";
+    if (grade.code == 1) {
+        var list = grade.data.list;
+        for (var i = 0; i < list.length; i++) {
+            text += " <option value=\"" + list[i].id + "\" >";
+            text += list[i].gradeName + "</option>";
+        }
+    }
+    return text;
 }
 //删除
 function Delete(codeList) {
@@ -138,6 +206,7 @@ function Delete(codeList) {
     });
 
 }
+
 //回调功能
 function Callback(Callback) {
     if (Callback.code == 1) {
@@ -156,6 +225,7 @@ function Callback(Callback) {
     }
 
 }
+
 //分页
 function Page(id, limit, count) {
     var index = 0;
@@ -171,10 +241,10 @@ function Page(id, limit, count) {
             , jump: function (obj, first) {
                 //首次不执行
                 if (!first) {
-                    var grade=getGrade(0);
-                    var Class=getClass(obj.curr);
+                    var grade = getGrade(0);
+                    var Class = getClass(obj.curr);
                     if (Class.code == 1) {
-                        ClassTable(grade.data.list,Class.data.list);
+                        ClassTable(grade.data.list, Class.data.list);
                         Refresh();
                         ClassFunction();
                     }
@@ -185,8 +255,8 @@ function Page(id, limit, count) {
 
 }
 
-//年级表格
-function ClassTable(grade,Class) {
+//班级表格
+function ClassTable(grade, Class) {
     var data = Class;
     if (data != null) {
         var text = "";
@@ -194,13 +264,13 @@ function ClassTable(grade,Class) {
         text += "<thead><tr>";
         text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input  type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
         text += "</div></th>"
-        text += "<th>年级编号</th><th>年级名称</th><th>创建人</th><th>创建时间</th>><th>所属年级编号</th><th>所属年级</th><th style='min-width: 240px'>操作</th>";
+        text += "<th>班级编号</th><th>班级名称</th><th>创建人</th><th>创建时间</th>><th>所属年级编号</th><th>所属年级</th><th style='min-width: 240px'>操作</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < grade.length; j++) {
                 if (data[i].gradeId == grade[j].id) {
-                    text += "<tr name=\'" + data[i].classCode+ "\'>";
+                    text += "<tr name=\'" + data[i].classCode + "\'>";
                     text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
                     text += "</div></td>";
                     text += "<td>" + data[i].classCode + "</td>";
@@ -208,7 +278,7 @@ function ClassTable(grade,Class) {
                     text += "<td>" + data[i].createMessage + "</td>";
                     text += "<td>" + data[i].createTime + "</td>";
                     text += "<td>" + grade[j].gradeCode + "</td>";
-                    text += "<td>" + grade[j].gradeName+ "</td>";
+                    text += "<td>" + grade[j].gradeName + "</td>";
                     text += "<td  name=\'" + data[i].id + "\'>";
                     text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";
                     text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";

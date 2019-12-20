@@ -9,9 +9,12 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ClassManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>添加班级信息</title>
 </head>
-<body>
+<body onload="ClassInfo()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -19,29 +22,44 @@
     </div>
 </nav>
 <div class="container">
-    <div class="row"  style="margin-top: 20px">
-        <div class="col-md-4 forms">
+    <div class="row layui-form" style="margin-top: 20px">
+        <div class="col-md-3 forms">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">年级：</label>
+                    <div class="layui-input-block">
+                        <select name="quiz1">
+                            <option value="" selected="">请选择年级</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                        </select>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-3 forms">
             <!--            年级名称-->
             <div class="layui-form-item">
-                <label class="layui-form-label">年级名称：</label>
+                <label class="layui-form-label">班级名称：</label>
                 <div class="layui-input-block">
-                    <input type="text" id="GradeName" name="" lay-verify="required" autocomplete="off" placeholder="必填项不能为空！" class="layui-input">
+                    <input type="text" id="GradeName" name="" lay-verify="required" autocomplete="off"
+                           placeholder="必填项不能为空！" class="layui-input">
                 </div>
             </div>
         </div>
-        <div class="col-md-4 forms">
+        <div class="col-md-3 forms">
             <!--            年级编号-->
             <div class="layui-form-item">
-                <label class="layui-form-label">年级编号：</label>
+                <label class="layui-form-label">班级编号：</label>
                 <div class="layui-input-block">
-                    <input type="text" id="GradeCode" name="" lay-verify="required" autocomplete="off" placeholder="必填项不能为空！" class="layui-input">
+                    <input type="text" id="GradeCode" name="" lay-verify="required" autocomplete="off"
+                           placeholder="必填项不能为空！" class="layui-input">
                 </div>
             </div>
         </div>
-        <div class="col-md-4 forms">
+        <div class="col-md-1 forms">
             <!--            创建年级按钮-->
             <div class="layui-form-item">
-                <div class="layui-btn pull-left"><i class="layui-icon"></i>添加年级</div>
+                <div class="layui-btn pull-left"><i class="layui-icon"></i>添加班级</div>
             </div>
         </div>
     </div>

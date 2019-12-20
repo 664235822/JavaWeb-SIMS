@@ -1,6 +1,9 @@
 body{
     padding-top: 50px!important;
 }
+body .demo-class .layui-layer-content {
+    overflow: visible;
+}
 .layui-form-label{
     margin-bottom: 0px!important;
 }

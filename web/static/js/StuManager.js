@@ -35,10 +35,12 @@ function StuInfo() {
 
 
 }
+
 //获取班级
 function getClassList() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll"});
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll"});
 }
+
 //获取学生信息
 function UpStudent() {
     var data = {};
@@ -76,6 +78,7 @@ function UpStudent() {
 function Serch(id) {
     return $("#" + id).val();
 }
+
 //显示信息数据
 function Modify() {
     getClassList();
@@ -103,9 +106,9 @@ function Modify() {
     text += grade();
     $("#tGrade").html(text);
     $("#tGrade option:contains(" + list.gradeName + ")").prop("selected", true);
-    for(var i=0;i<ClassList.data.length; i++){
-        if(ClassList.data[i].gradeName==list.gradeName){
-            var gradeCode =ClassList.data[i].id;
+    for (var i = 0; i < ClassList.data.length; i++) {
+        if (ClassList.data[i].gradeName == list.gradeName) {
+            var gradeCode = ClassList.data[i].id;
             break;
         }
     }
@@ -127,7 +130,7 @@ function ShowModify(id) {
         layer.open({
             type: 2
             , closeBtn: 2
-            ,shade: [0.1, '#ffffff']
+            , shade: [0.1, '#ffffff']
             , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
             , content: '/JavaWeb_SIMS_war_exploded/static/html/UpdateStudent.html'
             , area: ['650px', '500px']
@@ -138,12 +141,15 @@ function ShowModify(id) {
 //学生管理初始化
 function StuMoveClass() {
     getClassList();
-    var data = {"tableName": "Student", "code": "", "name": "", "currentPage": 1};
-    var table = getPage(data);
-    if (table.code == 1) {
-        StuTable(table.data.list);
+    var data = "";
+    data = {"tableName": "Student", "code": "", "name": "", "currentPage": 1};
+    var Student = getPage(data);
+    data = {"tableName": "StudentOnly", "code": "", "name": "", "currentPage": 1};
+    var StudentOnly = getPage(data);
+    if (StudentOnly.code == 1) {
+        StuTable(Student.data.list, StudentOnly.data.list);
         Refresh();
-        Page("test1", table.data.pageCount, table.data.dataCount);
+        Page("test1", StudentOnly.data.pageCount, StudentOnly.data.dataCount);
         StuFunction();
     }
 }
@@ -162,12 +168,15 @@ function StuFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
-            var data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
-            var table = getPage(data);
-            if (table.code == 1) {
-                StuTable(table.data.list);
+            var data = "";
+            data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
+            var Student = getPage(data);
+            data = {"tableName": "StudentOnly", "code": code, "name": name, "currentPage": 1};
+            var StudentOnly = getPage(data);
+            if (Student.code == 1) {
+                StuTable(Student.data.list, StudentOnly.data.list);
                 Refresh();
-                Page("test1", table.data.pageCount, table.data.dataCount);
+                Page("test1", StudentOnly.data.pageCount, StudentOnly.data.dataCount);
                 StuFunction();
             }
         });
@@ -204,14 +213,29 @@ function StuFunction() {
 
     });
     //批量操作
-    $("#moveClassAll").click(function () {
+    $("#LAY_preview>div>div div").click(function () {
         var codeList = new Array();
         var num = 0;
         $("input[name=checkbox]:checked").each(function () {
             codeList[num] = $(this).parent().parent().parent().attr('name');
             num++;
         });
-        Delete(codeList);
+        if(codeList.length==0){
+            layer.msg("请选择", {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
+        }else {
+            var Id = $(this).attr("id");
+            if (Id == "DeleteAll") {
+                Delete(codeList);
+            }
+            if (Id == "moveClassAll") {
+                Move(codeList);
+            }
+        }
+
     });
 
 
@@ -328,11 +352,14 @@ function MoveEnd(Data) {
     if (Data.code == 1) {
         var code = $("#code").val();
         var name = $("#name").val();
-        var data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
-        var table = getPage(data);
-        StuTable(table.data.list);
+        var data = "";
+        data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
+        var Student = getPage(data);
+        data = {"tableName": "StudentOnly", "code": code, "name": name, "currentPage": 1};
+        var StudentOnly = getPage(data);
+        StuTable(Student.data.list, StudentOnly.data.list);
         Refresh();
-        Page("test1", table.data.pageCount, table.data.dataCount);
+        Page("test1", StudentOnly.data.pageCount, StudentOnly.data.dataCount);
         StuFunction();
         layer.msg(Data.message, {
             offset: '15px'
@@ -366,10 +393,13 @@ function Page(id, limit, count) {
                 if (!first) {
                     var code = $("#code").val();
                     var name = $("#name").val();
-                    var data = {"tableName": "Student", "code": code, "name": name, "currentPage": obj.curr};
-                    var table = getPage(data);
-                    if (table.code == 1) {
-                        StuTable(table.data.list);
+                    var data = "";
+                    data = {"tableName": "Student", "code": code, "name": name, "currentPage": 1};
+                    var Student = getPage(data);
+                    data = {"tableName": "StudentOnly", "code": code, "name": name, "currentPage": 1};
+                    var StudentOnly = getPage(data);
+                    if (StudentOnly.code == 1) {
+                        StuTable(Student.data.list, StudentOnly.data.list);
                         Refresh();
                         StuFunction();
                     }
@@ -380,8 +410,8 @@ function Page(id, limit, count) {
 }
 
 //表格
-function StuTable(data) {
-    if (data != null) {
+function StuTable(data, StudentOnly) {
+    if (data != null && StudentOnly != null) {
         var text = "";
         text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
         text += "<thead><tr>";
@@ -390,17 +420,34 @@ function StuTable(data) {
         text += "<th>学号</th><th>名字</th><th>年龄</th><th>性别</th><th>当前年级</th><th>当前班级</th><th>班级教师</th><th  style='min-width: 207px'>操作</th>";
         text += "</tr></thead>";
         text += "<tbody>";
-        for (var i = 0; i < data.length; i++) {
-            text += "<tr name=\'" + data[i].code + "\'>";
+        for (var i = 0; i < StudentOnly.length; i++) {
+            text += "<tr name=\'" + StudentOnly[i].code + "\'>";
             text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
             text += "</div></td>"
-            text += "<td>" + data[i].code + "</td>";
-            text += "<td>" + data[i].name + "</td>";
-            text += "<td>" + data[i].age + "</td>";
-            text += "<td>" + data[i].sex + "</td>";
-            text += "<td>" + data[i].gradeName + "</td>";
-            text += "<td>" + data[i].className + "</td>";
-            text += "<td>" + data[i].teacherName + "</td>";
+            text += "<td>" + StudentOnly[i].code + "</td>";
+            text += "<td>" + StudentOnly[i].name + "</td>";
+            text += "<td>" + StudentOnly[i].age + "</td>";
+            text += "<td>" + StudentOnly[i].sex + "</td>";
+            for (var j = 0; j < ClassList.data.length; j++) {
+                for (var k = 0; k < ClassList.data[j].classes.length; k++) {
+                    if (StudentOnly[i].classId == ClassList.data[j].classes[k].id) {
+                        text += "<td>" + ClassList.data[j].gradeName + "</td>";
+                        text += "<td>" + ClassList.data[j].classes[k].className + "</td>";
+                        break;
+                    }
+                }
+            }
+            var Judge=true;
+            for (var j = 0; j < data.length; j++) {
+                if (StudentOnly[i].code == data[j].code) {
+                    text += "<td>" + data[j].teacherName + "</td>";
+                    Judge=false;
+                    break;
+                }
+            }
+            if(Judge){
+                text += "<td></td>";
+            }
             text += "<td>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-bg-red\" name=\"delete\">删除</button>";

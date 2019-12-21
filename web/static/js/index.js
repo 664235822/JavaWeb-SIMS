@@ -26,7 +26,7 @@ $(function () {
             break;
     }
     var name="<span class=\"glyphicon glyphicon-user\"></span>  "+obj.name;
-    $("nav ul.layui-nav li:first-of-type a").html(name);
+    $("nav ul.layui-nav li:first-of-type>a").html(name);
     var str = {"character":CharacterMenu,"currentPage":"0","getId":'false'};
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);

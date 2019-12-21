@@ -87,7 +87,7 @@ function Serch(id) {
 
 //查看教师列表
 function ShowTeachers() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {"tableName": "Teacher", "code": "", "name": "", "currentPage": 1};
     var table = getPage(data);
     if (table.code == 1) {
@@ -160,7 +160,15 @@ function TeacherFunction() {
             codeList[num] = $(this).parent().parent().parent().attr('name');
             num++;
         });
-        Delete(codeList);
+        if (codeList.length == 0) {
+            layer.msg("请选择", {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
+        } else {
+            Delete(codeList);
+        }
     });
 }
 
@@ -204,7 +212,7 @@ function ShowModify(id) {
         layer.open({
             type: 2
             , closeBtn: 2
-            ,shade: [0.1, '#ffffff']
+            , shade: [0.1, '#ffffff']
             , title: ['查看信息', 'color:#ffffff;background-color:#009688;']
             , content: '/JavaWeb_SIMS_war_exploded/static/html/UpdateInfo.html'
             , area: ['650px', '500px']

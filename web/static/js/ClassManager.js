@@ -12,6 +12,7 @@ function ShowClass() {
         ClassFunction();
     }
 }
+
 //新增班级
 function ClassInfo() {
     var grade = getGrade(0);
@@ -23,28 +24,29 @@ function ClassInfo() {
         AddClass(Class);
     }
 }
+
 //增加班级
 function AddClass() {
-    var GradeAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
-    var gradeId=-1;
-    var num=-1;
-    var text="";
+    var GradeAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
+    var gradeId = -1;
+    var num = -1;
+    var text = "";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
     $("#electgGrade").html(text);
     layui.use('form', function () {
         var form = layui.form;
         form.render();
-        form.on('submit(component-form-element)', function(data){
-            var ClassName=$("#ClassName").val();
-            erifydata(ClassName,GradeAll,gradeId,num);
+        form.on('submit(component-form-element)', function (data) {
+            var ClassName = $("#ClassName").val();
+            erifydata(ClassName, GradeAll, gradeId, num);
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
         form.on('select(quiz1)', function (data) {
             gradeId = data.value;
-            for (var i=0;i<GradeAll.data.length;i++){
-                if(GradeAll.data[i].id==gradeId){
-                    num= parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length-1].classCode)+1;
+            for (var i = 0; i < GradeAll.data.length; i++) {
+                if (GradeAll.data[i].id == gradeId) {
+                    num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
                     $("#ClassCode").val(num);
                     break;
                 }
@@ -52,27 +54,28 @@ function AddClass() {
         });
     })
 }
+
 //验证班级数据
-function erifydata(ClassName,GradeAll,gradeId,num) {
-    var Judge=false;
-    for (var i=0;i<GradeAll.data.length;i++){
-        if(GradeAll.data[i].id==gradeId){
-            for(var j=0;j<GradeAll.data[i].classes.length;j++){
-                if(GradeAll.data[i].classes[j].className==ClassName){
-                    Judge=true;
+function erifydata(ClassName, GradeAll, gradeId, num) {
+    var Judge = false;
+    for (var i = 0; i < GradeAll.data.length; i++) {
+        if (GradeAll.data[i].id == gradeId) {
+            for (var j = 0; j < GradeAll.data[i].classes.length; j++) {
+                if (GradeAll.data[i].classes[j].className == ClassName) {
+                    Judge = true;
                     break;
                 }
             }
             break;
         }
     }
-    if(Judge){
+    if (Judge) {
         layer.msg("班级名称重复", {
             icon: 5
             , anim: 6
             , time: 1000
         });
-    }else{
+    } else {
         var data = {};
         var Info = {};
         Info.ClassName = ClassName;
@@ -98,6 +101,7 @@ function erifydata(ClassName,GradeAll,gradeId,num) {
         }
     }
 }
+
 //获取年级
 function getGrade(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
@@ -169,7 +173,15 @@ function ClassFunction() {
             codeList[num] = $(this).parent().parent().parent().attr('name');
             num++;
         });
-        Delete(codeList);
+        if (codeList.length == 0) {
+            layer.msg("请选择", {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
+        } else {
+            Delete(codeList);
+        }
     });
 
 }
@@ -177,7 +189,7 @@ function ClassFunction() {
 
 //转班操作
 function Move(codeList) {
-    var gradeId=0;
+    var gradeId = 0;
     var text = "";
     text += " <div class=\"layui-form\">";
     text += "<select name=\"city\"  lay-filter=\"test\">";
@@ -259,7 +271,7 @@ function ShowModify(code) {
 
 //年级下拉框
 function grade() {
-    var grade=getGrade(0);
+    var grade = getGrade(0);
     var text = "";
     if (grade.code == 1) {
         var list = grade.data.list;
@@ -270,6 +282,7 @@ function grade() {
     }
     return text;
 }
+
 //删除
 function Delete(codeList) {
     layer.confirm('确认删除', {
@@ -335,6 +348,7 @@ function Page(id, limit, count) {
     });
 
 }
+
 //添加班级页面表格
 function AddClassTable(grade, Class) {
     var data = Class;
@@ -362,6 +376,7 @@ function AddClassTable(grade, Class) {
         $("#table").html(text);
     }
 }
+
 //班级表格
 function ClassTable(grade, Class) {
     var data = Class;

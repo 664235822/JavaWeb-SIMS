@@ -40,7 +40,7 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getAddress() + "'").append(",");
         values.append("'" + info.getIntroduction() + "'");
 
-        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "',password(" + info.getPwd() + "),'2');";
+        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "',password('" + info.getPwd() + "'),'2');";
         queryUpdate(sql);
 
         sql = "insert into Teacher (" + columnNames.toString() + ") values (" + values.toString() + ");";
@@ -72,7 +72,7 @@ public class InsertDao extends BaseDao {
         values.append("'" + info.getAddress() + "'").append(",");
         values.append("'" + info.getClassId() + "'");
 
-        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "',password(" + info.getPwd() + "),'3');";
+        String sql = "insert into Login (code,pwd,stateId) values ('" + info.getCode() + "',password('" + info.getPwd() + "'),'3');";
         queryUpdate(sql);
 
         sql = "insert into Student (" + columnNames.toString() + ") values (" + values.toString() + ");";

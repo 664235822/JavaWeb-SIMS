@@ -42,12 +42,31 @@ $(function () {
     })
 });
 //权限
-function Authority() {
+function Authority(menuName) {
+    var text="";
     var json2 = localStorage.Login;
     var obj = JSON.parse(json2);
-    if(obj.accout==2){
+    if(obj.stateId==2){
+      if(menuName.menuId==9){
+          text="UpdateInfo.html";
+          var json1 = {};
+          json1.teacherId = obj.accout;
+          var str1 = JSON.stringify(json1);
+          localStorage.ModifyId = str1;
+      }else {
+          text=menuName.url;
+      }
 
+    }else if(obj.stateId==3){
+        if(menuName.menuId==11){
+            text="UpdateStudent.html";
+        }else {
+            text=menuName.url;
+        }
+    }else {
+        text=menuName.url;
     }
+    return text;
 }
 
 //生成菜单
@@ -61,7 +80,7 @@ function Menu(Menu) {
         text += "</a>";
         text += "<dl class=\"layui-nav-child\" id=\"Menu"+i+"_Submenu\">";
         for (var j=0;j<menuName[i].items.length;j++){
-            text += "<dd><a class='userlist' name=\""+ menuName[i].items[j].url+"\">";
+            text += "<dd><a class='userlist' name=\""+ Authority(menuName[i].items[j])+"\">";
             text += menuName[i].items[j].menuName;
             text += "</a>";
             text += "</dd>";
@@ -72,6 +91,7 @@ function Menu(Menu) {
     text += "</ul>";
     $(".layui-side-scroll").html(text);
 }
+//注销功能
 function LogOut(){
     $(function () {
         $("#LogOut").click(function () {

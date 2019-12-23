@@ -27,6 +27,7 @@ $(function () {
     }
     var name="<span class=\"glyphicon glyphicon-user\"></span>  "+obj.name;
     $("nav ul.layui-nav li:first-of-type>a").html(name);
+    LogOut();
     var str = {"character":CharacterMenu,"currentPage":"0","getId":'false'};
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var menu = Ajax(url, str);
@@ -38,10 +39,17 @@ $(function () {
         }else {
 
         }
-
-
     })
 });
+//权限
+function Authority() {
+    var json2 = localStorage.Login;
+    var obj = JSON.parse(json2);
+    if(obj.accout==2){
+
+    }
+}
+
 //生成菜单
 function Menu(Menu) {
     var menuName=Menu.data;
@@ -63,6 +71,14 @@ function Menu(Menu) {
     }
     text += "</ul>";
     $(".layui-side-scroll").html(text);
+}
+function LogOut(){
+    $(function () {
+        $("#LogOut").click(function () {
+            localStorage.removeItem('Login');
+            location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
+        });
+    });
 }
 $(function () {
     var Contral=null;

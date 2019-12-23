@@ -65,6 +65,7 @@
         var h = $(".ifm").contents().find("body").height();
         $(".ifm").height(h + 100);
     }
+    //设置body最小高度
     //浏览器窗口大小发生变化则再次执行自适应高度函数，以适应高度
     window.onresize = function(){
         setHeight();

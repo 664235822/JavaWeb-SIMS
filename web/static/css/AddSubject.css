@@ -1,5 +1,13 @@
+body #layui-layer1 .layui-layer-content {
+    overflow: visible;
+}
 body{
+    min-height: 600px;
     padding-top: 50px;
+}
+.layui-form-selectup dl {
+    top: 42px;
+    bottom: unset;
 }
 .toleft{
     margin-left: 20px!important;

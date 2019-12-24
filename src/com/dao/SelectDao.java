@@ -87,7 +87,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectStudentOnly(String code, String name, int currentPage) throws SQLException {
-        String sql = "select * from Student ";
+        String sql = "select * from Student where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and code like '%" + code + "%' ";
         }

@@ -35,8 +35,6 @@ public class UpdateDao extends BaseDao {
 
         queryUpdate(sql);
 
-        updatePwd(teacherInfo.getCode(), teacherInfo.getPwd());
-
         destroy(null);
     }
 
@@ -57,8 +55,6 @@ public class UpdateDao extends BaseDao {
                 "where code='" + studentInfo.getCode() + "';";
 
         queryUpdate(sql);
-
-        updatePwd(studentInfo.getCode(), studentInfo.getPwd());
 
         destroy(null);
     }
@@ -128,19 +124,5 @@ public class UpdateDao extends BaseDao {
 
 
         destroy(null);
-    }
-
-    /*
-     * 更新用户密码
-     * @param code 账户名
-     * @param pwd 密码
-     * @throws SQLException, MyException
-     */
-    void updatePwd(String code, String pwd) throws SQLException, MyException {
-        String sql = "update Login " +
-                "set pwd='" + pwd + "' " +
-                "where code='" + code + "';";
-
-        queryUpdate(sql);
     }
 }

@@ -17,6 +17,12 @@
     </style>
 </head>
 <body onload="Modify()">
+<!--导航栏-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 > 首页 > 修改教师信息</p>
+    </div>
+</nav>
 <div class="layui-container">
     <div class="row">
         <div class="col-md-6 forms">
@@ -34,14 +40,6 @@
                     <label class="layui-form-label">账号：</label>
                     <div class="layui-input-block">
                         <input type="text" id="tCode" name="tCode"  READONLY="true" lay-verify="required|newres" autocomplete="off" placeholder=""
-                               class="layui-input">
-                    </div>
-                </div>
-                <!--                密码-->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">密码：</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="tPwd" name="tPwd" lay-verify="required|pwd" autocomplete="off" placeholder="密码必须是6-16位字母加数字组合"
                                class="layui-input">
                     </div>
                 </div>

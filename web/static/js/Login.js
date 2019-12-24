@@ -60,7 +60,7 @@ $(function () {
                     , time: 1000
                 }, function () {
                     $("#LAY-user-login-vercode").val("");
-                    location.href = "/JavaWeb_SIMS_war_exploded/static/html/HomePage.html"
+                    location.href = "/JavaWeb_SIMS_war_exploded/"
                 });
             }else{
                 layer.msg(Menu.message, {

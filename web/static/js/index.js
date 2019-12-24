@@ -49,17 +49,15 @@ function Authority(menuName) {
     if(obj.stateId==2){
       if(menuName.menuId==9){
           text="UpdateInfo.html";
-          var json1 = {};
-          json1.teacherId = obj.accout;
-          var str1 = JSON.stringify(json1);
-          localStorage.ModifyId = str1;
+          GetUserName();
       }else {
           text=menuName.url;
       }
 
-    }else if(obj.stateId==3){
+    }else if(obj.stateId==28){
         if(menuName.menuId==11){
             text="UpdateStudent.html";
+            GetUserName();
         }else {
             text=menuName.url;
         }
@@ -68,7 +66,13 @@ function Authority(menuName) {
     }
     return text;
 }
-
+//储存用户名
+function GetUserName() {
+    var json1 = {};
+    json1.teacherId = obj.accout;
+    var str1 = JSON.stringify(json1);
+    localStorage.ModifyId = str1;
+}
 //生成菜单
 function Menu(Menu) {
     var menuName=Menu.data;

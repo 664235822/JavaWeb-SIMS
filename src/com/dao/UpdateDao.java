@@ -94,6 +94,23 @@ public class UpdateDao extends BaseDao {
     }
 
     /*
+     * 科目转年级
+     * @param classList 要转班的科目信息列表
+     * @throws SQLException, MyException
+     */
+    public void updateSubjectId(List<SubjectBean> gradeList) throws SQLException, MyException {
+        for (int i = 0; i < gradeList.size(); i++) {
+            String sql = "update Subject " +
+                    "set gradeId='" + gradeList.get(i).getGradeId() + "' " +
+                    "where subjectCode='" + gradeList.get(i).getSubjectCode() + "';";
+
+            queryUpdate(sql);
+        }
+
+        destroy(null);
+    }
+
+    /*
      * 更新班级名
      * @param classInfo 要更新的班级信息
      * @throws SQLException, MyException

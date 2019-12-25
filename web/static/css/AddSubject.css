@@ -1,11 +1,19 @@
-body #layui-layer1 .layui-layer-content {
+body .demo-class .layui-layer-content {
     overflow: visible;
+}
+.layui-input-block {
+    margin-left: 0px!important;
+    min-height: 36px;
 }
 body{
     min-height: 600px;
     padding-top: 50px;
+    padding-bottom: 50px;
 }
-.layui-form-selectup dl {
+.serchebox{
+    margin-left:110px!important;
+}
+.layui-unselect dl {
     top: 42px;
     bottom: unset;
 }

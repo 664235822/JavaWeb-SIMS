@@ -164,6 +164,36 @@ function generalmang() {
                 generalmang();
             }
         });
+        //全选
+        $("#allChoose").click(function () {
+            if ($("#allChoose>input").is(':checked')) {
+                $("input[name=checkbox]").prop("checked", true);
+            } else {
+                $("input[name=checkbox]").prop("checked", false);
+            }
+            layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+            });
+        });
+        //批量操作
+        $("#moveClassAll").click(function () {
+            var codeList = new Array();
+            var num = 0;
+            $("input[name=checkbox]:checked").each(function () {
+                codeList[num] = $(this).parent().parent().parent().attr('name');
+                num++;
+            });
+            if (codeList.length == 0) {
+                layer.msg("请选择", {
+                    icon: 5
+                    , anim: 6
+                    , time: 1000
+                });
+            } else {
+                Delsub(codeList);
+            }
+        });
         //单个操作
         $("table tbody").find("button[name]").click(function () {
             var id = $(this).parent().parent().attr('name');

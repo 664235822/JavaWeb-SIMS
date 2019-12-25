@@ -2,62 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="/JavaWeb_SIMS_war_exploded/static/css/ShowTeachers.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/HomePage.css" rel="stylesheet"/>
+    <link href="/JavaWeb_SIMS_war_exploded/static/css/bootstrap.css" rel="stylesheet"/>
     <link href="/JavaWeb_SIMS_war_exploded/static/layui/css/layui.css" rel="stylesheet" media="all"/>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
     <title>首页</title>
 
 </head>
-<style>
-    .Name {
-        padding-top: 50px;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        font-size: 60px;
-        color: #393D49;
-        width: 100%;
-        text-align: center;
-    }
-
-    p {
-        text-align: center;
-        font-size: 20px;
-        height: 100px;
-        color: #c2c2c2;
-        line-height: 100px;
-    }
-
-    p:hover {
-        font-size: 25px;
-        cursor: pointer;
-        transition: all 0.1s linear;
-        color: #f2f2f2;
-    }
-
-    .aaa {
-        border-radius: 0px 5px 5px 0px;
-        border-left: 5px solid #FFB800;
-    }
-
-    #tIME {
-        text-align: left;
-    }
-
-    #test2 {
-        float: right;
-    }
-
-    .titlet {
-        display: block;
-        margin-left: 20px;
-        height: 25px;
-        width: 100%;
-        line-height: 25px;
-    }
-</style>
 <body>
-<div id="bgbody" class="layui-bg-gray" style="width: 100%;">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 20px;">&#xe602;</i> 首页</p>
+    </div>
+</nav>
+<div id="bgbody" class="" style="width: 100%;">
     <div class="layui-container">
         <div class="layui-container">
             <div class="layui-row layui-col-space10">
@@ -68,61 +29,56 @@
                                 <label class="titlet">快速进入</label>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>查看教师</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>添加教师</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>查看学生</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa   layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>添加学生</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>查看班级</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>添加班级</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>查看年级</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>查看成绩</p>
                             </div>
                         </div>
-                        <div class="layui-col-md6  ">
+                        <div class="layui-col-md4  ">
                             <div class="aaa  layui-bg-green">
                                 <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe66f;</i>查看考勤</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-md6  ">
-                            <div class="aaa  layui-bg-green">
-                                <p class="text"><i class="layui-icon" style="font-size: 20px;">&#xe654;</i>待加模块</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-md4">
                     <div id="test2"></div>
-                    <div id="tIME" style="float: right; font-size: 20px;"></div>
+                    <div id="tIME" style="float: right;margin-right: 70px; font-size: 15px;"></div>
                 </div>
             </div>
         </div>

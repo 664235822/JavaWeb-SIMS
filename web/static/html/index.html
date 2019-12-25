@@ -47,7 +47,7 @@
 </div>
 
 <!-- iframe框架-->
-<div class="layui-body">
+<div class="layui-body ojbk">
     <iframe onload="setHeight()" scrolling="no" class="ifm"
             src="/JavaWeb_SIMS_war_exploded/static/html/HomePage.html"></iframe>
     <!--    <iframe onload="setHeight()"  scrolling="no" class="ifm" src="/JavaWeb_SIMS_war_exploded/static/html/ShowTeachers.html"></iframe>-->
@@ -68,7 +68,6 @@
     //设置body最小高度
     //浏览器窗口大小发生变化则再次执行自适应高度函数，以适应高度
     window.onresize = function(){
-        setHeight();
         if (window.innerWidth<1500||window.innerHeight<754){
             $(".navbar-fixed-bottom").hide();
         }else {
@@ -80,6 +79,19 @@
         var element = layui.element;
 
         //…
+    });
+    $(".ojbk").scroll(function(){
+        //距离顶部
+        var scrollTop = $(this).scrollTop();
+        //文档高度
+        var scrollHeight = $(document).height();
+        //当前盒子高度
+        var windowHeight = $(this).height();
+        if(scrollTop + windowHeight+5 > scrollHeight){
+            $(".navbar-fixed-bottom").hide();
+        }else {
+            $(".navbar-fixed-bottom").show();
+        }
     });
 </script>
 </html>

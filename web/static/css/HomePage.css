@@ -1,0 +1,42 @@
+body{
+    padding-top: 50px!important;
+    min-height: 600px;
+}
+.text {
+    text-align: center;
+    font-size: 20px;
+    height: 100px;
+    color: #c2c2c2;
+    line-height: 100px;
+}
+.addtea{
+    height: 50px;
+    line-height: 50px;
+}
+.text:hover {
+    font-size: 25px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+    color: #f2f2f2;
+}
+
+.aaa {
+    border-radius: 0px 5px 5px 0px;
+    border-left: 5px solid #FFB800;
+}
+
+#tIME {
+    text-align: left;
+}
+
+#test2 {
+    float: right;
+}
+
+.titlet {
+    display: block;
+    margin-left: 20px;
+    height: 25px;
+    width: 100%;
+    line-height: 25px;
+}

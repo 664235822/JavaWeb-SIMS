@@ -16,7 +16,6 @@ function Submanage() {
     }
     Addsub();
     generalmang();
-    Delsub();
 }
 
 //获取科目
@@ -127,7 +126,7 @@ function Tabsub(data) {
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
-            text += "<tr name=\'" + data[i].code + "\'>";
+            text += "<tr name=\'" + data[i].subjectCode + "\'>";
             text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
             text += "</div></td>"
             text += "<td>" + data[i].subjectCode + "</td>";
@@ -149,31 +148,82 @@ function Tabsub(data) {
         }
     }
 }
+
 //综合操作
 function generalmang() {
-    //单个操作
-    $("table tbody").find("button[name]").click(function () {
-        var id = $(this).parent().parent().attr('name');
-        if ($(this).attr("name") == "delete") {
-            var codeList = new Array();
-            codeList[0] = id;
-            Delsub(codeList);
-        }
-        if ($(this).attr("name") == "gradman") {
-            var subid = $(this).parent().attr('name');
-            gradesmana(subid);
-        }
+    $(function () {
+        //查询
+        $("#subsea1").click(function () {
+            var name = $("#LAY_sub").val();
+            var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": 1};
+            var table = getPage(data);
+            if (table.code == 1) {
+                Tabsub(table.data.list);
+                Refresh();
+                Page("test1", table.data.pageCount, table.data.dataCount);
+                generalmang();
+            }
+        });
+        //单个操作
+        $("table tbody").find("button[name]").click(function () {
+            var id = $(this).parent().parent().attr('name');
+            if ($(this).attr("name") == "delete") {
+                var codeList = new Array();
+                codeList[0] = id;
+                Delsub(codeList);
+            }
+            if ($(this).attr("name") == "gradman") {
+                var subid = $(this).parent().parent().attr('name');
+                var codeList = new Array();
+                codeList[0] = subid;
+                gradesmana(codeList);
+            }
+        })
     })
 }
 
 //删除
-function Delsub() {
-
+function Delsub(codeList) {
+    layer.confirm('确认删除', {
+        icon: 7,
+        title: '提示',
+        fixed: false,
+    }, function (index) {
+        var data = {}
+        data.tableName = 'Subject';
+        data.codeList = JSON.stringify(codeList);
+        var url = "/JavaWeb_SIMS_war_exploded/delete";
+        var Delete = Ajax(url, data);
+        DeleteEnd(Delete);
+        layer.close(index);
+    });
 }
 
+//删除回调
+function DeleteEnd(Delete) {
+    if (Delete.code == 1) {
+        var name = $("#LAY_sub").val();
+        var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": 1};
+        var table = getPage(data);
+        Tabsub(table.data.list);
+        Refresh();
+        Page("test1", table.data.pageCount, table.data.dataCount);
+        generalmang();
+        layer.msg(Delete.message, {
+            icon: 1
+            , time: 1000
+        });
+    } else {
+        layer.msg(Delete.message, {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
+    }
+}
 //年级管理
 function gradesmana(codeList) {
-    var gradeId=-1;
+    var gradId=-1;
         var text = "";
         text += " <div class=\"layui-form\">";
         text += "<select name=\"city\"  lay-filter=\"test\">";
@@ -189,12 +239,29 @@ function gradesmana(codeList) {
             content: text,
             skin: 'demo-class',
             shade: [0.1, '#ffffff'],
+            yes:function (index) {
+                var data = {};
+                var list = new Array;
+                for (var i = 0; i < codeList.length; i++) {
+                    var info={};
+                    info.gradeId=gradId;
+                    info.subjectCode=codeList[i];
+                    list.push(info);
+                }
+                var url = "/JavaWeb_SIMS_war_exploded/update";
+                data.tableName= "SubjectId";
+                data.info=JSON.stringify(list);
+                var table=Ajax(url,data);
+                Callback(table);
+                Refresh();
+                layer.close(index);
+            }
         });
     layui.use('form', function () {
         var form = layui.form;
         form.render();
         form.on('select(test)', function (data) {
-            gradeId = data.value;
+            gradId = data.value;
         });
 
     });
@@ -229,7 +296,6 @@ function Page(id, limit, count) {
                         Refresh();
                         Addsub();
                         generalmang();
-                        Delsub();
                     }
                 }
             }

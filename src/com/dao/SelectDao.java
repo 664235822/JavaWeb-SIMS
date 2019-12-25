@@ -350,17 +350,16 @@ public class SelectDao extends BaseDao {
         BaseBean result = new BaseBean();
         List<GradeBean> list = new ArrayList<>();
 
-        String sql = "select cl.id classId,cl.classCode,cl.className,gr.id gradeId,gr.gradeCode,gr.gradeName from Class cl " +
-                "inner join Grade gr on cl.gradeId=gr.id;";
+        String sql = "select * from Grade;";
         ResultSet rs = querySelect(sql);
 
         int gradeId = 0;
         while (rs.next()) {
-            if (rs.getInt("gradeId") != gradeId) {
-                gradeId = rs.getInt("gradeId");
+            if (rs.getInt("id") != gradeId) {
+                gradeId = rs.getInt("id");
 
                 GradeBean grade = new GradeBean();
-                grade.setId(rs.getInt("gradeId"));
+                grade.setId(rs.getInt("id"));
                 grade.setGradeCode(rs.getString("gradeCode"));
                 grade.setGradeName(rs.getString("gradeName"));
                 grade.setClasses(new ArrayList<>());
@@ -368,12 +367,21 @@ public class SelectDao extends BaseDao {
 
                 list.add(grade);
             }
+        }
+
+        sql = "select * from Class;";
+        rs = querySelect(sql);
+
+        gradeId = 0;
+        while (rs.next()) {
+            if (rs.getInt("gradeId") != gradeId) {
+                gradeId = rs.getInt("gradeId");
+            }
 
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getId() == gradeId) {
-
                     ClassBean _class = new ClassBean();
-                    _class.setId(rs.getInt("classId"));
+                    _class.setId(rs.getInt("id"));
                     _class.setClassCode(rs.getString("classCode"));
                     _class.setClassName(rs.getString("className"));
 
@@ -382,8 +390,7 @@ public class SelectDao extends BaseDao {
             }
         }
 
-        sql = "select su.id subjectId,su.subjectCode,su.subjectName,gr.id gradeId from Subject su " +
-                "inner join Grade gr on su.gradeId=gr.id;";
+        sql = "select * from Subject;";
         rs = querySelect(sql);
 
         gradeId = 0;
@@ -396,7 +403,7 @@ public class SelectDao extends BaseDao {
                 if (list.get(i).getId() == gradeId) {
 
                     SubjectBean subject = new SubjectBean();
-                    subject.setId(rs.getInt("subjectId"));
+                    subject.setId(rs.getInt("id"));
                     subject.setSubjectCode(rs.getString("subjectCode"));
                     subject.setSubjectName(rs.getString("subjectName"));
 

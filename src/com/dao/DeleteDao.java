@@ -128,6 +128,14 @@ public class DeleteDao extends BaseDao {
                 sql = "update TeacherClass set subId='' where subId='" + id + "';";
                 queryUpdate(sql);
             }
+
+            sql = "select * from Result where subId='" + id + "';";
+            rs = querySelect(sql);
+            if (rs.next()) {
+                sql = "delete from Result where subId='" + id + "';";
+                queryUpdate(sql);
+            }
+
             rs.close();
 
             sql = "delete from Subject where subjectCode='" + codeList.get(i) + "';";

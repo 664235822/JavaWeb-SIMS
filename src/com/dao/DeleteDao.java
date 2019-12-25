@@ -107,4 +107,33 @@ public class DeleteDao extends BaseDao {
 
         destroy(null);
     }
+
+    /*
+     * 删除科目信息
+     * @param 要删除行的班级编号字段列表
+     * @throws SQLException, MyException
+     */
+    public void deleteSubject(List<Integer> codeList) throws SQLException, MyException {
+        for (int i = 0; i < codeList.size(); i++) {
+            String sql = "select id from Subject where subjectCode='" + codeList.get(i) + "';";
+            ResultSet rs = querySelect(sql);
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+
+            sql = "select * from TeacherClass where subId='" + id + "';";
+            rs = querySelect(sql);
+            if (rs.next()) {
+                sql = "update TeacherClass set subId='' where subId='" + id + "';";
+                queryUpdate(sql);
+            }
+            rs.close();
+
+            sql = "delete from Subject where subjectCode='" + codeList.get(i) + "';";
+            queryUpdate(sql);
+        }
+
+        destroy(null);
+    }
 }

@@ -49,15 +49,15 @@ function Authority(menuName) {
     if(obj.stateId==2){
       if(menuName.menuId==9){
           text="UpdateInfo.html";
-          GetUserName();
+          GetUserName(obj);
       }else {
           text=menuName.url;
       }
 
-    }else if(obj.stateId==28){
-        if(menuName.menuId==11){
+    }else if(obj.stateId==3){
+        if(menuName.menuId==28){
             text="UpdateStudent.html";
-            GetUserName();
+            GetUserName(obj);
         }else {
             text=menuName.url;
         }
@@ -67,7 +67,7 @@ function Authority(menuName) {
     return text;
 }
 //储存用户名
-function GetUserName() {
+function GetUserName(obj) {
     var json1 = {};
     json1.teacherId = obj.accout;
     var str1 = JSON.stringify(json1);

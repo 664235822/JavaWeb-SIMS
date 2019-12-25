@@ -46,7 +46,11 @@ function AddClass() {
             gradeId = data.value;
             for (var i = 0; i < GradeAll.data.length; i++) {
                 if (GradeAll.data[i].id == gradeId) {
-                    num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
+                   if(GradeAll.data[i].classes.length==0){
+                        num=GradeAll.data[i].gradeCode+"01";
+                   }else {
+                       num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
+                   }
                     $("#ClassCode").val(num);
                     break;
                 }
@@ -187,11 +191,13 @@ function ClassFunction() {
 }
 
 
-//转班操作
+//更改年级
 function Move(codeList) {
+    var GradeAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var gradeId = 0;
     var text = "";
     text += " <div class=\"layui-form\">";
+    text +=" <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"请选择年级\" autocomplete=\"off\" class=\"layui-input\">"
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
@@ -228,6 +234,18 @@ function Move(codeList) {
         form.render();
         form.on('select(test)', function (data) {
             gradeId = data.value;
+            var num=0;
+            for (var i = 0; i < GradeAll.data.length; i++) {
+                if (GradeAll.data[i].id == gradeId) {
+                    if(GradeAll.data[i].classes.length==0){
+                        num=GradeAll.data[i].gradeCode+"01";
+                    }else {
+                        num = parseInt(GradeAll.data[i].classes[GradeAll.data[i].classes.length - 1].classCode) + 1;
+                    }
+                    $("#MoveGradeId").val(num);
+                    break;
+                }
+            }
         });
     })
 }
@@ -355,7 +373,7 @@ function AddClassTable(grade, Class) {
     if (data != null) {
         var text = "";
         text += "<thead><tr>";
-        text += "<th>班级编号</th><th>班级名称</th><th>创建人</th><th>创建时间</th>>";
+        text += "<th>班级编号</th><th>班级名称</th><th>创建人</th><th>创建时间</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {

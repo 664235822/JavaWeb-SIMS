@@ -86,7 +86,7 @@ function Modify() {
         var json2 = localStorage.ModifyId;
         var obj = JSON.parse(json2);
     }
-    var data = {"tableName": "Student", "code": obj.teacherId, "name": "", "currentPage": 1};
+    data = {"tableName": "StudentOnly", "code": obj.teacherId, "name": "", "currentPage": 1};
     var table = getPage(data);
     var list = table.data.list[0];
     $("#tCode").val(list.code);
@@ -105,16 +105,28 @@ function Modify() {
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
     $("#tGrade").html(text);
-    $("#tGrade option:contains(" + list.gradeName + ")").prop("selected", true);
     for (var i = 0; i < ClassList.data.length; i++) {
-        if (ClassList.data[i].gradeName == list.gradeName) {
-            var gradeCode = ClassList.data[i].id;
-            break;
-        }
+       for(var j=0;j<ClassList.data[i].classes.length;j++){
+           if (ClassList.data[i].classes[j].id == list.classId) {
+               var gradeCode = ClassList.data[i].id;
+               break;
+           }
+       }
     }
     var text = MoveClass(gradeCode);
     $("#tClass").html(text);
-    $("#tClass option:contains(" + list.className + ")").prop("selected", true);
+    $("#tGrade").find("option[value="+gradeCode+"]").prop("selected", true);
+    $("#tClass").find("option[value="+list.classId+"]").prop("selected", true);
+    if (localStorage.Login != null) {
+        var json = localStorage.Login;
+        var obj = JSON.parse(json);
+        var stateId = 0;
+        stateId = obj.stateId;
+        if (stateId == 3){
+            $("#tGrade").attr("disabled",true);
+            $("#tClass").attr("disabled",true);
+        }
+    }
     Refresh();
 }
 

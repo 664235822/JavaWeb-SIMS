@@ -12,7 +12,7 @@ var name = "";
 
 //查看成绩列表
 function ShowResult() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     if (localStorage.Login != null) {
         var json = localStorage.Login;
         var obj = JSON.parse(json);
@@ -21,9 +21,44 @@ function ShowResult() {
         if (stateId == 3) {
             code = obj.accout;
             name = obj.name;
+            data = {"tableName": "StudentOnly", "code": code, "name": "", "currentPage": 1};
+            var table = getPage(data);
+            var list = table.data.list[0];
+            var text = "";
+            text += Grade();
+            $("#Grades").html(text);
+            for (var i = 0; i < ClassList.data.length; i++) {
+                for (var j = 0; j < ClassList.data[i].classes.length; j++) {
+                    if (ClassList.data[i].classes[j].id == list.classId) {
+                        var gradeCode = ClassList.data[i].id;
+                        break;
+                    }
+                }
+            }
+            gradeId = gradeCode;
+            classId = list.classId;
+            var text = MoveClass(gradeCode);
+            $("#Class").html(text);
+            $("#Grades").find("option[value=" + gradeCode + "]").prop("selected", true);
+            $("#Class").find("option[value=" + list.classId + "]").prop("selected", true);
+            $("#Grades").attr("disabled", true);
+            $("#Class").attr("disabled", true);
             $("#code").val(code).attr("readonly", "true");
             $("#name").val(name).attr("readonly", "true");
+            var text = Subjects();
+            $("#Subjects").html(text);
+            layui.use('form', function () {
+                var form = layui.form;
+                form.on('select(Subjects)', function (data) {
+                    SubjectsId = data.value;
+                });
+            })
+            Refresh();
+        } else {
+            GetGrades();
         }
+    } else {
+        GetGrades();
     }
     var data = {
         "tableName": "Result",
@@ -42,12 +77,12 @@ function ShowResult() {
         ResultFunction();
     }
 
-    GetGrades();
 }
+
 
 //添加成绩
 function ResultInfo() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName':"GradeAll",'currentPage':0});
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {
         "tableName": "AddResult",
         "gradeId": gradeId,
@@ -299,7 +334,6 @@ function AddResultTable(data) {
 function GetGrades() {
     var text = Grade();
     $("#Grades").html(text);
-
     layui.use('form', function () {
         var form = layui.form;
         form.render();

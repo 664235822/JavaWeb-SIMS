@@ -250,7 +250,7 @@ function AttendanceTable(data) {
             text += "<td>" + data[i].name + "</td>";
             text += "<td>" + data[i].type + "</td>";
             text += "<td>" + data[i].time + "</td>";
-            text += "<td><button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button></td>";
+            text += "<td><button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改考勤</button></td>";
             text += "</tr>";
         }
         text += "</tbody>";

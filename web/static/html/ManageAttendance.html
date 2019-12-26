@@ -61,7 +61,17 @@
                 </div>
             </form>
             <!--           主体-->
-            <table class="layui-table" style="margin-top: 20px" id="table">
+            <div class="layui-table-tool">
+                <div class="layui-table-tool-temp">
+                    <div class="layui-inline" title="修改所有选中项" lay-event="delete" id="moveAll"><i
+                            class="layui-icon layui-icon-edit"></i>
+                    </div>
+                    <div class="layui-inline" title="修改所有选中项" lay-event="delete" id="Add"><i
+                            class="layui-icon layui-icon-add-1"></i>
+                    </div>
+                </div>
+            </div>
+            <table class="layui-table"  style="margin-top: 0px" id="table">
                 <colgroup>
                     <col width="50">
                     <col width="150">

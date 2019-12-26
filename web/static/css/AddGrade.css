@@ -18,3 +18,9 @@ body .layui-table  th,td{
 body .pull-left{
     margin-left: 15px;
 }
+.layui-tab-content {
+    padding: 0px!important;
+}
+#table{
+    margin: 0!important;
+}

@@ -3,5 +3,5 @@ body .layui-table th,td{
     font-weight: 400;
 }
 body{
-    padding-top: 50px;
+    padding-top: 50px!important;
 }

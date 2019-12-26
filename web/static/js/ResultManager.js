@@ -13,6 +13,26 @@ var name = "";
 //查看成绩列表
 function ShowResult() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
+    Admin();
+    var data = {
+        "tableName": "Result",
+        "code": code,
+        "name": name,
+        "gradeId": gradeId,
+        "classId": classId,
+        "subjectId": SubjectsId,
+        "currentPage": 1
+    };
+    var table = getPage(data);
+    if (table.code == 1) {
+        ResultTable(table.data.list);
+        Refresh();
+        Page("test1", table.data.pageCount, table.data.dataCount);
+        ResultFunction();
+    }
+
+}
+function Admin() {
     if (localStorage.Login != null) {
         var json = localStorage.Login;
         var obj = JSON.parse(json);
@@ -60,25 +80,7 @@ function ShowResult() {
     } else {
         GetGrades();
     }
-    var data = {
-        "tableName": "Result",
-        "code": code,
-        "name": name,
-        "gradeId": gradeId,
-        "classId": classId,
-        "subjectId": SubjectsId,
-        "currentPage": 1
-    };
-    var table = getPage(data);
-    if (table.code == 1) {
-        ResultTable(table.data.list);
-        Refresh();
-        Page("test1", table.data.pageCount, table.data.dataCount);
-        ResultFunction();
-    }
-
 }
-
 
 //添加成绩
 function ResultInfo() {
@@ -341,6 +343,9 @@ function GetGrades() {
             gradeId = data.value;
             var text = MoveClass();
             $("#Class").html(text);
+            if(gradeId==""){
+                classId="";
+            }
             var text = Subjects();
             $("#Subjects").html(text);
             Refresh();

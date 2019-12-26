@@ -353,8 +353,10 @@ function Page(id, limit, count) {
             , jump: function (obj, first) {
                 //首次不执行
                 if (!first) {
+                    var name=$("#ClassName").val();
+                    var code=$("#ClassCode").val();
                     var grade = getGrade(0);
-                    var Class = getClass(obj.curr);
+                    var Class = getClass(obj.curr,code,name);
                     if (Class.code == 1) {
                         ClassTable(grade.data.list, Class.data.list);
                         Refresh();
@@ -389,7 +391,6 @@ function AddClassTable(grade, Class) {
                 }
             }
         }
-
         text += "</tbody>";
         $("#table").html(text);
     }

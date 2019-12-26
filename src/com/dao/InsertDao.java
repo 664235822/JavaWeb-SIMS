@@ -82,15 +82,15 @@ public class InsertDao extends BaseDao {
     }
 
     /*
-     * 为教师分配班级
-     * @param info 要分配的教师信息
+     * 添加教师班级科目联系
+     * @param info 要分配的教师科目联系信息
      * @throws SQLException, MyException
      */
-    public void insertTeacherClass(TeacherBean info) throws SQLException, MyException {
+    public void insertTeacherClass(TeacherClassBean info) throws SQLException, MyException {
         StringBuffer values = new StringBuffer();
-        values.append("'" + info.getId() + "'").append(",");
+        values.append("'" + info.getTeacherId() + "'").append(",");
         values.append("'" + info.getClassId() + "'").append(",");
-        values.append("'" + info.getSubId() + "'");
+        values.append("'" + info.getSubjectId() + "'");
 
         String sql = "insert into TeacherClass (tId,classId,subId) values (" + values.toString() + ");";
         queryUpdate(sql);
@@ -156,8 +156,8 @@ public class InsertDao extends BaseDao {
      * @param 学生成绩信息列表
      * @throws SQLException, MyException
      */
-    public void insertResult(List<ResultBean> resultInfo) throws SQLException, MyException {
-        for (ResultBean info : resultInfo) {
+    public void insertResult(List<ResultBean> resultList) throws SQLException, MyException {
+        for (ResultBean info : resultList) {
             if (info.getsId() == 0 || info.getSubId() == 0)
                 continue;
 

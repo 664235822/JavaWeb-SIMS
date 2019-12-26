@@ -38,8 +38,6 @@ public class TeacherBean {
     private int classId;
     //教师科目Id
     private int subId;
-    //科目名称
-    private String subjectName;
 
     public int getId() {
         return id;
@@ -159,13 +157,5 @@ public class TeacherBean {
 
     public void setSubId(int subId) {
         this.subId = subId;
-    }
-
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
     }
 }

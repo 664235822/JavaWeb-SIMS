@@ -35,6 +35,9 @@ public class DeleteService {
             case "Subject":
                 deleteDao.deleteSubject(codeList);
                 break;
+            case "TeacherClass":
+                deleteDao.delectTeacherClass(codeList);
+                break;
         }
 
     }

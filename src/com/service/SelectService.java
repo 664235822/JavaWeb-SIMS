@@ -49,6 +49,9 @@ public class SelectService {
             case "GradeAll":
                 result = selectDao.selectGradeAll();
                 break;
+            case "TeacherClass":
+                result = selectDao.selectTeacherClass(code, name, Integer.parseInt(currentPage));
+                break;
             case "SubjectTeacher":
                 result = selectDao.selectSubjectTeacher(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;

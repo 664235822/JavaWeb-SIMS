@@ -2,6 +2,7 @@ package com.dao;
 
 import com.entity.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -139,6 +140,20 @@ public class UpdateDao extends BaseDao {
 
         queryUpdate(sql);
 
+        destroy(null);
+    }
+
+    /*
+     * 更新科目教师
+     * @param 要更新的科目信息
+     * @throws SQLException, MyException
+     */
+    public void updateSubjectTeacher(TeacherClassBean teacherClassInfo) throws SQLException, MyException {
+        String sql = "update TeacherClass " +
+                "set tId='" + teacherClassInfo.getTeacherId() + "' " +
+                "where id='" + teacherClassInfo.getId() + "';";
+
+        queryUpdate(sql);
 
         destroy(null);
     }

@@ -125,7 +125,7 @@ public class DeleteDao extends BaseDao {
             sql = "select * from TeacherClass where subId='" + id + "';";
             rs = querySelect(sql);
             if (rs.next()) {
-                sql = "update TeacherClass set subId=null where subId='" + id + "';";
+                sql = "delete from TeacherClass where subId='" + id + "';";
                 queryUpdate(sql);
             }
 
@@ -140,6 +140,26 @@ public class DeleteDao extends BaseDao {
 
             sql = "delete from Subject where subjectCode='" + codeList.get(i) + "';";
             queryUpdate(sql);
+        }
+
+        destroy(null);
+    }
+
+    /*
+     * 删除教师班级科目联系
+     * @param 要删除行的id字段列表
+     * @throws SQLException, MyException
+     */
+    public void delectTeacherClass(List<Integer> idList) throws SQLException, MyException {
+        for (int i = 0; i < idList.size(); i++) {
+            String sql = "select * from TeacherClass where id='" + idList.get(i) + "';";
+            ResultSet rs = querySelect(sql);
+            if (rs.next()) {
+                sql = "delete from TeacherClass where id='" + idList.get(i) + "';";
+                queryUpdate(sql);
+            }
+
+            rs.close();
         }
 
         destroy(null);

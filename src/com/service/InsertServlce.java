@@ -34,7 +34,7 @@ public class InsertServlce {
                 insertDao.insertStudent(student);
                 break;
             case "TeacherClass":
-                TeacherBean teacherClass = JSON.parseObject(info, TeacherBean.class);
+                TeacherClassBean teacherClass = JSON.parseObject(info, TeacherClassBean.class);
                 insertDao.insertTeacherClass(teacherClass);
                 break;
             case "Result":
@@ -50,7 +50,7 @@ public class InsertServlce {
                 insertDao.insertClass(_class);
                 break;
             case "Subject":
-                SubjectBean subject=JSON.parseObject(info,SubjectBean.class);
+                SubjectBean subject = JSON.parseObject(info, SubjectBean.class);
                 insertDao.insertSubject(subject);
                 break;
         }

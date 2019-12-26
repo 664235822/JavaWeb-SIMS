@@ -32,7 +32,6 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -95,7 +94,6 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -155,7 +153,6 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -213,7 +210,6 @@ public class SelectDao extends BaseDao {
         if (!gradeId.isEmpty()) {
             sql += "and id='" + gradeId + "' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -263,7 +259,6 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and className like '%" + name + "%' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -306,18 +301,13 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
-        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeName,te.name teacherName from Subject su " +
-                "left join TeacherClass tec on su.id=tec.subId " +
-                "left join Teacher te on tec.tId=te.id " +
-                "inner join Grade gr on su.gradeId=gr.id " +
-                "where 1=1 ";
+        String sql = "select * from Subject where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and subjectCode like '%" + code + "%' ";
         }
         if (!name.isEmpty()) {
             sql += "and subjectName like '%" + name + "%' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -335,8 +325,7 @@ public class SelectDao extends BaseDao {
             subject.setSubjectName(rs.getString("subjectName"));
             subject.setCreateMessage(rs.getString("createMessage"));
             subject.setCreateTime(rs.getDate("createTime").toString());
-            subject.setGradeName(rs.getString("gradeName"));
-            subject.setTeacherName(rs.getString("teacherName"));
+            subject.setGradeId(rs.getInt("gradeId"));
             list.add(subject);
         }
 
@@ -432,6 +421,80 @@ public class SelectDao extends BaseDao {
     }
 
     /*
+     * 获取教师科目信息
+     * @param code 查询科目编号
+     * @param name 查询科目名
+     * @param currentPage 当前页号
+     * @return BaseBean 返回教师科目信息
+     * @throws SQLException
+     */
+    public BaseBean selectTeacherClass(String code, String name, int currentPage) throws SQLException {
+        String sql = "select su.subjectCode,su.subjectName,gr.gradeName,cl.className,te.name from TeacherClass tec " +
+                "inner join Subject su on tec.subId=su.id " +
+                "inner join Teacher te on tec.tId=te.id " +
+                "inner join Class cl on tec.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and subjectCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and subjectName like '%" + name + "%' ";
+        }
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<TeacherClassBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            TeacherClassBean teacherClass = new TeacherClassBean();
+            teacherClass.setSubjectCode(rs.getString("subjectCode"));
+            teacherClass.setSubjectName(rs.getString("subjectName"));
+            teacherClass.setGradeName(rs.getString("gradeName"));
+            teacherClass.setClassName(rs.getString("className"));
+            teacherClass.setTeacherName(rs.getString("name"));
+            list.add(teacherClass);
+        }
+
+        table.setList(list);
+
+        sql = "select count(*) as count from TeacherClass tec " +
+                "inner join Subject su on tec.subId=su.id " +
+                "inner join Teacher te on tec.tId=te.id " +
+                "inner join Class cl on tec.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and subjectCode like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and subjectName like '%" + name + "%' ";
+        }
+        sql += ";";
+        rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        table.setDataCount(dataCount);
+        table.setPageCount(pageCount);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看教师科目信息成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
      * 查看科任老师信息
      * @param gradeId 年级编号
      * @param classId 班级编号
@@ -441,7 +504,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubjectTeacher(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "SELECT tec.id,te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
+        String sql = "SELECT te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
                 "left join Subject su on tec.subId=su.id " +
                 "inner join Teacher te on tec.tId=te.id " +
                 "inner join Class cl on tec.classId=cl.id " +
@@ -456,7 +519,6 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -465,18 +527,17 @@ public class SelectDao extends BaseDao {
 
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<TeacherBean> list = new ArrayList<>();
+        List<TeacherClassBean> list = new ArrayList<>();
 
         while (rs.next()) {
-            TeacherBean teacher = new TeacherBean();
-            teacher.setId(rs.getInt("id"));
-            teacher.setCode(rs.getString("code"));
-            teacher.setName(rs.getString("name"));
-            teacher.setSex(rs.getString("sex"));
-            teacher.setEducation(rs.getString("education"));
-            teacher.setAge(rs.getInt("age"));
-            teacher.setSubjectName(rs.getString("subjectName"));
-            list.add(teacher);
+            TeacherClassBean teacherClass = new TeacherClassBean();
+            teacherClass.setTeacherCode(rs.getString("code"));
+            teacherClass.setTeacherName(rs.getString("name"));
+            teacherClass.setSex(rs.getString("sex"));
+            teacherClass.setSubjectName(rs.getString("subjectName"));
+            teacherClass.setEducation(rs.getString("education"));
+            teacherClass.setAge(rs.getInt("age"));
+            list.add(teacherClass);
         }
 
         table.setList(list);
@@ -551,7 +612,6 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -645,7 +705,6 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -716,7 +775,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectAttendance(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "select at.id,st.code,st.name,gr.gradeName,cl.className,su.subjectName,att.AttendanceType,at.AttendanceTime from Attendance at " +
+        String sql = "select st.code,st.name,gr.gradeName,cl.className,su.subjectName,att.AttendanceType,at.AttendanceTime from Attendance at " +
                 "inner join Student st on at.sId=st.id " +
                 "inner join Subject su on at.subId=su.id " +
                 "inner join Class cl on at.classId=cl.id " +
@@ -738,7 +797,6 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
-        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -752,14 +810,13 @@ public class SelectDao extends BaseDao {
 
         while (rs.next()) {
             AttendanceBean attendance = new AttendanceBean();
-            attendance.setId(rs.getInt("id"));
             attendance.setCode(rs.getString("code"));
             attendance.setName(rs.getString("name"));
             attendance.setGradeName(rs.getString("gradeName"));
             attendance.setClassName(rs.getString("className"));
             attendance.setSubjectName(rs.getString("subjectName"));
             attendance.setType(rs.getString("AttendanceType"));
-            attendance.setTime(rs.getDate("AttendanceTime").toString());
+            attendance.setName(rs.getDate("AttendanceTime").toString());
 
             list.add(attendance);
         }

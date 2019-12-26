@@ -500,10 +500,11 @@ public class SelectDao extends BaseDao {
      * @param classId 班级编号
      * @param subjectId 科目编号
      * @param currentPage 当前页号
+     * @return BaseBean 返回科任老师信息
      * @throws SQLException
      */
     public BaseBean selectSubjectTeacher(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql="SELECT te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
+        String sql = "SELECT te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
                 "left join Subject su on tec.subId=su.id " +
                 "inner join Teacher te on tec.tId=te.id " +
                 "inner join Class cl on tec.classId=cl.id " +
@@ -586,6 +587,7 @@ public class SelectDao extends BaseDao {
      * @param classId 班级编号
      * @param subjectId 科目编号
      * @param currentPage 当前页号
+     * @return BaseBean 返回学生成绩信息
      * @throws SQLException
      */
     public BaseBean selectResult(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
@@ -685,6 +687,7 @@ public class SelectDao extends BaseDao {
      * @param classId 班级编号
      * @param subjectId 科目编号
      * @param currentPage 当前页号
+     * @return BaseBean 返回添加学生成绩信息
      * @throws SQLException
      */
     public BaseBean selectAddResult(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
@@ -755,6 +758,107 @@ public class SelectDao extends BaseDao {
         result.setCode(BaseBean.SUCCESS);
         result.setData(table);
         result.setMessage("查看添加学生成绩信息成功");
+        destroy(rs);
+
+        return result;
+    }
+
+    /*
+     * 查看考勤信息
+     * @param code 查询学生编号
+     * @param name 查询学生姓名
+     * @param gradeId 年级编号
+     * @param classId 班级编号
+     * @param subjectId 科目编号
+     * @param currentPage 当前页号
+     * @return BaseBean 返回考勤信息
+     * @throws SQLException
+     */
+    public BaseBean selectAttendance(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
+        String sql = "select st.code,st.name,gr.gradeName,cl.className,su.subjectName,att.AttendanceType,at.AttendanceTime from Attendance at " +
+                "inner join Student st on at.sId=st.id " +
+                "inner join Subject su on at.subId=su.id " +
+                "inner join Class cl on at.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join AttendanceType att on at.AttendanceType=att.id " +
+                "where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and st.code like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and st.name like '%" + name + "%' ";
+        }
+        if (gradeId != 0) {
+            sql += "and gr.id='" + gradeId + "' ";
+        }
+        if (classId != 0) {
+            sql += "and cl.id='" + classId + "' ";
+        }
+        if (subjectId != 0) {
+            sql += "and su.id='" + subjectId + "' ";
+        }
+        if (currentPage != 0) {
+            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
+        }
+        sql += ";";
+
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        TableBean table = new TableBean();
+        List<AttendanceBean> list = new ArrayList<>();
+
+        while (rs.next()) {
+            AttendanceBean attendance = new AttendanceBean();
+            attendance.setCode(rs.getString("code"));
+            attendance.setName(rs.getString("name"));
+            attendance.setGradeName(rs.getString("gradeName"));
+            attendance.setClassName(rs.getString("className"));
+            attendance.setSubjectName(rs.getString("subjectName"));
+            attendance.setType(rs.getString("AttendanceType"));
+            attendance.setName(rs.getDate("AttendanceTime").toString());
+
+            list.add(attendance);
+        }
+
+        table.setList(list);
+
+        sql = "select count(*) as count from Attendance at " +
+                "inner join Student st on at.sId=st.id " +
+                "inner join Subject su on at.subId=su.id " +
+                "inner join Class cl on at.classId=cl.id " +
+                "inner join Grade gr on cl.gradeId=gr.id " +
+                "inner join AttendanceType att on at.AttendanceType=att.id " +
+                "where 1=1 ";
+        if (!code.isEmpty()) {
+            sql += "and st.code like '%" + code + "%' ";
+        }
+        if (!name.isEmpty()) {
+            sql += "and st.name like '%" + name + "%' ";
+        }
+        if (gradeId != 0) {
+            sql += "and gr.id='" + gradeId + "' ";
+        }
+        if (classId != 0) {
+            sql += "and cl.id='" + classId + "' ";
+        }
+        if (subjectId != 0) {
+            sql += "and su.id='" + subjectId + "' ";
+        }
+        sql += ";";
+        rs = querySelect(sql);
+        int dataCount = 0;
+        int pageCount = 0;
+        if (rs.next()) {
+            dataCount = rs.getInt("count");
+            pageCount = (dataCount + 10 - 1) / 10;
+        }
+        table.setDataCount(dataCount);
+        table.setPageCount(pageCount);
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(table);
+        result.setMessage("查看考勤信息成功");
         destroy(rs);
 
         return result;

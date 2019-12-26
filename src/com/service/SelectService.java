@@ -37,12 +37,6 @@ public class SelectService {
             case "StudentOnly":
                 result = selectDao.selectStudentOnly(code, name, Integer.parseInt(currentPage));
                 break;
-            case "Result":
-                result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
-                break;
-            case "AddResult":
-                result = selectDao.selectAddResult(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
-                break;
             case "Grade":
                 result = selectDao.selectGrade(gradeId, Integer.parseInt(currentPage));
                 break;
@@ -52,14 +46,23 @@ public class SelectService {
             case "Subject":
                 result = selectDao.selectSubject(code, name, Integer.parseInt(currentPage));
                 break;
+            case "GradeAll":
+                result = selectDao.selectGradeAll();
+                break;
             case "TeacherClass":
                 result = selectDao.selectTeacherClass(code, name, Integer.parseInt(currentPage));
                 break;
             case "SubjectTeacher":
                 result = selectDao.selectSubjectTeacher(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
-            case "GradeAll":
-                result = selectDao.selectGradeAll();
+            case "Result":
+                result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
+                break;
+            case "AddResult":
+                result = selectDao.selectAddResult(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
+                break;
+            case "Attendance":
+                result = selectDao.selectAttendance(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
         }
 

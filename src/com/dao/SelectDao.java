@@ -706,7 +706,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectAttendance(String code, String name, int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "select st.code,st.name,gr.gradeName,cl.className,su.subjectName,att.AttendanceType,at.AttendanceTime from Attendance at " +
+        String sql = "select at.id,st.code,st.name,gr.gradeName,cl.className,su.subjectName,att.AttendanceType,at.AttendanceTime from Attendance at " +
                 "inner join Student st on at.sId=st.id " +
                 "inner join Subject su on at.subId=su.id " +
                 "inner join Class cl on at.classId=cl.id " +
@@ -741,6 +741,7 @@ public class SelectDao extends BaseDao {
 
         while (rs.next()) {
             AttendanceBean attendance = new AttendanceBean();
+            attendance.setId(rs.getInt("id"));
             attendance.setCode(rs.getString("code"));
             attendance.setName(rs.getString("name"));
             attendance.setGradeName(rs.getString("gradeName"));

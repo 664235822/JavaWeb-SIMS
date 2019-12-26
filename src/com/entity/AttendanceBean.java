@@ -5,6 +5,8 @@ package com.entity;
  */
 public class AttendanceBean {
 
+    //考勤id
+    private int id;
     //学生编号
     private String code;
     //学生姓名
@@ -19,6 +21,14 @@ public class AttendanceBean {
     private String type;
     //考勤时间
     private String time;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;

@@ -32,6 +32,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -94,6 +95,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -153,6 +155,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -210,6 +213,7 @@ public class SelectDao extends BaseDao {
         if (!gradeId.isEmpty()) {
             sql += "and id='" + gradeId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -259,6 +263,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and className like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -301,13 +306,16 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
-        String sql = "select * from Subject where 1=1 ";
+        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeName from Subject su " +
+                "inner join Grade gr on su.gradeId=gr.id " +
+                "where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and subjectCode like '%" + code + "%' ";
         }
         if (!name.isEmpty()) {
             sql += "and subjectName like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -325,7 +333,7 @@ public class SelectDao extends BaseDao {
             subject.setSubjectName(rs.getString("subjectName"));
             subject.setCreateMessage(rs.getString("createMessage"));
             subject.setCreateTime(rs.getDate("createTime").toString());
-            subject.setGradeId(rs.getInt("gradeId"));
+            subject.setGradeName(rs.getString("gradeName"));
             list.add(subject);
         }
 
@@ -441,6 +449,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and subjectName like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -519,6 +528,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -556,9 +566,6 @@ public class SelectDao extends BaseDao {
         }
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
-        }
-        if (currentPage != 0) {
-            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
         sql += ";";
         rs = querySelect(sql);
@@ -612,6 +619,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -705,6 +713,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -797,6 +806,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }

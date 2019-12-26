@@ -17,6 +17,8 @@ public class SubjectBean {
     private String createTime;
     //年级Id
     private int gradeId;
+    //年级名
+    private String gradeName;
 
     public int getId() {
         return id;
@@ -64,5 +66,13 @@ public class SubjectBean {
 
     public void setGradeId(int gradeId) {
         this.gradeId = gradeId;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
     }
 }

@@ -32,6 +32,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -94,6 +95,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and name like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -153,6 +155,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and st.name like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -210,6 +213,7 @@ public class SelectDao extends BaseDao {
         if (!gradeId.isEmpty()) {
             sql += "and id='" + gradeId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -259,6 +263,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and className like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -312,6 +317,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and subjectName like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -435,7 +441,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubjectTeacher(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
-        String sql = "SELECT te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
+        String sql = "SELECT tec.id,te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
                 "left join Subject su on tec.subId=su.id " +
                 "inner join Teacher te on tec.tId=te.id " +
                 "inner join Class cl on tec.classId=cl.id " +
@@ -450,6 +456,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -462,6 +469,7 @@ public class SelectDao extends BaseDao {
 
         while (rs.next()) {
             TeacherBean teacher = new TeacherBean();
+            teacher.setId(rs.getInt("id"));
             teacher.setCode(rs.getString("code"));
             teacher.setName(rs.getString("name"));
             teacher.setSex(rs.getString("sex"));
@@ -543,6 +551,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -636,6 +645,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }
@@ -728,6 +738,7 @@ public class SelectDao extends BaseDao {
         if (subjectId != 0) {
             sql += "and su.id='" + subjectId + "' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }

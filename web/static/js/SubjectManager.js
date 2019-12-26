@@ -3,7 +3,7 @@
  *
  * **/
 
-/**NO.1科目添加与删除**/
+/**NO.1科目管理**/
 //预加载
 function Submanage() {
     var url = "/JavaWeb_SIMS_war_exploded/select";
@@ -115,8 +115,6 @@ function Tabsub(data) {
     sub=sub.data.list;
     subjectCode = parseInt(sub[sub.length - 1].subjectCode) + 1;
     if (data!=null) {
-    var grade = getgradsub(0);
-    var gradeid = grade.data.list;
         var text = "";
         text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
         text += "<thead><tr>";
@@ -133,11 +131,7 @@ function Tabsub(data) {
             text += "<td>" + data[i].subjectName + "</td>";
             text += "<td>" + data[i].createMessage + "</td>";
             text += "<td>" + data[i].createTime + "</td>";
-            for (var j = 0; j < gradeid.length; j++) {
-                if (gradeid[j].id == data[i].gradeId) {
-                    text += "<td>" + gradeid[j].gradeName + "</td>";
-                }
-            }
+            text += "<td>" + data[i].gradeName + "</td>";
             text += "<td>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
             text += " <button type=\"button\" class=\"layui-btn  layui-btn-sm  layui-btn-warm\" name=\"gradman\">年级管理</button>"
@@ -333,15 +327,6 @@ function Page(id, limit, count) {
     });
 }
 
-//刷新
-function Refresh() {
-    layui.use('form', function () {
-        var form = layui.form;
-        form.render();
-    });
-}
-
-
 //回调
 function Callback(Callback) {
     if (Callback.code == 1) {
@@ -358,5 +343,56 @@ function Callback(Callback) {
         });
 
     }
+}
 
+
+/**  科目与教师管理js   **/
+
+//预加载
+function Subteacher() {
+    var url = "/JavaWeb_SIMS_war_exploded/select";
+    var data = {"tableName": "Subject", "code": "", "name": "", "currentPage": 1};
+    var dataa = Ajax(url, data);
+    if (dataa.code == 1) {
+        tabsubt(dataa.data.list);
+        //Page1("test1", dataa.data.pageCount, dataa.data.dataCount);
+        Refresh()
+    }
+
+}
+
+//表格主体
+function tabsubt(data) {
+    var text = "";
+    text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
+    text += "<thead><tr>";
+    text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input  type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
+    text += "</div></th>"
+    text += "<th>科目编号</th><th>科目名称</th><th>所在年级</th><th>所在班级</th><th>班级当前教师</th><th>操作</th>";
+    text += "</tr></thead>";
+    text += "<tbody>";
+    for (var i = 0; i < data.length; i++) {
+        text += "<tr name=\'" + data[i].subjectCode + "\'>";
+        text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
+        text += "</div></td>"
+        text += "<td>" + data[i].subjectCode + "</td>";
+        text += "<td>" + data[i].subjectName + "</td>";
+        text += "<td>" + data[i].gradeName + "</td>";
+        text += "<td>" + data[i].className + "</td>";
+        text += "<td>" + data[i].teacherName + "</td>";
+        text += "<td>";
+        text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\" name=\"delete\">教师管理</button>";
+        text += "</td>";
+        text += "</tr>";
+        text += "</tbody>";
+        $("#subteatable").html(text);
+    }
+}
+
+//刷新
+function Refresh() {
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+    });
 }

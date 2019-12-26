@@ -9,9 +9,13 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ajaxfileupload.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/layui.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/layui/lay/modules/form.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/SubjectManager.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
+    <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
+
     <title>科目与教师管理</title>
 </head>
-<body>
+<body onload="Subteacher()">
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -30,100 +34,42 @@
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
-        <table class="layui-table" style="margin-top: 20px" id="table">
-            <thead>
-            <tr>
-                <th>科目编号</th>
-                <th>科目名称</th>
-                <th>所在年级</th>
-                <th>所在班级</th>
-                <th>科目当前教师</th>
-                <th style="text-align: center;">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>王富贵</td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td></td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>王富贵</td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>王富贵</td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>叶富贵</td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td></td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td></td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            <tr>
-                <td>1545321</td>
-                <td>语文</td>
-                <td>2018</td>
-                <td>01</td>
-                <td>王富贵</td>
-                <td style="text-align: center;">
-                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <!--              表格主体-->
+        <div id="LAY_preview" style="margin-top: 10px">
+            <div class="layui-table-tool">
+                <div class="layui-table-tool-temp">
+                    <div class="layui-inline" title="删除所有选中项" lay-event="delete" id="moveClassAll"><i
+                            class="layui-icon layui-icon-delete"></i></div>
+                </div>
+            </div>
+            <table class="layui-table" style="margin-top: 0px" id="subteatable">
+            </table>
+            <div id="test1"></div>
+        </div>
+<!--        <table class="layui-table" style="margin-top: 20px" id="table">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>科目编号</th>-->
+<!--                <th>科目名称</th>-->
+<!--                <th>所在年级</th>-->
+<!--                <th>所在班级</th>-->
+<!--                <th>科目当前教师</th>-->
+<!--                <th style="text-align: center;">操作</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>1545321</td>-->
+<!--                <td>语文</td>-->
+<!--                <td>2018</td>-->
+<!--                <td>01</td>-->
+<!--                <td>王富贵</td>-->
+<!--                <td style="text-align: center;">-->
+<!--                    <button type="button" class="layui-btn  layui-btn-sm">教师管理</button>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
     </div>
 </div>
 </body>

@@ -2,3 +2,6 @@ body .layui-table th,td{
     text-align: center;
     font-weight: 400;
 }
+body{
+    padding-top: 50px;
+}

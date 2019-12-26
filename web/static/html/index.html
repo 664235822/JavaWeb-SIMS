@@ -84,13 +84,14 @@
         //距离顶部
         var scrollTop = $(this).scrollTop();
         //文档高度
-        var scrollHeight = $(document).height();
+        var scrollHeight = $(".ifm").height();
         //当前盒子高度
         var windowHeight = $(this).height();
         if(scrollTop + windowHeight+5 > scrollHeight){
             $(".navbar-fixed-bottom").hide();
         }else {
             $(".navbar-fixed-bottom").show();
+            // alert("距顶部："+scrollTop+"ifm高度"+scrollHeight+"盒子高度"+windowHeight);
         }
     });
 </script>

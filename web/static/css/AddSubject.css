@@ -8,7 +8,6 @@ body .demo-class .layui-layer-content {
 body{
     min-height: 600px;
     padding-top: 50px;
-    padding-bottom: 50px;
 }
 .serchebox{
     margin-left:110px!important;

@@ -30,3 +30,6 @@ a{
     width: 100%;
     overflow: hidden;
 }
+.layui-nav-child dd{
+    cursor: pointer;
+}

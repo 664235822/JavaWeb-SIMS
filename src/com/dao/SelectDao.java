@@ -301,7 +301,11 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
-        String sql = "select * from Subject where 1=1 ";
+        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeName,te.name teacherName from Subject su" +
+                "left join TeacherClass tec on su.id=tec.subId " +
+                "left join Teacher te on tec.tId=te.id " +
+                "inner join Grade gr on su.gradeId=gr.id " +
+                "where 1=1 ";
         if (!code.isEmpty()) {
             sql += "and subjectCode like '%" + code + "%' ";
         }
@@ -325,7 +329,8 @@ public class SelectDao extends BaseDao {
             subject.setSubjectName(rs.getString("subjectName"));
             subject.setCreateMessage(rs.getString("createMessage"));
             subject.setCreateTime(rs.getDate("createTime").toString());
-            subject.setGradeId(rs.getInt("gradeId"));
+            subject.setGradeName(rs.getString("gradeName"));
+            subject.setTeacherName(rs.getString("teacherName"));
             list.add(subject);
         }
 
@@ -421,80 +426,6 @@ public class SelectDao extends BaseDao {
     }
 
     /*
-     * 获取教师科目信息
-     * @param code 查询科目编号
-     * @param name 查询科目名
-     * @param currentPage 当前页号
-     * @return BaseBean 返回教师科目信息
-     * @throws SQLException
-     */
-    public BaseBean selectTeacherClass(String code, String name, int currentPage) throws SQLException {
-        String sql = "select su.subjectCode,su.subjectName,gr.gradeName,cl.className,te.name from TeacherClass tec " +
-                "left join Subject su on tec.subId=su.id " +
-                "inner join Teacher te on tec.tId=te.id " +
-                "inner join Class cl on tec.classId=cl.id " +
-                "inner join Grade gr on cl.gradeId=gr.id " +
-                "where 1=1 ";
-        if (!code.isEmpty()) {
-            sql += "and subjectCode like '%" + code + "%' ";
-        }
-        if (!name.isEmpty()) {
-            sql += "and subjectName like '%" + name + "%' ";
-        }
-        if (currentPage != 0) {
-            sql += "limit " + (currentPage - 1) * 10 + ",10 ";
-        }
-        sql += ";";
-        ResultSet rs = querySelect(sql);
-
-        BaseBean result = new BaseBean();
-        TableBean table = new TableBean();
-        List<TeacherClassBean> list = new ArrayList<>();
-
-        while (rs.next()) {
-            TeacherClassBean teacherClass = new TeacherClassBean();
-            teacherClass.setSubjectCode(rs.getString("subjectCode"));
-            teacherClass.setSubjectName(rs.getString("subjectName"));
-            teacherClass.setGradeName(rs.getString("gradeName"));
-            teacherClass.setClassName(rs.getString("className"));
-            teacherClass.setTeacherName(rs.getString("name"));
-            list.add(teacherClass);
-        }
-
-        table.setList(list);
-
-        sql = "select count(*) as count from TeacherClass tec " +
-                "left join Subject su on tec.subId=su.id " +
-                "inner join Teacher te on tec.tId=te.id " +
-                "inner join Class cl on tec.classId=cl.id " +
-                "inner join Grade gr on cl.gradeId=gr.id " +
-                "where 1=1 ";
-        if (!code.isEmpty()) {
-            sql += "and subjectCode like '%" + code + "%' ";
-        }
-        if (!name.isEmpty()) {
-            sql += "and subjectName like '%" + name + "%' ";
-        }
-        sql += ";";
-        rs = querySelect(sql);
-        int dataCount = 0;
-        int pageCount = 0;
-        if (rs.next()) {
-            dataCount = rs.getInt("count");
-            pageCount = (dataCount + 10 - 1) / 10;
-        }
-        table.setDataCount(dataCount);
-        table.setPageCount(pageCount);
-
-        result.setCode(BaseBean.SUCCESS);
-        result.setData(table);
-        result.setMessage("查看教师科目信息成功");
-        destroy(rs);
-
-        return result;
-    }
-
-    /*
      * 查看科任老师信息
      * @param gradeId 年级编号
      * @param classId 班级编号
@@ -527,17 +458,17 @@ public class SelectDao extends BaseDao {
 
         BaseBean result = new BaseBean();
         TableBean table = new TableBean();
-        List<TeacherClassBean> list = new ArrayList<>();
+        List<TeacherBean> list = new ArrayList<>();
 
         while (rs.next()) {
-            TeacherClassBean teacherClass = new TeacherClassBean();
-            teacherClass.setTeacherCode(rs.getString("code"));
-            teacherClass.setTeacherName(rs.getString("name"));
-            teacherClass.setSex(rs.getString("sex"));
-            teacherClass.setSubjectName(rs.getString("subjectName"));
-            teacherClass.setEducation(rs.getString("education"));
-            teacherClass.setAge(rs.getInt("age"));
-            list.add(teacherClass);
+            TeacherBean teacher = new TeacherBean();
+            teacher.setCode(rs.getString("code"));
+            teacher.setName(rs.getString("name"));
+            teacher.setSex(rs.getString("sex"));
+            teacher.setEducation(rs.getString("education"));
+            teacher.setAge(rs.getInt("age"));
+            teacher.setSubjectName(rs.getString("subjectName"));
+            list.add(teacher);
         }
 
         table.setList(list);

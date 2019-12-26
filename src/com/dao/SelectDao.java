@@ -301,7 +301,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
-        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeName,te.name teacherName from Subject su" +
+        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeName,te.name teacherName from Subject su " +
                 "left join TeacherClass tec on su.id=tec.subId " +
                 "left join Teacher te on tec.tId=te.id " +
                 "inner join Grade gr on su.gradeId=gr.id " +

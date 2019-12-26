@@ -505,7 +505,7 @@ public class SelectDao extends BaseDao {
      */
     public BaseBean selectSubjectTeacher(int gradeId, int classId, int subjectId, int currentPage) throws SQLException {
         String sql = "SELECT te.code,te.name,te.sex,su.subjectName,te.education,te.age FROM TeacherClass tec " +
-                "left join Subject su on tec.subId=su.id " +
+                "inner join Subject su on tec.subId=su.id " +
                 "inner join Teacher te on tec.tId=te.id " +
                 "inner join Class cl on tec.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
@@ -543,7 +543,7 @@ public class SelectDao extends BaseDao {
         table.setList(list);
 
         sql = "select count(*) as count from TeacherClass tec " +
-                "left join Subject su on tec.subId=su.id " +
+                "inner join Subject su on tec.subId=su.id " +
                 "inner join Teacher te on tec.tId=te.id " +
                 "inner join Class cl on tec.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +

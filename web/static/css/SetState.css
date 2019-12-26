@@ -5,3 +5,12 @@ body .layui-table th,td{
 body{
     padding-top: 50px!important;
 }
+.layui-tab {
+     margin:  0!important;
+}
+.layui-table{
+     margin: 0!important;
+}
+.layui-tab-content {
+    padding: 0px!important;
+}

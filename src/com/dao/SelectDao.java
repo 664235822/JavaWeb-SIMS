@@ -748,7 +748,7 @@ public class SelectDao extends BaseDao {
             attendance.setClassName(rs.getString("className"));
             attendance.setSubjectName(rs.getString("subjectName"));
             attendance.setType(rs.getString("AttendanceType"));
-            attendance.setName(rs.getDate("AttendanceTime").toString());
+            attendance.setTime(rs.getDate("AttendanceTime").toString());
 
             list.add(attendance);
         }

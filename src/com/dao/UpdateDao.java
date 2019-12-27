@@ -30,6 +30,7 @@ public class UpdateDao extends BaseDao {
                 "phone='" + teacherInfo.getPhone() + "'," +
                 "QQ='" + teacherInfo.getQQ() + "'," +
                 "email='" + teacherInfo.getEmail() + "'," +
+                "address='" + teacherInfo.getAddress() + "'," +
                 "introduction='" + teacherInfo.getIntroduction() + "' " +
                 "where code='" + teacherInfo.getCode() + "';";
 

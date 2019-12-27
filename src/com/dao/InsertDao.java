@@ -2,6 +2,7 @@ package com.dao;
 
 import com.entity.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -103,11 +104,20 @@ public class InsertDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void insertGrade(GradeBean info) throws SQLException, MyException {
+        String sql = "select gradeCode from Grade order by id desc;";
+        ResultSet rs = querySelect(sql);
+        int gradeCode = 0;
+        if (rs.next()) {
+            gradeCode = rs.getInt("gradeCode");
+        }
+        gradeCode++;
+
         StringBuffer values = new StringBuffer();
+        values.append("'" + gradeCode + "'").append(",");
         values.append("'" + info.getGradeName() + "'").append(",");
         values.append("'" + info.getCreateMessage() + "'");
 
-        String sql = "insert into Grade (gradeName,createMessage) values (" + values.toString() + ");";
+        String sql = "insert into Grade (gradeCode,gradeName,createMessage) values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);

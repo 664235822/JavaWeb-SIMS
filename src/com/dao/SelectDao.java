@@ -407,7 +407,6 @@ public class SelectDao extends BaseDao {
                 for (int j = 0; j < list.get(i).getClasses().size(); j++) {
                     if (rs.getInt("classId") == list.get(i).getClasses().get(j).getId()) {
                         TeacherClassBean teacherClass = new TeacherClassBean();
-                        teacherClass.setGradeId(list.get(i).getId());
                         teacherClass.setClassId(list.get(i).getClasses().get(j).getId());
                         teacherClass.setSubjectId(rs.getInt("subId"));
 
@@ -419,14 +418,13 @@ public class SelectDao extends BaseDao {
         }
 
         for (TeacherClassBean teacherClass : teacherClassList) {
-            sql = "select * from Subject where id='" + teacherClass.getSubjectId() + "' and gradeId='" + teacherClass.getGradeId() + "';";
+            sql = "select * from Subject where id='" + teacherClass.getSubjectId() + "';";
             rs = querySelect(sql);
 
             while (rs.next()) {
                 for (int i = 0; i < list.size(); i++) {
                     for (int j = 0; j < list.get(i).getClasses().size(); j++) {
-                        if (list.get(i).getId() == teacherClass.getGradeId() &&
-                                list.get(i).getClasses().get(j).getId() == teacherClass.getClassId()) {
+                        if (list.get(i).getClasses().get(j).getId() == teacherClass.getClassId()) {
                             SubjectBean subject = new SubjectBean();
                             subject.setId(rs.getInt("id"));
                             subject.setSubjectCode(rs.getString("subjectCode"));

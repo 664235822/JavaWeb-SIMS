@@ -55,10 +55,6 @@ public class UpdateService {
                 SubjectBean subjectInfo = JSON.parseObject(info, SubjectBean.class);
                 updateDao.updateSubject(subjectInfo);
                 break;
-            case "SubjectTeacher":
-                TeacherClassBean teacherClassInfo = JSON.parseObject(info, TeacherClassBean.class);
-                updateDao.updateSubjectTeacher(teacherClassInfo);
-                break;
         }
     }
 }

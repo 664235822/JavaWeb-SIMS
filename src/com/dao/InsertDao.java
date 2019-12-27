@@ -83,20 +83,30 @@ public class InsertDao extends BaseDao {
     }
 
     /*
-     * 添加教师班级科目联系
-     * @param info 要分配的教师科目联系信息
+     * 给科目分配老师
+     * @param info 要分配的教师科目信息
      * @throws SQLException, MyException
      */
     public void insertTeacherClass(TeacherClassBean info) throws SQLException, MyException {
+        String sql = "select id from Teacher " +
+                "where tId='" + info.getTeacherId() + "' " +
+                "and classId='" + info.getClassId() + "' " +
+                "and subId is null;";
+        ResultSet rs = querySelect(sql);
+        while (rs.next()) {
+            sql = "delete from TeacherClass where id='" + rs.getInt("id") + "';";
+            queryUpdate(sql);
+        }
+
         StringBuffer values = new StringBuffer();
         values.append("'" + info.getTeacherId() + "'").append(",");
         values.append("'" + info.getClassId() + "'").append(",");
         values.append("'" + info.getSubjectId() + "'");
 
-        String sql = "insert into TeacherClass (tId,classId,subId) values (" + values.toString() + ");";
+        sql = "insert into TeacherClass (tId,classId,subId) values (" + values.toString() + ");";
         queryUpdate(sql);
 
-        destroy(null);
+        destroy(rs);
     }
 
     /*

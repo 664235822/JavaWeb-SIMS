@@ -159,19 +159,4 @@ public class UpdateDao extends BaseDao {
 
         destroy(null);
     }
-
-    /*
-     * 更新科目教师
-     * @param 要更新的科目信息
-     * @throws SQLException, MyException
-     */
-    public void updateSubjectTeacher(TeacherClassBean teacherClassInfo) throws SQLException, MyException {
-        String sql = "update TeacherClass " +
-                "set tId='" + teacherClassInfo.getTeacherId() + "' " +
-                "where id='" + teacherClassInfo.getId() + "';";
-
-        queryUpdate(sql);
-
-        destroy(null);
-    }
 }

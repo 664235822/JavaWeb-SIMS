@@ -306,7 +306,7 @@ public class SelectDao extends BaseDao {
      * @throws SQLException
      */
     public BaseBean selectSubject(String code, String name, int currentPage) throws SQLException {
-        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeName from Subject su " +
+        String sql = "select su.id,su.subjectCode,su.subjectName,su.createMessage,su.createTime,gr.gradeId,gr.gradeName from Subject su " +
                 "inner join Grade gr on su.gradeId=gr.id " +
                 "where 1=1 ";
         if (!code.isEmpty()) {
@@ -332,6 +332,7 @@ public class SelectDao extends BaseDao {
             subject.setSubjectName(rs.getString("subjectName"));
             subject.setCreateMessage(rs.getString("createMessage"));
             subject.setCreateTime(rs.getDate("createTime").toString());
+            subject.setGradeId(rs.getInt("gradeId"));
             subject.setGradeName(rs.getString("gradeName"));
             list.add(subject);
         }

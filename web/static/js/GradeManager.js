@@ -93,10 +93,10 @@ function ClassPage(count) {
 //回调功能
 function Callback(Callback) {
     if (Callback.code == 1) {
-        var grande = getGrade();
+        var grande = getGrade(0);
         GradeTable(grande);
         Refresh();
-        Page("test1", "",);
+        Page("test1", grande.data.grande, grande.data.dataCount);
         gradeFunction();
         layer.msg(Callback.message, {
             icon: 1

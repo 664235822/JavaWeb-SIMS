@@ -21,7 +21,7 @@ function Submanage() {
 //获取科目
 function getsub(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
-    var data = Ajax(url, {'tableName': 'Subject',"code": "", "name": "", 'currentPage': page});
+    var data = Ajax(url, {'tableName': 'Subject', "code": "", "name": "", 'currentPage': page});
     return data;
 }
 
@@ -47,7 +47,7 @@ function Addsub() {
                 , shade: [0.1, '#ffffff']
                 , title: ['添加科目', 'color:#ffffff;background-color:#009688;']
                 , content: text
-                ,skin: 'demo-class'
+                , skin: 'demo-class'
                 , area: '330px'
                 , btn: ['提交', '取消']
                 , yes: function (index) {
@@ -111,10 +111,10 @@ function gradesub() {
 var subjectCode = 0;
 
 function Tabsub(data) {
-    var sub=getsub(0);
-    sub=sub.data.list;
+    var sub = getsub(0);
+    sub = sub.data.list;
     subjectCode = parseInt(sub[sub.length - 1].subjectCode) + 1;
-    if (data!=null) {
+    if (data != null) {
         var text = "";
         text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
         text += "<thead><tr>";
@@ -245,42 +245,43 @@ function DeleteEnd(Delete) {
         });
     }
 }
+
 //年级管理
 function gradesmana(codeList) {
-    var gradId=-1;
-        var text = "";
-        text += " <div class=\"layui-form\">";
-        text += "<select name=\"city\"  lay-filter=\"test\">";
-        text += "  <option value=\"\">请选择年级</option>";
-        text += gradesub();
-        text += "</select>";
-        text += "    </div>";
-        layer.open({
-            anim: 1,
-            shade: [0.1, '#ffffff'],
-            title: ['更改年级', 'color:#ffffff;background-color:#009688;'],
-            btn: ['确定', '取消'],
-            content: text,
-            skin: 'demo-class',
-            shade: [0.1, '#ffffff'],
-            yes:function (index) {
-                var data = {};
-                var list = new Array;
-                for (var i = 0; i < codeList.length; i++) {
-                    var info={};
-                    info.gradeId=gradId;
-                    info.subjectCode=codeList[i];
-                    list.push(info);
-                }
-                var url = "/JavaWeb_SIMS_war_exploded/update";
-                data.tableName= "SubjectId";
-                data.info=JSON.stringify(list);
-                var table=Ajax(url,data);
-                Callback(table);
-                Refresh();
-                layer.close(index);
+    var gradId = -1;
+    var text = "";
+    text += " <div class=\"layui-form\">";
+    text += "<select name=\"city\"  lay-filter=\"test\">";
+    text += "  <option value=\"\">请选择年级</option>";
+    text += gradesub();
+    text += "</select>";
+    text += "    </div>";
+    layer.open({
+        anim: 1,
+        shade: [0.1, '#ffffff'],
+        title: ['更改年级', 'color:#ffffff;background-color:#009688;'],
+        btn: ['确定', '取消'],
+        content: text,
+        skin: 'demo-class',
+        shade: [0.1, '#ffffff'],
+        yes: function (index) {
+            var data = {};
+            var list = new Array;
+            for (var i = 0; i < codeList.length; i++) {
+                var info = {};
+                info.gradeId = gradId;
+                info.subjectCode = codeList[i];
+                list.push(info);
             }
-        });
+            var url = "/JavaWeb_SIMS_war_exploded/update";
+            data.tableName = "SubjectId";
+            data.info = JSON.stringify(list);
+            var table = Ajax(url, data);
+            Callback(table);
+            Refresh();
+            layer.close(index);
+        }
+    });
     layui.use('form', function () {
         var form = layui.form;
         form.render();
@@ -367,11 +368,7 @@ function tabsubt(data) {
         text += "<td>" + data[i].subjectCode + "</td>";
         text += "<td>" + data[i].subjectName + "</td>";
         text += "<td>" + data[i].gradeName + "</td>";
-        if (data[i].name==undefined){
-            text += "<td>暂未分配</td>";
-        }else {
-            text += "<td>" + data[i].name + "</td>";
-        }
+        text += "<td>" + data[i].teacherName + "</td>";
         text += "<td name=\'" + data[i].id + "\'>";
         text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm\" name=\"teaman\">教师管理</button>";
         text += "</td>";
@@ -380,6 +377,7 @@ function tabsubt(data) {
         $("#subteatable").html(text);
     }
 }
+
 //表格操作
 function Teachmang() {
     //单个操作
@@ -388,30 +386,36 @@ function Teachmang() {
             var subid = $(this).parent().attr('name');
             var codeList = new Array();
             codeList[0] = subid;
-            var tong =  $(this).parent().siblings("td").eq(3).text();
-            teachmag(codeList,tong);
+            var tong = $(this).parent().siblings("td").eq(3).text();
+            teachmag(codeList, tong);
         }
     })
 }
 
 //添加教师或更改教师(中转)
-function teachmag(codeList,tong) {
-    if (tong=="暂未分配"){
+function teachmag(codeList, tong) {
+    if (tong == "暂未分配") {
         //添加教师
         Addteach(codeList);
-    }else {
+    } else {
         //修改教师
         updateteach();
     }
 }
 
-var teid=0;
+var teid = 0;
+
 //添加教师弹出层
 function Addteach(codeList) {
-    var TeachAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "Teacher",  "name": "", "code":"",'currentPage': 0});
+    var TeachAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {
+        'tableName': "Teacher",
+        "name": "",
+        "code": "",
+        'currentPage': 0
+    });
     var text = "";
     text += " <div class=\"layui-form\">";
-    text +=" <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"教师编号(选中后显示)\" autocomplete=\"off\" class=\"layui-input\">"
+    text += " <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"教师编号(选中后显示)\" autocomplete=\"off\" class=\"layui-input\">"
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "  <option value=\"\">请选择教师</option>";
     text += teasub();
@@ -444,11 +448,11 @@ function Addteach(codeList) {
         form.render();
         form.on('select(test)', function (data) {
             tid = data.value;
-            var num=0;
+            var num = 0;
             for (var i = 0; i < TeachAll.data.list.length; i++) {
                 if (TeachAll.data.list[i].id == tid) {
-                    num =TeachAll.data.list[i].code;
-                    teid=TeachAll.data.list[i].id;
+                    num = TeachAll.data.list[i].code;
+                    teid = TeachAll.data.list[i].id;
                     $("#MoveGradeId").val(num);
                     break;
                 }
@@ -467,23 +471,23 @@ function updateteach() {
 //获取教师
 function getteasub(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
-    var data = Ajax(url, {'tableName': 'Teacher', "name": "", "code":"",'currentPage': page});
+    var data = Ajax(url, {'tableName': 'Teacher', "name": "", "code": "", 'currentPage': page});
     return data;
 };
 
 //教师下拉框
 function teasub() {
     //年级下拉框
-        var grade = getteasub(0);
-        var svrt = "";
-        if (grade.code == 1) {
-            var list = grade.data.list;
-            for (var i = 0; i < list.length; i++) {
-                svrt += " <option value=\"" + list[i].id + "\" >";
-                svrt += list[i].name + "</option>";
-            }
+    var grade = getteasub(0);
+    var svrt = "";
+    if (grade.code == 1) {
+        var list = grade.data.list;
+        for (var i = 0; i < list.length; i++) {
+            svrt += " <option value=\"" + list[i].id + "\" >";
+            svrt += list[i].name + "</option>";
         }
-        return svrt;
+    }
+    return svrt;
 }
 
 //回调
@@ -509,7 +513,7 @@ function TCallback(Callback) {
 //预加载
 function showteachifo() {
     var url = "/JavaWeb_SIMS_war_exploded/select";
-    var data = {"tableName": "SubjectTeacher", "gradeId": 0, "classId": 0,"subjectId":0, "currentPage": 1};
+    var data = {"tableName": "SubjectTeacher", "gradeId": 0, "classId": 0, "subjectId": 0, "currentPage": 1};
     var dataa = Ajax(url, data);
     if (dataa.code == 1) {
         tabteainfo(dataa.data.list);
@@ -517,6 +521,7 @@ function showteachifo() {
         Refresh();
     }
 }
+
 //表格主体
 function tabteainfo(data) {
     var text = "";
@@ -529,9 +534,9 @@ function tabteainfo(data) {
         text += "<td>" + data[i].code + "</td>";
         text += "<td>" + data[i].name + "</td>";
         text += "<td>" + data[i].sex + "</td>";
-        text += "<td>" + data[i].subjectName+ "</td>";
+        text += "<td>" + data[i].subjectName + "</td>";
         text += "<td>" + data[i].education + "</td>";
-        text += "<td>" + data[i]. age + "</td>";
+        text += "<td>" + data[i].age + "</td>";
         text += "</tr>";
         text += "</tbody>";
         $("#subteatable").html(text);
@@ -552,7 +557,13 @@ function Page2(id, limit, count) {
                 //首次不执行
                 if (!first) {
                     var name = $("#sous").val();
-                    var data = {"tableName": "SubjectTeacher", "gradeId": 0, "classId": 0,"subjectId":0, "currentPage": obj.curr};
+                    var data = {
+                        "tableName": "SubjectTeacher",
+                        "gradeId": 0,
+                        "classId": 0,
+                        "subjectId": 0,
+                        "currentPage": obj.curr
+                    };
                     var table = getPage(data);
                     if (table.code == 1) {
                         tabteainfo(dataa.data.list);
@@ -564,6 +575,7 @@ function Page2(id, limit, count) {
         });
     });
 }
+
 //内联搜索
 function checktab() {
 

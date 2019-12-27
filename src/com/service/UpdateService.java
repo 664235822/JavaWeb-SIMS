@@ -43,6 +43,10 @@ public class UpdateService {
                 List<SubjectBean> subjectList = JSON.parseArray(info, SubjectBean.class);
                 updateDao.updateSubjectId(subjectList);
                 break;
+            case "AttendanceType":
+                List<AttendanceBean> attendanceList = JSON.parseArray(info, AttendanceBean.class);
+                updateDao.updateAttendanceType(attendanceList);
+                break;
             case "Class":
                 ClassBean classInfo = JSON.parseObject(info, ClassBean.class);
                 updateDao.updateClass(classInfo);

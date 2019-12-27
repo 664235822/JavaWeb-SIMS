@@ -2,7 +2,6 @@ package com.dao;
 
 import com.entity.*;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -96,7 +95,7 @@ public class UpdateDao extends BaseDao {
 
     /*
      * 科目转年级
-     * @param classList 要转班的科目信息列表
+     * @param gradeList 要转年级的科目信息列表
      * @throws SQLException, MyException
      */
     public void updateSubjectId(List<SubjectBean> gradeList) throws SQLException, MyException {
@@ -104,6 +103,23 @@ public class UpdateDao extends BaseDao {
             String sql = "update Subject " +
                     "set gradeId='" + gradeList.get(i).getGradeId() + "' " +
                     "where subjectCode='" + gradeList.get(i).getSubjectCode() + "';";
+
+            queryUpdate(sql);
+        }
+
+        destroy(null);
+    }
+
+    /*
+     * 更新考勤状态
+     * @param attendanceList 要更新的考勤信息列表
+     * @throws SQLException, MyException
+     */
+    public void updateAttendanceType(List<AttendanceBean> attendanceList) throws SQLException, MyException {
+        for (int i = 0; i < attendanceList.size(); i++) {
+            String sql = "update Attendance " +
+                    "set AttendanceType='" + attendanceList.get(i).getType() + "' " +
+                    "where id='" + attendanceList.get(i).getId() + "';";
 
             queryUpdate(sql);
         }

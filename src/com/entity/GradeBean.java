@@ -19,8 +19,6 @@ public class GradeBean {
     private String createTime;
     //班级列表
     private List<ClassBean> classes;
-    //科目列表
-    private List<SubjectBean> subjects;
 
     public int getId() {
         return id;
@@ -68,13 +66,5 @@ public class GradeBean {
 
     public void setClasses(List<ClassBean> classes) {
         this.classes = classes;
-    }
-
-    public List<SubjectBean> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<SubjectBean> subjects) {
-        this.subjects = subjects;
     }
 }

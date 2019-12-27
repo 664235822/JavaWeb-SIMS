@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.List;
+
 /*
  * 班级信息实体类
  */
@@ -17,6 +19,8 @@ public class ClassBean {
     private String createTime;
     //年级Id
     private int gradeId;
+    //科目列表
+    private List<SubjectBean> subjects;
 
     public int getId() {
         return id;
@@ -64,5 +68,13 @@ public class ClassBean {
 
     public void setGradeId(int gradeId) {
         this.gradeId = gradeId;
+    }
+
+    public List<SubjectBean> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<SubjectBean> subjects) {
+        this.subjects = subjects;
     }
 }

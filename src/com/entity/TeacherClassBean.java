@@ -13,6 +13,8 @@ public class TeacherClassBean {
     private int classId;
     //科目id
     private int subjectId;
+    //年级id
+    private int gradeId;
     //科目编号
     private String subjectCode;
     //科目名称
@@ -54,6 +56,14 @@ public class TeacherClassBean {
 
     public void setClassId(int classId) {
         this.classId = classId;
+    }
+
+    public int getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
     }
 
     public int getSubjectId() {

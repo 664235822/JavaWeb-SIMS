@@ -371,7 +371,6 @@ public class SelectDao extends BaseDao {
                 grade.setGradeCode(rs.getString("gradeCode"));
                 grade.setGradeName(rs.getString("gradeName"));
                 grade.setClasses(new ArrayList<>());
-                grade.setSubjects(new ArrayList<>());
 
                 list.add(grade);
             }
@@ -392,30 +391,50 @@ public class SelectDao extends BaseDao {
                     _class.setId(rs.getInt("id"));
                     _class.setClassCode(rs.getString("classCode"));
                     _class.setClassName(rs.getString("className"));
+                    _class.setSubjects(new ArrayList<>());
 
                     list.get(i).getClasses().add(_class);
                 }
             }
         }
 
-        sql = "select * from Subject;";
+        sql = "select * from TeacherClass;";
         rs = querySelect(sql);
 
-        gradeId = 0;
+        List<TeacherClassBean> teacherClassList = new ArrayList<>();
         while (rs.next()) {
-            if (rs.getInt("gradeId") != gradeId) {
-                gradeId = rs.getInt("gradeId");
-            }
-
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getId() == gradeId) {
+                for (int j = 0; j < list.get(i).getClasses().size(); j++) {
+                    if (rs.getInt("classId") == list.get(i).getClasses().get(j).getId()) {
+                        TeacherClassBean teacherClass = new TeacherClassBean();
+                        teacherClass.setGradeId(list.get(i).getId());
+                        teacherClass.setClassId(list.get(i).getClasses().get(j).getId());
+                        teacherClass.setSubjectId(rs.getInt("subId"));
 
-                    SubjectBean subject = new SubjectBean();
-                    subject.setId(rs.getInt("id"));
-                    subject.setSubjectCode(rs.getString("subjectCode"));
-                    subject.setSubjectName(rs.getString("subjectName"));
+                        teacherClassList.add(teacherClass);
+                        break;
+                    }
+                }
+            }
+        }
 
-                    list.get(i).getSubjects().add(subject);
+        for (TeacherClassBean teacherClass : teacherClassList) {
+            sql = "select * from Subject where id='" + teacherClass.getSubjectId() + "' and gradeId='" + teacherClass.getGradeId() + "';";
+            rs = querySelect(sql);
+
+            while (rs.next()) {
+                for (int i = 0; i < list.size(); i++) {
+                    for (int j = 0; j < list.get(i).getClasses().size(); j++) {
+                        if (list.get(i).getId() == teacherClass.getGradeId() &&
+                                list.get(i).getClasses().get(j).getId() == teacherClass.getClassId()) {
+                            SubjectBean subject = new SubjectBean();
+                            subject.setId(rs.getInt("id"));
+                            subject.setSubjectCode(rs.getString("subjectCode"));
+                            subject.setSubjectName(rs.getString("subjectName"));
+
+                            list.get(i).getClasses().get(j).getSubjects().add(subject);
+                        }
+                    }
                 }
             }
         }
@@ -423,6 +442,7 @@ public class SelectDao extends BaseDao {
         result.setCode(BaseBean.SUCCESS);
         result.setData(list);
         result.setMessage("获取年级班级科目信息成功");
+
         destroy(rs);
 
         return result;
@@ -704,7 +724,8 @@ public class SelectDao extends BaseDao {
         String sql = "select st.id,su.id subjectId,gr.gradeName,cl.className,st.code,st.name,su.subjectName from Student st " +
                 "inner join Class cl on st.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
-                "inner join Subject su on su.gradeId=gr.id " +
+                "inner join TeacherClass tec on tec.classId=cl.id " +
+                "inner join Subject su on tec.subId=su.id " +
                 "where 1=1 ";
         if (gradeId != 0) {
             sql += "and gr.id='" + gradeId + "' ";
@@ -744,7 +765,8 @@ public class SelectDao extends BaseDao {
         sql = "select count(*) as count from Student st " +
                 "inner join Class cl on st.classId=cl.id " +
                 "inner join Grade gr on cl.gradeId=gr.id " +
-                "inner join Subject su on su.gradeId=gr.id " +
+                "inner join TeacherClass tec on tec.classId=cl.id " +
+                "inner join Subject su on tec.subId=su.id " +
                 "where 1=1 ";
         if (gradeId != 0) {
             sql += "and gr.id='" + gradeId + "' ";

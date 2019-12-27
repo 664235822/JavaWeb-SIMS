@@ -1,6 +1,8 @@
 /**
  * 年级管理js
  * **/
+//分页区分表格
+var tableName="";
 //查看班级初始化
 function ShowClass() {
     var grade = getGrade(0);
@@ -8,11 +10,11 @@ function ShowClass() {
     if (Class.code == 1) {
         ClassTable(grade.data.list, Class.data.list);
         Refresh();
+        tableName="showTable";
         Page("test1", Class.data.pageCount, Class.data.dataCount);
         ClassFunction();
     }
 }
-var tableName="";
 //新增班级
 function ClassInfo() {
     var grade = getGrade(0);
@@ -20,6 +22,7 @@ function ClassInfo() {
     if (Class.code == 1) {
         AddClassTable(grade.data.list, Class.data.list);
         Refresh();
+        tableName="addTable";
         Page("test1", Class.data.pageCount, Class.data.dataCount);
         AddClass(Class);
     }
@@ -358,7 +361,12 @@ function Page(id, limit, count) {
                     var grade = getGrade(0);
                     var Class = getClass(obj.curr,code,name);
                     if (Class.code == 1) {
-                        ClassTable(grade.data.list, Class.data.list);
+                        if(tableName=="showTable"){
+                            ClassTable(grade.data.list, Class.data.list);
+                        }
+                        if(tableName=="addTable"){
+                            AddClassTable(grade.data.list, Class.data.list);
+                        }
                         Refresh();
                         ClassFunction();
                     }

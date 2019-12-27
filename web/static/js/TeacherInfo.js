@@ -99,7 +99,7 @@ layui.use(['form'], function () {
         var Menu = Ajax(url, data);
         if (Menu.code == 1) {
             //成功的
-            layer.msg(Menu.message, {
+            parent.layer.msg(Menu.message, {
                 icon: 1
                 , time: 2000
             });
@@ -107,7 +107,7 @@ layui.use(['form'], function () {
             parent.layer.close(index); //再执行关闭
             parent.$("#Select").click();
         } else {
-            layer.msg(Menu.message, {
+            parent.layer.msg(Menu.message, {
                 icon: 5
                 , anim: 6
                 , time: 2000

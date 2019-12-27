@@ -104,11 +104,10 @@ public class InsertDao extends BaseDao {
      */
     public void insertGrade(GradeBean info) throws SQLException, MyException {
         StringBuffer values = new StringBuffer();
-        values.append("'" + info.getGradeCode() + "'").append(",");
         values.append("'" + info.getGradeName() + "'").append(",");
         values.append("'" + info.getCreateMessage() + "'");
 
-        String sql = "insert into Grade (gradeCode,gradeName,createMessage) values (" + values.toString() + ");";
+        String sql = "insert into Grade (gradeName,createMessage) values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);

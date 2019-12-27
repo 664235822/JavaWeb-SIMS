@@ -8,11 +8,12 @@ var SubjectsId = 0;
 var gradeId = 0;
 var code = "";
 var name = "";
+
 //查看考勤列表
 function showAttendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
-    var data=Data();
+    var data = Data();
     var table = getPage(data);
     if (table.code == 1) {
         AttendanceTable(table.data.list);
@@ -22,6 +23,7 @@ function showAttendance() {
     }
 
 }
+
 /**
  * 权限区分
  *
@@ -75,6 +77,7 @@ function Admin() {
         GetGrades();
     }
 }
+
 function Data() {
     var data = {
         "tableName": "Attendance",
@@ -87,29 +90,119 @@ function Data() {
     };
     return data;
 }
+
 function AttendanceFunction() {
-    $(function () {
-        //查询
-        $("#Select").click(function () {
-            code = $("#code").val();
-            name = $("#name").val();
-            var data=Data();
-            var table = getPage(data);
-            if (table.code == 1) {
-                AttendanceTable(table.data.list);
-                Refresh();
-                Page("test1", table.data.pageCount, table.data.dataCount);
-                AttendanceFunction();
-            }
+    //查询
+    $("#Select").click(function () {
+        code = $("#code").val();
+        name = $("#name").val();
+        var data = Data();
+        var table = getPage(data);
+        if (table.code == 1) {
+            AttendanceTable(table.data.list);
+            Refresh();
+            Page("test1", table.data.pageCount, table.data.dataCount);
+            AttendanceFunction();
+        }
+    });
+    //全选
+    $("#allChoose").click(function () {
+        if ($("#allChoose>input").is(':checked')) {
+            $("input[name=checkbox]").prop("checked", true);
+        } else {
+            $("input[name=checkbox]").prop("checked", false);
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+            form.render();
         });
     });
+    //单个操作
+        $("table tbody").find("button[name]").click(function () {
+            var id = $(this).parent().parent().attr('name');
+            if ($(this).attr("name") == "modify") {
+                var codeList = new Array();
+                codeList[0] = id;
+                AttendanceMove(codeList);
+            }
+
+        });
+    //批量操作
+        $("#moveClassAll").click(function () {
+            var codeList = new Array();
+            var num = 0;
+            $("input[name=checkbox]:checked").each(function () {
+                codeList[num] = $(this).parent().parent().parent().attr('name');
+                num++;
+            });
+            if (codeList.length == 0) {
+                layer.msg("请选择", {
+                    icon: 5
+                    , anim: 6
+                    , time: 1000
+                });
+            } else {
+                AttendanceMove(codeList);
+            }
+        });
 }
+
+
+//更改考勤操作
+function AttendanceMove(codeList) {
+    var Attendance = 0;
+    var text = "";
+    text += " <div class=\"layui-form\">";
+    text += "<select name=\"city\"  lay-filter=\"test\">";
+    text += "  <option value=\"\">请选择</option>";
+    text += "  <option value=\"1\">签到</option>";
+    text += "  <option value=\"2\">迟到</option>";
+    text += "  <option value=\"3\">缺勤</option>";
+    text += "    </div>";
+    layer.open({
+        title: '考勤管理',
+        btn: ['确定', '取消'],
+        content: text,
+        skin: 'demo-class',
+        btnAlign: 'c',
+        move: false,
+        shade: [0.1, '#ffffff'],
+        yes: function (index) {
+            var list = new Array;
+            var obj = {};
+            var data = {};
+            for (var i = 0; i < codeList.length; i++) {
+                obj.code = codeList[i];
+                obj.classId = Attendance;
+                list.push(obj);
+            }
+            // var url = "/JavaWeb_SIMS_war_exploded/update";
+            // data.tableName = "ClassId";
+            // data.info = JSON.stringify(list);
+            // var table = Ajax(url, data);
+            MoveEnd(table);
+            layer.close(index);
+        }
+
+    });
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('select(test)', function (data) {
+            Attendance = data.value;
+        });
+    });
+
+
+}
+
 //获取页面
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var table = Ajax(url, data);
     return table;
 }
+
 //获取下拉框
 function GetGrades() {
     var text = Grade();
@@ -121,8 +214,8 @@ function GetGrades() {
             gradeId = data.value;
             var text = MoveClass();
             $("#Class").html(text);
-            if(gradeId==""){
-                classId="";
+            if (gradeId == "") {
+                classId = "";
             }
             var text = Subjects();
             $("#Subjects").html(text);
@@ -139,6 +232,7 @@ function GetGrades() {
         });
     })
 }
+
 //科目下拉框
 function Subjects() {
     var text = "";
@@ -192,6 +286,7 @@ function Grade() {
     }
     return text;
 }
+
 //分页
 function Page(id, limit, count) {
     layui.use('laypage', function () {
@@ -228,6 +323,7 @@ function Page(id, limit, count) {
         });
     });
 }
+
 //返回考勤表格
 function AttendanceTable(data) {
     if (data != null) {
@@ -240,7 +336,7 @@ function AttendanceTable(data) {
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {
-            text += "<tr name=\'" + data[i].id+ "\'>";
+            text += "<tr name=\'" + data[i].id + "\'>";
             text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
             text += "</div></td>"
             text += "<td>" + data[i].gradeName + "</td>";

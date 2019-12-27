@@ -101,17 +101,20 @@ layui.use(['form'], function () {
             //成功的
             layer.msg(Menu.message, {
                 icon: 1
-                , time: 1000
+                , time: 2000
             });
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+            parent.$("#Select").click();
         } else {
             layer.msg(Menu.message, {
                 icon: 5
                 , anim: 6
-                , time: 1000
+                , time: 2000
             });
 
         }
-        ShowTeachers();
+
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
     function Serch(id) {

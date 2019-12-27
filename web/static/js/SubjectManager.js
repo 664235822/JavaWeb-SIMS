@@ -398,17 +398,9 @@ function tabteainfo(data) {
     text += "</tr></thead>";
     text += "<tbody>";
     for (var i = 0; i < data.length; i++) {
-        text += "<tr name=\'" + data[i].id + "\'>";
-        if(data[i].code ==undefined){
-            text += "<td>暂未分配</td>";
-        }else {
-            text += "<td>" + data[i].code + "</td>";
-        }
-        if (data[i].name==undefined){
-            text += "<td>暂未分配</td>";
-        }else {
-            text += "<td>" + data[i].name + "</td>";
-        }
+        text += "<tr name=\'" + data[i].teacherId + "\'>";
+        text += "<td>" + data[i].code + "</td>";
+        text += "<td>" + data[i].name + "</td>";
         text += "<td>" + data[i].sex + "</td>";
         text += "<td>" + data[i].subjectName+ "</td>";
         text += "<td>" + data[i].education + "</td>";
@@ -445,49 +437,23 @@ function Page2(id, limit, count) {
         });
     });
 }
+//内联搜索
+function checktab() {
 
-//年级下拉框
-function Grade() {
-    var text = "";
-    text += "<option value=\"\" selected=\"\">请选择年级</option>"
-    if (ClassList.code == 1) {
-        var list = ClassList.data;
-        for (var i = 0; i < list.length; i++) {
-            text += " <option value=\"" + list[i].id + "\" >";
-            text += list[i].gradeName + "</option>";
-        }
-    }
-    return text;
-}
-
-//获取下拉框
-function getinfo() {
-        var text = Grade();
-        $("#Grades").html(text);
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-            form.on('select(test)', function (data) {
-                gradeId = data.value;
-                var text = MoveClass();
-                $("#Class").html(text);
-                if(gradeId==""){
-                    classId="";
-                }
-                var text = Subjects();
-                $("#Subjects").html(text);
+    $(function () {
+        //查询
+        $("#subsea1").click(function () {
+            var name = $("#LAY_sub").val();
+            var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": 1};
+            var table = getPage(data);
+            if (table.code == 1) {
+                Tabsub(table.data.list);
                 Refresh();
-            });
-            form.on('select(quiz)', function (data) {
-                classId = data.value;
-                var text = Subjects();
-                $("#Subjects").html(text);
-                Refresh();
-            });
-            form.on('select(Subjects)', function (data) {
-                SubjectsId = data.value;
-            });
-        })
+                Page("test1", table.data.pageCount, table.data.dataCount);
+                generalmang();
+            }
+        });
+    });
 }
 
 //获取页面

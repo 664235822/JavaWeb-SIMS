@@ -35,7 +35,6 @@ function gradeFunction() {
         form.on('submit(Info)', function (data) {
             var data = {};
             var Info = {};
-            Info.GradeCode = $("#gradeCode").val();
             Info.GradeName = $("#gradeName").val();
             Info.CreateMessage = JSON.parse(localStorage.Login).name;
             data.info = JSON.stringify(Info);
@@ -181,8 +180,6 @@ function GradeClass(grade, Class) {
 
 //年级表格
 function GradeTable(data) {
-    var num = parseInt(data.data.list[data.data.list.length - 1].gradeCode);
-    $("#gradeCode").val((num + 1));
     data = data.data.list;
     if (data != null) {
         var text = "";

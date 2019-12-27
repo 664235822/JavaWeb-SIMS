@@ -63,7 +63,7 @@ $(function () {
                     location.href = "/JavaWeb_SIMS_war_exploded/"
                 });
             }else{
-                layer.msg(Menu.message, {
+                layer.msg("登陆失败", {
                     icon: 5
                     ,anim: 6
                     , time: 1000

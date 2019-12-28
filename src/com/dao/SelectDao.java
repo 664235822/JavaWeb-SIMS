@@ -448,8 +448,9 @@ public class SelectDao extends BaseDao {
 
     /*
      * 获取教师科目信息
-     * @param code 查询科目编号
-     * @param name 查询科目名
+     * @param gradeId 年级编号
+     * @param classId 班级编号
+     * @param subjectId 科目编号
      * @param currentPage 当前页号
      * @return BaseBean 返回教师科目信息
      * @throws SQLException

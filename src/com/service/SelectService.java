@@ -50,7 +50,7 @@ public class SelectService {
                 result = selectDao.selectGradeAll();
                 break;
             case "TeacherClass":
-                result = selectDao.selectTeacherClass(code, name, Integer.parseInt(currentPage));
+                result = selectDao.selectTeacherClass(Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
             case "Result":
                 result = selectDao.selectResult(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));

@@ -234,24 +234,32 @@ function AddResultFunction() {
 //科目下拉框
 function Subjects() {
     var text = "";
+    var subjectsId = 0;
     text += "  <option value=\"\">请选择科目</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
             if (list[i].id == gradeId) {
-                if (list[i].subjects != undefined) {
-                    for (var j = 0; j < list[i].subjects.length; j++) {
-                        text += " <option value=\"" + list[i].subjects[j].id + "\">";
-                        text += list[i].subjects[j].subjectName + "</option>";
+                for (var j = 0; j < list[i].classes.length; j++) {
+                    if (list[i].classes[j].id == classId) {
+                        if (list[i].classes[j].subjects != undefined) {
+                            for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
+                                if (subjectsId != list[i].classes[j].subjects[k].id) {
+                                    subjectsId = list[i].classes[j].subjects[k].id;
+                                    text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
+                                    text += list[i].classes[j].subjects[k].subjectName + "</option>";
+                                }
+                            }
+                        }
+                        break;
                     }
                 }
-
+                break;
             }
         }
     }
     return text;
 }
-
 //班级下拉框
 function MoveClass() {
     var text = "";

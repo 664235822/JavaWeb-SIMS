@@ -75,7 +75,11 @@ layui.use(['form'], function () {
     });
 
     form.on('submit(component-form-element)', function(data){
-        UpTeacher();
+        var Judge=UpTeacher();
+        if(Judge){
+            addCode();
+            $("#chongzhi").click();
+        }
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
     form.on('submit(modify)', function(data){

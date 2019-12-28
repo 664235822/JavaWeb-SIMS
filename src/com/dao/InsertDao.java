@@ -88,7 +88,7 @@ public class InsertDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void insertTeacherClass(TeacherClassBean info) throws SQLException, MyException {
-        String sql = "select id from Teacher " +
+        String sql = "select id from TeacherClass " +
                 "where tId='" + info.getTeacherId() + "' " +
                 "and classId='" + info.getClassId() + "' " +
                 "and (subId is null or subId='" + info.getSubjectId() + "');";

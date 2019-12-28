@@ -69,6 +69,7 @@ function UpTeacher() {
             icon: 1
             , time: 1000
         });
+        return true;
     } else {
         layer.msg(Menu.message, {
             icon: 5
@@ -238,7 +239,7 @@ function Delete(codeList) {
 
 }
 
-//转班操作
+//科目操作
 function Move(codeList) {
     var text = "";
     text += " <div class=\"layui-form\">";
@@ -267,9 +268,9 @@ function Move(codeList) {
             var url = "/JavaWeb_SIMS_war_exploded/insert";
             data.tableName = "TeacherClass";
             var info = {};
-            info.id = codeList;
-            info.ClassId = classId;
-            info.SubId = SubjectsId;
+            info.teacherId = codeList;
+            info.classId = classId;
+            info.subjectId = SubjectsId;
             data.info = JSON.stringify(info);
             var table = Ajax(url, data);
             DeleteEnd(table);
@@ -305,18 +306,27 @@ function Move(codeList) {
 //科目下拉框
 function Subjects() {
     var text = "";
+    var subjectsId = 0;
     text += "  <option value=\"\">请选择科目</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
             if (list[i].id == gradeId) {
-                if (list[i].subjects != undefined) {
-                    for (var j = 0; j < list[i].subjects.length; j++) {
-                        text += " <option value=\"" + list[i].subjects[j].id + "\">";
-                        text += list[i].subjects[j].subjectName + "</option>";
+                for (var j = 0; j < list[i].classes.length; j++) {
+                    if (list[i].classes[j].id == classId) {
+                        if (list[i].classes[j].subjects != undefined) {
+                            for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
+                                if (subjectsId != list[i].classes[j].subjects[k].id) {
+                                    subjectsId = list[i].classes[j].subjects[k].id;
+                                    text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
+                                    text += list[i].classes[j].subjects[k].subjectName + "</option>";
+                                }
+                            }
+                        }
+                        break;
                     }
                 }
-
+                break;
             }
         }
     }
@@ -371,7 +381,7 @@ function DeleteEnd(Delete) {
             , time: 1000
         });
     } else {
-        layer.msg(Delete.message, {
+        layer.msg("操作失败", {
             icon: 5
             , anim: 6
             , time: 1000

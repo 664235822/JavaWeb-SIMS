@@ -200,7 +200,7 @@ function Move(codeList) {
     var gradeId = 0;
     var text = "";
     text += " <div class=\"layui-form\">";
-    text +=" <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"班级编号（选择班级后显示）\" autocomplete=\"off\" class=\"layui-input\">"
+    text +=" <input type=\"text\" id='MoveGradeId' required  lay-verify=\"required\" disabled placeholder=\"班级编号（选择年级后显示）\" autocomplete=\"off\" class=\"layui-input\">"
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();

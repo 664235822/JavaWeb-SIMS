@@ -25,12 +25,6 @@ public class TeacherClassBean {
     private String teacherName;
     //教师编号
     private String teacherCode;
-    //教师性别
-    private String sex;
-    //教师学历
-    private String education;
-    //教师年龄
-    private int age;
 
     public int getId() {
         return id;
@@ -110,29 +104,5 @@ public class TeacherClassBean {
 
     public void setTeacherCode(String teacherCode) {
         this.teacherCode = teacherCode;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getEducation() {
-        return education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 }

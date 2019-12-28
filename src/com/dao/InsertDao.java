@@ -91,7 +91,7 @@ public class InsertDao extends BaseDao {
         String sql = "select id from Teacher " +
                 "where tId='" + info.getTeacherId() + "' " +
                 "and classId='" + info.getClassId() + "' " +
-                "and (subId is null or subId='" + info.getSubjectId() + "';";
+                "and (subId is null or subId='" + info.getSubjectId() + "');";
         ResultSet rs = querySelect(sql);
         while (rs.next()) {
             sql = "delete from TeacherClass where id='" + rs.getInt("id") + "';";

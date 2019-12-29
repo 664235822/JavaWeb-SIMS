@@ -29,3 +29,5 @@ body .layui-table  th,td{
     text-align: center;
     font-weight: 400;
 }
+/*下拉框滚动条*/
+.layui-form-select dl { max-height:160px; }

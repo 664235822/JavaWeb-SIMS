@@ -315,6 +315,7 @@ public class SelectDao extends BaseDao {
         if (!name.isEmpty()) {
             sql += "and subjectName like '%" + name + "%' ";
         }
+        sql += "order by id desc ";
         if (currentPage != 0) {
             sql += "limit " + (currentPage - 1) * 10 + ",10 ";
         }

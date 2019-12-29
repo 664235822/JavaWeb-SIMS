@@ -185,6 +185,9 @@ function ResultFunction() {
         $("#Select").click(function () {
             code = $("#code").val();
             name = $("#name").val();
+            gradeId=$("#Grades option:selected").val();
+            classId=$("#Class option:selected").val();
+            SubjectsId=$("#Subjects  option:selected").val();
             var data = {
                 "tableName": "Result",
                 "code": code,
@@ -235,7 +238,7 @@ function AddResultFunction() {
 function Subjects() {
     var text = "";
     var subjectsId = 0;
-    text += "  <option value=\"\">请选择科目</option>";
+    text += "  <option value=\"0\">请选择科目</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
@@ -263,7 +266,7 @@ function Subjects() {
 //班级下拉框
 function MoveClass() {
     var text = "";
-    text += " <option value=\"\">请选择班级</option>";
+    text += " <option value=\"0\">请选择班级</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
@@ -282,7 +285,7 @@ function MoveClass() {
 //年级下拉框
 function Grade() {
     var text = "";
-    text += "<option value=\"\" selected=\"\">请选择年级</option>"
+    text += "<option value=\"\" selected=\"0\">请选择年级</option>"
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
@@ -351,9 +354,6 @@ function GetGrades() {
             gradeId = data.value;
             var text = MoveClass();
             $("#Class").html(text);
-            if(gradeId==""){
-                classId="";
-            }
             var text = Subjects();
             $("#Subjects").html(text);
             Refresh();

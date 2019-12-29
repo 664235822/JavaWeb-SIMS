@@ -4,10 +4,9 @@
  * **/
 var ClassList = {};
 var tableName = "";
-
 //新增科目
 function Submanage() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
+    getClassList();
     var data = getpage({'tableName': 'Subject', "code": "", "name": "", 'currentPage': 1});
     if (data.code == 1) {
         Tabsub(data.data.list);
@@ -18,15 +17,21 @@ function Submanage() {
     Addsub();
     generalmang();
 }
-
+//获取年级班级科目关系表a
+function getClassList() {
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll"});
+}
 //教师与科目
 function showteachifo() {
+    getClassList();
     var data = getpage({'tableName': 'TeacherClass', 'gradeId': 0, 'classId': 0, 'subjectId': 0, 'currentPage': 1});
     if (data.code == 1) {
         SubjectTeacher(data.data.list);
         tableName = "SubjectTeacher";
         Page("test1", data.data.pageCount, data.data.dataCount);
         Refresh();
+        GetGrades();
+        TeacherSub();
     }
 
 }
@@ -95,7 +100,35 @@ function addSubject(geaid) {
 
     }
 }
-
+//科目下拉框
+function Subjects(classId) {
+    var text = "";
+    var subjectsId = 0;
+    text += "  <option value=\"0\">请选择科目</option>";
+    if (ClassList.code == 1) {
+        var list = ClassList.data;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].id == gradeId) {
+                for (var j = 0; j < list[i].classes.length; j++) {
+                    if (list[i].classes[j].id == classId) {
+                        if (list[i].classes[j].subjects != undefined) {
+                            for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
+                                if (subjectsId != list[i].classes[j].subjects[k].id) {
+                                    subjectsId = list[i].classes[j].subjects[k].id;
+                                    text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
+                                    text += list[i].classes[j].subjects[k].subjectName + "</option>";
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    return text;
+}
 //年级下拉框
 function grade() {
     var text = "";
@@ -112,7 +145,7 @@ function grade() {
 //班级下拉框
 function MoveClass(gradeId) {
     var text = "";
-    text += "  <option value=\"\">请选择班级</option>";
+    text += "  <option value=\"0\">请选择班级</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
@@ -132,7 +165,7 @@ function MoveClass(gradeId) {
 function teacher(gradeId) {
     var data = getpage({'tableName': 'Teacher', 'code': "", 'name': "", 'currentPage': 0});
     var text = "";
-    text += "  <option value=\"\">请选择班级</option>";
+    text += "  <option value=\"0\">请选择班级</option>";
     if (data.code == 1) {
         var list = data.data.list;
         if (gradeId != 0) {
@@ -146,15 +179,59 @@ function teacher(gradeId) {
 }
 
 //查看科任老师信息
-function subTeacher() {
+function TeacherSub() {
     $(function () {
         //查询
         $("#subsea1").click(function () {
+            var gradeId=$("#Grades option:selected").val();
+            var classId=$("#Class option:selected").val();
+            var SubjectsId=$("#Subjects  option:selected").val();
+            var data = {
+                "tableName": "TeacherClass",
+                "gradeId": gradeId,
+                "classId": classId,
+                "subjectId": SubjectsId,
+                "currentPage": 1
+            };
+            var table = getpage(data);
+            if (table.code == 1) {
+                SubjectTeacher(table.data.list);
+                Refresh();
+                Page("test1", table.data.pageCount, table.data.dataCount);
+                TeacherSub();
+            }
 
         });
     });
 }
-
+//获取下拉框
+function GetGrades() {
+    var text = "";
+    text += "<option value=\"0\">请选择班级</option>";
+    text +=grade();
+    $("#Grades").html(text);
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('select(test)', function (data) {
+            gradeId = data.value;
+            var text = MoveClass(gradeId);
+            $("#Class").html(text);
+            var text = Subjects(gradeId);
+            $("#Subjects").html(text);
+            Refresh();
+        });
+        form.on('select(quiz)', function (data) {
+            classId = data.value;
+            var text = Subjects(gradeId);
+            $("#Subjects").html(text);
+            Refresh();
+        });
+        form.on('select(Subjects)', function (data) {
+            SubjectsId = data.value;
+        });
+    })
+}
 //科目管理操作
 function generalmang() {
     $(function () {
@@ -360,8 +437,9 @@ function Page(id, limit, count) {
                 //首次不执行
                 if (!first) {
                     if (tableName == "addSubject") {
-                        var name = $("#LAY_sub").val();
-                        var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": obj.curr};
+                        var name = $("#name").val();
+                        var code = $("#code").val();
+                        var data = {"tableName": "Subject", "code": code, "name": name, "currentPage": obj.curr};
                         var table = getPage(data);
                         if (table.code == 1) {
                             Tabsub(table.data.list);
@@ -371,6 +449,23 @@ function Page(id, limit, count) {
                         }
                     }
                     if (tableName == "SubjectTeacher") {
+                        var gradeId=$("#Grades option:selected").val();
+                        var classId=$("#Class option:selected").val();
+                        var SubjectsId=$("#Subjects  option:selected").val();
+                        var data = {
+                            "tableName": "TeacherClass",
+                            "gradeId": gradeId,
+                            "classId": classId,
+                            "subjectId": SubjectsId,
+                            "currentPage": obj.curr
+                        };
+                        var table = getPage(data);
+                        if (table.code == 1) {
+                            SubjectTeacher(table.data.list);
+                            Refresh();
+                            Page("test1", table.data.pageCount, table.data.dataCount);
+                            TeacherSub();
+                        }
 
                     }
 

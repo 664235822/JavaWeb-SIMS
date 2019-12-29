@@ -30,21 +30,21 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">搜索：</label>
                     <div class="layui-input-inline">
-                        <select name="quiz1" id="Grades">
-                            <option value="" selected="">请选择年级</option>
+                        <select name="quiz1" lay-filter="test" id="Grades">
+                            <option value=""  selected="">请选择年级</option>
                         </select>
                     </div>
                     <div class="layui-input-inline">
-                        <select name="quiz2" id="Class">
-                            <option value="" selected="">请选择班级</option>
+                        <select name="quiz2" lay-filter="quiz" id="Class">
+                            <option value=""  selected="">请选择班级</option>
                         </select>
                     </div>
                     <div class="layui-input-inline">
-                        <select name="quiz3" id="Subjects">
-                            <option value="" selected="">请选择科目</option>
+                        <select name="quiz3" lay-filter="Subjects" id="Subjects">
+                            <option value=""  selected="">请选择科目</option>
                         </select>
                     </div>
-                    <button class="layui-btn" data-type="reload" id="subsea1">搜索</button>
+                    <div class="layui-btn" data-type="reload" id="subsea1">搜索</div>
                 </div>
             </form>
         </div>

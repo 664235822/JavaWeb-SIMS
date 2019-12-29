@@ -3,27 +3,39 @@
  * 考勤管理js
  * **/
 var ClassList = {};
-var classId = 0;
-var SubjectsId = 0;
-var gradeId = 0;
-var code = "";
-var name = "";
+var tableName = {};
 
-//查看考勤列表
-function showAttendance() {
+//考勤列表
+function Attendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
-    Admin();
-    var data = Data();
+    var data = Data("","",0,0,0);
     var table = getPage(data);
     if (table.code == 1) {
         AttendanceTable(table.data.list);
         Refresh();
+        tableName="AttendanceTable";
         Page("test1", table.data.pageCount, table.data.dataCount);
         AttendanceFunction();
+        GetGrades();
     }
 
 }
+//查看考勤列表
+function ShowAttendance() {
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
+    Admin();
+    var data = Data("","",0,0,0);
+    var table = getPage(data);
+    if (table.code == 1) {
+        ShowAttendanceTable(table.data.list);
+        Refresh();
+        tableName="ShowAttendanceTable";
+        Page("test1", table.data.pageCount, table.data.dataCount);
+        AttendanceFunction();
+        $("#Select").click();
+    }
 
+}
 /**
  * 权限区分
  *
@@ -35,9 +47,9 @@ function Admin() {
         var stateId = 0;
         stateId = obj.stateId;
         if (stateId == 3) {
-            code = obj.accout;
-            name = obj.name;
-            data = {"tableName": "StudentOnly", "code": code, "name": "", "currentPage": 1};
+            var code = obj.accout;
+            var name = obj.name;
+            var data = {"tableName": "StudentOnly", "code": code, "name": name, "currentPage": 1};
             var table = getPage(data);
             var list = table.data.list[0];
             var text = "";
@@ -61,7 +73,7 @@ function Admin() {
             $("#Class").attr("disabled", true);
             $("#code").val(code).attr("readonly", "true");
             $("#name").val(name).attr("readonly", "true");
-            var text = Subjects();
+            var text = Subjects(classId);
             $("#Subjects").html(text);
             layui.use('form', function () {
                 var form = layui.form;
@@ -78,7 +90,7 @@ function Admin() {
     }
 }
 
-function Data() {
+function Data(code,name,gradeId,classId,SubjectsId) {
     var data = {
         "tableName": "Attendance",
         "code": code,
@@ -94,16 +106,26 @@ function Data() {
 function AttendanceFunction() {
     //查询
     $("#Select").click(function () {
-        code = $("#code").val();
-        name = $("#name").val();
-        var data = Data();
+        var code = $("#code").val();
+        var name = $("#name").val();
+        var gradeId=$("#Grades option:selected").val();
+        var classId=$("#Class option:selected").val();
+        var SubjectsId=$("#Subjects  option:selected").val();
+        var data = Data(code,name,gradeId,classId,SubjectsId);
         var table = getPage(data);
-        if (table.code == 1) {
-            AttendanceTable(table.data.list);
-            Refresh();
-            Page("test1", table.data.pageCount, table.data.dataCount);
-            AttendanceFunction();
+        if(tableName=="AttendanceTable"){
+            if (table.code == 1) {
+                ResultTable(table.data.list);
+            }
         }
+        if(tableName=="ShowAttendanceTable"){
+            if (table.code == 1) {
+                ShowAttendanceTable(table.data.list);
+            }
+        }
+        Refresh();
+        Page("test1", table.data.pageCount, table.data.dataCount);
+
     });
     //全选
     $("#allChoose").click(function () {
@@ -147,18 +169,36 @@ function AttendanceFunction() {
         });
 }
 
+//回调功能
+function Callback(Delete) {
+    if (Delete.code == 1) {
+        $("#Select").click();
+        layer.msg(Delete.message, {
+            icon: 1
+            , time: 1000
+        });
+    } else {
+        layer.msg("操作失败", {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
 
+    }
+
+}
 //更改考勤操作
 function AttendanceMove(codeList) {
     var Attendance = 0;
     var text = "";
-    text += " <div class=\"layui-form\">";
+    text += "<div class=\"layui-form\">";
     text += "<select name=\"city\"  lay-filter=\"test\">";
-    text += "  <option value=\"\">请选择</option>";
-    text += "  <option value=\"1\">签到</option>";
-    text += "  <option value=\"2\">迟到</option>";
-    text += "  <option value=\"3\">缺勤</option>";
-    text += "    </div>";
+    text += "<option value=\"0\">请选择</option>";
+    text += "<option value=\"1\">签到</option>";
+    text += "<option value=\"2\">迟到</option>";
+    text += "<option value=\"3\">缺勤</option>";
+    text += "</select>";
+    text += "</div>";
     layer.open({
         title: '考勤管理',
         btn: ['确定', '取消'],
@@ -172,15 +212,15 @@ function AttendanceMove(codeList) {
             var obj = {};
             var data = {};
             for (var i = 0; i < codeList.length; i++) {
-                obj.code = codeList[i];
-                obj.classId = Attendance;
+                obj.id = codeList[i];
+                obj.type = Attendance;
                 list.push(obj);
             }
-            // var url = "/JavaWeb_SIMS_war_exploded/update";
-            // data.tableName = "ClassId";
-            // data.info = JSON.stringify(list);
-            // var table = Ajax(url, data);
-            MoveEnd(table);
+            var url = "/JavaWeb_SIMS_war_exploded/update";
+            data.tableName = "AttendanceType";
+            data.info = JSON.stringify(list);
+            var table = Ajax(url, data);
+            Callback(table);
             layer.close(index);
         }
 
@@ -223,7 +263,7 @@ function GetGrades() {
         });
         form.on('select(quiz)', function (data) {
             classId = data.value;
-            var text = Subjects();
+            var text = Subjects(classId);
             $("#Subjects").html(text);
             Refresh();
         });
@@ -234,20 +274,29 @@ function GetGrades() {
 }
 
 //科目下拉框
-function Subjects() {
+function Subjects(classId) {
     var text = "";
-    text += "  <option value=\"\">请选择科目</option>";
+    var subjectsId = 0;
+    text += "  <option value=\"0\">请选择科目</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
             if (list[i].id == gradeId) {
-                if (list[i].subjects != undefined) {
-                    for (var j = 0; j < list[i].subjects.length; j++) {
-                        text += " <option value=\"" + list[i].subjects[j].id + "\">";
-                        text += list[i].subjects[j].subjectName + "</option>";
+                for (var j = 0; j < list[i].classes.length; j++) {
+                    if (list[i].classes[j].id == classId) {
+                        if (list[i].classes[j].subjects != undefined) {
+                            for (var k = 0; k < list[i].classes[j].subjects.length; k++) {
+                                if (subjectsId != list[i].classes[j].subjects[k].id) {
+                                    subjectsId = list[i].classes[j].subjects[k].id;
+                                    text += " <option value=\"" + list[i].classes[j].subjects[k].id + "\">";
+                                    text += list[i].classes[j].subjects[k].subjectName + "</option>";
+                                }
+                            }
+                        }
+                        break;
                     }
                 }
-
+                break;
             }
         }
     }
@@ -257,7 +306,7 @@ function Subjects() {
 //班级下拉框
 function MoveClass() {
     var text = "";
-    text += " <option value=\"\">请选择班级</option>";
+    text += " <option value=\"0\">请选择班级</option>";
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
@@ -276,7 +325,7 @@ function MoveClass() {
 //年级下拉框
 function Grade() {
     var text = "";
-    text += "<option value=\"\" selected=\"\">请选择年级</option>"
+    text += "<option value=\"0\" selected=\"\">请选择年级</option>"
     if (ClassList.code == 1) {
         var list = ClassList.data;
         for (var i = 0; i < list.length; i++) {
@@ -301,8 +350,11 @@ function Page(id, limit, count) {
             , jump: function (obj, first) {
                 //首次不执行
                 if (!first) {
-                    code = $("#code").val();
-                    name = $("#name").val();
+                    var code = $("#code").val();
+                    var name = $("#name").val();
+                    var gradeId=$("#Grades option:selected").val();
+                    var classId=$("#Class option:selected").val();
+                    var SubjectsId=$("#Subjects  option:selected").val();
                     var data = {
                         "tableName": "Result",
                         "code": code,
@@ -313,17 +365,46 @@ function Page(id, limit, count) {
                         "currentPage": obj.curr
                     };
                     var table = getPage(data);
-                    if (table.code == 1) {
-                        ResultTable(table.data.list);
-                        Refresh();
-                        ResultFunction();
+                    if(tableName=="AttendanceTable"){
+                        if (table.code == 1) {
+                            ResultTable(table.data.list);
+                        }
                     }
+                    if(tableName=="ShowAttendanceTable"){
+                        if (table.code == 1) {
+                            ShowAttendanceTable(table.data.list);
+                        }
+                    }
+                    Refresh();
+                    ResultFunction();
                 }
             }
         });
     });
 }
-
+//返回考勤表格
+function ShowAttendanceTable(data) {
+    if (data != null) {
+        var text = "";
+        text += "<thead><tr>";
+        text += "<th>年级</th><th>班级</th><th>课程</th><th>学号</th><th>姓名</th><th>考勤</th><th >考勤时间</th>";
+        text += "</tr></thead>";
+        text += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            text += "<tr name=\'" + data[i].id + "\'>";
+            text += "<td>" + data[i].gradeName + "</td>";
+            text += "<td>" + data[i].className + "</td>";
+            text += "<td>" + data[i].subjectName + "</td>";
+            text += "<td>" + data[i].code + "</td>";
+            text += "<td>" + data[i].name + "</td>";
+            text += "<td>" + data[i].type + "</td>";
+            text += "<td>" + data[i].time + "</td>";
+            text += "</tr>";
+        }
+        text += "</tbody>";
+        $("#table").html(text);
+    }
+}
 //返回考勤表格
 function AttendanceTable(data) {
     if (data != null) {

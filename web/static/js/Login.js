@@ -43,8 +43,8 @@ $(function () {
                 anim: 6,
                 time: 2000 //2秒关闭（如果不配置，默认是3秒）
             });
-
             RandomCode();
+            $("#LAY-user-login-vercode").val("");
         }
         if(randomcode==random&&username!=""&&password!="") {
             var str = {"code": username, "pwd": password, "stateId": state};

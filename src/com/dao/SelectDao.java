@@ -822,6 +822,31 @@ public class SelectDao extends BaseDao {
         return result;
     }
 
+    public BaseBean selectHabit(String code) throws SQLException {
+        String sql = "select * from Habit where code='" + code + "';";
+        ResultSet rs = querySelect(sql);
+
+        BaseBean result = new BaseBean();
+        HabitBean habit = new HabitBean();
+
+        if (rs.next()) {
+            habit.setCode(code);
+            int[] cols = new int[7];
+            for (int i = 0; i < 7; i++) {
+                cols[i] = rs.getInt("col" + (i + 1));
+            }
+            habit.setCols(cols);
+        }
+
+        result.setCode(BaseBean.SUCCESS);
+        result.setData(habit);
+        result.setMessage("获取个性化设置成功");
+
+        destroy(rs);
+        return result;
+    }
+
+
     /*
      * 获取表格行数和页数
      * @param 数据库表名

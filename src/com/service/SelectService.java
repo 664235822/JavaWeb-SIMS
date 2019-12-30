@@ -61,6 +61,9 @@ public class SelectService {
             case "Attendance":
                 result = selectDao.selectAttendance(code, name, Integer.parseInt(gradeId), Integer.parseInt(classId), Integer.parseInt(subjectId), Integer.parseInt(currentPage));
                 break;
+            case "Habit":
+                result = selectDao.selectHabit(code);
+                break;
         }
 
         return result;

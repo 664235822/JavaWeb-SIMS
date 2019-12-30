@@ -20,27 +20,6 @@ function TeacherInfo() {
         });
 
     });
-
-
-    $(function () {
-        $("#test2").click(function () {
-            document.getElementById("Download").click();
-        });
-        $("#Download").click(function (e) {
-            layer.msg("请注意查看必读文档", {
-                icon: 6
-                , time: 2000
-                , offset: [
-                    $(window).height() / 4 + "px"
-                    , $(window).width() / 3 + "px"
-                ]
-            }, function (index) {
-                var herf = $("#Download").attr('herf');
-                location.href = herf;
-            });
-        });
-    });
-
 }
 
 //上传数据

@@ -27,14 +27,15 @@ $(function () {
             var menu = Ajax(url, str);
             if(menu.code==1){
                 var table=Table(menu.data);
-                Cbox(table);
+                Cbox(table,menu);
             }
 
         }
     })
 });
 //弹窗
-function Cbox(table) {
+function Cbox(table,menu) {
+    var arry=[];
     layui.use('layer', function() {
         var layer = layui.layer;
         layer.open({
@@ -42,11 +43,52 @@ function Cbox(table) {
             skin: 'demo-class',
             content: table,
             btn:['添加','取消'],
-            area:'400px'
+            area:'400px',
+            yes: function(index, layero){
+
+
+
+            }
         });
     })
+
+    layui.use('form', function() {
+        var form = layui.form;
+        form.on('checkbox()', function(data) {
+            var checked=data.elem.checked; //是否被选中，true或者false
+            var value=data.value; //复选框value值，也可以通过data.elem.value得到
+            arry=Addmodule(checked,value);
+        });
+    });
         Refresh();
 
+}
+function Addmodule(checked,value) {
+    var arry=[0,0,0,0,0,0,0];
+    if(checked){
+        var num=-1;
+        for(var i=0;i<arry.length;i++){
+            if(arry[i]==0){
+                arry[i]=value;
+                break;
+            }
+            num++;
+        }
+        if(num==6){
+            $("input[name=checkbox]").filter("[value="+arry[num]+"]").prop("checked",false);
+            Refresh();
+            arry[num]=value;
+        }
+    }else {
+        for(var i=0;i<arry.length;i++){
+            if(arry[i]==value){
+                arry[i]=0;
+                break;
+            }
+        }
+
+    }
+    return arry;
 }
 function Table(table) {
     var text="";
@@ -67,7 +109,7 @@ function Table(table) {
     for(var i=0;i<table.length;i++){
         for (var j=0;j<table[i].items.length;j++){
             text += "<tr name=\""+ table[i].items[j].url+"\">";
-            text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
+            text += "<td><div class=\"layui-form\"> <input type=\"checkbox\" value='"+table[i].items[j].menuId+"' name=\"checkbox\" title=\"\" lay-skin=\"primary\" >";
             text += "</div></td>"
             text += "<td>"+table[i].items[j].menuName+"</td>";
             text += "</tr>";

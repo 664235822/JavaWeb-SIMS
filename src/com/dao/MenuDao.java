@@ -42,6 +42,7 @@ public class MenuDao extends BaseDao {
                 item.setMenuId(rs.getInt("menuId"));
                 item.setMenuName(rs.getString("menuName"));
                 item.setUrl(rs.getString("url"));
+                item.setIcon(rs.getString("icon"));
 
                 for (int i = 0; i < (list).size(); i++) {
                     if (list.get(i).getMenuId() == rs.getInt("parent")) {

@@ -11,6 +11,8 @@ public class MenuItemBean {
     private String menuName;
     //菜单地址
     private String url;
+    //图标
+    private String icon;
 
     public String getMenuName() {
         return menuName;
@@ -34,5 +36,13 @@ public class MenuItemBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

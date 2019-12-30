@@ -21,6 +21,12 @@ public class AttendanceBean {
     private String type;
     //考勤时间
     private String time;
+    //学生id
+    private int sId;
+    //科目id
+    private int subId;
+    //班级id
+    private int classId;
 
     public int getId() {
         return id;
@@ -84,5 +90,29 @@ public class AttendanceBean {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
+    }
+
+    public int getSubId() {
+        return subId;
+    }
+
+    public void setSubId(int subId) {
+        this.subId = subId;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 }

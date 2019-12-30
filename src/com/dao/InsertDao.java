@@ -190,4 +190,24 @@ public class InsertDao extends BaseDao {
 
         destroy(null);
     }
+
+    /*
+     * 添加考勤信息
+     * @param 考勤信息列表
+     * @throws SQLException, MyException
+     */
+    public void insertAttendance(List<AttendanceBean> attendanceList) throws SQLException, MyException {
+        for (AttendanceBean info : attendanceList) {
+            StringBuffer values = new StringBuffer();
+            values.append("'" + info.getsId() + "'").append(",");
+            values.append("'" + info.getType() + "'").append(",");
+            values.append("'" + info.getSubId() + "'").append(",");
+            values.append("'" + info.getClassId() + "'");
+
+            String sql = "insert into Attendance (sId,AttendanceType,subId,classId) values (" + values.toString() + ");";
+            queryUpdate(sql);
+        }
+
+        destroy(null);
+    }
 }

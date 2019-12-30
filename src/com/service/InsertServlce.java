@@ -53,6 +53,10 @@ public class InsertServlce {
                 SubjectBean subject = JSON.parseObject(info, SubjectBean.class);
                 insertDao.insertSubject(subject);
                 break;
+            case "Attendance":
+                List<AttendanceBean> attendanceInfo = JSON.parseArray(info, AttendanceBean.class);
+                insertDao.insertAttendance(attendanceInfo);
+                break;
         }
     }
 }

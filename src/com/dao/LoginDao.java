@@ -66,4 +66,29 @@ public class LoginDao extends BaseDao {
         destroy(rs);
         return result;
     }
+
+    /*
+     * 修改密码
+     * @param code 用户名
+     * @param pwd 旧密码
+     * @param newPwd 新密码
+     * @throws throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
+     */
+    public void changePwd(String code, String pwd, String newPwd) throws SQLException, MyException {
+        String sql = "select * from Login where code = '" + code + "' and pwd = password('" + pwd + "')";
+
+        ResultSet rs = querySelect(sql);
+
+        if (rs.next()) {
+            sql = "update Login " +
+                    "set pwd=password('" + newPwd + "') " +
+                    "where code='" + code + "';";
+
+            queryUpdate(sql);
+        } else {
+            throw new MyException("用户名和密码错误");
+        }
+
+        destroy(rs);
+    }
 }

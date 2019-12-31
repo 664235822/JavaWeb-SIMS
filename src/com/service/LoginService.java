@@ -26,4 +26,17 @@ public class LoginService {
 
         return loginDao.login(code, pwd, stateId);
     }
+
+    /*
+     * 修改密码
+     * @param code 用户名
+     * @param pwd 旧密码
+     * @param newPwd 新密码
+     * @throws throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException
+     */
+    public void changePwd(String code, String pwd, String newPwd) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, MyException {
+        loginDao = new LoginDao();
+
+        loginDao.changePwd(code, pwd, newPwd);
+    }
 }

@@ -37,6 +37,10 @@ public class InsertService {
                 TeacherClassBean teacherClass = JSON.parseObject(info, TeacherClassBean.class);
                 insertDao.insertTeacherClass(teacherClass);
                 break;
+            case "ClassTeacher":
+                TeacherClassBean classTeacher = JSON.parseObject(info, TeacherClassBean.class);
+                insertDao.insertClassTeacher(classTeacher);
+                break;
             case "Result":
                 List<ResultBean> resultInfo = JSON.parseArray(info, ResultBean.class);
                 insertDao.insertResult(resultInfo);

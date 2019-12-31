@@ -10,7 +10,7 @@ import java.util.List;
 /*
  * 添加信息服务类
  */
-public class InsertServlce {
+public class InsertService {
 
     InsertDao insertDao;
 
@@ -56,6 +56,10 @@ public class InsertServlce {
             case "Attendance":
                 List<AttendanceBean> attendanceInfo = JSON.parseArray(info, AttendanceBean.class);
                 insertDao.insertAttendance(attendanceInfo);
+                break;
+            case "Habit":
+                HabitBean habit = JSON.parseObject(info, HabitBean.class);
+                insertDao.insertHabit(habit);
                 break;
         }
     }

@@ -213,4 +213,30 @@ public class InsertDao extends BaseDao {
 
         destroy(null);
     }
+
+    /*
+     * 添加修改首页个性化设置
+     * @param info 个性化设置信息
+     * @throws SQLException, MyException
+     */
+    public void insertHabit(HabitBean info) throws SQLException, MyException {
+        String sql = "select * from info where code='" + info.getCode() + "';";
+        ResultSet rs = querySelect(sql);
+        if (rs.next()) {
+            sql = "delete from Habit where code='" + info.getCode() + "';";
+            queryUpdate(sql);
+        }
+
+        StringBuffer values = new StringBuffer();
+        values.append("'" + info.getCode() + "'").append(",");
+        for (int i = 0; i < 7; i++) {
+            values.append("'" + info.getCols()[i] + "'").append("'");
+        }
+        values.deleteCharAt(values.length() - 1);
+
+        sql = "insert into Habit (code,col1,col2,col3,col4,col5,col6,col7) values (" + values.toString() + ");";
+        queryUpdate(sql);
+
+        destroy(rs);
+    }
 }

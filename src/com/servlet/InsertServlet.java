@@ -2,7 +2,7 @@ package com.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.entity.BaseBean;
-import com.service.InsertServlce;
+import com.service.InsertService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 @WebServlet("/insert")
 public class InsertServlet extends HttpServlet {
 
-    InsertServlce insertService = new InsertServlce();
+    InsertService insertService = new InsertService();
     BaseBean obj = new BaseBean();
 
     @Override

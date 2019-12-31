@@ -185,13 +185,21 @@ public class InsertDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void insertSubject(SubjectBean info) throws SQLException, MyException {
+        String sql = "select subjectCode from Subject order by id desc;";
+        ResultSet rs = querySelect(sql);
+        int subjectCode = 0;
+        if (rs.next()) {
+            subjectCode = rs.getInt("subjectCode");
+        }
+        subjectCode++;
+
         StringBuffer values = new StringBuffer();
-        values.append("'" + info.getSubjectCode() + "'").append(",");
+        values.append("'" + subjectCode + "'").append(",");
         values.append("'" + info.getSubjectName() + "'").append(",");
         values.append("'" + info.getCreateMessage() + "'").append(",");
         values.append("'" + info.getGradeId() + "'");
 
-        String sql = "insert into Subject (subjectCode,subjectName,createMessage,gradeId) values (" + values.toString() + ");";
+        sql = "insert into Subject (subjectCode,subjectName,createMessage,gradeId) values (" + values.toString() + ");";
         queryUpdate(sql);
 
         destroy(null);

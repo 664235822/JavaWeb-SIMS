@@ -31,122 +31,15 @@
                           </p>
                        </div>
                        <div class="text-box">
-                           <p class="text-t">教师管理</p>
+                           <p class="text-t">添加快捷方式</p>
                        </div>
                    </div>
             </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-auz" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">权限管理</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-user" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">年级管理</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-group" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">班级管理</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-list" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">科目管理</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-friends" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">学生管理</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-read" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">成绩管理</p>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="box">
-                    <div class="icon-box">
-                        <p class="iconp">
-                            <i class="layui-icon layui-icon-survey" style="font-size: 70px;"></i>
-                        </p>
-                    </div>
-                    <div class="text-box">
-                        <p class="text-t">考勤管理</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </div>
 </div>
 </body>
-<script>
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#test2'
-            , position: 'static'
-            , change: function (value, date) { //监听日期被切换
-
-            }
-            , btns: ['now']
-            , theme: 'molv'
-        });
-
-    });
-
-    window.onload = function () {
-        $("#bgbody").height(window.innerHeight);
-
-    }
-    window.onresize = function () {
-        $("#bgbody").height(window.innerHeight);
-    }
-</script>
 </html>

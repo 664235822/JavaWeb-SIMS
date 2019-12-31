@@ -49,7 +49,17 @@ function Addsub() {
     var geaid = 0;
     $(function () {
         $("#Addbut").click(function () {
-
+            var text = "";
+            text += " <div class=\"layui-form\">";
+            text += "<div class=\"layui-form-item\">";
+            text += "<div class=\"layui-input-block\">";
+            text += "<input type=\"text\" id=\"asub\" name=\"title\" placeholder=\"请输入添加科目名称\"  autocomplete=\"off\" class=\"layui-input\">";
+            text += "</div></div>";
+            text += "<select name=\"city\" id=\"batu\" lay-filter=\"test\">";
+            text += "<option value=\"0\">请选择年级(供参考使用)</option>";
+            text += grade();
+            text += "</select>";
+            text += "    </div>";
             //提交验证
             layer.open({
                 anim: 1
@@ -90,7 +100,6 @@ function addSubject(geaid) {
         var url = "/JavaWeb_SIMS_war_exploded/insert";
         data.tableName = "Subject";
         var info = {};
-        info.SubjectCode = subjectCode;
         info.SubjectName = classname;
         info.GradeId = geaid;
         info.CreateMessage = JSON.parse(localStorage.Login).name;
@@ -313,7 +322,7 @@ function SubTeacher(subid) {
     text += "</select> ";
     text += "</div>";
     layer.open({
-        title: '分配班级',
+        title: '科目教师管理',
         btn: ['确定', '取消'],
         content: text,
         skin: 'demo-class',

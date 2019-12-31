@@ -6,11 +6,12 @@ $(function () {
     if (localStorage.Login != null) {
         var json2 = localStorage.Login;
         var obj = JSON.parse(json2);
-        // var str="<a class="bgclo" style="color: rgb(191, 197, 203);">";
-        // str+="<span class=\"glyphicon glyphicon-user\"></span>";
-        // str+="obj.stateId</a>"
-        // $("nav ul>li:first-of-type").html(str);
     } else {
+        layer.msg("浏览器不支持", {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
         location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
     }
     var CharacterMenu = null;

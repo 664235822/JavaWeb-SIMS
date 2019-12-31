@@ -59,6 +59,7 @@ function ShowAddAttendance() {
         AddPage("test1", table.data.pageCount, table.data.dataCount);
         AddAttendanceFunction();
         Refresh();
+        GetGrades();
     }
 }
 
@@ -102,7 +103,9 @@ function AddAttendanceTable(data) {
             text += "<td>" + data[i].code + "</td>";
             text += "<td name='studentId' value='" + data[i].sId + "'>" + data[i].name + "</td>";
             text += "<td name='subjectId' value='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
-            text += "<td name='type' contenteditable='true'></td>";
+            text += "<td name='type'>";
+            text += AttendanceTypeTable();
+            text += "</td>";
             text += "</tr>";
         }
         text += "</tbody>";
@@ -142,7 +145,7 @@ function AddPage(id, limit, count) {
     });
 }
 
-//保存成绩
+//考勤
 function SubmitAttendance() {
     var list = new Array();
     $("#table").find("tr").each(function () {
@@ -341,11 +344,9 @@ function Callback(Delete) {
     }
 
 }
-
-//更改考勤操作
-function AttendanceMove(codeList) {
-    var Attendance = 0;
-    var text = "";
+//考勤类型下拉框
+function AttendanceTypeTable() {
+    var text="";
     text += "<div class=\"layui-form\">";
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "<option value=\"0\">请选择</option>";
@@ -354,6 +355,13 @@ function AttendanceMove(codeList) {
     text += "<option value=\"3\">缺勤</option>";
     text += "</select>";
     text += "</div>";
+    return text;
+}
+//更改考勤操作
+function AttendanceMove(codeList) {
+    var Attendance = 0;
+    var text = "";
+    text+=AttendanceTypeTable();
     layer.open({
         title: '考勤管理',
         btn: ['确定', '取消'],

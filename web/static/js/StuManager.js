@@ -429,7 +429,7 @@ function StuTable(data, StudentOnly) {
         text += "<thead><tr>";
         text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
         text += "</div></th>"
-        text += "<th>学号</th><th>名字</th><th>年龄</th><th>性别</th><th>当前年级</th><th>当前班级</th><th>班级教师</th><th  style='min-width: 207px'>操作</th>";
+        text += "<th>学号</th><th>名字</th><th>年龄</th><th>性别</th><th>当前年级</th><th>当前班级</th><th  style='min-width: 207px'>操作</th>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < StudentOnly.length; i++) {
@@ -448,17 +448,6 @@ function StuTable(data, StudentOnly) {
                         break;
                     }
                 }
-            }
-            var Judge=true;
-            for (var j = 0; j < data.length; j++) {
-                if (StudentOnly[i].code == data[j].code) {
-                    text += "<td>" + data[j].teacherName + "</td>";
-                    Judge=false;
-                    break;
-                }
-            }
-            if(Judge){
-                text += "<td></td>";
             }
             text += "<td>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-warm\" name=\"modify\">修改</button>";

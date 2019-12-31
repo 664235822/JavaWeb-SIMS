@@ -12,30 +12,22 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/ClassManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
-    <title>查看班级列表</title>
+    <title>班级管理</title>
 </head>
 <body onload="ShowClass()">
-<!--              本页面已与修改、删除班级信息，为班级分配教师、年级合并！！！(似于管理教师页面)-->
-
-<!--      注NO.1：     修改班级信息与操作列中修改按钮合并，点击修改即跳转到修改页面，该页面通过表单元素显示：班级编号、班级名称、创建人、创建时间。
-              只允许修改班级名称，其余只读。修改班级名称需要注意名称不允许重复！为班级分配年级和修改班级信息合并，在修改页面增加一个年级下拉框即可-->
-
-<!--      注NO.2：      在操作列中点击删除，弹窗确认是否删除？点击确定，需要判断该班级是否存在学生，如果存在学生是不允许删除。-->
-
-<!--      注NO.3：      在操作列中点击分配(即为班级分配教师)，即跳转到分配页面。分配页面分为两大板块。第一版通过表单元素显示当前点击的班级信息：
-              班级编号、班级名称、科目下拉框。科目信息根据当前班级所在的年级匹配。如果当前班级没有分配年级，即无法操作分配教师功能。第二版即通过
-              table显示当前系统中所有教师信息。每一个教师信息前面增加一个复选框。在table下面增加一个分配按钮，点击分配即将数据更新到数据库中。-->
-
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 查看班级列表</p>
+        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页
+            <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 班级管理</p>
     </div>
 </nav>
+<!--          内容区-->
 <div class="container">
     <div class="row">
         <!--            表格-->
         <div class="demoTable" style="margin-top: 20px">
+            <!--          模糊查询-->
             <div class="demoTable ">
                 <div class="layui-inline">
                     <label class="layui-form-label">搜索：</label>
@@ -51,7 +43,7 @@
                 </div>
 
             </div>
-            <!--            工具-->
+            <!--            工具(批量操作)-->
             <div class="layui-table-tool">
                 <div class="layui-table-tool-temp">
                     <div class="layui-inline" title="删除所有选中项" lay-event="delete"><i
@@ -60,31 +52,6 @@
             </div>
             <!--           主体-->
             <table class="layui-table" id="table">
-                <colgroup>
-                    <col width="50">
-                    <col width="150">
-                    <col width="200">
-                    <col>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>
-                        <div class="layui-form">
-                            <input type="checkbox" name="" title="" lay-skin="primary" checked>
-                        </div>
-                    </th>
-                    <th>年级编号</th>
-                    <th>年级名称</th>
-                    <th>班级编号</th>
-                    <th>班级名称</th>
-                    <th>创建人</th>
-                    <th>创建时间</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
             </table>
             <div id="test1"></div>
         </div>

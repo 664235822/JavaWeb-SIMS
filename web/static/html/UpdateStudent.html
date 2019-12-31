@@ -21,7 +21,7 @@
         <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 修改学生信息</p>
     </div>
 </nav>
-<!--注：本页面需将学生信息从数据库导入至修改信息界面，学生选择性修改需要修改的信息，不需要每次全部填入信息修改再提交-->
+<!--          内容区-->
 <div class="container">
     <div class="row">
         <div class="col-md-6 forms">
@@ -42,7 +42,6 @@
                                class="layui-input">
                     </div>
                 </div>
-
                 <!--                性别-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别：</label>
@@ -73,9 +72,6 @@
                     <div class="layui-input-block">
                         <select id="tGrade" name="tGrade" lay-verify="required" lay-filter="test" lay-reqtext="年级是必填项！">
                             <option value="">请选择你的年级</option>
-                            <option value="1">2018级</option>
-                            <option value="2">2019级</option>
-                            <option value="3">2020级</option>
                         </select>
                     </div>
                 </div>
@@ -84,9 +80,6 @@
                     <div class="layui-input-block">
                         <select id="tClass" name="tClass" lay-verify="required" lay-reqtext="班级是必填项！">
                             <option value="">请选择你的班级</option>
-                            <option value="1">软件1831</option>
-                            <option value="2">软件1832</option>
-                            <option value="3">软件1833</option>
                         </select>
                     </div>
                 </div>
@@ -123,7 +116,6 @@
                         <div  id="Reset"  class="layui-btn layui-btn-primary">重置</div>
                     </div>
                 </div>
-                <!--                表单结束-->
             </form>
         </div>
     </div>

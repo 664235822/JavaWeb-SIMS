@@ -10,16 +10,20 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/GradeManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
-    <title>AddGrade</title>
+    <title>添加年级</title>
 </head>
 <body onload="GradeInfo()" style="padding-top: 50px;">
+<!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left" style="margin: 0px;height: 50px;line-height: 50px">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 年级管理</p>
+        <p class="text-left addtea pull-left" style="margin: 0px;height: 50px;line-height: 50px">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页
+            <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 添加年级</p>
     </div>
 </nav>
+<!--          内容区-->
 <div class="container">
     <div class="row layui-form">
+        <!--          模糊查询-->
         <div class="col-md-4 forms">
             <!--            年级名称-->
             <div class="layui-form-item">
@@ -32,7 +36,6 @@
             </div>
         </div>
         <div class="col-md-4 forms">
-            <!--            年级编号-->
             <div class="layui-form-item">
                 <!--            创建年级按钮-->
                 <div class="layui-form-item">
@@ -44,9 +47,9 @@
 
         </div>
     </div>
-    <!--表格-->
+    <!--            表格主体-->
     <div id="LAY_preview" style="margin-top: 10px">
-<!--        选项卡-->
+            <!--                   选项卡-->
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
             <ul class="layui-tab-title">
                 <li class="layui-this">年级</li>
@@ -55,6 +58,7 @@
             <div class="layui-tab-content"></div>
         </div>
         <table class="layui-table" id="table">
+<<<<<<< Updated upstream
             <colgroup>
 <!--表格内容-->
             </colgroup>
@@ -70,8 +74,10 @@
             <tbody>
 
             </tbody>
+=======
+>>>>>>> Stashed changes
         </table>
-<!--        分页框-->
+           <!--            分页框-->
         <div id="test1"></div>
         <div id="test2"></div>
     </div>

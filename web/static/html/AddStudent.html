@@ -13,12 +13,14 @@
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/StuManager.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/Ajax.js"></script>
     <script type="text/javascript" src="/JavaWeb_SIMS_war_exploded/static/js/iframe.js"></script>
-    <title>StudentInfo</title>
+    <title>添加学生</title>
 </head>
 <body onload="addCode();StuInfo()">
+<!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 添加学生</p>
+        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页
+            <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 添加学生</p>
         <div class="pull-right">
             <input type="file" id="btn_file" style="display:none" name="btn_file">
             <button type="button" class="layui-btn" id="test1"  style="margin: 5px">
@@ -33,6 +35,7 @@
         </div>
     </div>
 </nav>
+<!--          内容区-->
 <div class="container">
     <div class="row">
         <div class="col-md-6 forms">
@@ -135,7 +138,6 @@
                         <div  id="Reset"  class="layui-btn layui-btn-primary">重置</div>
                     </div>
                 </div>
-                <!--                表单结束-->
             </form>
         </div>
     </div>

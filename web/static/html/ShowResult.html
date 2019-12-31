@@ -16,14 +16,14 @@
     <title>查看成绩</title>
 </head>
 <body onload="ShowResult()">
-<!--        该功能需要验证登录系统的角色,如果是管理员、教师登录，则年级、班级、科目、学生名字、学生编号均可以自行输入;
-           如果是学生登录，则年级、班级、学生名字、学生编号所有数据均自动绑定当前登录帐号的信息，且只读。只有科目下拉框可以选择   -->
 <!--          当前位置导航-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 查看成绩</p>
+        <p class="text-left addtea pull-left">当前位置 <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 首页
+            <i class="layui-icon" style="font-size: 15px;">&#xe602;</i> 查看成绩</p>
     </div>
 </nav>
+<!--          内容区-->
 <div class="container">
     <div class="row">
         <!--            表格-->
@@ -69,7 +69,6 @@
                 <table class="layui-table" style="margin-top: 0px" id="table">
                 </table>
                 <div id="test1"></div>
-
             </div>
         </div>
     </div>

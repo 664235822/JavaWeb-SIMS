@@ -24,7 +24,7 @@
             <a href="/JavaWeb_SIMS_war_exploded/static/html/HomePage.html" target="ifm" style="font-size: 20px; color: white;">
                 <i class="layui-icon layui-icon-console" style="font-size: 28px; vertical-align: middle;"></i>学生信息管理系统</a>
         </div>
-        <ul class="layui-nav layui-layout-right">
+        <ul class="layui-nav layui-layout-right" id="topnav">
             <li class="layui-nav-item">
                 <a href="">
                     <span class="glyphicon glyphicon-user"></span>管理员
@@ -33,14 +33,16 @@
                     <dd><a id="LogOut">注销登录</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a id="about">关于</a></li>
+            <li class="layui-nav-item lay-unselect">
+                <a id="about">关于</a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <!-- 菜单栏 -->
 <div class="layui-side layui-bg-black menu">
-    <ul class="layui-side-scroll pointer">
+    <ul class="layui-nav-tree layui-side-scroll pointer" id="leftnav">
 
     </ul>
 </div>

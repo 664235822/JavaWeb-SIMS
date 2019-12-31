@@ -220,7 +220,7 @@ public class InsertDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void insertHabit(HabitBean info) throws SQLException, MyException {
-        String sql = "select * from info where code='" + info.getCode() + "';";
+        String sql = "select * from Habit where code='" + info.getCode() + "';";
         ResultSet rs = querySelect(sql);
         if (rs.next()) {
             sql = "delete from Habit where code='" + info.getCode() + "';";

@@ -162,11 +162,11 @@ function SubmitAttendance() {
                     obj.subId = $(this).attr("value");
                     break;
                 case "type":
-                    obj.type = $(this).html();
+                    obj.type = $(this).find("option:selected").val();
                     break;
             }
         })
-        if (obj.type !== "") {
+        if (obj.type !== "0") {
             list.push(obj);
         }
     })
@@ -344,9 +344,10 @@ function Callback(Delete) {
     }
 
 }
+
 //考勤类型下拉框
 function AttendanceTypeTable() {
-    var text="";
+    var text = "";
     text += "<div class=\"layui-form\">";
     text += "<select name=\"city\"  lay-filter=\"test\">";
     text += "<option value=\"0\">请选择</option>";
@@ -357,11 +358,12 @@ function AttendanceTypeTable() {
     text += "</div>";
     return text;
 }
+
 //更改考勤操作
 function AttendanceMove(codeList) {
     var Attendance = 0;
     var text = "";
-    text+=AttendanceTypeTable();
+    text += AttendanceTypeTable();
     layer.open({
         title: '考勤管理',
         btn: ['确定', '取消'],

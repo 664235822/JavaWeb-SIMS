@@ -6,6 +6,7 @@ window.onload = function () {
 window.onresize = function () {
     $("#bgbody").height(window.innerHeight);
 }
+var accout="";
 $(function () {
     if(localStorage.Login!=null){
         var json2 = localStorage.Login;
@@ -36,12 +37,13 @@ $(function () {
     url = "/JavaWeb_SIMS_war_exploded/menu";
     data = {"character":CharacterMenu,"currentPage":"0","getId":'false'};
     var menu = Ajax(url, data);
-    if(arry.code!=0){
+    if(arry==undefined){
         arry=arry.data.cols;
         ModuleHtml(arry,menu);
     }else {
         arry=[0,0,0,0,0,0,0];
     }
+    accout=obj.accout;
     ModuleFunction(arry,menu);
 
 });
@@ -73,7 +75,25 @@ function Cbox(table,menu,arry) {
             btn:['添加','取消'],
             area:'400px',
             yes: function(index, layero){
-                ModuleHtml(arry,menu);
+                var data = {};
+                var info = {};
+                var url = "/JavaWeb_SIMS_war_exploded/insert";
+                data.tableName = "Habit";
+                info.code=accout;
+                info.cols=arry;
+                data.info = JSON.stringify(info);
+                var table = Ajax(url, data);
+                if(table.code==1){
+                    ModuleHtml(arry,menu);
+                    layer.close(index);
+                }else {
+                    parent.layer.msg("操作失败", {
+                        icon: 5
+                        , anim: 6
+                        , time: 1000
+                    });
+                }
+
             }
         });
     })

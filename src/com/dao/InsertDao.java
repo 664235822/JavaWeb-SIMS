@@ -230,7 +230,7 @@ public class InsertDao extends BaseDao {
         StringBuffer values = new StringBuffer();
         values.append("'" + info.getCode() + "'").append(",");
         for (int i = 0; i < 7; i++) {
-            values.append("'" + info.getCols()[i] + "'").append("'");
+            values.append("'" + info.getCols()[i] + "'").append(",");
         }
         values.deleteCharAt(values.length() - 1);
 

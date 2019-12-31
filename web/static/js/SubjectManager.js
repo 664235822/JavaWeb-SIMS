@@ -322,7 +322,7 @@ function SubTeacher(subid) {
     text += "</select> ";
     text += "</div>";
     layer.open({
-        title: '科目教师管理',
+        title: '年级教师管理',
         btn: ['确定', '取消'],
         content: text,
         skin: 'demo-class',
@@ -527,7 +527,7 @@ function Tabsub(data) {
             text += "<td>" + data[i].createTime + "</td>";
             text += "<td name=\'" + data[i].id + "\'>";
             text += "<button type=\"button\" class=\"layui-btn  layui-btn-sm layui-btn-danger\" name=\"delete\">删除</button>";
-            text += "<button type=\"button\" class=\"layui-btn layui-btn-sm layui-btn-normal\" name=\"subTeacher\">分配教师</button>";
+            text += "<button type=\"button\" class=\"layui-btn layui-btn-sm layui-btn-normal\" name=\"subTeacher\">年级教师管理</button>";
             text += "</td>";
             text += "</tr>";
             text += "</tbody>";

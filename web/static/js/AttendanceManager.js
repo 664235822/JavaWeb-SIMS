@@ -4,38 +4,192 @@
  * **/
 var ClassList = {};
 var tableName = {};
+var classId = 0;
+var SubjectsId = 0;
+var gradeId = 0;
+var code = "";
+var name = "";
 
 //考勤列表
 function Attendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
-    var data = Data("","",0,0,0);
+    var data = Data("", "", 0, 0, 0);
     var table = getPage(data);
     if (table.code == 1) {
         AttendanceTable(table.data.list);
         Refresh();
-        tableName="AttendanceTable";
+        tableName = "AttendanceTable";
         Page("test1", table.data.pageCount, table.data.dataCount);
         AttendanceFunction();
         GetGrades();
     }
 
 }
+
 //查看考勤列表
 function ShowAttendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
-    var data = Data("","",0,0,0);
+    var data = Data("", "", 0, 0, 0);
     var table = getPage(data);
     if (table.code == 1) {
         ShowAttendanceTable(table.data.list);
         Refresh();
-        tableName="ShowAttendanceTable";
+        tableName = "ShowAttendanceTable";
         Page("test1", table.data.pageCount, table.data.dataCount);
         AttendanceFunction();
         $("#Select").click();
     }
 
 }
+
+//添加考勤
+function ShowAddAttendance() {
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
+    var data = {
+        "tableName": "AddAttendance",
+        "gradeId": 0,
+        "classId": 0,
+        "subjectId": 0,
+        "currentPage": 1
+    };
+    var table = getPage(data);
+    if (table.code == 1) {
+        AddAttendanceTable(table.data.list);
+        AddPage("test1", table.data.pageCount, table.data.dataCount);
+        AddAttendanceFunction();
+        Refresh();
+    }
+}
+
+function AddAttendanceFunction() {
+    $(function () {
+        //查询
+        $("#Select").click(function () {
+            var data = {
+                "tableName": "AddAttendance",
+                "gradeId": gradeId,
+                "classId": classId,
+                "subjectId": SubjectsId,
+                "currentPage": 1
+            };
+            var table = getPage(data);
+            if (table.code == 1) {
+                AddAttendanceTable(table.data.list);
+                AddPage("test1", table.data.pageCount, table.data.dataCount);
+                AddAttendanceFunction();
+                Refresh();
+            }
+        });
+        $("#SubmitAttendance").click(function () {
+            SubmitAttendance();
+        });
+    })
+}
+
+//返回添加成绩表格
+function AddAttendanceTable(data) {
+    if (data != null) {
+        var text = "";
+        text += "<thead><tr>";
+        text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>添加考勤</th>";
+        text += "</tr></thead>";
+        text += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            text += "<tr>";
+            text += "<td>" + data[i].gradeName + "</td>";
+            text += "<td name='classId' value='" + data[i].classId + "'>" + data[i].className + "</td>";
+            text += "<td>" + data[i].code + "</td>";
+            text += "<td name='studentId' value='" + data[i].sId + "'>" + data[i].name + "</td>";
+            text += "<td name='subjectId' value='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
+            text += "<td name='type' contenteditable='true'></td>";
+            text += "</tr>";
+        }
+        text += "</tbody>";
+        $("#table").html(text);
+    }
+}
+
+function AddPage(id, limit, count) {
+    layui.use('laypage', function () {
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            , count: count //数据总数，从服务端得到
+            , limit: 10
+            , layout: ['prev', 'page', 'next', 'skip']
+            , jump: function (obj, first) {
+                //首次不执行
+                if (!first) {
+                    var data = {
+                        "tableName": "AddAttendance",
+                        "gradeId": gradeId,
+                        "classId": classId,
+                        "subjectId": SubjectsId,
+                        "currentPage": obj.curr
+                    };
+                    var table = getPage(data);
+                    if (table.code == 1) {
+                        AddAttendanceTable(table.data.list);
+                        Refresh();
+                        AddAttendanceFunction();
+                    }
+                }
+            }
+        });
+    });
+}
+
+//保存成绩
+function SubmitAttendance() {
+    var list = new Array();
+    $("#table").find("tr").each(function () {
+        var obj = new Object();
+        $(this).find("td").each(function () {
+            switch ($(this).attr("name")) {
+                case "classId":
+                    obj.classId = $(this).attr("value");
+                    break;
+                case "studentId":
+                    obj.sId = $(this).attr("value");
+                    break;
+                case "subjectId":
+                    obj.subId = $(this).attr("value");
+                    break;
+                case "type":
+                    obj.type = $(this).html();
+                    break;
+            }
+        })
+        if (obj.type !== "") {
+            list.push(obj);
+        }
+    })
+
+    var data = {
+        "tableName": "Attendance",
+        "info": JSON.stringify(list)
+    }
+    var url = "/JavaWeb_SIMS_war_exploded/insert"
+    var Menu = Ajax(url, data);
+    if (Menu.code == 1) {
+        //操作成功的提示
+        layer.msg(Menu.message, {
+            offset: '15px'
+            , icon: 1
+            , time: 1000
+        })
+    } else {
+        layer.msg(Menu.message, {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        })
+    }
+}
+
 /**
  * 权限区分
  *
@@ -90,7 +244,7 @@ function Admin() {
     }
 }
 
-function Data(code,name,gradeId,classId,SubjectsId) {
+function Data(code, name, gradeId, classId, SubjectsId) {
     var data = {
         "tableName": "Attendance",
         "code": code,
@@ -108,17 +262,17 @@ function AttendanceFunction() {
     $("#Select").click(function () {
         var code = $("#code").val();
         var name = $("#name").val();
-        var gradeId=$("#Grades option:selected").val();
-        var classId=$("#Class option:selected").val();
-        var SubjectsId=$("#Subjects  option:selected").val();
-        var data = Data(code,name,gradeId,classId,SubjectsId);
+        var gradeId = $("#Grades option:selected").val();
+        var classId = $("#Class option:selected").val();
+        var SubjectsId = $("#Subjects  option:selected").val();
+        var data = Data(code, name, gradeId, classId, SubjectsId);
         var table = getPage(data);
-        if(tableName=="AttendanceTable"){
+        if (tableName == "AttendanceTable") {
             if (table.code == 1) {
                 ResultTable(table.data.list);
             }
         }
-        if(tableName=="ShowAttendanceTable"){
+        if (tableName == "ShowAttendanceTable") {
             if (table.code == 1) {
                 ShowAttendanceTable(table.data.list);
             }
@@ -140,33 +294,33 @@ function AttendanceFunction() {
         });
     });
     //单个操作
-        $("table tbody").find("button[name]").click(function () {
-            var id = $(this).parent().parent().attr('name');
-            if ($(this).attr("name") == "modify") {
-                var codeList = new Array();
-                codeList[0] = id;
-                AttendanceMove(codeList);
-            }
-
-        });
-    //批量操作
-        $("#moveClassAll").click(function () {
+    $("table tbody").find("button[name]").click(function () {
+        var id = $(this).parent().parent().attr('name');
+        if ($(this).attr("name") == "modify") {
             var codeList = new Array();
-            var num = 0;
-            $("input[name=checkbox]:checked").each(function () {
-                codeList[num] = $(this).parent().parent().parent().attr('name');
-                num++;
-            });
-            if (codeList.length == 0) {
-                layer.msg("请选择", {
-                    icon: 5
-                    , anim: 6
-                    , time: 1000
-                });
-            } else {
-                AttendanceMove(codeList);
-            }
+            codeList[0] = id;
+            AttendanceMove(codeList);
+        }
+
+    });
+    //批量操作
+    $("#moveClassAll").click(function () {
+        var codeList = new Array();
+        var num = 0;
+        $("input[name=checkbox]:checked").each(function () {
+            codeList[num] = $(this).parent().parent().parent().attr('name');
+            num++;
         });
+        if (codeList.length == 0) {
+            layer.msg("请选择", {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
+        } else {
+            AttendanceMove(codeList);
+        }
+    });
 }
 
 //回调功能
@@ -187,6 +341,7 @@ function Callback(Delete) {
     }
 
 }
+
 //更改考勤操作
 function AttendanceMove(codeList) {
     var Attendance = 0;
@@ -352,9 +507,9 @@ function Page(id, limit, count) {
                 if (!first) {
                     var code = $("#code").val();
                     var name = $("#name").val();
-                    var gradeId=$("#Grades option:selected").val();
-                    var classId=$("#Class option:selected").val();
-                    var SubjectsId=$("#Subjects  option:selected").val();
+                    var gradeId = $("#Grades option:selected").val();
+                    var classId = $("#Class option:selected").val();
+                    var SubjectsId = $("#Subjects  option:selected").val();
                     var data = {
                         "tableName": "Result",
                         "code": code,
@@ -365,12 +520,12 @@ function Page(id, limit, count) {
                         "currentPage": obj.curr
                     };
                     var table = getPage(data);
-                    if(tableName=="AttendanceTable"){
+                    if (tableName == "AttendanceTable") {
                         if (table.code == 1) {
                             ResultTable(table.data.list);
                         }
                     }
-                    if(tableName=="ShowAttendanceTable"){
+                    if (tableName == "ShowAttendanceTable") {
                         if (table.code == 1) {
                             ShowAttendanceTable(table.data.list);
                         }
@@ -382,6 +537,7 @@ function Page(id, limit, count) {
         });
     });
 }
+
 //返回考勤表格
 function ShowAttendanceTable(data) {
     if (data != null) {
@@ -405,6 +561,7 @@ function ShowAttendanceTable(data) {
         $("#table").html(text);
     }
 }
+
 //返回考勤表格
 function AttendanceTable(data) {
     if (data != null) {

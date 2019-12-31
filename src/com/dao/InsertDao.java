@@ -198,6 +198,9 @@ public class InsertDao extends BaseDao {
      */
     public void insertAttendance(List<AttendanceBean> attendanceList) throws SQLException, MyException {
         for (AttendanceBean info : attendanceList) {
+            if (info.getsId() == 0 || info.getSubId() == 0 || info.getClassId() == 0)
+                continue;
+
             StringBuffer values = new StringBuffer();
             values.append("'" + info.getsId() + "'").append(",");
             values.append("'" + info.getType() + "'").append(",");

@@ -174,7 +174,7 @@ function MoveClass(gradeId) {
 function teacher(gradeId) {
     var data = getpage({'tableName': 'Teacher', 'code': "", 'name': "", 'currentPage': 0});
     var text = "";
-    text += "  <option value=\"0\">请选择班级</option>";
+    text += "  <option value=\"0\">请选择教师</option>";
     if (data.code == 1) {
         var list = data.data.list;
         if (gradeId != 0) {

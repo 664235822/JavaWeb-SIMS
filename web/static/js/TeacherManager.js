@@ -245,7 +245,7 @@ function Move(codeList) {
         yes: function (index) {
             var data = {};
             var url = "/JavaWeb_SIMS_war_exploded/insert";
-            data.tableName = "TeacherClass";
+            data.tableName = "ClassTeacher";
             var info = {};
             info.teacherId = codeList;
             info.classId = classId;

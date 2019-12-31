@@ -130,7 +130,7 @@ function ClassFunction() {
         $("#Select").click(function () {
             var code = $("#code").val();
             var name = $("#name").val();
-            var Class = getClass(0, code, name);
+            var Class = getClass(1, code, name);
             var grade = getGrade(0);
             if (Class.code == 1) {
                 ClassTable(grade.data.list, Class.data.list);

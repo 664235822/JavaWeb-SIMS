@@ -118,6 +118,34 @@ $(function () {
         $("li").not(menuId).removeClass("layui-nav-itemed");
     });
 });
+//修改密码
+   $(function () {
+       var text = "";
+       text += "<div class=\"layui-form\" style=\"height: 300px;height:300px; \">";
+       text += "<div class=\"layui-form-item\" style=\"padding-right: 15px;\">";
+       text += "<label class=\"layui-form-label\"style=\"padding: 9px 0px;text-align: center\">旧密码:</label>";
+       text += "<input type=\"text\" name=\"title\" required  lay-verify=\"required\" placeholder=\"请输入标题\" autocomplete=\"off\" class=\"layui-input\">";
+       text += "</div></div>";
+       text += "<div class=\"layui-form-item\" style=\"padding-right: 15px;\">";
+       text += "<label class=\"layui-form-label\"style=\"padding: 9px 0px;text-align: center\">新密码:</label>";
+       text += "<input type=\"text\" name=\"title\" required  lay-verify=\"required\" placeholder=\"请输入标题\" autocomplete=\"off\" class=\"layui-input\">";
+       text += "</div></div>";
+       text += "<div class=\"layui-form-item\" style=\"padding-right: 15px;\">";
+       text += "<label class=\"layui-form-label\"style=\"padding: 9px 0px;text-align: center\">确认密码:</label>";
+       text += "<input type=\"text\" name=\"title\" required  lay-verify=\"required\" placeholder=\"请输入标题\" autocomplete=\"off\" class=\"layui-input\">";
+       text += "</div></div>";
+       text += "</div>";
+        $("#Reset").click(function () {
+            layui.use(['layer'], function () {
+                layer.open({
+                    type: 1,
+                    content: text //这里content是一个普通的String
+                });
+            })
+        })
+   });
+
+
 
 //关于
 function About() {

@@ -1,9 +1,13 @@
 /**
  * 年级管理js
  * **/
-//分页区分表格
+//不同页面的表格名
 var tableName="";
-//查看班级初始化
+
+/**
+ * @description 查看班级初始化
+ *
+ */
 function ShowClass() {
     var grade = getGrade(0);
     var Class = getClass(1, "", "");
@@ -15,7 +19,10 @@ function ShowClass() {
         ClassFunction();
     }
 }
-//新增班级
+/**
+ * @description 新增班级初始化
+ *
+ */
 function ClassInfo() {
     var grade = getGrade(0);
     var Class = getClass(1, "", "");
@@ -28,7 +35,10 @@ function ClassInfo() {
     }
 }
 
-//增加班级
+/**
+ * @description 新增班级方法
+ *
+ */
 function AddClass() {
     var GradeAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var gradeId = -1;
@@ -45,6 +55,7 @@ function AddClass() {
             erifydata(ClassName, GradeAll, gradeId, num);
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
+        //表单监听事件
         form.on('select(quiz1)', function (data) {
             gradeId = data.value;
             for (var i = 0; i < GradeAll.data.length; i++) {
@@ -62,7 +73,14 @@ function AddClass() {
     })
 }
 
-//验证班级数据
+
+/**
+ * @description 验证班级数据
+ * @param  ClassName 新增班级名称
+ * @param GradeAll  所有年级
+ * @param gradeId  年级id
+ * @param num  班级编号
+ */
 function erifydata(ClassName, GradeAll, gradeId, num) {
     var Judge = false;
     for (var i = 0; i < GradeAll.data.length; i++) {
@@ -109,21 +127,34 @@ function erifydata(ClassName, GradeAll, gradeId, num) {
     }
 }
 
-//获取年级
+/**
+ * @description 获取年级信息
+ * @param  page 页数
+ * @param data  访问到的数据
+ */
 function getGrade(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", 'currentPage': page});
     return data;
 }
 
-//获取班级
+/**
+ * @description 获取班级信息
+ * @param  page 页数
+ * @param  code 编号
+ * @param  name 姓名
+ * @param data  访问到的数据
+ */
 function getClass(page, code, name) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var data = Ajax(url, {'tableName': 'Class', 'code': code, 'name': name, "gradeId": "", 'currentPage': page});
     return data;
 }
 
-//班级功能模块
+/**
+ * @description 班级查询，全选功能，单行操作，多行操作
+ *
+ */
 function ClassFunction() {
     $(function () {
         //查询
@@ -154,25 +185,28 @@ function ClassFunction() {
             });
         });
     });
-    //单个操作
+    //单行操作
     $("table tbody").find("button[name]").click(function () {
         var id = $(this).parent().parent().attr('name');
+        //删除功能
         if ($(this).attr("name") == "delete") {
             var codeList = new Array();
             codeList[0] = id;
             Delete(codeList);
         }
+        //转级功能
         if ($(this).attr("name") == "moveGrade") {
             var codeList = new Array();
             codeList[0] = id;
             Move(codeList);
         }
+        //修改功能
         if ($(this).attr("name") == "modify") {
             ShowModify(id);
         }
 
     });
-    //批量操作
+    //多行操作
     $("#moveClassAll").click(function () {
         var codeList = new Array();
         var num = 0;
@@ -187,6 +221,7 @@ function ClassFunction() {
                 , time: 1000
             });
         } else {
+            //多行删除
             Delete(codeList);
         }
     });
@@ -194,7 +229,12 @@ function ClassFunction() {
 }
 
 
-//更改年级
+//
+
+/**
+ * @description 更改年级
+ * @param  codeList 年级编号数组
+ */
 function Move(codeList) {
     var GradeAll = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var gradeId = 0;
@@ -253,7 +293,11 @@ function Move(codeList) {
     })
 }
 
-//修改班级名称
+
+/**
+ * @description 修改班级名称
+ * @param  code 年级编号
+ */
 function ShowModify(code) {
     var Class = getClass(0, code, "");
     var text = "";
@@ -290,7 +334,10 @@ function ShowModify(code) {
     });
 }
 
-//年级下拉框
+/**
+ * @description 年级下拉框
+ *
+ */
 function grade() {
     var grade = getGrade(0);
     var text = "";
@@ -304,7 +351,10 @@ function grade() {
     return text;
 }
 
-//删除
+/**
+ * @description 用户删除时判断
+ * @param  codeList 年级编号数组
+ */
 function Delete(codeList) {
     layer.confirm('确认删除', {
         icon: 7,
@@ -322,7 +372,11 @@ function Delete(codeList) {
 
 }
 
-//回调功能
+/**
+ * @description 访问后台的回调
+ * @param  Callback 后台返回的数据
+ *
+ */
 function Callback(Callback) {
     if (Callback.code == 1) {
         ShowClass();
@@ -341,7 +395,13 @@ function Callback(Callback) {
 
 }
 
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     var index = 0;
     layui.use('laypage', function () {
@@ -377,7 +437,11 @@ function Page(id, limit, count) {
 
 }
 
-//添加班级页面表格
+/**
+ * @description 添加班级页面表格
+ * @param  grade 年级数据
+ * @param  Class 班级数据
+ */
 function AddClassTable(grade, Class) {
     var data = Class;
     if (data != null) {
@@ -404,7 +468,12 @@ function AddClassTable(grade, Class) {
     }
 }
 
-//班级表格
+
+/**
+ * @description 班级管理页面表格
+ * @param  grade 年级数据
+ * @param  Class 班级数据
+ */
 function ClassTable(grade, Class) {
     var data = Class;
     if (data != null) {
@@ -444,7 +513,10 @@ function ClassTable(grade, Class) {
     }
 }
 
-//刷新
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

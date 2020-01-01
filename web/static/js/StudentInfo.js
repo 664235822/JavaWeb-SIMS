@@ -1,5 +1,10 @@
-//重置按钮会重启自动生成账号方法
+
+/**
+ * @description 新增学生页面重置按钮会重启数据并自动生成账号方法的
+ *
+ */
 $(function () {
+    //监听重置按钮
     $("#Reset").click(function () {
         $("#tName").val("");
         $("#tAge").val("");
@@ -14,8 +19,10 @@ $(function () {
         Refresh();
     })
 });
-//自动生成账号
-<!--  页面加载完成就自动生成学生账号-->
+
+/**
+ * @description 在页面加载完成就自动生成学生账号
+ * **/
 function addCode(){
     //获取1970到现在的时间（毫秒显示）
     var mydate= new Date();
@@ -28,7 +35,9 @@ function addCode(){
     TeacherCode.value="S"+scode+Code;
 }
 
-//表单验证
+/**
+ * @description 对表单里的数据进行验证
+ * **/
 layui.use(['form'], function () {
     var form = layui.form;
     //     //仅输入中文
@@ -77,11 +86,12 @@ layui.use(['form'], function () {
         }
 
     });
-
+    //监听提交按钮
     form.on('submit(component-form-element)', function(data){
         UpStudent();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
+    //监听修改学生页面的提交按钮
     form.on('submit(modify)', function(data){
         var data = {};
         var Info = {};
@@ -104,8 +114,10 @@ layui.use(['form'], function () {
                 icon: 1
                 , time: 1000
             });
+
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
+            //在对父级页面的查询进行点击
             parent.$("#Select").click();
         } else {
             parent.layer.msg(Menu.message, {
@@ -117,10 +129,13 @@ layui.use(['form'], function () {
         }
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
-    function Serch(id) {
-        return $("#" + id).val();
-    }
-    // 应该没有用form.on("submit(submit_button)", function (data) {
-    //     return false;
-    // });
+
 });
+/**
+ * @description 获取当前id标签的value值、
+ * @param id 标签的id
+ * @return 当前id标签的value值
+ * **/
+function Serch(id) {
+    return $("#" + id).val();
+}

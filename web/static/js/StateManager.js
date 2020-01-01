@@ -3,7 +3,10 @@
  *
  *
  * **/
-//权限管理
+/**
+ * @description 权限管理页面初始化
+ *
+ */
 $(function () {
     Refresh();
     var TeacherMenu=getPage({"character":"TeacherMenu","currentPage":0,"getId":'true'});
@@ -17,7 +20,10 @@ $(function () {
     }
 
 })
-//教师权限
+/**
+ * @description 教师菜单与所有菜单进行对比
+ * @param TeacherMenu 教师菜单
+ */
 function TeacherState(TeacherMenu) {
     if(TeacherMenu.code==1){
         var menuId=TeacherMenu.data;
@@ -31,7 +37,10 @@ function TeacherState(TeacherMenu) {
         });
     }
 }
-//学生权限
+/**
+ * @description 学生菜单与所有菜单进行对比
+ * @param StudentsMenu 学生菜单
+ */
 function StudentState(StudentsMenu) {
     if(StudentsMenu.code==1){
         var menuId=StudentsMenu.data;
@@ -46,8 +55,12 @@ function StudentState(StudentsMenu) {
     }
 }
 
-//权限内容区别
+/**
+ * @description 区分角色选项卡来生成对应的表格
+ * @param index 角色对应值0教师 1学生
+ * **/
 function StateIf(index) {
+    //把所有行的开关改为未选中状态
     $("#table tbody tr").each(function() {
         $("#table tr[name="+$(this).attr("name")+"]").find("input[type=checkbox]").attr("checked", false);
     });
@@ -60,12 +73,23 @@ function StateIf(index) {
         StudentState(StudentsMenu);
     }
 }
+/**
+ * @description 获取年级信息
+ * @param  page 页数
+ * @return data  访问到的数据
+ */
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/menu";
     var table = Ajax(url, data);
     return table;
 }
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id,limit,count) {
     var index=0;
     layui.use('laypage', function () {
@@ -103,6 +127,7 @@ function Page(id,limit,count) {
             Refresh();
         });
     });
+    //监听开关
     layui.use('form', function () {
         var form = layui.form;
         form.on('switch(filter)', function(data){
@@ -113,6 +138,13 @@ function Page(id,limit,count) {
     })
 
 }
+/**
+ * @description layui分页功能
+ * @param  menuId 菜单id
+ * @param index 角色对应值0教师 1学生
+ * @param Switch  开关状态
+ *
+ */
 function State(menuId,index,Switch) {
     var close={};//关
     var open={};//开
@@ -143,13 +175,21 @@ function State(menuId,index,Switch) {
     }
 
 }
-//开启操作
+/**
+ * @description 开关开启后的操作
+ * @param  OpenMenu 所有菜单
+ * @param menuId 菜单id
+ * @param open  开起菜单的角色与boolean值
+ * @param menu  角色的菜单信息
+ */
 function Open(OpenMenu,menuId,open,menu) {
     var Judge=true;
     if(OpenMenu.code==1){
         OpenMenu=OpenMenu.data;
+        //循环所有菜单，判断是否是父级菜单开启
         for(var i=0;i<OpenMenu.length;i++){
             if(OpenMenu[i].menuId==menuId){
+                //开启所有子级菜单
                 for (var j=0;j<OpenMenu[i].items.length;j++){
                     open.menuId=OpenMenu[i].items[j].menuId;
                     AjaxAsync(open);
@@ -161,12 +201,15 @@ function Open(OpenMenu,menuId,open,menu) {
                 break;
             }
         }
+        //子级菜单的开启
         if(Judge){
             for(var i=0;i<OpenMenu.length;i++){
                 for (var j=0;j<OpenMenu[i].items.length;j++){
+                    //判断要开启那个子级菜单
                     if(OpenMenu[i].items[j].menuId==menuId){
                         open.menuId=OpenMenu[i].items[j].menuId;
                         AjaxAsync(open);
+                        //判断是否开启所有子级菜单
                         for(var k=0;k<menu.data.length;k++){
                             if(menu.data[k].menuId==OpenMenu[i].menuId){
                                 Judge=false;
@@ -185,12 +228,18 @@ function Open(OpenMenu,menuId,open,menu) {
         }
     }
 }
-//关闭操作
+/**
+ * @description 开关关闭后的操作
+ * @param  menu 所有菜单
+ * @param menuId 菜单id
+ * @param close  关闭菜单的角色与boolean值
+ */
 function Close(menu,menuId,close) {
     var Judge=true;
     if(menu.code==1){
         menu=menu.data;
         for(var i=0;i<menu.length;i++){
+            //判断是否关闭的是父级菜单
             if(menu[i].menuId==menuId){
                 for (var j=0;j<menu[i].items.length;j++){
                     close.menuId=menu[i].items[j].menuId;
@@ -203,6 +252,7 @@ function Close(menu,menuId,close) {
                 break;
             }
         }
+        //关闭子级菜单
         if(Judge){
             for(var i=0;i<menu.length;i++){
                 for (var j=0;j<menu[i].items.length;j++){
@@ -221,6 +271,10 @@ function Close(menu,menuId,close) {
         }
     }
 }
+/**
+ * @description ajax异步提交菜单更改数据
+ * @param data 提交的菜单数据
+ */
 function AjaxAsync(data) {
     $.ajax({
         url:"/JavaWeb_SIMS_war_exploded/updateMenu",
@@ -233,8 +287,12 @@ function AjaxAsync(data) {
         },
     });
 }
-//权限表格
+//表格的菜单数据
 var tableMenu={};
+/**
+ * @description 生成菜单表格
+ * @param  menu 所有菜单
+ */
 function StateTable(menu) {
     var MenuTable=menu.list;
     var text = "";
@@ -273,7 +331,10 @@ function StateTable(menu) {
     }
 
 }
-//刷新
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

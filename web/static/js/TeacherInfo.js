@@ -1,3 +1,7 @@
+/**
+ * @description 新增教师页面重置按钮会重启数据并自动生成账号方法的
+ *
+ */
 $(function () {
     $("#chongzhi").click(function () {
         $("#tName").val("");
@@ -13,7 +17,10 @@ $(function () {
         Refresh();
     })
 });
-// <!--  页面加载完成就自动生成教师账号-->
+
+/**
+ * @description 在页面加载完成就自动生成教师账号
+ * **/
 function addCode(){
     //获取1970到现在的时间（毫秒显示）
     var mydate= new Date();
@@ -25,7 +32,9 @@ function addCode(){
     TeacherCode.value="t"+Code;
 }
 
-<!--    表单验证-->
+/**
+ * @description 对表单里的数据进行验证
+ * **/
 layui.use(['form'], function () {
     var form = layui.form;
     //     //仅输入中文
@@ -82,6 +91,7 @@ layui.use(['form'], function () {
         }
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
+    //监听修改教师页面的提交按钮
     form.on('submit(modify)', function(data){
         var data = {};
         var Info = {};
@@ -121,12 +131,13 @@ layui.use(['form'], function () {
 
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
-    function Serch(id) {
-        return $("#" + id).val();
-    }
-    // 应该没有用form.on("submit(submit_button)", function (data) {
-    //     return false;
-    // });
-});
-//滚动条事件
 
+});
+/**
+ * @description 获取当前id标签的value值、
+ * @param id 标签的id
+ * @return 当前id标签的value值
+ * **/
+function Serch(id) {
+    return $("#" + id).val();
+}

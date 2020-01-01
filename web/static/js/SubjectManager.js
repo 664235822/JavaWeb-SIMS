@@ -2,9 +2,14 @@
  * 科目管理js
  *
  * **/
+//班级年级科目数据
 var ClassList = {};
+//页面表格名
 var tableName = "";
 //新增科目
+/**
+ * @description 科目管理初始化
+ * **/
 function Submanage() {
     getClassList();
     var data = getpage({'tableName': 'Subject', "code": "", "name": "", 'currentPage': 1});
@@ -17,11 +22,10 @@ function Submanage() {
     Addsub();
     generalmang();
 }
-//获取年级班级科目关系表a
-function getClassList() {
-    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll"});
-}
-//教师与科目
+
+/**
+ * @description 查看科任老师页面初始化
+ * **/
 function showteachifo() {
     getClassList();
     var data = getpage({'tableName': 'TeacherClass', 'gradeId': 0, 'classId': 0, 'subjectId': 0, 'currentPage': 1});
@@ -35,8 +39,17 @@ function showteachifo() {
     }
 
 }
-
-//获取科目
+/**
+ * @description 获取班级年级科目数据
+ * **/
+function getClassList() {
+    this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll"});
+}
+/**
+ * @description 查询数据
+ * @param data 请求的数据
+ * @return data 查询到的数据
+ * **/
 function getpage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var data = Ajax(url, data,);
@@ -44,7 +57,9 @@ function getpage(data) {
 }
 
 
-//添加科目弹窗
+/**
+ * @description 添加科目的弹窗
+ * **/
 function Addsub() {
     var geaid = 0;
     $(function () {
@@ -86,7 +101,10 @@ function Addsub() {
     });
 }
 
-//添加科目
+/**
+ * @description 添加科目点击确认后处理数据
+ * @param geaid 年级id
+ * **/
 function addSubject(geaid) {
     var classname = $("#asub").val();
     if (classname == "") {
@@ -109,7 +127,11 @@ function addSubject(geaid) {
 
     }
 }
-//科目下拉框
+/**
+ * @description 生成科目下拉框
+ * @param classId 班级id
+ * @return text科目下拉框代码
+ */
 function Subjects(classId) {
     var text = "";
     var subjectsId = 0;
@@ -138,7 +160,10 @@ function Subjects(classId) {
     }
     return text;
 }
-//年级下拉框
+/**
+ * @description 生成年级下拉框
+ * @return text科目下拉框代码
+ */
 function grade() {
     var text = "";
     if (ClassList.code == 1) {
@@ -150,8 +175,11 @@ function grade() {
     }
     return text;
 }
-
-//班级下拉框
+/**
+ * @description 生成班级下拉框
+ * @param gradeId 年级id
+ * @return text科目下拉框代码
+ */
 function MoveClass(gradeId) {
     var text = "";
     text += "  <option value=\"0\">请选择班级</option>";
@@ -169,8 +197,11 @@ function MoveClass(gradeId) {
     }
     return text;
 }
-
-//教师下拉框
+/**
+ * @description 生成教师下拉框
+ * @param gradeId 年级id
+ * @return text科目下拉框代码
+ */
 function teacher(gradeId) {
     var data = getpage({'tableName': 'Teacher', 'code': "", 'name': "", 'currentPage': 0});
     var text = "";
@@ -187,7 +218,9 @@ function teacher(gradeId) {
     return text;
 }
 
-//查看科任老师信息
+/**
+ * @description 查看科任老师页面的查询功能
+ * **/
 function TeacherSub() {
     $(function () {
         //查询
@@ -213,7 +246,10 @@ function TeacherSub() {
         });
     });
 }
-//获取下拉框
+/**
+ * @description 给下拉框添加监听事件
+ *
+ */
 function GetGrades() {
     var text = "";
     text += "<option value=\"0\">请选择班级</option>";
@@ -241,7 +277,10 @@ function GetGrades() {
         });
     })
 }
-//科目管理操作
+/**
+ * @description 科目管理页面查询 单行，多行操作
+ *
+ */
 function generalmang() {
     $(function () {
         //查询
@@ -268,7 +307,7 @@ function generalmang() {
                 form.render();
             });
         });
-        //批量操作
+        //多行操作
         $("#moveClassAll").click(function () {
             var codeList = new Array();
             var num = 0;
@@ -286,7 +325,7 @@ function generalmang() {
                 Delsub(codeList);
             }
         });
-        //单个操作
+        //单行操作
         $("table tbody").find("button[name]").click(function () {
             var id = $(this).parent().parent().attr('name');
             if ($(this).attr("name") == "delete") {
@@ -302,7 +341,11 @@ function generalmang() {
     })
 }
 
-//给老师分配科目
+/**
+ * @description 给科目建立老师班级关系
+ * @param subid 当前行的name值（科目id）
+ *
+ */
 function SubTeacher(subid) {
     var gradeId = 0;
     var classId = 0;
@@ -353,13 +396,19 @@ function SubTeacher(subid) {
         });
         form.on('select(Subjects)', function (data) {
             tid = data.value;
+            //把教师的编号显示在文本框内
             var code = $("#teacher").find("[value="+tid+"]").attr('name');
             $("#TeacherCode").val(code);
         });
     });
 }
 
-//分配老师确认操作
+/**
+ * @description 给科目建立老师班级关系确认后操作
+ * @param tid 教师id
+ * @param classId 班级id
+ * @param subid 科目id
+ */
 function DistributionClass(tid, classId, subid) {
     var data = {};
     var url = "/JavaWeb_SIMS_war_exploded/insert";
@@ -372,8 +421,10 @@ function DistributionClass(tid, classId, subid) {
     var table = Ajax(url, data);
     DeleteEnd(table);
 }
-
-//删除
+/**
+ * @description 删除操作的确认弹窗
+ * @param codeList 要删除行的name数据
+ * **/
 function Delsub(codeList) {
     layer.confirm('确认删除', {
         icon: 7,
@@ -390,7 +441,12 @@ function Delsub(codeList) {
     });
 }
 
-//删除回调
+
+/**
+ * @description 删除后回调
+ * @param Data 删除请求后后台发送回来的数据
+ *
+ * **/
 function DeleteEnd(Delete) {
     if (Delete.code == 1) {
         var name = $("#LAY_sub").val();
@@ -412,8 +468,10 @@ function DeleteEnd(Delete) {
         });
     }
 }
-
-//回调
+/**
+ * @description 操作之后对ajax请求回来的数据进行处理
+ * @param Callback ajax请求回来的数据
+ * **/
 function Callback(Callback) {
     if (Callback.code == 1) {
         Submanage();
@@ -432,7 +490,13 @@ function Callback(Callback) {
 }
 
 
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -484,7 +548,12 @@ function Page(id, limit, count) {
     });
 }
 
-//科目教师表格
+
+/**
+ * @description 科目教师表格
+ * @param  data 教师科目年级班级数据
+ *
+ * */
 function SubjectTeacher(data) {
     if (data != null) {
         var text = "";
@@ -507,7 +576,11 @@ function SubjectTeacher(data) {
     }
 }
 
-//科目表格
+/**
+ * @description 科目表格
+ * @param  data 科目数据
+ *
+ * */
 function Tabsub(data) {
     if (data != null) {
         var text = "";
@@ -536,7 +609,10 @@ function Tabsub(data) {
     }
 }
 
-//刷新
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

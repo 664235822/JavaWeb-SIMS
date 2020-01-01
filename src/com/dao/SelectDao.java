@@ -921,9 +921,10 @@ public class SelectDao extends BaseDao {
         ResultSet rs = querySelect(sql);
 
         BaseBean result = new BaseBean();
-        HabitBean habit = new HabitBean();
+        HabitBean habit = null;
 
         if (rs.next()) {
+            habit = new HabitBean();
             habit.setCode(code);
             int[] cols = new int[7];
             for (int i = 0; i < 7; i++) {

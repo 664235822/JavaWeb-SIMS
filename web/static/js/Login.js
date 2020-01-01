@@ -2,7 +2,13 @@
  * 登陆js
  *
  * **/
+//随机验证码
 var random=null;
+
+/**
+ * @description 页面加载完成，进行初始化
+ *
+ */
 window.onload = function(){
     if(!localStorage){
         layer.msg('浏览器不支持记住密码', {
@@ -11,6 +17,7 @@ window.onload = function(){
             time: 2000 //2秒关闭（如果不配置，默认是3秒）
         });
     }
+    //判断是以前是否登陆过
     if(localStorage.jzzh!=null){
         var json2 = localStorage.jzzh;
         var obj = JSON.parse(json2);
@@ -18,23 +25,32 @@ window.onload = function(){
         $("#LAY-user-login-password").val(obj.pass);
     }
 }
-$(function () {
 
-    // random=Math.random().toString(36).slice(-4);
-    // $(".RandomCode").html(random);
+/**
+ * @description 对页面点击事件进行处理
+ *
+ */
+$(function () {
     RandomCode();
+    //验证码图片点击更换验证码
     $(".RandomCode").click(function () {
         RandomCode();
     })
+    //监听键盘回车
     $(document).keyup(function(event){
         if(event.keyCode ==13){
             $("#btn-login").trigger("click");
         }
     });
+    //登陆按钮点击后
     $("button[lay-filter=LAY-user-login-submit]").click(function () {
+        //获取用户名
         var username=$("#LAY-user-login-username").val();
+        //获取密码
         var password=$("#LAY-user-login-password").val();
+        //获取用户选中的角色
         var state=$("li[class=layui-this]").attr("name");
+        //获取输入的验证码
         var randomcode=$("#LAY-user-login-vercode").val();
         var test=$("li[class=layui-this]").text();
         if(randomcode!=random&&randomcode!=""){
@@ -51,7 +67,6 @@ $(function () {
             var url = "/JavaWeb_SIMS_war_exploded/login";
             var Menu = Ajax(url, str);
             if (Menu.code==1) {
-
                 CheckSave(username,password,state,Menu.data.username);
                 //登入成功的提示与跳转
                 layer.msg(Menu.message, {
@@ -77,45 +92,25 @@ $(function () {
         }
     })
 });
-//验证码
+
+/**
+ * @description 生成随机验证码
+ *
+ */
 function RandomCode(){
     random=Math.random().toString(36).slice(-4);
     $(".RandomCode").html(random);
 }
 
 
-
+/**
+ * @description layui对角色选项卡进行监听
+ *
+ */
 layui.use('element', function(){
     var $ = layui.jquery,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-
-    //触发事件
-    var active = {
-        tabAdd: function(){
-            //新增一个Tab项
-            element.tabAdd('demo', {
-                title: '新选项'+ (Math.random()*1000|0) //用于演示
-                ,content: '内容'+ (Math.random()*1000|0)
-                ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
-            })
-        }
-
-        ,tabChange: function(){
-            //切换到指定Tab项
-            element.tabChange('demo', '22'); //切换到：用户管理
-        }
-    };
-
     $('.site-demo-active').on('click', function(){
         var othis = $(this), type = othis.data('type');
         active[type] ? active[type].call(this, othis) : '';
     });
-
-    //Hash地址的定位
-    var layid = location.hash.replace(/^#test=/, '');
-    element.tabChange('test', layid);
-
-    element.on('tab(test)', function(elem){
-        location.hash = 'test='+ $(this).attr('lay-id');
-    });
-
 });

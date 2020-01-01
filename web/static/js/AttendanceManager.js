@@ -2,15 +2,26 @@
  *
  * 考勤管理js
  * **/
+//班级年级科目数据
 var ClassList = {};
+//页面表格名
 var tableName = {};
+//班级id
 var classId = 0;
+//科目id
 var SubjectsId = 0;
+//年级id
 var gradeId = 0;
+//编号
 var code = "";
+//姓名
 var name = "";
 
-//考勤列表
+
+/**
+ * @description 查看考勤页面初始化
+ *
+ */
 function Attendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = Data("", "", 0, 0, 0);
@@ -26,7 +37,10 @@ function Attendance() {
 
 }
 
-//查看考勤列表
+/**
+ * @description 考勤管理页面初始化
+ *
+ */
 function ShowAttendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
@@ -43,7 +57,10 @@ function ShowAttendance() {
 
 }
 
-//添加考勤
+/**
+ * @description 添加考勤页面初始化
+ *
+ */
 function ShowAddAttendance() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {
@@ -63,6 +80,10 @@ function ShowAddAttendance() {
     }
 }
 
+/**
+ * @description 添加考勤的查询方法
+ *
+ */
 function AddAttendanceFunction() {
     $(function () {
         //查询
@@ -82,41 +103,22 @@ function AddAttendanceFunction() {
                 Refresh();
             }
         });
+        //一键保存
         $("#SubmitAttendance").click(function () {
             SubmitAttendance();
         });
     })
 }
-
-//返回添加成绩表格
-function AddAttendanceTable(data) {
-    if (data != null) {
-        var text = "";
-        text += "<thead><tr>";
-        text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>添加考勤</th>";
-        text += "</tr></thead>";
-        text += "<tbody>";
-        for (var i = 0; i < data.length; i++) {
-            text += "<tr>";
-            text += "<td>" + data[i].gradeName + "</td>";
-            text += "<td name='classId' value='" + data[i].classId + "'>" + data[i].className + "</td>";
-            text += "<td>" + data[i].code + "</td>";
-            text += "<td name='studentId' value='" + data[i].sId + "'>" + data[i].name + "</td>";
-            text += "<td name='subjectId' value='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
-            text += "<td name='type'>";
-            text += AttendanceTypeTable();
-            text += "</td>";
-            text += "</tr>";
-        }
-        text += "</tbody>";
-        $("#table").html(text);
-    }
-}
-
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function AddPage(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
-
         //执行一个laypage实例
         laypage.render({
             elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
@@ -145,9 +147,13 @@ function AddPage(id, limit, count) {
     });
 }
 
-//考勤
+/**
+ * @description 获取添加考勤页面表格数据
+ *
+ */
 function SubmitAttendance() {
     var list = new Array();
+    //循环遍历tr
     $("#table").find("tr").each(function () {
         var obj = new Object();
         $(this).find("td").each(function () {
@@ -194,9 +200,9 @@ function SubmitAttendance() {
 }
 
 /**
- * 权限区分
+ * @description 不同权限下页面调整
  *
- * **/
+ */
 function Admin() {
     if (localStorage.Login != null) {
         var json = localStorage.Login;
@@ -212,6 +218,7 @@ function Admin() {
             var text = "";
             text += Grade();
             $("#Grades").html(text);
+            //锁定当前用户的年级与班级
             for (var i = 0; i < ClassList.data.length; i++) {
                 for (var j = 0; j < ClassList.data[i].classes.length; j++) {
                     if (ClassList.data[i].classes[j].id == list.classId) {
@@ -224,10 +231,14 @@ function Admin() {
             classId = list.classId;
             var text = MoveClass(gradeCode);
             $("#Class").html(text);
+            //选中当前用户年级
             $("#Grades").find("option[value=" + gradeCode + "]").prop("selected", true);
+            //选中当前用户班级
             $("#Class").find("option[value=" + list.classId + "]").prop("selected", true);
+            //下拉框改为禁用
             $("#Grades").attr("disabled", true);
             $("#Class").attr("disabled", true);
+            //内容框改为只读
             $("#code").val(code).attr("readonly", "true");
             $("#name").val(name).attr("readonly", "true");
             var text = Subjects(classId);
@@ -246,7 +257,15 @@ function Admin() {
         GetGrades();
     }
 }
-
+/**
+ * @description 生成data数据
+ * @param  code 编号
+ * @param name  姓名
+ * @param gradeId  年级id
+ * @param classId  班级id
+ * @param SubjectsId  科目id
+ * @return  data 生成数据
+ */
 function Data(code, name, gradeId, classId, SubjectsId) {
     var data = {
         "tableName": "Attendance",
@@ -259,7 +278,10 @@ function Data(code, name, gradeId, classId, SubjectsId) {
     };
     return data;
 }
-
+/**
+ * @description 管理，查看考勤页面的查询,全选，单行，多行操作
+ *
+ */
 function AttendanceFunction() {
     //查询
     $("#Select").click(function () {
@@ -284,7 +306,7 @@ function AttendanceFunction() {
         Page("test1", table.data.pageCount, table.data.dataCount);
 
     });
-    //全选
+    //复选框全选
     $("#allChoose").click(function () {
         if ($("#allChoose>input").is(':checked')) {
             $("input[name=checkbox]").prop("checked", true);
@@ -296,7 +318,7 @@ function AttendanceFunction() {
             form.render();
         });
     });
-    //单个操作
+    //单行数据操作
     $("table tbody").find("button[name]").click(function () {
         var id = $(this).parent().parent().attr('name');
         if ($(this).attr("name") == "modify") {
@@ -306,7 +328,7 @@ function AttendanceFunction() {
         }
 
     });
-    //批量操作
+    //多行数据操作
     $("#moveClassAll").click(function () {
         var codeList = new Array();
         var num = 0;
@@ -326,7 +348,12 @@ function AttendanceFunction() {
     });
 }
 
-//回调功能
+
+/**
+ * @description ajax请求完成后回调
+ * @param  Delete ajax返回的数据
+ *
+ */
 function Callback(Delete) {
     if (Delete.code == 1) {
         $("#Select").click();
@@ -345,7 +372,10 @@ function Callback(Delete) {
 
 }
 
-//考勤类型下拉框
+/**
+ * @description 生成考勤类型的下拉框
+ *
+ */
 function AttendanceTypeTable() {
     var text = "";
     text += "<div class=\"layui-form\">";
@@ -359,11 +389,17 @@ function AttendanceTypeTable() {
     return text;
 }
 
-//更改考勤操作
+
+/**
+ * @description 更改考勤操作
+ * @param  codeList 数据当前行的name值
+ *
+ */
 function AttendanceMove(codeList) {
     var Attendance = 0;
     var text = "";
     text += AttendanceTypeTable();
+    //layui弹窗
     layer.open({
         title: '考勤管理',
         btn: ['确定', '取消'],
@@ -390,6 +426,7 @@ function AttendanceMove(codeList) {
         }
 
     });
+    //考勤类型下拉框监听
     layui.use('form', function () {
         var form = layui.form;
         form.render();
@@ -401,20 +438,29 @@ function AttendanceMove(codeList) {
 
 }
 
-//获取页面
+/**
+ * @description 查询方法
+ * @param  data 要发送ajax的数据
+ * @return  table ajax访问到的数据
+ */
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var table = Ajax(url, data);
     return table;
 }
 
-//获取下拉框
+
+/**
+ * @description 年级，班级，科目下拉框的监听
+ *
+ */
 function GetGrades() {
     var text = Grade();
     $("#Grades").html(text);
     layui.use('form', function () {
         var form = layui.form;
         form.render();
+        //年级下拉框监听
         form.on('select(test)', function (data) {
             gradeId = data.value;
             var text = MoveClass();
@@ -426,19 +472,26 @@ function GetGrades() {
             $("#Subjects").html(text);
             Refresh();
         });
+        //班级下拉框监听
         form.on('select(quiz)', function (data) {
             classId = data.value;
             var text = Subjects(classId);
             $("#Subjects").html(text);
             Refresh();
         });
+        //科目下拉框监听
         form.on('select(Subjects)', function (data) {
             SubjectsId = data.value;
         });
     })
 }
 
-//科目下拉框
+
+/**
+ * @description 科目下拉框
+ * @param  classId 班级id
+ * @return  text 下拉框代码
+ */
 function Subjects(classId) {
     var text = "";
     var subjectsId = 0;
@@ -468,7 +521,10 @@ function Subjects(classId) {
     return text;
 }
 
-//班级下拉框
+/**
+ * @description 班级下拉框
+ * @return   text 下拉框代码
+ */
 function MoveClass() {
     var text = "";
     text += " <option value=\"0\">请选择班级</option>";
@@ -487,7 +543,10 @@ function MoveClass() {
     return text;
 }
 
-//年级下拉框
+/**
+ * @description 年级下拉框
+ * @return   text 下拉框代码
+ */
 function Grade() {
     var text = "";
     text += "<option value=\"0\" selected=\"\">请选择年级</option>"
@@ -501,7 +560,13 @@ function Grade() {
     return text;
 }
 
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -548,7 +613,12 @@ function Page(id, limit, count) {
     });
 }
 
-//返回考勤表格
+
+/**
+ * @description 查看考勤表格生成
+ * @param  data 查询到的表格数据
+ *
+ */
 function ShowAttendanceTable(data) {
     if (data != null) {
         var text = "";
@@ -572,7 +642,11 @@ function ShowAttendanceTable(data) {
     }
 }
 
-//返回考勤表格
+/**
+ * @description 考勤管理表格生成
+ * @param  data 查询到的表格数据
+ *
+ */
 function AttendanceTable(data) {
     if (data != null) {
         var text = "";
@@ -602,8 +676,39 @@ function AttendanceTable(data) {
     }
 }
 
+/**
+ * @description 添加考勤表格生成
+ * @param  data 查询到的表格数据
+ *
+ */
+function AddAttendanceTable(data) {
+    if (data != null) {
+        var text = "";
+        text += "<thead><tr>";
+        text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>添加考勤</th>";
+        text += "</tr></thead>";
+        text += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            text += "<tr>";
+            text += "<td>" + data[i].gradeName + "</td>";
+            text += "<td name='classId' value='" + data[i].classId + "'>" + data[i].className + "</td>";
+            text += "<td>" + data[i].code + "</td>";
+            text += "<td name='studentId' value='" + data[i].sId + "'>" + data[i].name + "</td>";
+            text += "<td name='subjectId' value='" + data[i].subId + "'>" + data[i].subjectName + "</td>";
+            text += "<td name='type'>";
+            text += AttendanceTypeTable();
+            text += "</td>";
+            text += "</tr>";
+        }
+        text += "</tbody>";
+        $("#table").html(text);
+    }
+}
 
-//刷新
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

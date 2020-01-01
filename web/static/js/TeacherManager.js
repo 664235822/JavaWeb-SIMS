@@ -2,13 +2,18 @@
  *
  * 教师管理js
  * **/
-
+//班级年级科目数据
 var ClassList = {};
+//班级id
 var classId = 0;
+//科目id
 var SubjectsId = 0;
+//年级id
 var gradeId = 0;
 
-//添加教师
+/**
+ * @description 添加教师页面初始化
+ * **/
 function TeacherInfo() {
     $(function () {
         $("#test1").click(function () {
@@ -22,7 +27,10 @@ function TeacherInfo() {
     });
 }
 
-//上传数据
+
+/**
+ * @description 获取添加教师页面表单数据
+ * **/
 function UpTeacher() {
     var data = {};
     var Info = {};
@@ -60,12 +68,19 @@ function UpTeacher() {
 
 }
 
-//查看数据
+/**
+ * @description 获取当前id标签的value值、
+ * @param id 标签的id
+ * @return 当前id标签的value值
+ * **/
 function Serch(id) {
     return $("#" + id).val();
 }
 
-//查看教师列表
+/**
+ * @description 教师管理页面初始化
+ *
+ * **/
 function ShowTeachers() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {"tableName": "Teacher", "code": "", "name": "", "currentPage": 1};
@@ -78,13 +93,19 @@ function ShowTeachers() {
     }
 }
 
-//获取页面
+/**
+ * @description 查询数据
+ * @param data 请求的数据
+ * @return table 查询到的数据
+ * **/
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var table = Ajax(url, data);
     return table;
 }
-
+/**
+ * @description 教师管理页面的查询，单行，多行操作
+ * **/
 function TeacherFunction() {
     $(function () {
         //查询
@@ -114,7 +135,7 @@ function TeacherFunction() {
             });
         });
     });
-    //单个操作
+    //单行操作
     $("table tbody").find("button[name]").click(function () {
         var id = $(this).parent().parent().attr('name');
         if ($(this).attr("name") == "delete") {
@@ -132,7 +153,7 @@ function TeacherFunction() {
         }
 
     });
-    //批量操作
+    //多行操作
     $("#moveClassAll").click(function () {
         var codeList = new Array();
         var num = 0;
@@ -152,8 +173,10 @@ function TeacherFunction() {
     });
 }
 
-//显示信息数据
-function Modify() {
+/**
+ * @description 修改教师信息页面当前学生数据
+ * **/
+function TeacherModify() {
     if (localStorage.ModifyId != null) {
         var json2 = localStorage.ModifyId;
         var obj = JSON.parse(json2);
@@ -180,8 +203,10 @@ function Modify() {
     Refresh();
 }
 
-
-//显示修改信息页面
+/**
+ * @description 显示教师页面的layui弹窗
+ * @param id 当前教师id
+ * **/
 function ShowModify(id) {
     var json1 = {};
     json1.teacherId = id;
@@ -200,7 +225,11 @@ function ShowModify(id) {
     });
 }
 
-//删除
+
+/**
+ * @description 删除操作的确认弹窗
+ * @param codeList 要删除行的name数据
+ * **/
 function Delete(codeList) {
     layer.confirm('确认删除', {
         icon: 7,
@@ -218,7 +247,11 @@ function Delete(codeList) {
 
 }
 
-//科目操作
+/**
+ * @description 给老师添加班级科目关系
+ * @param codeList 当前行的name值（教师id）
+ *
+ */
 function Move(codeList) {
     var text = "";
     text += " <div class=\"layui-form\">";
@@ -282,7 +315,11 @@ function Move(codeList) {
 
 }
 
-//科目下拉框
+/**
+ * @description 班级下拉框
+ * @param gradeId 年级id
+ * @return   text 下拉框代码
+ */
 function Subjects() {
     var text = "";
     var subjectsId = 0;
@@ -312,7 +349,10 @@ function Subjects() {
     return text;
 }
 
-//班级下拉框
+/**
+ * @description 班级下拉框
+ * @return   text 下拉框代码
+ */
 function MoveClass() {
     var text = "";
     text += "  <option value=\"\">请选择班级</option>";
@@ -331,7 +371,10 @@ function MoveClass() {
     return text;
 }
 
-//年级下拉框
+/**
+ * @description 年级下拉框
+ * @return   text 下拉框代码
+ */
 function grade() {
     var text = "";
     if (ClassList.code == 1) {
@@ -343,8 +386,11 @@ function grade() {
     }
     return text;
 }
-
-//删除回调
+/**
+ * @description 操作之后的回调
+ * @param Delete 请求后后台发送回来的数据
+ *
+ * **/
 function DeleteEnd(Delete) {
     if (Delete.code == 1) {
         var code = $("#code").val();
@@ -370,7 +416,13 @@ function DeleteEnd(Delete) {
 
 }
 
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -398,7 +450,10 @@ function Page(id, limit, count) {
         });
     });
 }
-
+/**
+ * @description 教师管理页面的表格
+ * @param data 教师数据
+ * **/
 function TeachresTable(data) {
     if (data != null) {
         var text = "";
@@ -432,8 +487,10 @@ function TeachresTable(data) {
 
 
 }
-
-//刷新
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

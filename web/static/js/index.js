@@ -1,8 +1,13 @@
 /**
  * 首页js
  * **/
+
+/**
+ * @description 首页页面初始化
+ *
+ */
 $(function () {
-    //判断菜单权级
+    //判断浏览器是否支持localStorage
     if (localStorage.Login != null) {
         var json2 = localStorage.Login;
         var obj = JSON.parse(json2);
@@ -26,6 +31,7 @@ $(function () {
             CharacterMenu = "StudentMenu";
             break;
     }
+    //生成当前用户用户名
     var name = "<span class=\"glyphicon glyphicon-user\"></span>  " + obj.name;
     $("nav ul.layui-nav li:first-of-type>a").html(name);
     LogOut();
@@ -44,7 +50,12 @@ $(function () {
     About();
 });
 
-//权限
+/**
+ * @description 处理不同权限同菜单不同地址
+ * @param  menuName 当前菜单数据
+ * @param name  姓名
+ * @return  text 当前菜单src地址
+ */
 function Authority(menuName) {
     var text = "";
     var json2 = localStorage.Login;
@@ -70,7 +81,11 @@ function Authority(menuName) {
     return text;
 }
 
-//储存用户名
+
+/**
+ * @description 储存用户名用于个人数据查询
+ * @param  obj localStorage的当前用户数据
+ */
 function GetUserName(obj) {
     var json1 = {};
     json1.teacherId = obj.accout;
@@ -78,7 +93,10 @@ function GetUserName(obj) {
     localStorage.ModifyId = str1;
 }
 
-//生成菜单
+/**
+ * @description 生成侧边栏菜单
+ * @param  Menu 菜单信息
+ */
 function Menu(Menu) {
     var menuName = Menu.data;
     var text = "";
@@ -101,53 +119,125 @@ function Menu(Menu) {
     $(".layui-side-scroll").html(text);
 }
 
-//注销功能
+/**
+ * @description 监听注销，修改密码的点击
+ *
+ */
 function LogOut() {
     $(function () {
+        //注销点击退出当前用户
         $("#LogOut").click(function () {
+            //清除当前用户的localStorage的Login数据
             localStorage.removeItem('Login');
             location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
         });
+        //修改密码点击出现弹窗
+        $("#Reset").click(function () {
+            ResetPwd();
+        })
     });
 }
 
+/**
+ * @description 监听菜单切换
+ *
+ */
 $(function () {
-    var Contral = null;
     $(".menu #menu>li").click(function () {
         var menuId = "#" + $(this).attr("id");
         $("li").not(menuId).removeClass("layui-nav-itemed");
     });
 });
-//修改密码
-   $(function () {
-       var text = "";
-       text += "<div class=\"layui-form\" style=\"height: 300px;height:300px; \">";
-       text += "<div class=\"layui-form-item\" style=\"padding-right: 15px;\">";
-       text += "<label class=\"layui-form-label\"style=\"padding: 9px 0px;text-align: center\">旧密码:</label>";
-       text += "<input type=\"text\" name=\"title\" required  lay-verify=\"required\" placeholder=\"请输入标题\" autocomplete=\"off\" class=\"layui-input\">";
-       text += "</div></div>";
-       text += "<div class=\"layui-form-item\" style=\"padding-right: 15px;\">";
-       text += "<label class=\"layui-form-label\"style=\"padding: 9px 0px;text-align: center\">新密码:</label>";
-       text += "<input type=\"text\" name=\"title\" required  lay-verify=\"required\" placeholder=\"请输入标题\" autocomplete=\"off\" class=\"layui-input\">";
-       text += "</div></div>";
-       text += "<div class=\"layui-form-item\" style=\"padding-right: 15px;\">";
-       text += "<label class=\"layui-form-label\"style=\"padding: 9px 0px;text-align: center\">确认密码:</label>";
-       text += "<input type=\"text\" name=\"title\" required  lay-verify=\"required\" placeholder=\"请输入标题\" autocomplete=\"off\" class=\"layui-input\">";
-       text += "</div></div>";
-       text += "</div>";
-        $("#Reset").click(function () {
-            layui.use(['layer'], function () {
-                layer.open({
-                    type: 1,
-                    content: text //这里content是一个普通的String
-                });
-            })
-        })
-   });
+/**
+ * @description 修改密码的弹窗
+ *
+ */
+function ResetPwd() {
+    var text = "";
+    text += "<div class=\"layui-form\">";
+    text += "<input type=\"text\" id=\"OldPassword\" name=\"title\" placeholder=\"旧密码\"  autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"text\" id=\"NewPassword\" name=\"title\" placeholder=\"新密码\"  autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"text\" id=\"ConfirmPassword\" name=\"title\" placeholder=\"确认密码\"  autocomplete=\"off\" class=\"layui-input\">";
+    text += "</div>";
+    layer.open({
+        anim: 1
+        , shade: [0.1, '#ffffff']
+        , title: ['修改密码', 'color:#ffffff;background-color:#009688;']
+        , content: text
+        , skin: 'demo-class'
+        , area: '330px'
+        , btn: ['提交', '取消']
+        , yes: function (index) {
+            //获取旧密码的值
+            var OldPassword=$("#OldPassword").val();
+            //获取新密码的值
+            var NewPassword=$("#NewPassword").val();
+            //获取确认密码的值
+            var ConfirmPassword=$("#ConfirmPassword").val();
+            if(RequiredPwd(OldPassword,NewPassword,ConfirmPassword)){
+                layer.close(index);
+            }
 
+        }
+    });
+}
 
+/**
+ * @description 对密码进行判断，正确后在向后台发送请求
+ * @param  OldPassword 旧密码
+ * @param NewPassword  新密码
+ * @param ConfirmPassword  确认密码
+ * @return  If 返回一个boolean值
+ */
+function RequiredPwd(OldPassword,NewPassword,ConfirmPassword) {
+    var If=false;
+    //判断是否为空
+    if (OldPassword == ""||NewPassword==""||ConfirmPassword=="") {
+        layer.msg("请正确输入", {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
+        return;
+    }
+    //判断两个新密码是否一致
+    if(NewPassword!=ConfirmPassword){
+        layer.msg("两次密码不匹配", {
+            icon: 5
+            , anim: 6
+            , time: 1000
+        });
+        $("#ConfirmPassword").val("");
+    }else {
+        var json2 = localStorage.Login;
+        var obj = JSON.parse(json2);
+        var data = {};
+        var url = "/JavaWeb_SIMS_war_exploded/changePwd";
+        data.code = obj.accout;
+        data.pwd = OldPassword;
+        data.newPwd = ConfirmPassword;
+        var table = Ajax(url, data);
+       if(table.code!=0){
+           layer.msg(table.message, {
+               icon: 1
+               , time: 1000
+           });
+           If=true;
+       } else {
+           layer.msg(table.message, {
+               icon: 5
+               , anim: 6
+               , time: 1000
+           });
 
-//关于
+       }
+    }
+    return If;
+}
+/**
+ * @description 关于点击弹窗信息提示框
+ *
+ */
 function About() {
     $("#about").click(function () {
         layui.use(['layer'], function () {

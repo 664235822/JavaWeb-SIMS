@@ -1,4 +1,7 @@
-//点击查看和修改后表单状态
+/**
+ * @description 修改页面的查看点击事件
+ *
+ */
 $(function () {
     $("#Revise").click(function () {
         layui.$('input').attr('value',"");
@@ -8,7 +11,11 @@ $(function () {
         layui.form.render()
     })
 });
-<!--    表单验证-->
+
+/**
+ * @description 验证表单数据
+ *
+ */
 layui.use(['form'], function () {
     var form = layui.form;
     //     //仅输入中文
@@ -56,7 +63,7 @@ layui.use(['form'], function () {
             }
         }
     });
-
+    //监听提交事件
     form.on('submit(component-form-element)', function(data){
         UpTeacher();
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。

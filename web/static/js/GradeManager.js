@@ -1,8 +1,10 @@
 /**
  * 年级管理js
  * **/
-
-//年级初始化
+/**
+ * @description 年级管理初始化
+ *
+ */
 function GradeInfo() {
     var grande = getGrade(1);
     if (grande.code == 1) {
@@ -13,21 +15,32 @@ function GradeInfo() {
     gradeFunction();
 }
 
-//获取年级
+/**
+ * @description 获取年级信息
+ * @param  page 页数
+ * @return data  访问到的数据
+ */
 function getGrade(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var data = Ajax(url, {'tableName': 'Grade', "gradeId": "", 'currentPage': page});
     return data;
 }
 
-//获取班级
+/**
+ * @description 获取班级信息
+ * @param  page 页数
+ * @return data  访问到的数据
+ */
 function getClass(page) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var data = Ajax(url, {'tableName': 'Class','code':"",'name':"", "gradeId": "", 'currentPage': page});
     return data;
 }
 
-//年级功能模块
+/**
+ * @description 年级添加操作
+ *
+ */
 function gradeFunction() {
     //添加
     layui.use(['form'], function () {
@@ -47,7 +60,11 @@ function gradeFunction() {
 
 }
 
-//选项卡切换
+/**
+ * @description 选项卡切换
+ * @param  index 选项卡的value
+ * @param  page 页数
+ */
 function Change(index, page) {
     if (index == 0) {
         $("#test2").html("");
@@ -65,7 +82,11 @@ function Change(index, page) {
         gradeFunction();
     }
 }
-//班级分页
+/**
+ * @description 班级分页功能
+ * @param count  数据总条数
+ *
+ */
 function ClassPage(count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -90,7 +111,11 @@ function ClassPage(count) {
         });
     });
 }
-//回调功能
+/**
+ * @description 访问后台的回调
+ * @param  Callback 后台返回的数据
+ *
+ */
 function Callback(Callback) {
     if (Callback.code == 1) {
         var grande = getGrade(0);
@@ -112,8 +137,13 @@ function Callback(Callback) {
     }
 
 }
-
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     var index = 0;
     layui.use('laypage', function () {
@@ -151,7 +181,12 @@ function Page(id, limit, count) {
     });
 }
 
-//年级班级表格
+/**
+ * @description 年级班级关系表
+ * @param  grade 年级信息
+ * @param Class  班级信息
+ *
+ */
 function GradeClass(grade, Class) {
     var data = Class;
     if (data != null) {
@@ -178,7 +213,10 @@ function GradeClass(grade, Class) {
     }
 }
 
-//年级表格
+/**
+ * @description 年级信息表
+ * @param  data 年级信息
+ */
 function GradeTable(data) {
     data = data.data.list;
     if (data != null) {
@@ -200,7 +238,10 @@ function GradeTable(data) {
     }
 }
 
-//刷新
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

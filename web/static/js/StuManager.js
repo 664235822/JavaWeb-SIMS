@@ -2,25 +2,20 @@
  * 学生管理js
  *
  * **/
+//班级年级科目数据
 var ClassList = {};
 
-//添加学生
+
+/**
+ * @description 添加学生页面初始化
+ * **/
 function StuInfo() {
     getClassList();
-    $(function () {
-        $("#test1").click(function () {
-            $("input[type='file']").val("");
-            $("#btn_file").click();
-        });
-        $("#btn_file").change(function () {
-            uploadExcel('Student');
-        });
-
-    });
     var text = "";
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
     $("#tGrade").html(text);
+    //layui实例监听年级下拉框
     layui.use('form', function () {
         var form = layui.form;
         form.render();
@@ -36,12 +31,17 @@ function StuInfo() {
 
 }
 
-//获取班级
+
+/**
+ * @description 获取班级年级科目数据
+ * **/
 function getClassList() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll"});
 }
 
-//获取学生信息
+/**
+ * @description 获取添加学生页面表单数据
+ * **/
 function UpStudent() {
     var data = {};
     var Info = {};
@@ -73,15 +73,21 @@ function UpStudent() {
 
     }
 }
-
-//查看数据
+/**
+ * @description 获取当前id标签的value值、
+ * @param id 标签的id
+ * @return 当前id标签的value值
+ * **/
 function Serch(id) {
     return $("#" + id).val();
 }
 
-//显示信息数据
+/**
+ * @description 修改学生信息页面当前学生数据
+ * **/
 function Modify() {
     getClassList();
+    //获取localStorage数据，查询当前学生数据
     if (localStorage.ModifyId != null) {
         var json2 = localStorage.ModifyId;
         var obj = JSON.parse(json2);
@@ -105,6 +111,7 @@ function Modify() {
     text += "  <option value=\"\">请选择年级</option>";
     text += grade();
     $("#tGrade").html(text);
+    //判断当前学生年级编号
     for (var i = 0; i < ClassList.data.length; i++) {
        for(var j=0;j<ClassList.data[i].classes.length;j++){
            if (ClassList.data[i].classes[j].id == list.classId) {
@@ -130,9 +137,12 @@ function Modify() {
     Refresh();
 }
 
-
-//显示修改信息页面
+/**
+ * @description 显示学生页面的layui弹窗
+ * @param id 当前学生id
+ * **/
 function ShowModify(id) {
+    //当前学生id存入localStorage
     var json1 = {};
     json1.teacherId = id;
     var str1 = JSON.stringify(json1);
@@ -150,7 +160,10 @@ function ShowModify(id) {
     });
 }
 
-//学生管理初始化
+
+/**
+ * @description 学生管理初始化
+ * **/
 function StuMoveClass() {
     getClassList();
     var data = "";
@@ -166,14 +179,20 @@ function StuMoveClass() {
     }
 }
 
-//获取页面
+/**
+ * @description 查询数据
+ * @param data 请求的数据
+ * @return table 查询到的数据
+ * **/
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var table = Ajax(url, data);
     return table;
 }
 
-//功能
+/**
+ * @description 学生管理页面的查询，单行，多行操作
+ * **/
 function StuFunction() {
     $(function () {
         //查询
@@ -206,7 +225,7 @@ function StuFunction() {
             });
         });
     });
-    //单个操作
+    //单行操作
     $("table tbody").find("button[name]").click(function () {
         var id = $(this).parent().parent().attr('name');
         if ($(this).attr("name") == "delete") {
@@ -224,7 +243,7 @@ function StuFunction() {
         }
 
     });
-    //批量操作
+    //多行操作
     $("#LAY_preview>div>div div").click(function () {
         var codeList = new Array();
         var num = 0;
@@ -253,7 +272,10 @@ function StuFunction() {
 
 }
 
-//删除
+/**
+ * @description 删除操作的确认弹窗
+ * @param codeList 要删除行的name数据
+ * **/
 function Delete(codeList) {
     layer.confirm('确认删除', {
         icon: 7,
@@ -271,7 +293,11 @@ function Delete(codeList) {
 
 }
 
-//转班操作
+
+/**
+ * @description 学生转班时的弹窗内容
+ * @param codeList 要转班行的name数据
+ * **/
 function Move(codeList) {
     var classId = 0;
     var text = "";
@@ -327,7 +353,11 @@ function Move(codeList) {
 
 }
 
-//班级下拉框
+/**
+ * @description 班级下拉框
+ * @param gradeId 年级id
+ * @return   text 下拉框代码
+ */
 function MoveClass(gradeId) {
     var text = "";
     text += "  <option value=\"\">请选择班级</option>";
@@ -346,7 +376,10 @@ function MoveClass(gradeId) {
     return text;
 }
 
-//年级下拉框
+/**
+ * @description 年级下拉框
+ * @return   text 下拉框代码
+ */
 function grade() {
     var text = "";
     if (ClassList.code == 1) {
@@ -359,7 +392,12 @@ function grade() {
     return text;
 }
 
-//转班回调
+
+/**
+ * @description 操作成功后回调
+ * @param Data 转班请求后后台发送回来的数据
+ *
+ * **/
 function MoveEnd(Data) {
     if (Data.code == 1) {
         var code = $("#code").val();
@@ -389,7 +427,13 @@ function MoveEnd(Data) {
 
 }
 
-//分页
+/**
+ * @description layui分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -421,7 +465,12 @@ function Page(id, limit, count) {
     });
 }
 
-//表格
+
+/**
+ * @description 学生数据表格
+ * @param data 学生与班级，年级数据
+ * @param StudentOnly 学生数据
+ * **/
 function StuTable(data, StudentOnly) {
     if (data != null && StudentOnly != null) {
         var text = "";
@@ -440,6 +489,7 @@ function StuTable(data, StudentOnly) {
             text += "<td>" + StudentOnly[i].name + "</td>";
             text += "<td>" + StudentOnly[i].age + "</td>";
             text += "<td>" + StudentOnly[i].sex + "</td>";
+            //获取当前学生的班级年级信息
             for (var j = 0; j < ClassList.data.length; j++) {
                 for (var k = 0; k < ClassList.data[j].classes.length; k++) {
                     if (StudentOnly[i].classId == ClassList.data[j].classes[k].id) {
@@ -461,7 +511,11 @@ function StuTable(data, StudentOnly) {
     }
 }
 
-//刷新
+
+/**
+ * @description layui模块重新加载
+ *
+ */
 function Refresh() {
     layui.use('form', function () {
         var form = layui.form;

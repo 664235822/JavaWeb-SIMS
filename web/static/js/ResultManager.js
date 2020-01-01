@@ -2,15 +2,23 @@
  *
  * 成绩管理js
  * **/
+//班级年级科目数据
 var ClassList = {};
+//班级id
 var classId = 0;
+//科目id
 var SubjectsId = 0;
+//年级id
 var gradeId = 0;
+//编号
 var code = "";
+//姓名
 var name = "";
 
-
-//查看成绩列表
+/**
+ * @description 查看成绩页面初始化
+ *
+ */
 function ShowResult() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     Admin();
@@ -32,6 +40,11 @@ function ShowResult() {
     }
 
 }
+
+/**
+ * @description 处理不同角色的权限问题
+ *
+ */
 function Admin() {
     if (localStorage.Login != null) {
         var json = localStorage.Login;
@@ -82,7 +95,10 @@ function Admin() {
     }
 }
 
-//添加成绩
+/**
+ * @description 添加成绩页面初始化
+ *
+ */
 function ResultInfo() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll", 'currentPage': 0});
     var data = {
@@ -103,7 +119,13 @@ function ResultInfo() {
     GetGrades();
 }
 
-//分页
+/**
+ * @description 查看成绩分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function Page(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -139,7 +161,13 @@ function Page(id, limit, count) {
         });
     });
 }
-
+/**
+ * @description 添加成绩分页功能
+ * @param  id 绑定id
+ * @param limit  页数
+ * @param count  数据总条数
+ *
+ */
 function AddPage(id, limit, count) {
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -172,13 +200,19 @@ function AddPage(id, limit, count) {
     });
 }
 
-//获取页面
+/**
+ * @description 查询数据
+ * @param  data 请求的数据
+ */
 function getPage(data) {
     var url = "/JavaWeb_SIMS_war_exploded/select";
     var table = Ajax(url, data);
     return table;
 }
-
+/**
+ * @description 成绩管理页面的模糊查询
+ *
+ */
 function ResultFunction() {
     $(function () {
         //查询
@@ -207,7 +241,10 @@ function ResultFunction() {
         });
     })
 }
-
+/**
+ * @description 添加成绩页面的模糊查询
+ *
+ */
 function AddResultFunction() {
     $(function () {
         //查询
@@ -227,14 +264,17 @@ function AddResultFunction() {
                 Refresh();
             }
         });
+        //一键保存点击事件
         $("#SubmitResult").click(function () {
             SubmitResult();
         });
     })
 }
 
-
-//科目下拉框
+/**
+ * @description 生成科目下拉框
+ * @return text科目下拉框代码
+ */
 function Subjects() {
     var text = "";
     var subjectsId = 0;
@@ -263,7 +303,10 @@ function Subjects() {
     }
     return text;
 }
-//班级下拉框
+/**
+ * @description 生成班级下拉框
+ * @return text 班级下拉框代码
+ */
 function MoveClass() {
     var text = "";
     text += " <option value=\"0\">请选择班级</option>";
@@ -282,7 +325,10 @@ function MoveClass() {
     return text;
 }
 
-//年级下拉框
+/**
+ * @description 生成年级下拉框
+ * @return text 年级下拉框代码
+ */
 function Grade() {
     var text = "";
     text += "<option value=\"\" selected=\"0\">请选择年级</option>"
@@ -296,7 +342,10 @@ function Grade() {
     return text;
 }
 
-//返回成绩表格
+/**
+ * @description 生成成绩表格代码
+ * @param data 成绩表格数据
+ */
 function ResultTable(data) {
     if (data != null) {
         var text = "";
@@ -320,7 +369,10 @@ function ResultTable(data) {
     }
 }
 
-//返回添加成绩表格
+/**
+ * @description 生成添加成绩表格代码
+ * @param data 成绩表格数据
+ */
 function AddResultTable(data) {
     if (data != null) {
         var text = "";
@@ -342,8 +394,10 @@ function AddResultTable(data) {
         $("#table").html(text);
     }
 }
-
-//获取下拉框
+/**
+ * @description 对年级，班级 ，科目下拉框进行监听
+ *
+ */
 function GetGrades() {
     var text = Grade();
     $("#Grades").html(text);
@@ -370,17 +424,14 @@ function GetGrades() {
     })
 }
 
-//刷新
-function Refresh() {
-    layui.use('form', function () {
-        var form = layui.form;
-        form.render();
-    });
-}
 
-//保存成绩
+/**
+ * @description 获取添加成绩表格数据并提交
+ *
+ */
 function SubmitResult() {
     var list = new Array();
+    //循环遍历tr
     $("#table").find("tr").each(function () {
         var obj = new Object();
         $(this).find("td").each(function () {
@@ -421,4 +472,14 @@ function SubmitResult() {
             , time: 1000
         })
     }
+}
+/**
+ * @description layui模块重新加载
+ *
+ */
+function Refresh() {
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+    });
 }

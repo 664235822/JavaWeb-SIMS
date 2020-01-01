@@ -1,7 +1,16 @@
 /**
- * 接口
- * **/
-//
+ * @fileOverview ajax与保存密码
+ * @author y
+ * @version 0.1
+ */
+
+
+/**
+ * @description ajax请求
+ * @param  url 请求地址
+ * @param data  请求数据参数
+ * @return  num 访问到的数据
+ */
 function Ajax(url, data) {
     var num = {};
     showLoad();
@@ -24,7 +33,7 @@ function Ajax(url, data) {
 function showLoad() {
     layui.use('layer', function(){
         var layer = layui.layer;
-        var index = layer.load(2, {time: 100000});
+        var index = layer.load(2, {time: 10000});
     });
 
 }
@@ -35,7 +44,14 @@ function closeLoad() {
         layer.closeAll('loading');
     });
 }
-//记住密码
+/**
+ * @description localStorage记住密码
+ * @param  username 用户名
+ * @param password  密码
+ * @param state  权限
+ * @param name  姓名
+ *
+ */
 function CheckSave(username, password, state, name) {
     var json1 = {};
     json1.stateId = state;

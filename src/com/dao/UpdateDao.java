@@ -52,7 +52,7 @@ public class UpdateDao extends BaseDao {
                 "sex='," + studentInfo.getSex() + "'," +
                 "QQ='" + studentInfo.getQQ() + "'," +
                 "phone='" + studentInfo.getPhone() + "'," +
-                "email='" + studentInfo.getAddress() + "' " +
+                "address='" + studentInfo.getAddress() + "' " +
                 "where code='" + studentInfo.getCode() + "';";
 
         queryUpdate(sql);

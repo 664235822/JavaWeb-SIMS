@@ -17,10 +17,13 @@ $(function () {
         var json2 = localStorage.Login;
         var obj = JSON.parse(json2);
     }else {
-        layer.msg("浏览器不支持", {
-            icon: 5
-            , anim: 6
-            , time: 1000
+        layui.use('form', function () {
+            var form = layui.form;
+            layer.msg("浏览器不支持", {
+                icon: 5
+                , anim: 6
+                , time: 1000
+            });
         });
         location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
     }

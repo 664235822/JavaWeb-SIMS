@@ -88,14 +88,17 @@ public class InsertDao extends BaseDao {
      * @throws SQLException, MyException
      */
     public void insertTeacherClass(TeacherClassBean info) throws SQLException, MyException {
-        String sql = "select id from TeacherClass " +
+        String sql = "select * from TeacherClass " +
                 "where tId='" + info.getTeacherId() + "' " +
                 "and classId='" + info.getClassId() + "' " +
                 "and (subId is null or subId='" + info.getSubjectId() + "');";
 
         ResultSet rs = querySelect(sql);
-        while (rs.next()) {
-            sql = "delete from TeacherClass where id='" + rs.getInt("id") + "';";
+        if (rs.next()) {
+            sql = "delete from TeacherClass " +
+                    "where tId='" + info.getTeacherId() + "' " +
+                    "and classId='" + info.getClassId() + "' " +
+                    "and (subId is null or subId='" + info.getSubjectId() + "');";
             queryUpdate(sql);
         }
 
@@ -121,8 +124,10 @@ public class InsertDao extends BaseDao {
                 "and (subId is null or subId='" + info.getSubjectId() + "');";
 
         ResultSet rs = querySelect(sql);
-        while (rs.next()) {
-            sql = "delete from TeacherClass where id='" + rs.getInt("id") + "';";
+        if (rs.next()) {
+            sql = "delete from TeacherClass " +
+                    "where classId='" + info.getClassId() + "' " +
+                    "and (subId is null or subId='" + info.getSubjectId() + "');";
             queryUpdate(sql);
         }
 

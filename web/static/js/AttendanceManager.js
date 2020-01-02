@@ -294,7 +294,7 @@ function AttendanceFunction() {
         var table = getPage(data);
         if (tableName == "AttendanceTable") {
             if (table.code == 1) {
-                ResultTable(table.data.list);
+                AttendanceTable(table.data.list);
             }
         }
         if (tableName == "ShowAttendanceTable") {
@@ -304,7 +304,8 @@ function AttendanceFunction() {
         }
         Refresh();
         Page("test1", table.data.pageCount, table.data.dataCount);
-
+        AttendanceFunction();
+        GetGrades();
     });
     //复选框全选
     $("#allChoose").click(function () {
@@ -329,7 +330,7 @@ function AttendanceFunction() {
 
     });
     //多行数据操作
-    $("#moveClassAll").click(function () {
+    $("#moveAll").click(function () {
         var codeList = new Array();
         var num = 0;
         $("input[name=checkbox]:checked").each(function () {
@@ -352,10 +353,11 @@ function AttendanceFunction() {
 /**
  * @description ajax请求完成后回调
  * @param  Delete ajax返回的数据
- *
+ * @param  index layer内部动态递增计算的弹窗索引
  */
-function Callback(Delete) {
+function Callback(Delete,index) {
     if (Delete.code == 1) {
+        layer.close(index);
         $("#Select").click();
         layer.msg(Delete.message, {
             icon: 1
@@ -410,9 +412,9 @@ function AttendanceMove(codeList) {
         shade: [0.1, '#ffffff'],
         yes: function (index) {
             var list = new Array;
-            var obj = {};
             var data = {};
             for (var i = 0; i < codeList.length; i++) {
+                var obj = {};
                 obj.id = codeList[i];
                 obj.type = Attendance;
                 list.push(obj);
@@ -421,8 +423,7 @@ function AttendanceMove(codeList) {
             data.tableName = "AttendanceType";
             data.info = JSON.stringify(list);
             var table = Ajax(url, data);
-            Callback(table);
-            layer.close(index);
+            Callback(table,index);
         }
 
     });
@@ -650,7 +651,6 @@ function ShowAttendanceTable(data) {
 function AttendanceTable(data) {
     if (data != null) {
         var text = "";
-        text += " <colgroup> <col width=\"50\"><col width=\"150\"><col width=\"200\"><col></colgroup>";
         text += "<thead><tr>";
         text += "<th><div class=\"layui-form\" id=\"allChoose\"> <input  type=\"checkbox\" name=\"delete\" title=\"\" lay-skin=\"primary\" >";
         text += "</div></th>"
@@ -684,6 +684,7 @@ function AttendanceTable(data) {
 function AddAttendanceTable(data) {
     if (data != null) {
         var text = "";
+        text += " <colgroup> <col><col><col><col><col><col width=\"200\"></colgroup>";
         text += "<thead><tr>";
         text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>添加考勤</th>";
         text += "</tr></thead>";

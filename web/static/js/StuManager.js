@@ -320,9 +320,9 @@ function Move(codeList) {
         shade: [0.1, '#ffffff'],
         yes: function (index) {
             var list = new Array;
-            var obj = {};
             var data = {};
             for (var i = 0; i < codeList.length; i++) {
+                var obj = {};
                 obj.code = codeList[i];
                 obj.classId = classId;
                 list.push(obj);

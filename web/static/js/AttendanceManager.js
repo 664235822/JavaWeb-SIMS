@@ -685,8 +685,8 @@ function AddAttendanceTable(data) {
     if (data != null) {
         var text = "";
         text += " <colgroup> <col><col><col><col><col><col width=\"200\"></colgroup>";
-        text += "<thead><tr>";
         text += "<th>年级名称</th><th>班级名称</th><th>学生学号</th><th>学生姓名</th><th>科目名称</th><th>添加考勤</th>";
+        text += "<thead><tr>";
         text += "</tr></thead>";
         text += "<tbody>";
         for (var i = 0; i < data.length; i++) {

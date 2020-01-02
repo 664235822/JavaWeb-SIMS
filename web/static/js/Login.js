@@ -75,7 +75,7 @@ $(function () {
                     , time: 1000
                 }, function () {
                     $("#LAY-user-login-vercode").val("");
-                    location.href = "/JavaWeb_SIMS_war_exploded/"
+                    location.href = "/JavaWeb_SIMS_war_exploded/static/html/index.html"
                 });
             }else{
                 layer.msg("登陆失败", {

@@ -131,8 +131,6 @@ function LogOut() {
     $(function () {
         //注销点击退出当前用户
         $("#LogOut").click(function () {
-            //清除当前用户的localStorage的Login数据
-            localStorage.removeItem('Login');
             location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
         });
         //修改密码点击出现弹窗
@@ -159,9 +157,9 @@ $(function () {
 function ResetPwd() {
     var text = "";
     text += "<div class=\"layui-form\">";
-    text += "<input type=\"text\" id=\"OldPassword\" name=\"title\" placeholder=\"旧密码\"  autocomplete=\"off\" class=\"layui-input\">";
-    text += "<input type=\"text\" id=\"NewPassword\" name=\"title\" placeholder=\"新密码\"  autocomplete=\"off\" class=\"layui-input\">";
-    text += "<input type=\"text\" id=\"ConfirmPassword\" name=\"title\" placeholder=\"确认密码\"  autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"password\" id=\"OldPassword\" name=\"title\" placeholder=\"旧密码\"  autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"password\" id=\"NewPassword\" name=\"title\" placeholder=\"新密码\"  autocomplete=\"off\" class=\"layui-input\">";
+    text += "<input type=\"password\" id=\"ConfirmPassword\" name=\"title\" placeholder=\"确认密码\"  autocomplete=\"off\" class=\"layui-input\">";
     text += "</div>";
     layer.open({
         anim: 1

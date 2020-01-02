@@ -451,7 +451,7 @@ function DeleteEnd(Delete) {
     if (Delete.code == 1) {
         var name = $("#LAY_sub").val();
         var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": 1};
-        var table = getPage(data);
+        var table = getpage(data);
         Tabsub(table.data.list);
         Refresh();
         Page("test1", table.data.pageCount, table.data.dataCount);

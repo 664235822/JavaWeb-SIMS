@@ -21,7 +21,7 @@ $(function () {
             });
         });
 
-        location.href = "/JavaWeb_SIMS_war_exploded/static/html/login.html";
+        location.href = "/JavaWeb_SIMS_war_exploded/";
     }
     var CharacterMenu = null;
     switch (obj.stateId) {

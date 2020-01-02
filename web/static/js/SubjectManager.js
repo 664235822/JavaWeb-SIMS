@@ -6,6 +6,7 @@
 var ClassList = {};
 //页面表格名
 var tableName = "";
+
 //新增科目
 /**
  * @description 科目管理初始化
@@ -39,12 +40,14 @@ function showteachifo() {
     }
 
 }
+
 /**
  * @description 获取班级年级科目数据
  * **/
 function getClassList() {
     this.ClassList = Ajax("/JavaWeb_SIMS_war_exploded/select", {'tableName': "GradeAll"});
 }
+
 /**
  * @description 查询数据
  * @param data 请求的数据
@@ -127,6 +130,7 @@ function addSubject(geaid) {
 
     }
 }
+
 /**
  * @description 生成科目下拉框
  * @param classId 班级id
@@ -160,6 +164,7 @@ function Subjects(classId) {
     }
     return text;
 }
+
 /**
  * @description 生成年级下拉框
  * @return text科目下拉框代码
@@ -175,6 +180,7 @@ function grade() {
     }
     return text;
 }
+
 /**
  * @description 生成班级下拉框
  * @param gradeId 年级id
@@ -197,6 +203,7 @@ function MoveClass(gradeId) {
     }
     return text;
 }
+
 /**
  * @description 生成教师下拉框
  * @param gradeId 年级id
@@ -225,9 +232,9 @@ function TeacherSub() {
     $(function () {
         //查询
         $("#subsea1").click(function () {
-            var gradeId=$("#Grades option:selected").val();
-            var classId=$("#Class option:selected").val();
-            var SubjectsId=$("#Subjects  option:selected").val();
+            var gradeId = $("#Grades option:selected").val();
+            var classId = $("#Class option:selected").val();
+            var SubjectsId = $("#Subjects  option:selected").val();
             var data = {
                 "tableName": "TeacherClass",
                 "gradeId": gradeId,
@@ -246,6 +253,7 @@ function TeacherSub() {
         });
     });
 }
+
 /**
  * @description 给下拉框添加监听事件
  *
@@ -253,7 +261,7 @@ function TeacherSub() {
 function GetGrades() {
     var text = "";
     text += "<option value=\"0\">请选择班级</option>";
-    text +=grade();
+    text += grade();
     $("#Grades").html(text);
     layui.use('form', function () {
         var form = layui.form;
@@ -277,6 +285,7 @@ function GetGrades() {
         });
     })
 }
+
 /**
  * @description 科目管理页面查询 单行，多行操作
  *
@@ -285,9 +294,10 @@ function generalmang() {
     $(function () {
         //查询
         $("#subsea1").click(function () {
-            var name = $("#LAY_sub").val();
-            var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": 1};
-            var table = getPage(data);
+            var name = $("#name").val();
+            var code = $("#code").val();
+            var data = {"tableName": "Subject", "code": code, "name": name, "currentPage": 1};
+            var table = getpage(data);
             if (table.code == 1) {
                 Tabsub(table.data.list);
                 Refresh();
@@ -359,7 +369,7 @@ function SubTeacher(subid) {
     text += "<select name=\"quiz\" id=\"Class\"  lay-filter=\"quiz\" lay-verify=\"\">";
     text += "  <option value=\"\">请选择班级</option>";
     text += "</select> ";
-    text +=" <input type=\"text\" id='TeacherCode' required  lay-verify=\"required\" disabled placeholder=\"教师编号（选择教师后显示）\" autocomplete=\"off\" class=\"layui-input\">"
+    text += " <input type=\"text\" id='TeacherCode' required  lay-verify=\"required\" disabled placeholder=\"教师编号（选择教师后显示）\" autocomplete=\"off\" class=\"layui-input\">"
     text += "<select name=\"subjects\" id=\"teacher\"  lay-filter=\"Subjects\" lay-verify=\"\">";
     text += "  <option value=\"\">请选择教师</option>";
     text += "</select> ";
@@ -397,7 +407,7 @@ function SubTeacher(subid) {
         form.on('select(Subjects)', function (data) {
             tid = data.value;
             //把教师的编号显示在文本框内
-            var code = $("#teacher").find("[value="+tid+"]").attr('name');
+            var code = $("#teacher").find("[value=" + tid + "]").attr('name');
             $("#TeacherCode").val(code);
         });
     });
@@ -421,6 +431,7 @@ function DistributionClass(tid, classId, subid) {
     var table = Ajax(url, data);
     DeleteEnd(table);
 }
+
 /**
  * @description 删除操作的确认弹窗
  * @param codeList 要删除行的name数据
@@ -443,14 +454,15 @@ function Delsub(codeList) {
 
 
 /**
- * @description 删除后回调
- * @param Data 删除请求后后台发送回来的数据
+ * @description 请求后回调
+ * @param Data 请求后后台发送回来的数据
  *
  * **/
 function DeleteEnd(Delete) {
     if (Delete.code == 1) {
-        var name = $("#LAY_sub").val();
-        var data = {"tableName": "Subject", "code": "", "name": name, "currentPage": 1};
+        var name = $("#name").val();
+        var code = $("#code").val();
+        var data = {"tableName": "Subject", "code": code, "name": name, "currentPage": 1};
         var table = getpage(data);
         Tabsub(table.data.list);
         Refresh();
@@ -468,6 +480,7 @@ function DeleteEnd(Delete) {
         });
     }
 }
+
 /**
  * @description 操作之后对ajax请求回来的数据进行处理
  * @param Callback ajax请求回来的数据
@@ -522,9 +535,9 @@ function Page(id, limit, count) {
                         }
                     }
                     if (tableName == "SubjectTeacher") {
-                        var gradeId=$("#Grades option:selected").val();
-                        var classId=$("#Class option:selected").val();
-                        var SubjectsId=$("#Subjects  option:selected").val();
+                        var gradeId = $("#Grades option:selected").val();
+                        var classId = $("#Class option:selected").val();
+                        var SubjectsId = $("#Subjects  option:selected").val();
                         var data = {
                             "tableName": "TeacherClass",
                             "gradeId": gradeId,

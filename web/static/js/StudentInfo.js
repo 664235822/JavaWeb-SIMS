@@ -110,17 +110,17 @@ layui.use(['form'], function () {
         var Menu = Ajax(url, data);
         if (Menu.code == 1) {
             //成功的
-            parent.layer.msg(Menu.message, {
+            parent.layer.msg("修改成功", {
                 icon: 1
                 , time: 1000
             });
-
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
             //在对父级页面的查询进行点击
             parent.$("#Select").click();
         } else {
-            parent.layer.msg(Menu.message, {
+
+            parent.layer.msg("修改失败", {
                 icon: 5
                 , anim: 6
                 , time: 1000

@@ -49,7 +49,7 @@ public class UpdateDao extends BaseDao {
                 "set code='" + studentInfo.getCode() + "'," +
                 "name='" + studentInfo.getName() + "'," +
                 "age='" + studentInfo.getAge() + "'," +
-                "sex='," + studentInfo.getSex() + "'," +
+                "sex='" + studentInfo.getSex() + "'," +
                 "QQ='" + studentInfo.getQQ() + "'," +
                 "phone='" + studentInfo.getPhone() + "'," +
                 "address='" + studentInfo.getAddress() + "' " +
